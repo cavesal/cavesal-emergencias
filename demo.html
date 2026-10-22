@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modo Demo — CaVeSal Emergencias Obstétricas</title>
+<meta name="description" content="Demostración gratuita: índice de choque, qSOFA puntual y Escala de Alerta Obstétrica (EAPO) estática, con simulador y ejemplos precargados.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0c4e54">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CaVeSal Emerg.">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<script src="pwa.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="img/cavesal-emblema.png" alt="" width="30" height="30">
+      <span>CaVeSal<span aria-hidden="true">®</span></span>
+      <span class="subtitle">· Modo Demo</span>
+    </div>
+    <div class="topbar-links">
+      <a class="pill-link" href="index.html">Inicio</a>
+      <a class="pill-link" href="simulador.html">Simulador</a>
+      <a class="pill-link active" href="full.html">Versión completa →</a>
+      <a class="pill-link" href="acerca.html">Acerca</a>
+    </div>
+  </header>
+
+  <div class="demo-banner">
+    <strong>Estás en el Modo Demo</strong>
+    Liberado: índice de choque, PAM e IMC, qSOFA puntual, Escala de Alerta Obstétrica (EAPO) en versión estática (una carga, sin seguimiento), simulador y ejemplos precargados. La versión completa suma Código Rojo completo, THAE, coagulación, Sepsis con Criterios California/SIRS/MEOWS, tromboprofilaxis, modo voz manos libres, EAPO dinámica con reloj de hora de oro y el puente con CaVeSal® IA.
+    <button type="button" onclick="abrirUpgradeModal()" style="display:block;width:100%;margin-top:12px;padding:11px;background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;border:none;border-radius:10px;font-size:.86rem;font-weight:700;cursor:pointer">🔓 Adquirí tu versión completa</button>
+  </div>
+
+  <!-- ============ Barra de datos comunes de paciente (siempre visible) ============ -->
+  <div class="patient-bar">
+    <div class="patient-bar-inner">
+      <div class="field-group">
+        <label for="in-peso">Peso <span class="unit">(kg)</span></label>
+        <input type="number" id="in-peso" inputmode="decimal" min="0" step="0.1" placeholder="70">
+      </div>
+      <div class="field-group">
+        <label for="in-talla">Talla <span class="unit">(cm)</span></label>
+        <input type="number" id="in-talla" inputmode="decimal" min="0" step="0.1" placeholder="160">
+      </div>
+      <div class="field-group">
+        <label for="in-fum">FUM</label>
+        <input type="date" id="in-fum">
+      </div>
+      <div class="field-group">
+        <label for="in-fc">FC <span class="unit">(lpm)</span></label>
+        <input type="number" id="in-fc" inputmode="decimal" min="0" step="1" placeholder="88">
+      </div>
+      <div class="field-group">
+        <label for="in-pas">PAS <span class="unit">(mmHg)</span></label>
+        <input type="number" id="in-pas" inputmode="decimal" min="0" step="1" placeholder="110">
+      </div>
+      <div class="field-group">
+        <label for="in-pad">PAD <span class="unit">(mmHg)</span></label>
+        <input type="number" id="in-pad" inputmode="decimal" min="0" step="1" placeholder="70">
+      </div>
+
+      <div class="derived-readouts">
+        <div class="readout status-neutro" id="ro-imc">
+          <span class="readout-label">IMC</span>
+          <span class="readout-value" id="ro-imc-value">—</span>
+          <span class="readout-sub" id="ro-imc-sub">Ingresá peso/talla</span>
+        </div>
+        <div class="readout status-neutro" id="ro-eg">
+          <span class="readout-label">Edad gest.</span>
+          <span class="readout-value" id="ro-eg-value">—</span>
+          <span class="readout-sub" id="ro-eg-sub">Ingresá FUM</span>
+        </div>
+        <div class="readout status-neutro" id="ro-pam">
+          <span class="readout-label">PAM</span>
+          <span class="readout-value" id="ro-pam-value">—</span>
+          <span class="readout-sub" id="ro-pam-sub">mmHg</span>
+        </div>
+        <div class="readout status-neutro" id="ro-si">
+          <span class="readout-label">Índice choque</span>
+          <span class="readout-value" id="ro-si-value">—</span>
+          <span class="readout-sub" id="ro-si-sub">FC/PAS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container-wide">
+    <section class="code-section active">
+      <div class="section-intro">
+        <h2>Escala de Alerta Obstétrica (EAPO) — versión estática</h2>
+        <p>Cargá los signos vitales una sola vez y obtené el color. Sin seguimiento: para registrar controles sucesivos, reloj de hora de oro y gráfico de evolución, usá la <a href="full.html">versión completa</a>.</p>
+      </div>
+
+      <div class="card" id="alerta-card">
+        <h4 class="al-h4">Signos vitales <span>completan la tabla en forma automática</span></h4>
+        <div class="form-grid al-vit">
+          <div class="field-group"><label for="av-pas">PAS <span class="unit">(mmHg)</span></label><input type="number" id="av-pas" inputmode="decimal" min="0" step="1"></div>
+          <div class="field-group"><label for="av-pad">PAD <span class="unit">(mmHg)</span></label><input type="number" id="av-pad" inputmode="decimal" min="0" step="1"></div>
+          <div class="field-group"><label for="av-fc">FC <span class="unit">(lpm)</span></label><input type="number" id="av-fc" inputmode="decimal" min="0" step="1"></div>
+          <div class="field-group"><label for="av-fr">FR <span class="unit">(rpm)</span></label><input type="number" id="av-fr" inputmode="decimal" min="0" step="1"></div>
+          <div class="field-group"><label for="av-sat">SpO₂ <span class="unit">(%)</span></label><input type="number" id="av-sat" inputmode="decimal" min="0" max="100" step="1"></div>
+          <div class="field-group"><label for="av-t">Temperatura <span class="unit">(°C)</span></label><input type="number" id="av-t" inputmode="decimal" min="30" max="45" step="0.1"></div>
+          <div class="field-group"><label for="av-diu">Diuresis <span class="unit">(mL/h, si hay sonda)</span></label><input type="number" id="av-diu" inputmode="decimal" min="0" step="1"></div>
+        </div>
+        <p class="hint">PAS, PAD y FC se copian de los datos comunes mientras no los edites acá.</p>
+
+        <h4 class="al-h4">EAPO MSPBS 2025/2022 <span>15 parámetros · gana el peor color</span></h4>
+        <div class="eapo-grid" id="eapo-grid"></div>
+        <p class="al-nota">Observación: se usa la hoja EAPO 2025 y se complementan los huecos con la versión 2022. ** PAS 140 a 159: la hoja 2025 no trae esa fila; se completa en amarillo con la versión 2022. * Intervalos no escritos en la hoja (decimales de temperatura, PAD ≤50, proteinuria negativa): interpretación CaVeSal®.</p>
+
+        <div class="result-box rb-neutro eapo-summary" id="result-eapo">
+          <div class="result-title" id="result-eapo-title">Cargá los signos vitales o elegí las opciones para ver el resultado</div>
+          <div class="result-detail" id="result-eapo-detail"></div>
+        </div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> MSPBS Paraguay, DSSR, Escala de Alerta Precoz Obstétrica (hoja 2025) y Guía de Código Rojo Materno Neonatal, 2ª ed. (2022). Ver <a href="bibliografia.html">bibliografía</a> · Practicá en el <a href="simulador.html#caso=eapo1">simulador</a>.</p>
+      </div>
+
+      <div class="card">
+        <h3>qSOFA (quick SOFA)</h3>
+        <p class="card-sub">≥2 criterios: mayor riesgo de mala evolución. Alta especificidad, baja sensibilidad — un qSOFA negativo <strong>no descarta</strong> sepsis temprana.</p>
+        <div class="checklist">
+          <label><input type="checkbox" data-qsofa="fr">FR ≥22/min</label>
+          <label><input type="checkbox" data-qsofa="pas">PAS ≤100 mmHg</label>
+          <label><input type="checkbox" data-qsofa="mental">Alteración del estado mental (Glasgow &lt;15)</label>
+        </div>
+        <div class="result-box rb-neutro" id="result-qsofa" style="margin-top: var(--space-4);">
+          <div class="result-title" id="result-qsofa-title">0 de 3 criterios marcados</div>
+          <div class="result-detail" id="result-qsofa-detail"></div>
+        </div>
+        <p class="card-source">Fuente: Singer M et al. JAMA 2016 (Sepsis-3); Bauer ME et al. Anesth Analg 2019;129(6):1613-1620 (validación obstétrica: sensibilidad ≈50%, especificidad ≈95%).</p>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Código Rojo completo — hemorragia posparto</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">Clasificación de choque hipovolémico (Vélez 2009)</span>
+          <span class="lp-item">Bundle E-MOTIVE</span>
+          <span class="lp-item">Clasificación 4T's</span>
+          <span class="lp-item">Escalada de maniobras (Nivel 0-3)</span>
+          <span class="lp-item">Volemia estimada</span>
+          <span class="lp-item">Cuantificación de sangrado</span>
+          <span class="lp-item">Coagulopatía / CID</span>
+          <span class="lp-item">ROTEM</span>
+        </div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Código Azul — THAE (hipertensión, preeclampsia grave)</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">Síndrome HELLP (ACOG / Tennessee / Mississippi)</span>
+          <span class="lp-item">Clasificación THAE automática</span>
+          <span class="lp-item">Índice TAM/FC</span>
+          <span class="lp-item">Selector de antihipertensivo</span>
+          <span class="lp-item">Cociente sFlt-1/PlGF</span>
+          <span class="lp-item">Doppler de arteria oftálmica</span>
+          <span class="lp-item">Algoritmo SSSAO</span>
+          <span class="lp-item">Checklist de eclampsia</span>
+        </div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Código Amarillo — Sepsis Materna (resto)</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">Escala OTAS</span>
+          <span class="lp-item">Criterios California (2 de 4) + choque séptico</span>
+          <span class="lp-item">SIRS</span>
+          <span class="lp-item">MEOWS</span>
+          <span class="lp-item">Bundle "Sepsis 4-5-3" con temporizador</span>
+          <span class="lp-item">Esquema antibiótico por foco</span>
+        </div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Tromboprofilaxis</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items"><span class="lp-item">Sistema semáforo de riesgo trombótico</span></div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Modo voz y CaVeSal® IA</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">"Tengo una emergencia ahora" — modo voz manos libres</span>
+          <span class="lp-item">Puente con CaVeSal® IA (análisis del caso)</span>
+        </div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>EAPO dinámica — seguimiento longitudinal</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">Registro de controles sucesivos</span>
+          <span class="lp-item">Reloj de hora de oro</span>
+          <span class="lp-item">Línea de tiempo con tendencia</span>
+          <span class="lp-item">Score MAMÁ 2025 y Alerta Obstétrica híbrida CaVeSal®</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Herramienta de apoyo clínico. No reemplaza el juicio médico. <strong>CaVeSal®</strong> — Dr. Carlos Vera Salerno.
+    <br><span style="font-size:.78em;opacity:.85">© 2025–2026 CaVeSal® · Todos los derechos reservados</span>
+  </footer>
+</div>
+
+<!-- UPGRADE MODAL -->
+<div id="upgrade_modal" style="display:none;position:fixed;inset:0;background:rgba(13,27,45,.6);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;border-radius:16px;padding:24px;width:100%;max-width:380px;text-align:center;position:relative;font-family:'Segoe UI',sans-serif">
+    <button onclick="document.getElementById('upgrade_modal').style.display='none'"
+      style="position:absolute;top:12px;right:14px;background:#f2f7f9;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:1rem">✕</button>
+    <div style="font-size:2rem;margin-bottom:8px">🔒</div>
+    <div style="font-size:1rem;font-weight:800;color:#0D1B2D;margin-bottom:4px">CaVeSal® Emergencias Obstétricas — Versión Completa</div>
+    <div style="font-size:.8rem;color:#4a6274;margin-bottom:16px">Pago único · Sin suscripción · Clave por email en minutos</div>
+    <a href="https://cavesal.gumroad.com/l/cavesal" target="_blank"
+       style="display:block;background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;border-radius:10px;padding:13px;font-size:.88rem;font-weight:700;text-decoration:none;margin-bottom:10px">
+      💳 Comprar ahora
+    </a>
+    <a href="https://cavesal.github.io/comprar.html?producto=emergencia" target="_blank"
+       style="display:block;font-size:.78rem;color:#0EA5B7;text-decoration:none;margin-bottom:10px">💸 ¿No tenés tarjeta? Comprá por transferencia →</a>
+    <p style="font-size:.78rem;margin-bottom:10px"><a href="https://cavesal.app/instrucciones.html" style="color:#0EA5B7">¿Ya tenés clave? Ver cómo activarla →</a></p>
+    <button onclick="document.getElementById('upgrade_modal').style.display='none'"
+      style="width:100%;padding:9px;background:#f0f4f8;border:none;border-radius:8px;font-size:.8rem;color:#4a6274;cursor:pointer">
+      Seguir con la demo
+    </button>
+  </div>
+</div>
+<script>
+function abrirUpgradeModal(){
+  var m = document.getElementById('upgrade_modal');
+  if(m) m.style.display = 'flex';
+}
+</script>
+
+<script src="app-demo.js"></script>
+<script src="app-alerta-demo.js"></script>
+</body>
+</html>

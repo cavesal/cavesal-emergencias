@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CaVeSal — Emergencias Obstétricas</title>
+<meta name="description" content="Herramienta de apoyo clínico para emergencias obstétricas: hemorragia posparto, hipertensión (THAE), sepsis materna. Modo Demo y Modo Calculadora.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="img/cavesal-emblema.png" alt="" width="30" height="30">
+      <span>CaVeSal<span aria-hidden="true">®</span></span>
+    </div>
+    <div class="topbar-links">
+      <span class="subtitle">Emergencias Obstétricas</span>
+      <a class="pill-link" href="acerca.html">Acerca</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <img class="hero-logo" src="img/cavesal-emergencias.jpg" alt="CaVeSal® Emergencia Obstétrica y Parto: Código Rojo, Código Azul THAE, Código Amarillo, Código Azul Obstétrico y Partograma" width="768" height="512">
+      <h1>CaVeSal — Emergencias Obstétricas</h1>
+      <p class="lead">Herramienta de apoyo para la atención de hemorragia posparto, trastornos hipertensivos del embarazo, sepsis materna y paro cardiorrespiratorio. Elegí un modo para comenzar.</p>
+    </section>
+
+    <section class="emerg-entry home" aria-label="Entrada rápida">
+      <a class="emerg-btn now" href="full/#emergencia"><strong>Tengo una emergencia ahora</strong><span>Modo voz manos libres para los cuatro códigos</span></a>
+      <a class="emerg-btn zero" href="full/#desde-cero"><strong>Empezar desde cero</strong><span>Preguntas sí/no que te llevan al código</span></a>
+    </section>
+
+    <section class="mode-grid">
+      <article class="mode-card guia">
+        <div class="icon-badge" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <h2>Modo Guía</h2>
+        <p>Consulta rápida por código de emergencia — definiciones, clasificaciones, flujogramas y medicamentos. Sin ingresar datos de paciente, sin cálculo. Ideal para repasar protocolo antes o durante la emergencia.</p>
+        <a class="btn btn-primary btn-block" href="guia.html">Abrir Modo Guía →</a>
+      </article>
+
+      <article class="mode-card demo">
+        <div class="icon-badge" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h2>Demo (gratis)</h2>
+        <p>Índice de choque, PAM e IMC, qSOFA puntual y EAPO en versión estática (una sola carga, sin seguimiento). Para probar la lógica de la calculadora sin el resto de los módulos.</p>
+        <a class="btn btn-primary btn-block" href="demo/">Abrir Demo →</a>
+      </article>
+
+      <article class="mode-card full">
+        <div class="icon-badge" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"/>
+            <path d="M8 6h8M8 10h2M12 10h2M16 10h2M8 14h2M12 14h2M16 14h2M8 18h2M12 18h2M16 18h2"/>
+          </svg>
+        </div>
+        <h2>Modo Calculadora (Full)</h2>
+        <p>Ingresá los datos vitales de la paciente y obtené cálculo automático (shock index, PAM, EAPO, Vélez, HELLP) más la conducta recomendada según guía, con semáforo de alerta persistente.</p>
+        <a class="btn btn-primary btn-block" href="full/">Abrir Calculadora →</a>
+      </article>
+      <article class="mode-card sim">
+        <div class="icon-badge" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12h4l2-6 4 12 2-6h6"/>
+          </svg>
+        </div>
+        <h2>Modo Simulador</h2>
+        <p>Parte de la Calculadora: casos ficticios de emergencias maternas y de trabajo de parto (OMS 2018) que evolucionan según tus decisiones, con monitor de signos vitales, reloj opcional y devolución final con las fuentes.</p>
+        <a class="btn btn-primary btn-block" href="simulador.html">Abrir Simulador →</a>
+      </article>
+    </section>
+
+    <div class="disclaimer-box">
+      Herramienta de apoyo clínico. No reemplaza el juicio médico. CaVeSal® — Dr. Carlos Vera Salerno.
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    Herramienta de apoyo clínico. No reemplaza el juicio médico. <strong>CaVeSal®</strong> — Dr. Carlos Vera Salerno.
+    <br><span style="font-size:.78em;opacity:.85">© 2025–2026 CaVeSal® · Todos los derechos reservados</span>
+  </footer>
+</div>
+</body>
+</html>

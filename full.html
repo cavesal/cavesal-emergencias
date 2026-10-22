@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modo Calculadora — CaVeSal Emergencias Obstétricas</title>
+<meta name="description" content="Calculadora guiada de emergencias obstétricas: shock index, PAM, EAPO, Vélez, HELLP, THAE, Sepsis.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0c4e54">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CaVeSal Emerg.">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<script src="pwa.js" defer></script>
+</head>
+<body>
+<style>
+  #cavesal-legal-overlay{
+    position:fixed;inset:0;z-index:100000;
+    background:rgba(13,27,45,.72);
+    display:flex;align-items:center;justify-content:center;
+    padding:16px;
+  }
+  #cavesal-legal-overlay[hidden]{display:none}
+  #cavesal-legal-modal{
+    background:#fff;border-radius:16px;max-width:480px;width:100%;
+    max-height:88vh;display:flex;flex-direction:column;
+    box-shadow:0 20px 60px rgba(13,27,45,.35);
+    font-family:'Segoe UI',system-ui,sans-serif;
+  }
+  #cavesal-legal-modal header{
+    background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;
+    padding:20px 22px;border-radius:16px 16px 0 0;
+  }
+  #cavesal-legal-modal header h2{font-size:1.05rem;font-weight:800;margin:0}
+  #cavesal-legal-modal header p{font-size:.78rem;opacity:.85;margin-top:4px}
+  #cavesal-legal-body{
+    padding:18px 22px;overflow-y:auto;color:#0D1B2D;font-size:.87rem;line-height:1.55;
+  }
+  #cavesal-legal-body ul{padding-left:18px;margin:8px 0}
+  #cavesal-legal-body li{margin-bottom:6px}
+  #cavesal-legal-body a{color:#0EA5B7;font-weight:600}
+  #cavesal-legal-footer{
+    padding:16px 22px 20px;border-top:1px solid #d0e8ed;
+  }
+  #cavesal-legal-check{
+    display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+    font-size:.83rem;color:#0D1B2D;margin-bottom:14px;
+  }
+  #cavesal-legal-check input{
+    width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:#0EA5B7;cursor:pointer;
+  }
+  #cavesal-legal-accept{
+    width:100%;padding:13px;border:none;border-radius:12px;
+    background:#0EA5B7;color:#fff;font-size:.92rem;font-weight:700;
+    cursor:pointer;transition:opacity .2s,background .2s;
+  }
+  #cavesal-legal-accept:disabled{
+    background:#a9c3c9;cursor:not-allowed;
+  }
+</style>
+<!-- ═══ AVISO LEGAL · MODAL DE ACEPTACIÓN (bloquea antes que el gate de licencia) ═══ -->
+<div id="cavesal-legal-overlay" hidden>
+  <div id="cavesal-legal-modal" role="dialog" aria-modal="true" aria-labelledby="cavesal-legal-title">
+    <header>
+      <h2 id="cavesal-legal-title">Aviso legal · CaVeSal®</h2>
+      <p>Antes de continuar, leé lo siguiente</p>
+    </header>
+    <div id="cavesal-legal-body">
+      <p><strong>CaVeSal® es una herramienta de apoyo a la decisión clínica dirigida a profesionales de la salud.</strong> No reemplaza el juicio clínico del médico tratante, no constituye un dispositivo médico certificado y no sustituye las guías oficiales ni la evaluación presencial de cada paciente.</p>
+      <ul>
+        <li>El uso de la App no crea una relación médico-paciente entre el desarrollador y vos ni tus pacientes.</li>
+        <li>No es un servicio de emergencia: ante signos de alarma, seguí los protocolos de urgencia habituales.</li>
+        <li>Los resultados son orientativos y deben ser validados con criterio clínico independiente.</li>
+      </ul>
+      <p>Podés leer el detalle completo en los <a href="https://cavesal.app/terminos.html" target="_blank" rel="noopener">Términos de Servicio</a> y la <a href="https://cavesal.app/privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</p>
+    </div>
+    <div id="cavesal-legal-footer">
+      <label id="cavesal-legal-check">
+        <input type="checkbox" id="cavesal-legal-checkbox">
+        <span>He leído y acepto los Términos de Servicio y la Política de Privacidad de CaVeSal®, y entiendo que esta App no reemplaza el juicio clínico profesional.</span>
+      <br><span style="font-size:.72rem;color:var(--slate)">Confirmo que soy profesional de la salud habilitado y que uso esta herramienta como apoyo, no como sustituto de mi criterio clínico.</span></label>
+      <button id="cavesal-legal-accept" disabled>Acepto y continúo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GATE DE LICENCIA ═══ -->
+<div id="license_gate" style="position:fixed;inset:0;background:linear-gradient(135deg,#0D1B2D,#0EA5B7);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif">
+  <div style="background:#fff;border-radius:20px;padding:28px 24px;width:100%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:2.2rem;margin-bottom:8px">🔒</div>
+    <div style="font-size:1.15rem;font-weight:800;color:#0D1B2D;margin-bottom:6px">Bienvenido a CaVeSal® Emergencias Obstétricas — Versión Completa</div>
+    <div id="lg_msg" style="font-size:.82rem;color:#4a6274;margin-bottom:18px;line-height:1.55">
+      Tu clave de acceso es válida para un solo dispositivo. Al ingresarla, tu dispositivo quedará habilitado de forma permanente para acceder a todas las funciones completas — incluyendo futuras actualizaciones — sin necesidad de volver a ingresarla.<br><br>
+      Si en el futuro necesitás usar CaVeSal® en un dispositivo nuevo, te invitamos a adquirir una nueva licencia.
+    </div>
+
+    <div id="lg_ya_activada_warning" style="display:none;text-align:left;background:#e8f5e9;border:1.5px solid #2e7d32;border-radius:12px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:.9rem;font-weight:800;color:#1b5e20;margin-bottom:8px">✅ Ya tenés CaVeSal® activado</div>
+      <div style="font-size:.82rem;color:#0D1B2D;line-height:1.6;margin-bottom:8px">
+        Tu clave ya está registrada en este dispositivo, pero estás abriendo la app desde el <strong>navegador</strong> en lugar del <strong>ícono instalado</strong>.<br><br>
+        Cerrá esta pestaña y abrí CaVeSal® directamente desde el ícono en tu pantalla de inicio — no necesitás ingresar la clave de nuevo.
+      </div>
+      <div style="font-size:.76rem;color:#2e7d32;font-weight:600">💡 El navegador y la app instalada tienen datos separados.</div>
+    </div>
+
+    <div id="lg_ios_warning" style="display:none;text-align:left;background:#fff8e6;border:1.5px solid #d97706;border-radius:12px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:.9rem;font-weight:800;color:#92400e;margin-bottom:8px">📱 Instalá la app antes de activar tu clave</div>
+      <ol style="padding-left:18px;font-size:.82rem;color:#0D1B2D;line-height:1.9;margin-bottom:6px">
+        <li>Tocá el ícono de <strong>compartir</strong> ⬆️ en la barra de Safari</li>
+        <li>Elegí <strong>"Agregar a pantalla de inicio"</strong></li>
+        <li>Cerrá esta pestaña de Safari</li>
+        <li>Abrí CaVeSal® desde el <strong>ícono instalado</strong></li>
+        <li>Recién ahí, ingresá tu clave</li>
+      </ol>
+      <div style="font-size:.74rem;color:#92400e">⚠️ Si activás la clave acá en Safari antes de instalar, no vas a poder volver a usarla al abrir la app instalada.</div>
+    </div>
+
+    <div id="lg_android_warning" style="display:none;text-align:left;background:#fff8e6;border:1.5px solid #d97706;border-radius:12px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:.9rem;font-weight:800;color:#92400e;margin-bottom:8px">📱 Instalá la app antes de activar tu clave</div>
+      <ol style="padding-left:18px;font-size:.82rem;color:#0D1B2D;line-height:1.9;margin-bottom:6px">
+        <li>Tocá el menú <strong>⋮</strong> de Chrome (arriba a la derecha)</li>
+        <li>Elegí <strong>"Agregar a pantalla de inicio"</strong> o <strong>"Instalar app"</strong></li>
+        <li>Abrí CaVeSal® desde el <strong>ícono instalado</strong></li>
+        <li>Recién ahí, ingresá tu clave</li>
+      </ol>
+      <div style="font-size:.74rem;color:#92400e">⚠️ Si activás la clave en el navegador antes de instalar, tendrás que volver a ingresarla al abrir la app instalada.</div>
+    </div>
+
+    <div id="lg_form_wrapper">
+    <input id="lg_input" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="30"
+      style="width:100%;padding:12px 14px;border:2px solid #d0e8ed;border-radius:10px;font-size:1rem;text-align:center;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;font-family:monospace">
+    <button id="lg_btn" onclick="validarClave()"
+      style="width:100%;padding:13px;background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;border:none;border-radius:10px;font-size:.92rem;font-weight:700;cursor:pointer;margin-bottom:10px">
+      Activar
+    </button>
+    <div id="lg_error" style="display:none;background:#fdecea;border-left:3px solid #c0392b;border-radius:8px;padding:10px 12px;font-size:.8rem;color:#c0392b;text-align:left;margin-bottom:10px;line-height:1.5"></div>
+    <a href="https://cavesal.gumroad.com/l/cavesal" target="_blank" style="font-size:.78rem;color:#0EA5B7;text-decoration:none">¿No tenés clave? Adquirí la versión completa →</a>
+    <br>
+    <a href="https://cavesal.github.io/comprar.html?producto=emergencia" target="_blank" style="font-size:.78rem;color:#0EA5B7;text-decoration:none">💸 ¿No tenés tarjeta? Comprá por transferencia →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const LICENSE_API = 'https://script.google.com/macros/s/AKfycbzMHJG48y5W0sIadQxrrFx78Toge2FRBIMRDqKe5GQmvmnpDory1ftALVfJCvZX2WK6/exec';
+const LICENSE_STORAGE_KEY = 'cavesal_emerg_full_unlocked';
+
+function ocultarGate(){
+  const g = document.getElementById('license_gate');
+  if(g) g.style.display = 'none';
+}
+
+function mostrarErrorClave(tipo, productoCorrecto){
+  const err = document.getElementById('lg_error');
+  const btn = document.getElementById('lg_btn');
+  btn.disabled = false;
+  btn.textContent = 'Activar';
+  if(tipo === 'ya_usada'){
+    err.innerHTML = 'Esta clave ya fue activada en otro dispositivo 🔒<br><br>Cada clave de acceso es válida para un solo dispositivo. Te invitamos a adquirir una nueva licencia para habilitar este dispositivo de forma permanente.';
+  } else if(tipo === 'no_es_producto_emergencia'){
+    err.innerHTML = 'Esta clave es para otra app de CaVeSal®, no para Emergencias Obstétricas. Activala en la app que corresponde.';
+  } else if(tipo === 'no_existe'){
+    err.innerHTML = 'Esa clave no existe. Revisá que la copiaste correctamente (sin espacios extra).';
+  } else {
+    err.innerHTML = 'Ocurrió un error al validar. Intentá nuevamente en unos segundos.';
+  }
+  err.style.display = 'block';
+}
+
+function validarClave(){
+  const input = document.getElementById('lg_input');
+  const btn = document.getElementById('lg_btn');
+  const err = document.getElementById('lg_error');
+  const clave = input.value.trim().toUpperCase();
+
+  if(!clave){
+    mostrarErrorClave('no_existe');
+    return;
+  }
+
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Validando...';
+
+  fetch(LICENSE_API + '?clave=' + encodeURIComponent(clave) + '&accion=activar&producto=emergencia')
+    .then(r => r.json())
+    .then(data => {
+      if(data.valido){
+        localStorage.setItem(LICENSE_STORAGE_KEY, clave);
+        ocultarGate();
+      } else {
+        mostrarErrorClave(data.mensaje, data.productoCorrecto);
+      }
+    })
+    .catch(() => {
+      mostrarErrorClave('error');
+    });
+}
+
+(function(){
+  const guardada = localStorage.getItem(LICENSE_STORAGE_KEY);
+  if(guardada){
+    ocultarGate();
+  }
+})();
+
+(function(){
+  const esIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  const esAndroid = /android/i.test(navigator.userAgent);
+  const enStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const claveGuardada = localStorage.getItem(LICENSE_STORAGE_KEY);
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const formWrapper = document.getElementById('lg_form_wrapper');
+
+    if(claveGuardada && !enStandalone){
+      const w = document.getElementById('lg_ya_activada_warning');
+      if(w) w.style.display = 'block';
+      if(formWrapper) formWrapper.style.display = 'none';
+      return;
+    }
+
+    if(esIOS && !enStandalone){
+      const w = document.getElementById('lg_ios_warning');
+      if(w) w.style.display = 'block';
+      if(formWrapper) formWrapper.style.display = 'none';
+      return;
+    }
+
+    if(esAndroid && !enStandalone){
+      const w = document.getElementById('lg_android_warning');
+      if(w) w.style.display = 'block';
+    }
+  });
+})();
+
+document.addEventListener('DOMContentLoaded', function(){
+  const input = document.getElementById('lg_input');
+  if(input){
+    input.addEventListener('keypress', function(e){
+      if(e.key === 'Enter') validarClave();
+    });
+  }
+});
+</script>
+<!-- ═══ FIN GATE DE LICENCIA ═══ -->
+
+<script>
+(function () {
+  'use strict';
+  var LEGAL_VERSION = '1.1';
+  var STORAGE_KEY = 'cavesal_legal_accept';
+
+  function yaAcepto() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      var data = JSON.parse(raw);
+      return data && data.version === LEGAL_VERSION;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function guardarAceptacion() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        version: LEGAL_VERSION,
+        timestamp: new Date().toISOString()
+      }));
+    } catch (e) {}
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('cavesal-legal-overlay');
+    var checkbox = document.getElementById('cavesal-legal-checkbox');
+    var acceptBtn = document.getElementById('cavesal-legal-accept');
+
+    if (!overlay || !checkbox || !acceptBtn) return;
+
+    if (yaAcepto()) {
+      overlay.hidden = true;
+      return;
+    }
+
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    checkbox.addEventListener('change', function () {
+      acceptBtn.disabled = !checkbox.checked;
+    });
+
+    acceptBtn.addEventListener('click', function () {
+      if (!checkbox.checked) return;
+      guardarAceptacion();
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="img/cavesal-emblema.png" alt="" width="30" height="30">
+      <span>CaVeSal<span aria-hidden="true">®</span></span>
+      <span class="subtitle">· Modo Calculadora (Full)</span>
+    </div>
+    <div class="topbar-links">
+      <a class="pill-link" href="index.html">Inicio</a>
+      <a class="pill-link" href="simulador.html">Simulador</a>
+      <a class="pill-link" href="guia.html">Modo Guía →</a>
+      <a class="pill-link" href="acerca.html">Acerca</a>
+    </div>
+  </header>
+
+  <!-- ============ Entrada rápida: emergencia ahora / desde cero ============ -->
+  <section class="emerg-entry" aria-label="Entrada rápida">
+    <button type="button" class="emerg-btn now" id="btn-emergencia-ahora"><strong>Tengo una emergencia ahora</strong><span>Modo voz manos libres: la app dicta cada paso y avanza con «cumplido»</span></button>
+    <button type="button" class="emerg-btn zero" id="btn-desde-cero"><strong>Empezar desde cero</strong><span>Preguntas sí/no que te llevan al código que corresponde</span></button>
+  </section>
+
+  <!-- ============ Barra de datos comunes de paciente (siempre visible) ============ -->
+  <div class="patient-bar">
+    <div class="patient-bar-inner">
+      <div class="field-group">
+        <label for="in-peso">Peso <span class="unit">(kg)</span></label>
+        <input type="number" id="in-peso" inputmode="decimal" min="0" step="0.1" placeholder="70">
+      </div>
+      <div class="field-group">
+        <label for="in-talla">Talla <span class="unit">(cm)</span></label>
+        <input type="number" id="in-talla" inputmode="decimal" min="0" step="0.1" placeholder="160">
+      </div>
+      <div class="field-group">
+        <label for="in-fum">FUM</label>
+        <input type="date" id="in-fum">
+      </div>
+      <div class="field-group">
+        <label for="in-fc">FC <span class="unit">(lpm)</span></label>
+        <input type="number" id="in-fc" inputmode="decimal" min="0" step="1" placeholder="88">
+      </div>
+      <div class="field-group">
+        <label for="in-pas">PAS <span class="unit">(mmHg)</span></label>
+        <input type="number" id="in-pas" inputmode="decimal" min="0" step="1" placeholder="110">
+      </div>
+      <div class="field-group">
+        <label for="in-pad">PAD <span class="unit">(mmHg)</span></label>
+        <input type="number" id="in-pad" inputmode="decimal" min="0" step="1" placeholder="70">
+      </div>
+
+      <div class="derived-readouts">
+        <div class="readout status-neutro" id="ro-imc">
+          <span class="readout-label">IMC</span>
+          <span class="readout-value" id="ro-imc-value">—</span>
+          <span class="readout-sub" id="ro-imc-sub">Ingresá peso/talla</span>
+        </div>
+        <div class="readout status-neutro" id="ro-eg">
+          <span class="readout-label">Edad gest.</span>
+          <span class="readout-value" id="ro-eg-value">—</span>
+          <span class="readout-sub" id="ro-eg-sub">Ingresá FUM</span>
+        </div>
+        <div class="readout status-neutro" id="ro-pam">
+          <span class="readout-label">PAM</span>
+          <span class="readout-value" id="ro-pam-value">—</span>
+          <span class="readout-sub" id="ro-pam-sub">mmHg</span>
+        </div>
+        <div class="readout status-neutro" id="ro-si">
+          <span class="readout-label">Índice choque</span>
+          <span class="readout-value" id="ro-si-value">—</span>
+          <span class="readout-sub" id="ro-si-sub">FC/PAS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Navegación por código ============ -->
+  <nav class="code-nav" role="tablist" aria-label="Módulos de emergencia">
+    <button class="code-nav-btn rojo" role="tab" aria-selected="true" aria-controls="code-rojo" id="navtab-rojo" data-code="rojo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2s7 7.5 7 12a7 7 0 1 1-14 0c0-4.5 7-12 7-12z"/></svg>
+      Código Rojo
+    </button>
+    <button class="code-nav-btn azul" role="tab" aria-selected="false" aria-controls="code-azul" id="navtab-azul" data-code="azul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6M8 6l4 3 4-3"/><rect x="4" y="9" width="16" height="12" rx="2"/></svg>
+      Código THAE
+    </button>
+    <button class="code-nav-btn ambar" role="tab" aria-selected="false" aria-controls="code-ambar" id="navtab-ambar" data-code="ambar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M5.6 5.6l2.8 2.8M18.4 5.6l-2.8 2.8M2 12h4M18 12h4M5.6 18.4l2.8-2.8M18.4 18.4l-2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg>
+      Sepsis Materna
+    </button>
+    <button class="code-nav-btn violeta" role="tab" aria-selected="false" aria-controls="code-trombo" id="navtab-trombo" data-code="trombo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/><path d="M9 14h6"/></svg>
+      Tromboprofilaxis
+    </button>
+  </nav>
+
+  <main>
+    <!-- ================= CÓDIGO ROJO ================= -->
+    <section class="code-section active" id="code-rojo" role="tabpanel" aria-labelledby="navtab-rojo">
+      <div class="section-intro">
+        <h2>Código Rojo — Hemorragia Obstétrica</h2>
+        <p>Activación → respuesta primaria (E-MOTIVE, 4T's) → refractaria/2ª línea → recuperación → panel de calculadoras.</p>
+      </div>
+
+      <div class="alert-banner" id="alert-codigo-rojo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <span id="alert-codigo-rojo-text">ACTIVAR CÓDIGO ROJO</span>
+      </div>
+
+      <div class="sub-tabs" role="tablist" aria-label="Secciones Código Rojo">
+        <button class="sub-tab" role="tab" aria-selected="true" data-sub="rojo-1" id="subtab-rojo-1">1. Activación</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-2" id="subtab-rojo-2">2. Respuesta primaria</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-3" id="subtab-rojo-3">3. Refractaria / 2ª línea</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-4" id="subtab-rojo-4">4. Recuperación</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-5" id="subtab-rojo-5">5. Calculadoras / alertas</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-6" id="subtab-rojo-6">6. Sangrado y coagulación</button>
+      </div>
+
+      <!-- 1. Activación / reconocimiento -->
+      <div class="sub-panel active" id="sub-rojo-1">
+        <div class="card">
+          <h3>Clasificación del choque hipovolémico (Vélez 2009)</h3>
+          <p class="card-sub">Ingresá los parámetros observados. El grado final es el <strong>peor parámetro</strong> entre todos.</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="velez-sangrado">Sangrado estimado <span class="unit">(mL)</span></label>
+              <input type="number" id="velez-sangrado" min="0" step="10" placeholder="800">
+            </div>
+            <div class="field-group">
+              <label for="velez-sensorio">Sensorio</label>
+              <select id="velez-sensorio">
+                <option value="">Seleccionar…</option>
+                <option value="normal">Normal</option>
+                <option value="agitada">Normal, agitada</option>
+                <option value="agitada2">Agitada</option>
+                <option value="letargica">Letárgica / inconsciente</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="velez-perfusion">Perfusión</label>
+              <select id="velez-perfusion">
+                <option value="">Seleccionar…</option>
+                <option value="normal">Normal</option>
+                <option value="palidez">Palidez, frialdad</option>
+                <option value="palidez2">Palidez, frialdad, sudoración</option>
+                <option value="extrema">Palidez extrema, frialdad</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="velez-pulso">Pulso <span class="unit">(lpm)</span></label>
+              <input type="number" id="velez-pulso" min="0" step="1" placeholder="95">
+            </div>
+            <div class="field-group">
+              <label for="velez-pas">PAS <span class="unit">(mmHg)</span></label>
+              <input type="number" id="velez-pas" min="0" step="1" placeholder="95">
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn-velez-calc">Clasificar grado de choque</button>
+          <div class="result-box rb-neutro" id="result-velez" style="display:none;">
+            <div class="result-title" id="result-velez-title"></div>
+            <div class="result-detail" id="result-velez-detail"></div>
+          </div>
+          <p class="card-source">Fuente: Vélez AG, Agudelo JB, Gómez GI, Zuleta JJ. Rev Colomb Obstet Ginecol 2009;60(1):34-48.</p>
+        </div>
+      </div>
+
+      <!-- 2. Respuesta primaria -->
+      <div class="sub-panel" id="sub-rojo-2">
+        <div class="two-col">
+          <div class="card">
+            <h3>Bundle E-MOTIVE</h3>
+            <p class="card-sub">Marcá cada acción completada.</p>
+            <div class="checklist">
+              <label><input type="checkbox" data-emotive="early">Early detection — detección temprana</label>
+              <label><input type="checkbox" data-emotive="masaje">Masaje uterino</label>
+              <label><input type="checkbox" data-emotive="oxitocicos">Oxitócicos</label>
+              <label><input type="checkbox" data-emotive="txa">Tranexámico (TXA)</label>
+              <label><input type="checkbox" data-emotive="fluidos">IV fluids — fluidos intravenosos</label>
+              <label><input type="checkbox" data-emotive="examen">Examen físico y escalar</label>
+            </div>
+            <p class="card-source">Fuente: mnemónico E-MOTIVE, OMS.</p>
+          </div>
+          <div class="card">
+            <h3>Clasificación 4T's</h3>
+            <p class="card-sub">Seleccioná la causa identificada.</p>
+            <div class="field-group">
+              <label for="sel-4t">Causa</label>
+              <select id="sel-4t">
+                <option value="">Seleccionar…</option>
+                <option value="tono">Tono (70%) — atonía</option>
+                <option value="trauma">Trauma (20%) — desgarros</option>
+                <option value="tejido">Tejido (10%) — restos</option>
+                <option value="trombina">Trombina (1%) — coagulopatía</option>
+              </select>
+            </div>
+            <div class="dose-detail" id="detail-4t" style="display:none;"></div>
+            <p class="card-source">Fuente: OMS Managing Complications in Pregnancy and Childbirth, 2ª ed. 2017.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Refractaria / 2a línea -->
+      <div class="sub-panel" id="sub-rojo-3">
+        <div class="card">
+          <h3>Maniobras y escalada de respuesta (Nivel 0-3)</h3>
+          <p class="card-sub">Marcá las maniobras realizadas — el nivel sugerido se actualiza automáticamente.</p>
+          <div class="checklist">
+            <label><input type="checkbox" data-nivel="0" data-maniobra="bimanual">Compresión bimanual</label>
+            <label><input type="checkbox" data-nivel="0" data-maniobra="aortica">Compresión externa de aorta</label>
+            <label><input type="checkbox" data-nivel="1" data-maniobra="bakri">Balón intrauterino hidrostático (Bakri / Ellavy / artesanal — el disponible)</label>
+            <label><input type="checkbox" data-nivel="2" data-maniobra="transfusion">Transfusión de hemoderivados</label>
+            <label><input type="checkbox" data-nivel="2" data-maniobra="traslado">Traslado a mayor nivel de complejidad</label>
+            <label><input type="checkbox" data-nivel="3" data-maniobra="blynch">Sutura compresiva (B-Lynch / Hayman / Cho)</label>
+            <label><input type="checkbox" data-nivel="3" data-maniobra="histerectomia">Histerectomía</label>
+          </div>
+          <div style="margin-top: var(--space-4);">
+            <span class="badge-level lvl-0" id="badge-nivel">Nivel 0 — E-MOTIVE (detección temprana)</span>
+          </div>
+          <p class="card-source">Fuente: escalada de respuesta Nivel 0-3, WHO Consolidated Guidelines PPH 2025.</p>
+        </div>
+      </div>
+
+      <!-- 4. Recuperación / control de daños -->
+      <div class="sub-panel" id="sub-rojo-4">
+        <div class="card">
+          <h3>Recuperación / control de daños postquirúrgico</h3>
+          <div class="pending-box">
+            <strong>En desarrollo — pendiente de datos</strong>
+            El checklist de recuperación (hemodinámico, resangrado, coagulopatía, temperatura, diuresis, laboratorio seriado) está previsto en el spec, pero el control de daños postquirúrgico detallado aún no cuenta con umbrales/cálculo automático definidos en la fuente. No se muestra cálculo para evitar inventar criterios clínicos.
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Calculadoras / alertas — panel consolidado -->
+      <div class="sub-panel" id="sub-rojo-5">
+        <div class="section-intro">
+          <h3 style="font-size:1.15rem;">Panel consolidado</h3>
+          <p>Shock index y PAM se calculan arriba con los datos comunes de la paciente. Acá se resumen la Escala de Alerta Obstétrica y HELLP.</p>
+        </div>
+
+        <div class="card" id="alerta-card">
+          <h3>Escala de Alerta Obstétrica</h3>
+          <p class="card-sub">Elegí la escala. Por defecto: EAPO MSPBS 2025/2022 (Paraguay). Se aplica a toda paciente al ingreso y en cada control.</p>
+          <div class="form-grid">
+            <div class="field-group" style="grid-column:1/-1;">
+              <label for="alerta-escala">Escala</label>
+              <select id="alerta-escala">
+                <option value="eapo" selected>EAPO MSPBS 2025/2022 (Paraguay)</option>
+                <option value="mama">Score MAMÁ 2025 (MSP Ecuador)</option>
+                <option value="hibrida">Alerta Obstétrica CaVeSal® · EAPO 2025 + Score MAMÁ</option>
+              </select>
+            </div>
+          </div>
+          <p class="al-info" id="alerta-info"></p>
+          <div class="al-oro">
+            <strong>Hora de oro y sobrevida.</strong> Desde el minuto 0 (activación) el equipo tiene una hora para reanimar y controlar la causa: 1 a 20 min, reanimación y diagnóstico; 20 a 60 min, estabilización; después de 60 min, alta probabilidad de CID. Si no se hizo ninguna acción compensatoria a los 20 min de iniciada una hemorragia, la sobrevida baja al 60 %; pasados 40 a 60 min se asume CID y baja a menos del 20 % (MSPBS, Guía Código Rojo 2ª ed. 2022, pág. 34). La mayoría de las muertes por hemorragia posparto ocurren en las primeras 2 a 3 h (OMS 2025; Mammoliti 2025) y el control del sangrado en la primera hora es la medida más eficaz (Alves 2020).
+          </div>
+
+          <h4 class="al-h4">Signos vitales <span>completan las tablas en forma automática</span></h4>
+          <div class="form-grid al-vit">
+            <div class="field-group"><label for="av-pas">PAS <span class="unit">(mmHg)</span></label><input type="number" id="av-pas" inputmode="decimal" min="0" step="1"></div>
+            <div class="field-group"><label for="av-pad">PAD <span class="unit">(mmHg)</span></label><input type="number" id="av-pad" inputmode="decimal" min="0" step="1"></div>
+            <div class="field-group"><label for="av-fc">FC <span class="unit">(lpm)</span></label><input type="number" id="av-fc" inputmode="decimal" min="0" step="1"></div>
+            <div class="field-group"><label for="av-fr">FR <span class="unit">(rpm)</span></label><input type="number" id="av-fr" inputmode="decimal" min="0" step="1"></div>
+            <div class="field-group"><label for="av-sat">SpO₂ <span class="unit">(%)</span></label><input type="number" id="av-sat" inputmode="decimal" min="0" max="100" step="1"></div>
+            <div class="field-group"><label for="av-t">Temperatura <span class="unit">(°C)</span></label><input type="number" id="av-t" inputmode="decimal" min="30" max="45" step="0.1"></div>
+            <div class="field-group"><label for="av-diu">Diuresis <span class="unit">(mL/h, si hay sonda)</span></label><input type="number" id="av-diu" inputmode="decimal" min="0" step="1"></div>
+          </div>
+          <p class="hint">PAS, PAD y FC se copian de los datos comunes mientras no los edites acá. Las opciones de cada tabla se pueden elegir o corregir a mano.</p>
+
+          <div id="alerta-eapo-wrap">
+            <h4 class="al-h4">EAPO MSPBS 2025/2022 <span>15 parámetros · gana el peor color</span></h4>
+            <div class="eapo-grid" id="eapo-grid"></div>
+            <p class="al-nota">Observación: se usa la hoja EAPO 2025 y se complementan los huecos con la versión 2022. ** PAS 140 a 159: la hoja 2025 no trae esa fila; se completa en amarillo con la versión 2022. * Intervalos no escritos en la hoja (decimales de temperatura, PAD ≤50, proteinuria negativa): interpretación CaVeSal®.</p>
+          </div>
+          <div id="alerta-mama-wrap" hidden>
+            <h4 class="al-h4">Score MAMÁ 2025 <span>9 variables · 0 a 3 puntos cada una</span></h4>
+            <div class="eapo-grid" id="mama-grid"></div>
+          </div>
+
+          <div class="result-box rb-neutro eapo-summary" id="result-eapo">
+            <div class="result-title" id="result-eapo-title">Cargá los signos vitales o elegí las opciones para ver el resultado</div>
+            <div class="result-detail" id="result-eapo-detail"></div>
+          </div>
+          <div class="al-ruta" id="alerta-ruta" hidden>
+            <strong>Emergencia obstétrica: activá el equipo y el código según la causa.</strong>
+            <div class="al-ruta-btns">
+              <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="rojo:rojo-1">Hemorragia · Código Rojo</button>
+              <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="azul">Hipertensión · THAE</button>
+              <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="ambar">Infección · Sepsis</button>
+              <a class="btn btn-outline btn-sm" href="guia.html#tab-azuloscuro">Paro · Código Azul</a>
+            </div>
+          </div>
+
+          <h4 class="al-h4">Monitor de controles <span>reevaluación con reloj</span></h4>
+          <div class="al-acc">
+            <button type="button" class="btn btn-primary btn-sm" id="alerta-btn-reg">Registrar control</button>
+            <button type="button" class="btn btn-outline btn-sm" id="alerta-btn-hora">Iniciar hora de oro (minuto 0)</button>
+            <button type="button" class="btn btn-outline btn-sm" id="alerta-btn-limpiar">Nuevo control (limpiar datos)</button>
+            <button type="button" class="btn btn-outline btn-sm" id="alerta-btn-reset">Borrar registro</button>
+          </div>
+          <p class="hint" id="alerta-aviso" aria-live="polite">Registrá cada control: el reloj marca cuándo toca el siguiente según el color. La hora de oro arranca sola con el primer control en rojo.</p>
+          <div class="al-prox" id="alerta-prox" hidden></div>
+          <div class="al-hora" id="alerta-hora" hidden></div>
+          <div class="table-scroll" id="alerta-tl" hidden>
+            <table class="al-tl">
+              <thead><tr><th>#</th><th>Hora</th><th>Color</th><th>Tendencia</th><th>Signos vitales</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> MSPBS Paraguay, DSSR, Escala de Alerta Precoz Obstétrica (hoja 2025) y Guía de Código Rojo Materno Neonatal, 2ª ed. (2022) · MSP Ecuador, Protocolo Score MAMÁ y Claves Obstétricas 2025. El modo híbrido no está validado como escala independiente. Sin datos identificatorios: el registro queda solo en este dispositivo. Ver <a href="bibliografia.html">bibliografía</a> · Practicá en el <a href="simulador.html#caso=eapo1">simulador</a>.</p>
+        </div>
+
+        <div class="card">
+          <h3>Síndrome HELLP — clasificación con selector de criterio</h3>
+          <p class="card-sub">Elegí el sistema. Por defecto: Mississippi. Si solo cargás plaquetas, Mississippi clasifica en forma parcial.</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="hellp-criterio">Criterio</label>
+              <select id="hellp-criterio">
+                <option value="mississippi">Mississippi (3 clases)</option>
+                <option value="acog">ACOG PB 222 (2020)</option>
+                <option value="tennessee">Tennessee (Sibai)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="hellp-plaquetas">Recuento de plaquetas <span class="unit">(/µL)</span></label>
+              <input type="number" id="hellp-plaquetas" min="0" step="1000" placeholder="70000">
+            </div>
+            <div class="field-group">
+              <label for="hellp-ast">AST / TGO <span class="unit">(UI/L)</span></label>
+              <input type="number" id="hellp-ast" min="0" step="1" placeholder="85">
+            </div>
+            <div class="field-group" id="hellp-alt-group">
+              <label for="hellp-alt">ALT / TGP <span class="unit">(UI/L)</span></label>
+              <input type="number" id="hellp-alt" min="0" step="1" placeholder="90">
+            </div>
+            <div class="field-group">
+              <label for="hellp-ldh">LDH <span class="unit">(UI/L)</span></label>
+              <input type="number" id="hellp-ldh" min="0" step="1" placeholder="650">
+            </div>
+            <div class="field-group" id="hellp-lsn-group">
+              <label for="hellp-lsn">Límite superior normal AST/ALT del laboratorio <span class="unit">(UI/L)</span></label>
+              <input type="number" id="hellp-lsn" min="1" step="1" value="40">
+            </div>
+            <div class="field-group" id="hellp-bili-group">
+              <label for="hellp-bili">Bilirrubina total <span class="unit">(mg/dL, opcional)</span></label>
+              <input type="number" id="hellp-bili" min="0" step="0.1" placeholder="1.4">
+            </div>
+            <div class="field-group" id="hellp-frotis-group">
+              <label for="hellp-frotis">Frotis periférico</label>
+              <select id="hellp-frotis">
+                <option value="">No disponible</option>
+                <option value="anormal">Anormal (esquistocitos)</option>
+                <option value="normal">Normal</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn-hellp-calc">Clasificar</button>
+          <div class="result-box rb-neutro" id="result-hellp" style="display:none;">
+            <div class="result-title" id="result-hellp-title"></div>
+            <div class="result-detail" id="result-hellp-detail"></div>
+          </div>
+          <p class="card-source" id="hellp-source">Fuente: Clasificación Mississippi (Martin JN Jr et al.).</p>
+        </div>
+      </div>
+
+      <!-- ===== Sub-panel 6: Sangrado y coagulación ===== -->
+      <div class="sub-panel" id="sub-rojo-6">
+        <div class="section-intro">
+          <h3 style="font-size:1.15rem;">Sangrado y coagulación</h3>
+          <p>Volemia y pérdida permitida, cuantificación del sangrado, coagulopatía por laboratorio, ROTEM y scores de CID. Usa peso, talla y FUM de la barra superior.</p>
+        </div>
+
+        <!-- 6.1 Volemia y pérdida permitida -->
+        <div class="card">
+          <h3>Volemia estimada y pérdida sanguínea permitida</h3>
+          <p class="card-sub">Fórmula de la guía SOGC 431 (2022). Por defecto 100 mL/kg en embarazo sano; 70 mL/kg en obesidad o contracción de volumen (preeclampsia grave).</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="vol-factor">Factor de volemia</label>
+              <select id="vol-factor">
+                <option value="auto">Automático (SOGC 431)</option>
+                <option value="100">100 mL/kg — embarazo sano</option>
+                <option value="70">70 mL/kg — obesidad / preeclampsia grave</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="vol-pe">Contracción de volumen</label>
+              <select id="vol-pe">
+                <option value="0">No</option>
+                <option value="1">Sí (preeclampsia grave / HELLP)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="vol-hbi">Hb inicial (g/dL)</label>
+              <input type="number" id="vol-hbi" inputmode="decimal" min="3" max="20" step="0.1" placeholder="11.5">
+            </div>
+            <div class="field-group">
+              <label for="vol-hbf">Hb mínima aceptable (g/dL)</label>
+              <input type="number" id="vol-hbf" inputmode="decimal" min="3" max="15" step="0.1" value="7">
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn-vol-calc">Calcular</button>
+          <div class="result-box rb-neutro" id="result-vol">
+            <div class="result-title" id="result-vol-title">Ingresá peso (barra superior) y Hb inicial</div>
+            <div class="result-detail" id="result-vol-detail"></div>
+          </div>
+          <p class="card-source">Algoritmo propio CaVeSal® · Basado en: SOGC Guideline No. 431, Postpartum Hemorrhage and Hemorrhagic Shock (J Obstet Gynaecol Can 2022) — MABL = (Hbi − Hbf) × peso × volemia/kg ÷ [(Hbi + Hbf) × 0,5]. Grados de choque: Vélez-Álvarez 2009.</p>
+        </div>
+
+        <!-- 6.2 Cuantificación -->
+        <div class="card">
+          <h3>Cuantificación del sangrado (gravimétrica + aspirado)</h3>
+          <p class="card-sub">1 g = 1 mL. Peso húmedo menos peso seco de compresas y gasas; aspirado menos líquido amniótico y lavado. Pesá el material seco de tu servicio y cargalo.</p>
+          <div class="form-grid">
+            <div class="field-group"><label for="qbl-via">Vía de parto</label>
+              <select id="qbl-via"><option value="vag">Vaginal</option><option value="ces">Cesárea</option></select></div>
+            <div class="field-group"><label for="qbl-comp-n">Compresas (n)</label><input type="number" id="qbl-comp-n" inputmode="numeric" min="0" step="1" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-comp-w">Compresas: peso húmedo total (g)</label><input type="number" id="qbl-comp-w" inputmode="decimal" min="0" step="1" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-comp-d">Compresa: peso seco unitario (g)</label><input type="number" id="qbl-comp-d" inputmode="decimal" min="0" step="0.1" placeholder="pesar en el servicio"></div>
+            <div class="field-group"><label for="qbl-gasa-n">Gasas (n)</label><input type="number" id="qbl-gasa-n" inputmode="numeric" min="0" step="1" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-gasa-w">Gasas: peso húmedo total (g)</label><input type="number" id="qbl-gasa-w" inputmode="decimal" min="0" step="1" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-gasa-d">Gasa: peso seco unitario (g)</label><input type="number" id="qbl-gasa-d" inputmode="decimal" min="0" step="0.1" placeholder="pesar en el servicio"></div>
+            <div class="field-group"><label for="qbl-asp">Aspirado total (mL)</label><input type="number" id="qbl-asp" inputmode="decimal" min="0" step="10" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-la">Líquido amniótico (mL)</label><input type="number" id="qbl-la" inputmode="decimal" min="0" step="10" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-lav">Solución de lavado (mL)</label><input type="number" id="qbl-lav" inputmode="decimal" min="0" step="10" placeholder="0"></div>
+            <div class="field-group"><label for="qbl-bolsa">Bolsa colectora / otros (mL)</label><input type="number" id="qbl-bolsa" inputmode="decimal" min="0" step="10" placeholder="0"></div>
+          </div>
+          <button class="btn btn-primary" id="btn-qbl-calc">Cuantificar</button>
+          <div class="result-box rb-neutro" id="result-qbl">
+            <div class="result-title" id="result-qbl-title">Cargá al menos un componente</div>
+            <div class="result-detail" id="result-qbl-detail"></div>
+          </div>
+          <p class="card-source">Algoritmo propio CaVeSal® · Basado en: ACOG Committee Opinion No. 794, Quantitative Blood Loss in Obstetric Hemorrhage (2019). Umbral HPP: OMS 2025 (≥500 mL) y reVITALize/ACOG (≥1000 mL).</p>
+        </div>
+
+        <!-- 6.3 Coagulopatía con laboratorio convencional -->
+        <div class="card">
+          <h3>Coagulopatía por laboratorio convencional y scores de CID</h3>
+          <p class="card-sub">Elegí el score. Por defecto ISTH 2025 (versión más actualizada). Las conductas de reposición siguen RCOG GTG 52 e ISTH SSC 2016.</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="cid-score">Score de CID</label>
+              <select id="cid-score">
+                <option value="isth2025">ISTH 2025 (preferido)</option>
+                <option value="isth2001">ISTH 2001 (Taylor)</option>
+                <option value="erez">Erez 2014 (embarazo)</option>
+                <option value="jsog">Japón JSOG 2024 (obstétrico)</option>
+              </select>
+            </div>
+            <div class="field-group"><label for="cid-plq">Plaquetas (×10³/µL)</label><input type="number" id="cid-plq" inputmode="decimal" min="0" step="1" placeholder="180"></div>
+            <div class="field-group"><label for="cid-fib">Fibrinógeno Clauss (mg/dL)</label><input type="number" id="cid-fib" inputmode="decimal" min="0" step="1" placeholder="350"></div>
+            <div class="field-group"><label for="cid-tp">TP paciente (s)</label><input type="number" id="cid-tp" inputmode="decimal" min="0" step="0.1" placeholder="12.5"></div>
+            <div class="field-group"><label for="cid-tpc">TP control del laboratorio (s)</label><input type="number" id="cid-tpc" inputmode="decimal" min="0" step="0.1" placeholder="12"></div>
+            <div class="field-group"><label for="cid-ttpa">TTPa paciente / control (razón)</label><input type="number" id="cid-ttpa" inputmode="decimal" min="0" step="0.01" placeholder="1.0"></div>
+            <div class="field-group cid-f cid-isth2025"><label for="cid-dd">Dímero D (misma unidad que el LSN)</label><input type="number" id="cid-dd" inputmode="decimal" min="0" step="0.01" placeholder="0.4"></div>
+            <div class="field-group cid-f cid-isth2025"><label for="cid-ddlsn">Dímero D: límite superior normal</label><input type="number" id="cid-ddlsn" inputmode="decimal" min="0" step="0.01" placeholder="0.5"></div>
+            <div class="field-group cid-f cid-isth2001"><label for="cid-marc">Marcador de fibrina (DD/PDF)</label>
+              <select id="cid-marc"><option value="0">Sin aumento</option><option value="2">Aumento moderado</option><option value="3">Aumento marcado</option></select></div>
+            <div class="field-group cid-f cid-jsog"><label for="cid-base">Condición de base (JSOG)</label>
+              <select id="cid-base"><option value="0">Ninguna de las siguientes</option><option value="4">Desprendimiento placentario</option><option value="4">Embolia de líquido amniótico</option><option value="4">HPP con coagulopatía (sangre que no coagula)</option></select></div>
+            <div class="field-group cid-f cid-jsog"><label for="cid-fibrinol">Marcador de fibrinólisis (JSOG)</label>
+              <select id="cid-fibrinol"><option value="pdf">PDF (µg/mL)</option><option value="dd">Dímero D (µg/mL)</option></select></div>
+            <div class="field-group cid-f cid-jsog"><label for="cid-fibval">Valor PDF o dímero D (µg/mL)</label><input type="number" id="cid-fibval" inputmode="decimal" min="0" step="0.1" placeholder="10"></div>
+            <div class="field-group"><label for="cid-sangra">¿Sangrado activo?</label>
+              <select id="cid-sangra"><option value="1">Sí, en curso</option><option value="0">No</option></select></div>
+          </div>
+          <button class="btn btn-primary" id="btn-cid-calc">Calcular score y conducta</button>
+          <div class="result-box rb-neutro" id="result-cid">
+            <div class="result-title" id="result-cid-title">Cargá los valores disponibles</div>
+            <div class="result-detail" id="result-cid-detail"></div>
+          </div>
+          <p class="card-source" id="cid-source">Algoritmo propio CaVeSal® · Basado en: Iba T et al. ISTH SSC 2025 (J Thromb Haemost 2025;23:2356-62). Conducta: RCOG GTG 52 (BJOG 2017;124:e106-49); Collins P et al. ISTH SSC 2016 (J Thromb Haemost 2016;14:205-10); dosis de concentrado de fibrinógeno: ficha técnica FDA RiaSTAP.</p>
+        </div>
+
+        <!-- 6.4 ROTEM -->
+        <div class="card">
+          <h3>ROTEM (EXTEM / FIBTEM): lectura y dosis</h3>
+          <p class="card-sub">Ingresá los valores del equipo. Por defecto objetivo FIBTEM A5 12 mm y EXTEM CT 100 s (BSH 2018). Podés elegir las variantes.</p>
+          <div class="form-grid">
+            <div class="field-group"><label for="rot-fibA5">FIBTEM A5 (mm)</label><input type="number" id="rot-fibA5" inputmode="decimal" min="0" max="60" step="1" placeholder="15"></div>
+            <div class="field-group"><label for="rot-exCT">EXTEM CT (s)</label><input type="number" id="rot-exCT" inputmode="decimal" min="0" step="1" placeholder="65"></div>
+            <div class="field-group"><label for="rot-exA5">EXTEM A5 (mm)</label><input type="number" id="rot-exA5" inputmode="decimal" min="0" max="80" step="1" placeholder="45"></div>
+            <div class="field-group"><label for="rot-exML">EXTEM ML (%)</label><input type="number" id="rot-exML" inputmode="decimal" min="0" max="100" step="1" placeholder="5"></div>
+            <div class="field-group"><label for="rot-obj">Objetivo FIBTEM A5</label>
+              <select id="rot-obj"><option value="12">12 mm (OBS2 / BSH 2018, preferido)</option><option value="8">8 mm (Gales, All Wales PPH)</option></select></div>
+            <div class="field-group"><label for="rot-ctcut">Umbral EXTEM CT para PFC</label>
+              <select id="rot-ctcut"><option value="100">&gt;100 s (BSH 2018, preferido)</option><option value="75">≥75 s (Gales)</option><option value="80">&gt;80 s (Görlinger 2019, general)</option></select></div>
+            <div class="field-group"><label for="rot-sangra">¿Sangrado activo?</label>
+              <select id="rot-sangra"><option value="1">Sí, en curso</option><option value="0">No</option></select></div>
+          </div>
+          <button class="btn btn-primary" id="btn-rot-calc">Interpretar</button>
+          <div class="result-box rb-neutro" id="result-rot">
+            <div class="result-title" id="result-rot-title">Ingresá al menos FIBTEM A5</div>
+            <div class="result-detail" id="result-rot-detail"></div>
+          </div>
+          <p class="card-source">Algoritmo propio CaVeSal® · Basado en: Curry NS et al. BSH guideline, viscoelastic haemostatic assays (Br J Haematol 2018;182:789-806); Collins PW et al. OBS2 (Br J Anaesth 2017;119:411-21); Görlinger K et al. (Korean J Anesthesiol 2019;72:297-322) — dosis (g) = aumento A5 (mm) × peso ÷ 160; 10 U crio ≈ 2 g. Rango de referencia EXTEM: Drotarova M et al. (Diagnostics 2023;13:3219).</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= CÓDIGO THAE ================= -->
+    <section class="code-section" id="code-azul" role="tabpanel" aria-labelledby="navtab-azul">
+      <div class="section-intro">
+        <h2>Código THAE — Trastornos Hipertensivos del Embarazo</h2>
+        <p>Clasificación automática por PAS/PAD/PAM, lesión de órgano blanco, algoritmo SSSAO y eclampsia.</p>
+      </div>
+
+      <div class="alert-banner" id="alert-thae">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <span id="alert-thae-text">ACTIVAR CÓDIGO THAE — emergencia hipertensiva</span>
+      </div>
+
+      <div class="card">
+        <h3>Clasificación automática (según PAS/PAD ingresados arriba)</h3>
+        <p class="card-sub">PAS 140-159 o PAD 90-109 (2 tomas separadas 4h) = leve. PAS≥160 o PAD≥110 (2 tomas separadas 15min) = severa.</p>
+        <div class="result-box rb-neutro" id="result-thae-clasif">
+          <div class="result-title" id="result-thae-clasif-title">Ingresá PAS/PAD en la barra superior</div>
+          <div class="result-detail" id="result-thae-clasif-detail"></div>
+        </div>
+        <p class="card-source">Fuente: Erez, Am J Obstet Gynecol 2022.</p>
+      </div>
+
+      <div class="card">
+        <h3>Índice TAM/FC — fenotipo hemodinámico</h3>
+        <p class="card-sub">Usa PAS, PAD y FC de la barra superior. Aproximación de cabecera a la resistencia vascular periférica cuando no hay monitoreo hemodinámico. Orienta, no reemplaza el criterio clínico.</p>
+        <div class="result-box rb-neutro" id="result-tamfc">
+          <div class="result-title" id="result-tamfc-title">Ingresá PAS, PAD y FC en la barra superior</div>
+          <div class="result-detail" id="result-tamfc-detail"></div>
+        </div>
+        <p class="card-source">Algoritmo propio CaVeSal® · Basado en: Novelli GP et al. Hemodynamics-guided treatment of hypertensive disorders of pregnancy: systematic review and meta-analysis (Ultrasound Obstet Gynecol 2026;68:319-28); Vasapollo B et al. Position statement AIPE/SIMP (Am J Perinatol 2024;41:1999-2013).</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Lesión de órgano blanco y proteinuria</h3>
+          <p class="card-sub">Si severa + 1 de estos → preeclampsia grave. La proteinuria NO es obligatoria.</p>
+          <div class="checklist">
+            <label><input type="checkbox" data-organo="cefalea">Cefalea</label>
+            <label><input type="checkbox" data-organo="visual">Alteración visual</label>
+            <label><input type="checkbox" data-organo="hipocondrio">Dolor en hipocondrio derecho</label>
+            <label><input type="checkbox" data-organo="edema">Edema pulmonar</label>
+            <label><input type="checkbox" data-organo="ast">AST/ALT ≥70</label>
+            <label><input type="checkbox" data-organo="ldh">LDH ≥600</label>
+            <label><input type="checkbox" data-organo="plaquetas">Plaquetas &lt;100.000</label>
+            <label><input type="checkbox" data-organo="bili">Bilirrubina ≥1.2</label>
+            <label><input type="checkbox" data-organo="proteinuria">Proteinuria (≥300mg/24h, relación≥0.3, o tirilla≥2+)</label>
+          </div>
+          <div class="result-box rb-neutro" id="result-pe-grave" style="margin-top: var(--space-4);">
+            <div class="result-title" id="result-pe-grave-title">Sin criterios marcados</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Selector de antihipertensivo</h3>
+          <div class="field-group">
+            <label for="sel-antihta">Fármaco</label>
+            <select class="dose-select" id="sel-antihta">
+              <option value="">Seleccionar…</option>
+              <option value="nifedipino">Nifedipino VO</option>
+              <option value="labetalol">Labetalol IV</option>
+              <option value="hidralazina">Hidralazina IV</option>
+              <option value="nicardipina">Nicardipina (infusión)</option>
+              <option value="nitroprusiato">Nitroprusiato de sodio</option>
+              <option value="mgso4">Sulfato de magnesio (MgSO4)</option>
+            </select>
+          </div>
+          <div class="dose-detail" id="detail-antihta" style="display:none;"></div>
+          <p class="card-source">Fuente: dosis según guía de manejo de emergencia hipertensiva / eclampsia.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Cociente sFlt-1/PlGF</h3>
+          <p class="card-sub">Misma lógica que la calculadora prenatal CaVeSal. Corte de sospecha según EG de la muestra: &gt;85 si &lt;34 sem; &gt;110 si ≥34 sem.</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="sflt-valor">Cociente sFlt-1/PlGF</label>
+              <input type="number" id="sflt-valor" min="0" step="1" placeholder="120">
+            </div>
+            <div class="field-group">
+              <label for="sflt-eg">EG de la muestra <span class="unit">(semanas)</span></label>
+              <input type="number" id="sflt-eg" min="20" max="42" step="1" placeholder="Auto desde FUM">
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn-sflt-calc">Interpretar</button>
+          <div class="result-box rb-neutro" id="result-sflt" style="display:none;">
+            <div class="result-title" id="result-sflt-title"></div>
+            <div class="result-detail" id="result-sflt-detail"></div>
+          </div>
+          <p class="card-source">Fuente: Zeisler H et al. N Engl J Med 2016 (PROGNOSIS, corte 38); Verlohren S et al. Am J Obstet Gynecol 2010 (85/110); Verlohren S et al. Am J Obstet Gynecol 2012 (&gt;655); Roche / BRAHMS / ISSHP. Valores dependientes de la plataforma (Elecsys).</p>
+        </div>
+
+        <div class="card">
+          <h3>Doppler de arteria oftálmica — ratio PSV2/PSV1</h3>
+          <p class="note-box">En paciente con HIE/preeclampsia <strong>ya instalada</strong>, el ratio PSV2/PSV1 evalúa el grado de compromiso vascular sistémico — no es el screening de arteria uterina del primer trimestre. Funciona como marcador hemodinámico de riesgo neuro-visual inminente, complementario al cociente sFlt-1/PlGF (que cuantifica el daño bioquímico/sistémico).</p>
+          <p class="card-sub">Misma lógica que la calculadora prenatal CaVeSal. Ingresá el primer y segundo pico sistólico (cm/s).</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="ao-psv1">PSV1 — primer pico <span class="unit">(cm/s)</span></label>
+              <input type="number" id="ao-psv1" min="0" step="0.01" placeholder="40">
+            </div>
+            <div class="field-group">
+              <label for="ao-psv2">PSV2 — segundo pico <span class="unit">(cm/s)</span></label>
+              <input type="number" id="ao-psv2" min="0" step="0.01" placeholder="30">
+            </div>
+          </div>
+          <div class="result-box rb-neutro" id="result-ao" style="display:none;">
+            <div class="result-title" id="result-ao-title"></div>
+            <div class="result-detail" id="result-ao-detail"></div>
+          </div>
+          <p class="card-source">Fuente: Gyselaers W et al. UOG 2020; Verlohren S et al. 2012; Kaituʻu-Lino TJ et al. UOG 2018; Medicina Fetal Barcelona. Cortes 0.70/0.78: corte operativo CaVeSal (ver Guías THAE, subtarjeta 11).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Algoritmo SSSAO (pasos guiados)</h3>
+        <div class="checklist">
+          <label><input type="checkbox" data-sssao="soporte"><strong>S</strong>oporte</label>
+          <label><input type="checkbox" data-sssao="seguridad"><strong>S</strong>eguridad</label>
+          <label><input type="checkbox" data-sssao="mgso4"><strong>S</strong>ulfato de magnesio — impregnación 4-6g IV, mantenimiento 1-2g/h hasta 24h posparto</label>
+          <label><input type="checkbox" data-sssao="antihta"><strong>A</strong>ntihipertensivos — reducir 20-25% en 24-48h, meta 135/85 (NICE)</label>
+          <label><input type="checkbox" data-sssao="obstetrico"><strong>O</strong>bstétrico — maduración fetal 24-34sem, bienestar fetal, finalizar: PE no grave 37sem / PE grave 34sem</label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Checklist de eclampsia (si hay convulsiones)</h3>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:var(--space-3);font-weight:700;">
+          <input type="checkbox" id="chk-convulsiones" style="accent-color:var(--primary);width:18px;height:18px;">
+          La paciente presentó convulsiones
+        </label>
+        <div id="eclampsia-detail" style="display:none;">
+          <div class="checklist">
+            <label><input type="checkbox" data-eclampsia="bolo1">Bolo MgSO4 4-6g IV (o 2g IV si ya recibía mantenimiento)</label>
+            <label><input type="checkbox" data-eclampsia="mantenimiento">Mantenimiento 2g/h</label>
+            <label><input type="checkbox" data-eclampsia="bolo2">Segundo bolo 2g IV si reconvulsiona</label>
+            <label><input type="checkbox" data-eclampsia="intubacion">Criterios de intubación presentes (inconsciente post-convulsión, estatus convulsivo, broncoaspiración, hipoxia)</label>
+          </div>
+        </div>
+        <p class="card-source">Fuente: mnemónico SSSAO; manejo de eclampsia según guía de emergencias obstétricas de referencia.</p>
+      </div>
+    </section>
+
+    <!-- ================= SEPSIS ================= -->
+    <section class="code-section" id="code-ambar" role="tabpanel" aria-labelledby="navtab-ambar">
+      <div class="section-intro">
+        <h2>Código Amarillo — Sepsis Materna</h2>
+        <p>OTAS, criterios California, selector comparativo qSOFA/SIRS/MEOWS, bundle 4-5-3 con temporizador y esquema antibiótico por foco.</p>
+      </div>
+
+      <div class="alert-banner" id="alert-sepsis">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <span id="alert-sepsis-text">SOSPECHA DE SEPSIS — iniciar bundle</span>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Escala OTAS (Triage Obstétrico)</h3>
+          <div class="checklist">
+            <label><input type="checkbox" data-otas="temp">Temperatura &gt;38°C o &lt;35°C</label>
+            <label><input type="checkbox" data-otas="sato2">SatO2 &lt;95%</label>
+            <label><input type="checkbox" data-otas="pas">PAS &lt;90</label>
+            <label><input type="checkbox" data-otas="fc">FC &gt;100</label>
+            <label><input type="checkbox" data-otas="fr">FR &gt;25</label>
+            <label><input type="checkbox" data-otas="mental">Alteración del estado mental</label>
+            <label><input type="checkbox" data-otas="utero">Hipersensibilidad uterina con foco sospechado</label>
+          </div>
+          <p class="card-source">Fuente: WHO GLOSS 2020.</p>
+        </div>
+
+        <div class="card">
+          <h3>Criterios California (2 de 4)</h3>
+          <p class="card-sub">Sospecha de infección + 2 de 4 = SEPSIS.</p>
+          <div class="checklist">
+            <label><input type="checkbox" data-cal="temp">Temp &lt;36°C o &gt;38°C</label>
+            <label><input type="checkbox" data-cal="fc">FC &gt;110</label>
+            <label><input type="checkbox" data-cal="fr">FR &gt;24</label>
+            <label><input type="checkbox" data-cal="leuco">Leucocitos &gt;15.000 o &lt;4.000, o 10% bandas</label>
+          </div>
+          <div class="field-group" style="margin-top:var(--space-3);max-width:220px;">
+            <label for="pam-post-bolo">PAM tras bolo 30mL/kg <span class="unit">(mmHg)</span></label>
+            <input type="number" id="pam-post-bolo" min="0" step="1" placeholder="62">
+          </div>
+          <div class="result-box rb-neutro" id="result-sepsis" style="margin-top: var(--space-4);">
+            <div class="result-title" id="result-sepsis-title">Sin criterios marcados</div>
+            <div class="result-detail" id="result-sepsis-detail"></div>
+          </div>
+          <p class="card-source">Fuente: CMQCC Quality Improvement Toolkit 2022.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>qSOFA, SIRS y MEOWS — selector comparativo de tamizaje</h3>
+        <p class="note-box">SIRS identifica inflamación; qSOFA identifica riesgo de mala evolución; MEOWS alerta sobre deterioro materno. <strong>Ninguno de los tres, por sí solo, confirma ni excluye una sepsis materna</strong> — el score puede ayudar a reconocer el problema, pero nunca debe convertirse en una condición para empezar a tratarlo. Los Criterios California (arriba) son los que validan la conducta de esta calculadora; qSOFA, SIRS y MEOWS son herramientas complementarias de triage.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>qSOFA (quick SOFA)</h3>
+          <p class="card-sub">≥2 criterios: mayor riesgo de mala evolución. Alta especificidad, baja sensibilidad — un qSOFA negativo <strong>no descarta</strong> sepsis temprana ni reemplaza el tamizaje con Criterios California.</p>
+          <div class="checklist">
+            <label><input type="checkbox" data-qsofa="fr">FR ≥22/min</label>
+            <label><input type="checkbox" data-qsofa="pas">PAS ≤100 mmHg</label>
+            <label><input type="checkbox" data-qsofa="mental">Alteración del estado mental (Glasgow &lt;15)</label>
+          </div>
+          <div class="result-box rb-neutro" id="result-qsofa" style="margin-top: var(--space-4);">
+            <div class="result-title" id="result-qsofa-title">0 de 3 criterios marcados</div>
+            <div class="result-detail" id="result-qsofa-detail"></div>
+          </div>
+          <p class="card-source">Fuente: Singer M et al. JAMA 2016 (Sepsis-3); Bauer ME et al. Anesth Analg 2019;129(6):1613-1620 (validación obstétrica: sensibilidad ≈50%, especificidad ≈95%).</p>
+        </div>
+
+        <div class="card">
+          <h3>SIRS (respuesta inflamatoria sistémica)</h3>
+          <p class="card-sub">≥2 criterios: SIRS positivo. Alta sensibilidad pero baja especificidad en la paciente obstétrica — la fisiología normal del embarazo (taquicardia, taquipnea, leucocitosis fisiológica) genera falsas alarmas.</p>
+          <div class="checklist">
+            <label><input type="checkbox" data-sirs="temp">Temperatura &gt;38°C o &lt;36°C</label>
+            <label><input type="checkbox" data-sirs="fc">FC &gt;90/min</label>
+            <label><input type="checkbox" data-sirs="fr">FR &gt;20/min o PaCO2 &lt;32 mmHg</label>
+            <label><input type="checkbox" data-sirs="leuco">Leucocitos &gt;12.000 o &lt;4.000/µL, o &gt;10% bandas</label>
+          </div>
+          <div class="result-box rb-neutro" id="result-sirs" style="margin-top: var(--space-4);">
+            <div class="result-title" id="result-sirs-title">0 de 4 criterios marcados</div>
+            <div class="result-detail" id="result-sirs-detail"></div>
+          </div>
+          <p class="card-source">Fuente: Bone RC et al. Chest 1992 (ACCP/SCCM); Bauer ME et al. Anesth Analg 2019;129(6):1613-1620 (validación obstétrica: sensibilidad ≈93%, especificidad ≈63%).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>MEOWS — Score Obstétrico de Alerta Temprana</h3>
+        <p class="card-sub">Sumá el puntaje de cada parámetro cargado. Un solo valor en zona roja (3) o sumatoria ≥4: <strong>piense en sepsis</strong> y escale la respuesta. Sumatoria ≥6: alerta máxima. No diagnostica sepsis por sí solo — reconoce deterioro materno independientemente de la causa.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="meows-temp">Temperatura <span class="unit">(°C)</span></label>
+            <input type="number" id="meows-temp" step="0.1" placeholder="37.0">
+          </div>
+          <div class="field-group">
+            <label for="meows-pas">PA sistólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="meows-pas" step="1" placeholder="120">
+          </div>
+          <div class="field-group">
+            <label for="meows-pad">PA diastólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="meows-pad" step="1" placeholder="75">
+          </div>
+          <div class="field-group">
+            <label for="meows-fc">Frecuencia cardíaca <span class="unit">(lpm)</span></label>
+            <input type="number" id="meows-fc" step="1" placeholder="80">
+          </div>
+          <div class="field-group">
+            <label for="meows-fr">Frecuencia respiratoria <span class="unit">(rpm)</span></label>
+            <input type="number" id="meows-fr" step="1" placeholder="16">
+          </div>
+          <div class="field-group">
+            <label for="meows-sato2">SatO2 <span class="unit">(%)</span></label>
+            <input type="number" id="meows-sato2" step="1" placeholder="98">
+          </div>
+          <div class="field-group">
+            <label for="meows-mental">Estado mental</label>
+            <select id="meows-mental">
+              <option value="0">Alerta</option>
+              <option value="1">Responde al llamado</option>
+              <option value="2">Responde al dolor</option>
+              <option value="3">Inconsciente</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="meows-diuresis">Gasto urinario <span class="unit">(mL/h, opcional)</span></label>
+            <input type="number" id="meows-diuresis" step="1" placeholder="No medido">
+          </div>
+        </div>
+        <div class="result-box rb-neutro" id="result-meows" style="margin-top: var(--space-4);">
+          <div class="result-title" id="result-meows-title">Cargá al menos un parámetro</div>
+          <div class="result-detail" id="result-meows-detail"></div>
+        </div>
+        <p class="card-source">Fuente: Norfolk and Norwich University Hospital NHS Trust, MEOWS Development Group, 2022 (tabla de puntuación, tomada de Universidad de Antioquia/UNFPA, "Sepsis", pág. 17). Validación: Singh S et al. Anaesthesia. 2012 Jan;67(1):12-18 (sensibilidad 89%, especificidad 79% para morbilidad materna severa).</p>
+      </div>
+
+      <div class="card">
+        <h3>Bundle "Sepsis 4-5-3" — temporizador</h3>
+        <p class="card-sub">Marcá el inicio para activar los temporizadores de 1h / 3h / 6h.</p>
+        <button class="btn btn-primary" id="btn-start-timer">Iniciar temporizador de sepsis</button>
+        <div class="timer-row" style="margin-top:var(--space-4);">
+          <div class="timer-chip" id="timer-1h"><div class="timer-label">1ª hora — bundle</div><div class="timer-value" id="timer-1h-value">—:—:—</div></div>
+          <div class="timer-chip" id="timer-3h"><div class="timer-label">Revisión 3h</div><div class="timer-value" id="timer-3h-value">—:—:—</div></div>
+          <div class="timer-chip" id="timer-6h"><div class="timer-label">Revisión 6h</div><div class="timer-value" id="timer-6h-value">—:—:—</div></div>
+        </div>
+        <div class="two-col" style="margin-top: var(--space-5);">
+          <div>
+            <h4 style="margin-bottom:var(--space-2);font-size:0.95rem;">Tome 4</h4>
+            <div class="checklist">
+              <label><input type="checkbox">Cultivos</label>
+              <label><input type="checkbox">Paraclínicos de disfunción orgánica + lactato</label>
+              <label><input type="checkbox">Signos vitales</label>
+              <label><input type="checkbox">Imágenes</label>
+            </div>
+          </div>
+          <div>
+            <h4 style="margin-bottom:var(--space-2);font-size:0.95rem;">Suministre 5</h4>
+            <div class="checklist">
+              <label><input type="checkbox">O2 FiO2≥50%</label>
+              <label><input type="checkbox">Cristaloides bolo 20-30mL/kg + mantenimiento 1-2mL/kg/h</label>
+              <label><input type="checkbox">Antibióticos de amplio espectro</label>
+              <label><input type="checkbox">Tratar hiper/hipotermia</label>
+              <label><input type="checkbox">Vasopresores si PAM&lt;65 tras bolo (MSPBS 2022 / CMQCC)</label>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:var(--space-4);">
+          <h4 style="margin-bottom:var(--space-2);font-size:0.95rem;">Considere 3</h4>
+          <div class="checklist">
+            <label><input type="checkbox">Bienestar fetal si &gt;26 semanas</label>
+            <label><input type="checkbox">Control del foco infeccioso</label>
+            <label><input type="checkbox">Tromboprofilaxis</label>
+          </div>
+        </div>
+        <p class="card-source">Fuente: Surviving Sepsis Campaign 2021.</p>
+      </div>
+
+      <div class="card">
+        <h3>Esquema antibiótico por foco</h3>
+        <div class="field-group" style="max-width:280px;">
+          <label for="sel-foco">Foco sospechado</label>
+          <select class="dose-select" id="sel-foco">
+            <option value="">Seleccionar…</option>
+            <option value="urinario">Urinario</option>
+            <option value="respiratorio">Respiratorio</option>
+            <option value="puerperal">Infección puerperal</option>
+          </select>
+        </div>
+        <div class="dose-detail" id="detail-foco" style="display:none;"></div>
+        <p class="card-source">Fuente: esquemas antibióticos por foco, guía de emergencias obstétricas de referencia.</p>
+      </div>
+    </section>
+
+    <!-- ================= TROMBOPROFILAXIS ================= -->
+    <section class="code-section" id="code-trombo" role="tabpanel" aria-labelledby="navtab-trombo">
+      <div class="section-intro">
+        <h2>Tromboprofilaxis Obstétrica — Sistema Semáforo</h2>
+        <p>Escala de riesgo de eventos tromboembólicos venosos (ETV) en gestación, parto y puerperio, y calculadora de dosis de heparina de bajo peso molecular (HBPM).</p>
+      </div>
+
+      <div class="card">
+        <h3>Medidas generales y anticoagulación obligatoria</h3>
+        <p class="card-sub">Aplican a <strong>todas</strong> las pacientes, independientemente del resultado de la escala.</p>
+        <ul style="margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:var(--space-2);font-size:0.92rem;">
+          <li><strong>Medidas generales para todas:</strong> hidratación adecuada y deambulación precoz.</li>
+          <li><strong>Anticoagulación obligatoria</strong> (no depende de la escala) si hay: enfermedad tromboembólica venosa activa (TVP, TEP, trombosis de senos venosos cerebrales), condiciones cardíacas de riesgo (arritmias, prótesis valvulares, cardiomiopatía con FEy reducida, trombos intracavitarios, hipertensión pulmonar), o trombofilia conocida.</li>
+        </ul>
+        <p class="card-source">Fuente: Grillo-Ardila CF, et al. Guía de práctica clínica para la prevención de eventos tromboembólicos venosos durante la gestación, el parto o el puerperio. Rev Colomb Obstet Ginecol. 2017;68(4):285-304. <a href="https://doi.org/10.18597/rcog.3084" target="_blank" rel="noopener">doi.org/10.18597/rcog.3084</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Escala de riesgo — sistema semáforo</h3>
+        <p class="card-sub">Marcá los factores presentes en cada categoría. El resultado toma la <strong>categoría más grave alcanzada</strong> (gana el peor color) y la acción concreta según el número de factores dentro de esa categoría.</p>
+
+        <div class="trombo-tiers" id="trombo-tiers"><!-- generado por JS --></div>
+
+        <div class="result-box rb-neutro eapo-summary" id="result-trombo">
+          <div class="result-title" id="result-trombo-title">Seleccioná los factores de riesgo presentes</div>
+          <div class="result-detail" id="result-trombo-detail"></div>
+        </div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> Grillo-Ardila CF, et al. 2017 (Tabla 3), <a href="http://www.scielo.org.co/pdf/rcog/v68n4/0034-7434-rcog-68-04-00285.pdf" target="_blank" rel="noopener">scielo.org.co</a>.</p>
+      </div>
+
+      <div class="card">
+        <h3>Calculadora de dosis de HBPM</h3>
+        <p class="card-sub">Usa el peso ingresado en la barra superior. Elegí fármaco y tipo de dosis.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="sel-hbpm-farmaco">Fármaco</label>
+            <select class="dose-select" id="sel-hbpm-farmaco">
+              <option value="enoxaparina">Enoxaparina</option>
+              <option value="dalteparina">Dalteparina</option>
+              <option value="nadroparina">Nadroparina</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="sel-hbpm-tipo">Tipo de dosis</label>
+            <select class="dose-select" id="sel-hbpm-tipo">
+              <option value="profilactica">Profiláctica</option>
+              <option value="anticoagulacion">Anticoagulación (terapéutica)</option>
+            </select>
+          </div>
+        </div>
+        <div class="dose-detail" id="detail-hbpm" style="display:none;"></div>
+        <p class="card-source">Fuente: Grillo-Ardila CF, et al. 2017, Tabla de dosis de HBPM (referencias internas 3, 24-26). Dosis para &gt;170 kg no está incluida en la tabla del GPC colombiano — requiere criterio de especialista.</p>
+      </div>
+    </section>
+
+    <section class="ia-bridge" aria-label="Analizar con CaVeSal IA">
+      <div class="ia-bridge-text">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 9a3 3 0 0 0 1 2.2A3 3 0 0 0 6 16a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"/><path d="M15 3a3 3 0 0 1 3 3v.2A3 3 0 0 1 20 9a3 3 0 0 1-1 2.2A3 3 0 0 1 18 16a3 3 0 0 1-3 3h0a3 3 0 0 1-3-3"/></svg>
+        <div>
+          <div class="ia-bridge-title">Analizar con CaVeSal® IA</div>
+          <div class="ia-bridge-sub">Enviá los resultados cargados en la Calculadora a CaVeSal® IA para una segunda lectura clínica. No se envían nombre ni documento.</div>
+        </div>
+      </div>
+      <button type="button" class="ia-bridge-btn" id="btn-cavesal-ia" title="CaVeSal® IA requiere un plan activo (Pro / Premium / Premium Plus). Si no tenés uno, podés activarlo al ingresar.">
+        <span>Analizar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </button>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    Herramienta de apoyo clínico. No reemplaza el juicio médico. <strong>CaVeSal®</strong> — Dr. Carlos Vera Salerno.
+    <br><span style="font-size:.78em;opacity:.85">© 2025–2026 CaVeSal® · Todos los derechos reservados</span>
+  </footer>
+</div>
+
+<script src="app-full.js"></script>
+<script src="app-coag.js"></script>
+<script src="app-alerta.js"></script>
+<script src="ia-bridge.js"></script>
+<script src="voz-data.js"></script>
+<script src="voz.js"></script>
+</body>
+</html>

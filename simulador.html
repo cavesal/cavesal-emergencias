@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simulador — CaVeSal Emergencias Obstétricas</title>
+<meta name="description" content="Simulador de casos ficticios de emergencias maternas y trabajo de parto: decidí, observá la evolución y recibí la devolución con fuentes.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="theme-color" content="#0c4e54">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CaVeSal Emerg.">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-mark" src="img/cavesal-emblema.png" alt="" width="30" height="30">
+      <span>CaVeSal<span aria-hidden="true">®</span></span>
+      <span class="subtitle">· Simulador</span>
+    </div>
+    <div class="topbar-links">
+      <a class="pill-link" href="index.html">Inicio</a>
+      <a class="pill-link" href="full/">Calculadora</a>
+      <a class="pill-link" href="guia.html">Modo Guía</a>
+      <a class="pill-link" href="acerca.html">Acerca</a>
+    </div>
+  </header>
+  <main class="sim-main">
+    <div class="sim-head">
+      <h1>Simulador CaVeSal®</h1>
+      <p>Parte de la Calculadora. Emergencias maternas (sepsis, tromboembolismo pulmonar y embolia de líquido amniótico), trabajo de parto de bajo riesgo según la OMS 2018 y Escala de Alerta Obstétrica (EAPO 2025/2022 y Alerta Obstétrica CaVeSal®).</p>
+    </div>
+    <div id="sim-app" aria-live="polite"></div>
+  </main>
+  <footer class="app-footer">
+    Casos ficticios con fines de entrenamiento. No reemplaza el juicio médico. <strong>CaVeSal®</strong> — Dr. Carlos Vera Salerno.
+  </footer>
+</div>
+<script src="sim-data.js"></script>
+<script src="sim-data-parto.js"></script>
+<script src="sim-data-alerta.js"></script>
+<script src="sim.js"></script>
+</body>
+</html>
