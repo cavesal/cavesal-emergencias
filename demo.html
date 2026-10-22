@@ -38,6 +38,11 @@
     <button type="button" onclick="abrirUpgradeModal()" style="display:block;width:100%;margin-top:12px;padding:11px;background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;border:none;border-radius:10px;font-size:.86rem;font-weight:700;cursor:pointer">🔓 Adquirí tu versión completa</button>
   </div>
 
+  <!-- ============ Cargar caso de ejemplo ============ -->
+  <div style="max-width:720px;margin:14px auto 0;padding:0 16px">
+    <button type="button" onclick="mostrarEjemplosEmerg()" style="display:block;width:100%;padding:11px;background:#fff;border:1.5px solid #0EA5B7;border-radius:10px;font-size:.86rem;font-weight:700;color:#0EA5B7;cursor:pointer">📋 Cargar ejemplo</button>
+  </div>
+
   <!-- ============ Barra de datos comunes de paciente (siempre visible) ============ -->
   <div class="patient-bar">
     <div class="patient-bar-inner">
@@ -229,10 +234,93 @@
     </button>
   </div>
 </div>
+
+<!-- MODAL EJEMPLOS -->
+<div id="modal_ejemplos" style="display:none;position:fixed;inset:0;background:rgba(13,27,45,.6);z-index:9998;align-items:flex-end;justify-content:center;padding:0" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 28px;width:100%;max-width:520px;font-family:'Segoe UI',sans-serif">
+    <div style="font-size:.92rem;font-weight:800;color:#0D1B2D;margin-bottom:2px">📋 Cargar caso de ejemplo</div>
+    <div style="font-size:.76rem;color:#4a6274;margin-bottom:16px">Completa los signos vitales y las escalas con un caso ilustrativo. Hacé scroll para ver el resultado.</div>
+
+    <button type="button" onclick="cargarEjemploEmerg('rojo')" style="width:100%;text-align:left;background:#fdecea;border:2px solid #c0392b;border-radius:12px;padding:14px;cursor:pointer;display:block;margin-bottom:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#c0392b;margin-bottom:4px">🔴 Código Rojo — Hemorragia</div>
+      <div style="font-size:.76rem;color:#4a6274">Shock hipovolémico: FC 124, PAS 68/48, taquipnea, hipoxemia</div>
+    </button>
+
+    <button type="button" onclick="cargarEjemploEmerg('thae')" style="width:100%;text-align:left;background:#eaf1fb;border:2px solid #1d4ed8;border-radius:12px;padding:14px;cursor:pointer;display:block;margin-bottom:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#1d4ed8;margin-bottom:4px">🔵 Código THAE — Hipertensivo</div>
+      <div style="font-size:.76rem;color:#4a6274">Preeclampsia severa: PAS 170/115, proteinuria +++</div>
+    </button>
+
+    <button type="button" onclick="cargarEjemploEmerg('amarillo')" style="width:100%;text-align:left;background:#fef9e7;border:2px solid #b7791f;border-radius:12px;padding:14px;cursor:pointer;display:block;margin-bottom:16px">
+      <div style="font-size:.88rem;font-weight:700;color:#b7791f;margin-bottom:4px">🟡 Código Amarillo — Sepsis</div>
+      <div style="font-size:.76rem;color:#4a6274">qSOFA 3/3: FC 118, PAS 88, fiebre 39,2°C, desorientada</div>
+    </button>
+
+    <button type="button" onclick="document.getElementById('modal_ejemplos').style.display='none'"
+      style="width:100%;padding:10px;background:#f0f4f8;border:none;border-radius:8px;font-size:.8rem;color:#4a6274;cursor:pointer">
+      Cancelar
+    </button>
+  </div>
+</div>
+
 <script>
 function abrirUpgradeModal(){
   var m = document.getElementById('upgrade_modal');
   if(m) m.style.display = 'flex';
+}
+
+function mostrarEjemplosEmerg(){
+  var m = document.getElementById('modal_ejemplos');
+  if(m) m.style.display = 'flex';
+}
+
+function cargarEjemploEmerg(tipo){
+  var modal = document.getElementById('modal_ejemplos');
+  if (modal) modal.style.display = 'none';
+
+  function setVal(id, val){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.value = val;
+    delete el.dataset.manual;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  function setEapo(id, v){
+    var inp = document.querySelector('input[name="eapo-' + id + '"][value="' + v + '"]');
+    if(!inp) return;
+    inp.checked = true;
+    inp.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function setQsofa(keys){
+    document.querySelectorAll('[data-qsofa]').forEach(function(cb){
+      cb.checked = keys.indexOf(cb.getAttribute('data-qsofa')) !== -1;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  }
+
+  /* Perfiles de ejemplo: valores acordados con el Dr. Vera Salerno (2026-10-22). */
+  if (tipo === 'rojo') {
+    setVal('in-fc','124'); setVal('in-pas','68'); setVal('in-pad','48');
+    setVal('av-fc','124'); setVal('av-pas','68'); setVal('av-pad','48');
+    setVal('av-fr','24'); setVal('av-sat','93'); setVal('av-t','36.5'); setVal('av-diu','15');
+    setEapo('aspecto','palida'); setEapo('neuro','dolor'); setEapo('proteinuria','+/++');
+    setQsofa([]);
+  } else if (tipo === 'thae') {
+    setVal('in-fc','92'); setVal('in-pas','170'); setVal('in-pad','115');
+    setVal('av-fc','92'); setVal('av-pas','170'); setVal('av-pad','115');
+    setVal('av-fr','18'); setVal('av-sat','97'); setVal('av-t','36.8'); setVal('av-diu','45');
+    setEapo('aspecto','normal'); setEapo('neuro','alerta'); setEapo('proteinuria','+++');
+    setQsofa([]);
+  } else {
+    setVal('in-fc','118'); setVal('in-pas','88'); setVal('in-pad','58');
+    setVal('av-fc','118'); setVal('av-pas','88'); setVal('av-pad','58');
+    setVal('av-fr','26'); setVal('av-sat','93'); setVal('av-t','39.2'); setVal('av-diu','20');
+    setEapo('aspecto','sudorosa'); setEapo('neuro','desorientada'); setEapo('proteinuria','+/++');
+    setQsofa(['fr','pas','mental']);
+  }
+
+  var card = document.getElementById('alerta-card');
+  if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 
