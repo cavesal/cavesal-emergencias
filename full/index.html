@@ -5064,6 +5064,34 @@ window.VOZ_ARBOL = [
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
   var synth = window.speechSynthesis || null;
   var IA_URL = "https://ia.cavesal.app/chat.html";
+  var LICENSE_KEY = "cavesal_emerg_full_unlocked";
+
+  /* ---------------- licencia: modo voz / modo guía son función de la versión completa ----------------
+   * El gate visual de full.html (#license_gate) es un overlay por CSS (z-index), pero un <dialog>
+   * abierto con showModal() se renderiza en el "top layer" del navegador, por encima de cualquier
+   * z-index. Por eso antes el diálogo de "Tengo una emergencia ahora" se abría y la app empezaba a
+   * dictar aunque el gate de licencia siguiera visible tapando la pantalla. Esta función es el único
+   * punto de entrada real (clic en los botones y los hashes #emergencia / #desde-cero de la URL), así
+   * que basta con frenar acá, consultando la misma clave que usa el gate de full.html. */
+  function tieneLicenciaFull() {
+    try { return !!localStorage.getItem(LICENSE_KEY); } catch (e) { return false; }
+  }
+  var dlgBloqueo;
+  function mostrarBloqueoFull() {
+    if (!dlgBloqueo) {
+      dlgBloqueo = h("dialog", { id: "voz-bloqueo", class: "voz-entrada" });
+      document.body.appendChild(dlgBloqueo);
+      dlgBloqueo.addEventListener("click", function (e) {
+        if (e.target === dlgBloqueo || e.target.closest(".ve-x")) dlgBloqueo.close();
+      });
+    }
+    dlgBloqueo.innerHTML = '<div class="ve-head"><h2>Versión completa</h2><button type="button" class="ve-x" aria-label="Cerrar">×</button></div>' +
+      '<p class="ve-sub">El modo voz y el modo guía para emergencias en tiempo real están disponibles solo en la versión completa de CaVeSal® Emergencias Obstétricas.</p>' +
+      '<div style="padding:0 18px 18px">' +
+        '<a href="https://cavesal.gumroad.com/l/cavesal" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:13px;border-radius:10px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0D1B2D,#0EA5B7)">Adquirir versión completa →</a>' +
+      "</div>";
+    if (!dlgBloqueo.open) dlgBloqueo.showModal();
+  }
 
   var S = null; // estado de la sesión activa
   var root, els = {};
@@ -5550,6 +5578,7 @@ window.VOZ_ARBOL = [
 
   var dlg;
   function entrada(modo) {
+    if (!tieneLicenciaFull()) { mostrarBloqueoFull(); return; }
     if (!dlg) {
       dlg = h("dialog", { id: "voz-entrada", class: "voz-entrada", "aria-labelledby": "ve-title" });
       document.body.appendChild(dlg);
