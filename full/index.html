@@ -5179,6 +5179,24 @@ window.VOZ_ARBOL = [
   function tieneLicenciaFull() {
     try { return !!localStorage.getItem(LICENSE_KEY); } catch (e) { return false; }
   }
+
+  /* ---------------- aviso legal: mismo problema de "top layer", detectado 2026-10-23 ----------------
+   * El overlay de Aviso Legal (#cavesal-legal-overlay, ver bloque "FIN GATE DE LICENCIA" más arriba)
+   * es también un overlay por CSS, con el mismo punto débil: el <dialog> de entrada() se abre con
+   * showModal() y renderiza por encima de él igual que hacía con el gate de licencia. Antes de este
+   * fix, alguien con la versión completa ya activada (licencia OK) pero que todavía no había aceptado
+   * el aviso legal (primera visita) podía terminar viendo/usando el modo voz por encima del aviso,
+   * sin haberlo aceptado — vía el link directo full/#emergencia desde la página principal, o
+   * recargando con ese hash en la URL. yaAcepto() vive en su propio IIFE (no es accesible desde acá),
+   * así que se reimplementa acá la misma lectura de localStorage en vez de acoplar los dos scripts. */
+  function legalAceptado() {
+    try {
+      var raw = localStorage.getItem('cavesal_legal_accept');
+      if (!raw) return false;
+      var data = JSON.parse(raw);
+      return !!(data && data.version === '1.1');
+    } catch (e) { return false; }
+  }
   var dlgBloqueo;
   function mostrarBloqueoFull() {
     if (!dlgBloqueo) {
@@ -5681,6 +5699,7 @@ window.VOZ_ARBOL = [
 
   var dlg;
   function entrada(modo) {
+    if (!legalAceptado()) return; // el overlay de Aviso Legal ya está tapando la pantalla — no abrir el diálogo de voz por encima
     if (!tieneLicenciaFull()) { mostrarBloqueoFull(); return; }
     if (!dlg) {
       dlg = h("dialog", { id: "voz-entrada", class: "voz-entrada", "aria-labelledby": "ve-title" });
