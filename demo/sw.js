@@ -1,5 +1,5 @@
 /* CaVeSal® Emergencias — Demo. Service worker. Subir CACHE en cada publicación. */
-const CACHE = "cavesal-emerg-demo-v1";
+const CACHE = "cavesal-emerg-demo-v4";
 
 self.addEventListener("install", e => {
   e.waitUntil(

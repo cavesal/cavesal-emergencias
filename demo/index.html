@@ -2074,6 +2074,17 @@ body.voz-abierto { overflow: hidden; }
       </div>
 
       <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
+        <div class="locked-head"><h3>Parto — partograma, APP, RPM, tocolisis y MgSO4</h3><span class="lock-badge">🔒 Versión completa</span></div>
+        <div class="locked-items">
+          <span class="lp-item">Partograma dinámico: Ministerio CLAP, OMS 2020 y ACOG 2024</span>
+          <span class="lp-item">Conducta según EG (maduración y neuroprotección)</span>
+          <span class="lp-item">Tocolisis con cronómetro de dosis</span>
+          <span class="lp-item">Contador de contracciones</span>
+          <span class="lp-item">Esquemas de MgSO4 y monitor de toxicidad</span>
+        </div>
+      </div>
+
+      <div class="card locked-section" onclick="abrirUpgradeModal()" style="cursor:pointer">
         <div class="locked-head"><h3>Modo voz y CaVeSal® IA</h3><span class="lock-badge">🔒 Versión completa</span></div>
         <div class="locked-items">
           <span class="lp-item">"Tengo una emergencia ahora" — modo voz manos libres</span>
@@ -2123,7 +2134,7 @@ body.voz-abierto { overflow: hidden; }
 
 <!-- MODAL EJEMPLOS -->
 <div id="modal_ejemplos" style="display:none;position:fixed;inset:0;background:rgba(13,27,45,.6);z-index:9998;align-items:flex-end;justify-content:center;padding:0" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 28px;width:100%;max-width:520px;font-family:'Segoe UI',sans-serif">
+  <div style="background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 28px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;font-family:'Segoe UI',sans-serif">
     <div style="font-size:.92rem;font-weight:800;color:#0D1B2D;margin-bottom:2px">📋 Cargar caso de ejemplo</div>
     <div style="font-size:.76rem;color:#4a6274;margin-bottom:16px">Completa los signos vitales y las escalas con un caso ilustrativo. Hacé scroll para ver el resultado.</div>
 
@@ -2141,6 +2152,22 @@ body.voz-abierto { overflow: hidden; }
       <div style="font-size:.88rem;font-weight:700;color:#b7791f;margin-bottom:4px">🟡 Código Amarillo — Sepsis</div>
       <div style="font-size:.76rem;color:#4a6274">qSOFA 3/3: FC 118, PAS 88, fiebre 39,2°C, desorientada</div>
     </button>
+
+    <div style="font-size:.8rem;font-weight:800;color:#0e7490;margin:4px 0 4px;text-transform:uppercase;letter-spacing:.03em">Parto — casos del simulador</div>
+    <div style="font-size:.74rem;color:#4a6274;margin-bottom:8px">El partograma, el alumbramiento y el control de 2 h posparto dinámicos están en la versión completa. En la Demo podés practicar los 3 modelos de partograma como casos guiados.</div>
+    <a href="../simulador.html#caso=pg1" style="display:block;text-decoration:none;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma Ministerio CLAP</div>
+      <div style="font-size:.75rem;color:#4a6274">Nulípara de 22 años, 40 semanas</div>
+    </a>
+    <a href="../simulador.html#caso=pg2" style="display:block;text-decoration:none;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma OMS 2020 (LCG)</div>
+      <div style="font-size:.75rem;color:#4a6274">Multípara de 29 años, 39 semanas</div>
+    </a>
+    <a href="../simulador.html#caso=pg3" style="display:block;text-decoration:none;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma ACOG 2024</div>
+      <div style="font-size:.75rem;color:#4a6274">Nulípara de 31 años, 39 semanas, con epidural</div>
+    </a>
+<div style="height:8px"></div>
 
     <button type="button" onclick="document.getElementById('modal_ejemplos').style.display='none'"
       style="width:100%;padding:10px;background:#f0f4f8;border:none;border-radius:8px;font-size:.8rem;color:#4a6274;cursor:pointer">
