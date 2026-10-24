@@ -113,6 +113,51 @@
       (empeora ? '<div class="sim-peor">La paciente empeoró por las decisiones demoradas o incorrectas.</div>' : "");
   }
 
+  /* ---------- modo voz (lazo cerrado) ---------- */
+  var synth = window.speechSynthesis || null, vozEs = null, sonido = true, rec = null;
+  function elegirVoz() {
+    if (!synth) return;
+    var vs = synth.getVoices();
+    vozEs = vs.filter(function (v) { return /^es[-_](PY|AR|UY|419|MX|US)/i.test(v.lang); })[0] || vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  if (synth) { elegirVoz(); if (typeof synth.onvoiceschanged !== "undefined") synth.onvoiceschanged = elegirVoz; }
+  function hablar(t) {
+    if (!synth || !sonido || !t) return;
+    try { synth.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = vozEs ? vozEs.lang : "es-419"; if (vozEs) u.voice = vozEs; u.rate = 1; synth.speak(u); } catch (e) {}
+  }
+  function callar() { try { if (synth) synth.cancel(); } catch (e) {} try { if (rec) rec.abort(); } catch (e) {} }
+  function vozPanel(e, q) {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    return '<div class="sim-voz" role="region" aria-label="Asistente por voz">' +
+      '<div class="sim-voz-t">CaVeSal dicta</div>' +
+      '<p class="sim-voz-p">' + esc(e.voz) + '</p>' +
+      '<div class="sim-voz-b"><button type="button" class="vb2" data-sim="voz-oir">Escuchar de nuevo</button>' +
+      '<button type="button" class="vb2" data-sim="voz-son" aria-pressed="' + (sonido ? "true" : "false") + '">' + (sonido ? "Sonido: sí" : "Sonido: no") + '</button>' +
+      (SR && q.tipo !== "numero" && q.ops.some(function (o) { return o.dice; }) ? '<button type="button" class="vb2" data-sim="voz-mic">Responder por voz</button>' : "") +
+      '</div><div class="sim-voz-s" id="sim-voz-s"></div></div>';
+  }
+  function norm(t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9 ]/g, " "); }
+  function escuchar() {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR || !S || S.respondida) return;
+    var st = $("#sim-voz-s");
+    try {
+      callar(); rec = new SR(); rec.lang = "es-PY"; rec.interimResults = false; rec.maxAlternatives = 3;
+      if (st) st.textContent = "Escuchando…";
+      rec.onresult = function (ev) {
+        var alts = [], r = ev.results[0]; for (var i = 0; i < r.length; i++) alts.push(norm(r[i].transcript));
+        var k = -1;
+        S.ops.forEach(function (x, j) {
+          if (k >= 0 || !x.o.dice) return;
+          [].concat(x.o.dice).forEach(function (d) { var nd = norm(d); alts.forEach(function (a) { if ((" " + a + " ").indexOf(" " + nd + " ") >= 0) k = j; }); });
+        });
+        if (st) st.textContent = "Escuché: «" + r[0].transcript + "»" + (k < 0 ? ". No coincide con ninguna opción; tocá la respuesta." : "");
+        if (k >= 0) responder(k, false);
+      };
+      rec.onerror = function () { if (st) st.textContent = "No se pudo usar el micrófono; tocá la respuesta."; };
+      rec.start();
+    } catch (e) { if (st) st.textContent = "Micrófono no disponible."; }
+  }
+
   /* ---------- escena y pregunta ---------- */
   function pintarEscena() {
     var c = S.c, e = c.escenas[S.e], q = e.preguntas[S.p];
@@ -129,12 +174,14 @@
         '<p class="sim-relato">' + esc(e.relato) + "</p>" +
         monitor(e.vit) +
         (e.datos ? '<dl class="sim-datos">' + e.datos.map(function (d) { return "<div><dt>" + esc(d[0]) + "</dt><dd>" + esc(d[1]) + "</dd></div>"; }).join("") + "</dl>" : "") +
+        (c.modo === "voz" && e.voz ? vozPanel(e, q) : "") +
       "</div>" +
       '<div class="sim-q" id="sim-q">' + preguntaHTML(q) + "</div>";
     $("#sim-app").innerHTML = html;
     S.qt0 = Date.now(); S.respondida = false;
     if (q.tipo === "numero") { var inp = $("#sim-num"); if (inp) inp.focus({ preventScroll: true }); }
     arrancarTimer(q);
+    if (c.modo === "voz" && e.voz) hablar(e.voz + ". " + q.q);
   }
   function preguntaHTML(q) {
     var reloj = S.reloj ? '<div class="sim-reloj" id="sim-reloj-q"></div>' : "";
@@ -251,8 +298,11 @@
     if (t.hasAttribute("data-caso")) return iniciar(t.getAttribute("data-caso"));
     if (t.classList.contains("sim-op")) return responder(parseInt(t.getAttribute("data-op"), 10), false);
     var a = t.getAttribute("data-sim");
-    if (a === "next") siguiente();
-    else if (a === "salir") { if (S && !$(".sim-score") && !confirm("¿Salir del caso en curso?")) return; lista(); window.scrollTo({ top: 0 }); }
+    if (a === "next") { callar(); siguiente(); }
+    else if (a === "voz-oir") { var e0 = S.c.escenas[S.e]; hablar(e0.voz + ". " + e0.preguntas[S.p].q); }
+    else if (a === "voz-son") { sonido = !sonido; if (!sonido) callar(); t.textContent = sonido ? "Sonido: sí" : "Sonido: no"; t.setAttribute("aria-pressed", sonido ? "true" : "false"); }
+    else if (a === "voz-mic") escuchar();
+    else if (a === "salir") { callar(); if (S && !$(".sim-score") && !confirm("¿Salir del caso en curso?")) return; lista(); window.scrollTo({ top: 0 }); }
     else if (a === "copiar") {
       var x = $("#sim-txt").textContent;
       (navigator.clipboard ? navigator.clipboard.writeText(x) : Promise.reject()).then(function () { t.textContent = "Copiado"; }).catch(function () { prompt("Copiá el resultado:", x); });

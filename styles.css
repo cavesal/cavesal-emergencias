@@ -1677,3 +1677,10 @@ body.voz-abierto { overflow: hidden; }
 .guia-buscador { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); }
 .guia-res { max-height: 60vh; overflow-y: auto; }
 .guia-res:empty { display: none; }
+
+/* Simulador — modo voz */
+.sim-voz { margin-top:12px; border:1px solid #c9dfe1; border-left:4px solid #0c4e54; border-radius:12px; padding:10px 12px; background:#f3f9fa; }
+.sim-voz-t { font-size:.75rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#0c4e54; }
+.sim-voz-p { margin:6px 0 8px; font-size:1rem; font-weight:700; color:#1f2a33; line-height:1.4; }
+.sim-voz-b { display:flex; flex-wrap:wrap; gap:8px; }
+.sim-voz-s { margin-top:6px; font-size:.82rem; color:#4a5662; min-height:1em; }

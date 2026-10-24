@@ -106,6 +106,23 @@
               ref: rM, url: MSPBS
             }
           ]
+        },
+        {
+          min: 540, titulo: "17:00 — Evaluación final",
+          relato: "Una hora después, con buena dinámica, el tacto sigue en 7 cm, III plano, moldeamiento ++ y caput. Bolsa rota con líquido claro. Feto estimado de 3900 g. La dilatación no avanzó en 2 tactos y la presentación no desciende.",
+          vit: { fc: 94, pas: 122, pad: 78, t: 37.1, fcf: 150, cu: "4 en 10 min · 45 s", dil: 7 },
+          datos: [["Curva", "Meseta a la derecha de la línea de acción"], ["Signos de desproporción", "Moldeamiento ++, caput, sin descenso"]],
+          preguntas: [
+            {
+              tipo: "opcion", q: "¿Cuál es la conducta?",
+              ops: [
+                { t: "Detención de la dilatación con signos de desproporción: cesárea segmentaria.", ok: true, fb: "Correcto. La curva quedó a la derecha de la línea de acción, sin progreso y con desproporción céfalo-pélvica: se termina por cesárea." },
+                { t: "Aumentar la oxitocina y repetir el tacto en 4 horas.", fb: "Con desproporción y buena dinámica, más oxitocina no corrige el problema y aumenta el riesgo de rotura uterina." },
+                { t: "Fórceps para acortar el trabajo de parto.", fb: "El fórceps exige dilatación completa y presentación encajada; acá hay 7 cm y desproporción." }
+              ],
+              ref: rM, url: MSPBS
+            }
+          ]
         }
       ],
       fuentes: [
@@ -205,6 +222,22 @@
               tipo: "numero", q: "Es multípara: ¿a partir de cuántas horas de segunda etapa hay alerta?", resp: 2, tol: 0, dec: 0, unidad: "h",
               fbOk: "Correcto: ≥2 h en multípara (≥3 h en nulípara).", fbMal: "El umbral es ≥2 h en multípara y ≥3 h en nulípara.",
               ref: rL, url: LCG
+            }
+          ]
+       },
+        {
+          min: 790, titulo: "19:10 — Nacimiento",
+          relato: "Con pujos espontáneos en posición semisentada, a las 19:10 nace un varón vigoroso de 3300 g, que llora al nacer y se coloca piel a piel.",
+          vit: { fc: 100, pas: 118, pad: 76, t: 37.0, fcf: 140, cu: "Nacimiento", dil: 10 },
+          preguntas: [
+            {
+              tipo: "opcion", q: "¿Qué corresponde en el tercer período?",
+              ops: [
+                { t: "Oxitocina 10 UI IM o IV y pinzamiento del cordón no antes de 1 minuto.", ok: true, fb: "Correcto. La OMS recomienda oxitocina 10 UI para prevenir la hemorragia posparto y el pinzamiento tardío del cordón (no antes de 1 minuto)." },
+                { t: "Pinzamiento inmediato del cordón y esperar el alumbramiento sin uterotónico.", fb: "El recién nacido está vigoroso: pinzamiento tardío y uterotónico profiláctico para todas." },
+                { t: "Tracción fuerte del cordón antes de que el útero se contraiga.", fb: "La tracción controlada es opcional y solo con útero contraído, por personal entrenado." }
+              ],
+              ref: "OMS 2018 · Cuidados intraparto (rec. 41-46)", url: "https://www.ncbi.nlm.nih.gov/books/NBK513802/table/executivesummary.tu1/"
             }
           ]
         }
