@@ -826,6 +826,22 @@ footer.app-footer strong {
 .code-nav-btn.ambar[aria-selected="true"] { border-color: var(--ambar); background: var(--ambar-bg); color: var(--ambar); }
 .code-nav-btn.violeta[aria-selected="true"] { border-color: var(--violeta); background: var(--violeta-bg); color: var(--violeta); }
 .code-nav-btn.marron[aria-selected="true"] { border-color: var(--marron); background: var(--marron-bg); color: var(--marron); }
+/* ---- Parto y Puerperio ---- */
+.code-nav-btn.cian[aria-selected="true"] { border-color: var(--cian); background: var(--cian-bg); color: var(--cian); }
+.pt-chip { display:inline-block; padding:4px 10px; border-radius:999px; font-size:.78rem; font-weight:700; margin:2px 6px 6px 0; }
+.pt-chip.si { background: var(--cian-bg); color: var(--cian); }
+.pt-chip.no { background:#eef1f4; color:#5a6572; }
+.pt-esq { background:#f4f8f9; border:1px solid var(--cian-border); border-radius:12px; padding:12px 14px; margin:10px 0; font-size:.9rem; line-height:1.5; }
+.pt-esq strong { color: var(--cian); }
+.contr-btn-big { width:100%; padding:20px; font-size:1.1rem; font-weight:800; border:none; border-radius:14px; background:var(--cian); color:#fff; cursor:pointer; margin:6px 0 10px; }
+.contr-btn-big:active { transform:scale(.985); }
+.mg-alerta { background:#fdecec; border:1px solid #f2b8b8; border-radius:12px; padding:12px 14px; margin:8px 0; font-size:.9rem; line-height:1.5; color:#a32020; font-weight:600; }
+.mg-goteo { background:var(--cian-bg); border:1px solid var(--cian-border); border-radius:12px; padding:12px 14px; margin:8px 0; font-size:.9rem; line-height:1.55; }
+.mg-goteo strong { color: var(--cian); }
+.pt-h4 { margin:18px 0 8px; font-size:.95rem; color:#0D1B2D; }
+.pt-h4 span { font-weight:400; font-size:.78rem; opacity:.7; margin-left:8px; }
+.pt-help { font-size:.78rem; opacity:.72; font-weight:400; margin:4px 0 0; }
+#parto-card select { padding-right:30px; }
 .code-nav-btn.tealoscuro[aria-selected="true"] { border-color: var(--tealoscuro); background: var(--tealoscuro-bg); color: var(--tealoscuro); }
 .code-nav-btn.coral[aria-selected="true"] { border-color: var(--coral); background: var(--coral-bg); color: var(--coral); }
 .code-nav-btn.oliva[aria-selected="true"] { border-color: var(--oliva); background: var(--oliva-bg); color: var(--oliva); }
@@ -1675,6 +1691,31 @@ body.voz-abierto { overflow: hidden; }
 .al-prox.vencido { border: 2px solid var(--rojo-alert); color: var(--rojo-alert); animation: alPulse 1.2s ease-in-out infinite; }
 @keyframes alPulse { 50% { opacity: .65; } }
 @media (prefers-reduced-motion: reduce) { .al-prox.vencido { animation: none; } }
+/* Partograma dinámico (fase 2) */
+.pg-check { display:flex; align-items:center; gap:8px; font-weight:600; margin-top:22px; }
+.pg-check input { width:20px; height:20px; }
+.pg-mini { margin-top:6px; width:100%; }
+#pg-card { min-width:0; max-width:100%; }
+.pg-graf { overflow-x:auto; max-width:100%; -webkit-overflow-scrolling:touch; margin-top:12px; border:1px solid var(--border); border-radius:12px; background:#fff; padding:6px; }
+.pg-graf:empty { display:none; }
+.pg-graf svg { display:block; width:100%; min-width:680px; height:auto; font-family:inherit; }
+.pg-leyenda { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.8rem; color:var(--text-muted); margin:8px 2px; }
+.pg-leyenda:empty { display:none; }
+.pg-leyenda span { display:inline-flex; align-items:center; gap:5px; }
+.pg-sw { display:inline-block; width:14px; height:12px; border:1px solid #6b7a80; border-radius:2px; }
+.pg-tab { border-collapse:collapse; font-size:.78rem; min-width:640px; width:100%; }
+.pg-tab th, .pg-tab td { border:1px solid var(--border); padding:4px 5px; text-align:center; white-space:nowrap; }
+.pg-tab th:first-child, .pg-tab td:first-child { text-align:left; position:sticky; left:0; background:#f7fafa; z-index:1; white-space:normal; min-width:132px; }
+.pg-tab .pg-sec td { background:var(--cian-bg); color:var(--cian); font-weight:700; text-align:left; }
+.pg-tab td.pg-al { color:var(--rojo-alert); font-weight:700; }
+.pg-tab td.pg-al span { display:inline-block; min-width:22px; padding:0 5px; border:2px solid var(--rojo-alert); border-radius:999px; }
+.pg-tab td.pg-lat { color:var(--text-muted); background:#f4f4f2; }
+.pg-tab small { color:var(--text-muted); font-weight:400; }
+#pg-card .pg-only-oms, #pg-card .pg-only-acog, #pg-card .pg-only-mspbs { display:none; }
+#pg-card[data-modelo="oms"] .pg-only-oms, #pg-card[data-modelo="acog"] .pg-only-acog, #pg-card[data-modelo="mspbs"] .pg-only-mspbs { display:flex; }
+#pg-card[data-modelo="acog"][data-cat="sin"] .pg-only-cat { display:none; }
+.pg-alist { margin:6px 0 0; padding-left:18px; }
+.pg-alist li { margin:2px 0; }
 .al-hora { margin: 10px 0; padding: 10px 12px; border-radius: var(--radius-md); border: 1px solid var(--border); display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: center; }
 .al-hora-n { display: flex; flex-direction: column; align-items: center; line-height: 1; grid-row: span 2; }
 .al-hora-n strong { font-size: 1.9rem; font-variant-numeric: tabular-nums; }
@@ -1691,10 +1732,48 @@ body.voz-abierto { overflow: hidden; }
 .al-chip.c-verde { background: var(--verde-bg); color: var(--verde); }
 .al-chip.c-amarillo { background: var(--amarillo-bg); color: var(--amarillo); }
 .al-chip.c-rojo { background: var(--rojo-alert-bg); color: var(--rojo-alert); }
+/* Control posparto 2 h */
+#pp-card, #alu-card { min-width: 0; }
+#pp-tl { overflow-x: auto; max-width: 100%; }
+#pp-tl .al-tl { min-width: 460px; }
+#alu-card .pg-check { display: block; margin: 4px 0; }
+.pp-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 10px 0; }
+.pp-slot { border: 1px solid var(--border); border-radius: 8px; padding: 6px 4px; text-align: center; font-size: .78rem; line-height: 1.25; background: #f7fafc; }
+.pp-slot b { display: block; font-size: .85rem; }
+.pp-slot.pp-verde { background: var(--verde-bg); color: var(--verde); }
+.pp-slot.pp-amarillo { background: var(--amarillo-bg); color: var(--amarillo); }
+.pp-slot.pp-rojo { background: var(--rojo-alert-bg); color: var(--rojo-alert); font-weight: 700; }
+.pp-slot.pp-venc { border: 2px dashed var(--rojo-alert); color: var(--rojo-alert); }
+.pp-slot.pp-pend { color: #4a6274; }
+#pp-card .pg-check { display: block; margin: 4px 0; }
 .sim-caso.alerta, .sim-top.alerta { --c: var(--rojo-alert); --cbg: var(--rojo-alert-bg); }
 .subcard .subcard-body table.tbl-compact { font-size: 0.76rem; }
 .subcard .subcard-body table.tbl-compact th, .subcard .subcard-body table.tbl-compact td { padding: 4px 5px; hyphens: manual; }
 
+/* ---- Flujogramas RPM (diagnóstico, conducta) y madurez fetal ---- */
+.fl-wrap { margin-top:10px; }
+.fl-step { border:1px solid var(--cian-border); border-left:4px solid var(--cian); border-radius:12px; padding:10px 12px; margin:8px 0; background:#fff; font-size:.9rem; line-height:1.45; }
+.fl-step.done { background:#f4f8f9; }
+.fl-step .fl-q { font-weight:700; color:#1f2a33; margin-bottom:6px; }
+.fl-step .fl-ans { display:flex; flex-wrap:wrap; align-items:center; gap:8px; color:var(--cian); font-weight:700; }
+.fl-step .fl-info { font-size:.82rem; color:#4a5662; margin:4px 0 8px; }
+.fl-opts { display:flex; flex-wrap:wrap; gap:8px; }
+.fl-opt { flex:1 1 140px; min-height:44px; padding:8px 12px; border:2px solid var(--cian); border-radius:10px; background:#fff; color:var(--cian); font-weight:700; font-size:.88rem; cursor:pointer; text-align:left; }
+.fl-opt:hover, .fl-opt:focus-visible { background:var(--cian-bg); }
+.fl-edit { border:none; background:none; color:#5a6572; text-decoration:underline; font-size:.8rem; cursor:pointer; padding:4px; min-height:32px; }
+.fl-checks label { display:flex; gap:10px; align-items:flex-start; padding:8px 4px; border-bottom:1px solid #eef1f4; font-size:.88rem; cursor:pointer; }
+.fl-checks input { width:20px; height:20px; flex-shrink:0; margin-top:1px; accent-color: var(--cian); }
+.fl-go { margin-top:10px; width:100%; min-height:44px; border:none; border-radius:10px; background:var(--cian); color:#fff; font-weight:800; cursor:pointer; }
+.fl-out { margin-top:8px; }
+.fl-out .pt-esq { margin:8px 0; }
+.fl-ctrl { display:grid; gap:8px; margin:8px 0; }
+.fl-ctrl select { width:100%; min-height:44px; }
+.fl-ctrl label.fl-inline { display:flex; gap:10px; align-items:center; font-size:.88rem; }
+.fl-ctrl label.fl-inline input { width:20px; height:20px; accent-color: var(--cian); }
+.fl-tbl { width:100%; border-collapse:collapse; font-size:.8rem; margin:6px 0; }
+.fl-tbl th, .fl-tbl td { border:1px solid #e1e7ec; padding:5px 6px; text-align:left; vertical-align:top; }
+.fl-tbl th { background:var(--cian-bg); color:var(--cian); }
+.fl-reset { margin-top:8px; }
 </style>
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="manifest" href="manifest.json">
@@ -2162,6 +2241,10 @@ document.addEventListener('DOMContentLoaded', function(){
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/><path d="M9 14h6"/></svg>
       Tromboprofilaxis
     </button>
+    <button class="code-nav-btn cian" role="tab" aria-selected="false" aria-controls="code-parto" id="navtab-parto" data-code="parto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l3-9 4 18 3-9h6"/></svg>
+      Parto
+    </button>
   </nav>
 
   <main>
@@ -2502,7 +2585,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="result-title" id="result-qbl-title">Cargá al menos un componente</div>
             <div class="result-detail" id="result-qbl-detail"></div>
           </div>
-          <p class="card-source">Algoritmo propio CaVeSal® · Basado en: ACOG Committee Opinion No. 794, Quantitative Blood Loss in Obstetric Hemorrhage (2019). Umbral HPP: OMS 2025 (≥500 mL) y reVITALize/ACOG (≥1000 mL).</p>
+          <p class="card-source">Algoritmo propio CaVeSal® · Basado en: ACOG Committee Opinion No. 794, Quantitative Blood Loss in Obstetric Hemorrhage (2019). Criterio de HPP: <a href="https://iris.who.int/server/api/core/bitstreams/88bf11a5-93b6-4d6b-bdaa-856b46c8ed3c/content" target="_blank" rel="noopener">OMS/FIGO/ICM 2025, rec. 22</a> (≥300 mL con FC &gt;100, índice de choque &gt;1, PAS &lt;100 o PAD &lt;60, o ≥500 mL, para todas las vías; toma FC y PA de Signos vitales). Variante histórica: reVITALize/ACOG ≥1000 mL.</p>
         </div>
 
         <!-- 6.3 Coagulopatía con laboratorio convencional -->
@@ -2962,6 +3045,522 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
     </section>
 
+    <!-- ================= PARTO Y PUERPERIO ================= -->
+    <section class="code-section" id="code-parto" role="tabpanel" aria-labelledby="navtab-parto">
+      <div class="section-intro">
+        <h2>Parto y Puerperio — APP, RPM y MgSO4</h2>
+        <p>Conducta según edad gestacional en rotura prematura de membranas y amenaza de parto prematuro, tocolisis con cronómetro de dosis, contador de contracciones y esquemas de sulfato de magnesio con monitor de toxicidad.</p>
+      </div>
+
+      <div class="card" id="rpm-dx-card">
+        <h3>RPM — diagnóstico paso a paso</h3>
+        <p class="card-sub">Flujograma con casillas: respondé cada paso y avanza solo. Podés corregir cualquier respuesta con «cambiar». No reemplaza el examen clínico.</p>
+        <div class="fl-wrap" id="rpm-dx-flow"></div>
+        <p class="hint">Ecografía: oligoamnios con bolsa máxima menor a 2 cm o ILA de 5 cm o menos (mismos cortes de la calculadora prenatal). La bolsa máxima es el método preferido porque genera menos intervenciones sin peor resultado perinatal (<a href="https://onlinelibrary.wiley.com/doi/10.1002/jum.16406" target="_blank" rel="noopener">AIUM/ACOG/SMFM</a>). La ecografía orienta pero no confirma la RPM (<a href="https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf" target="_blank" rel="noopener">MSPBS 2018</a>).</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf" target="_blank" rel="noopener">MSPBS Paraguay, Manual Nacional de Normas de Atención de las Principales Patologías Obstétricas 2018, cap. 29</a> · <a href="https://www.nice.org.uk/guidance/ng25" target="_blank" rel="noopener">NICE NG25, sección 1.3</a>. Sensibilidad y especificidad: tabla de la <a href="../guia.html#tab-rpm">guía RPM (ficha 7)</a>; urea y creatinina: <a href="https://doi.org/10.1007/s00404-022-06501-8" target="_blank" rel="noopener">Alao 2023</a>.</p>
+      </div>
+
+      <div class="card" id="parto-card">
+        <h3>RPM y APP — conducta según edad gestacional</h3>
+        <p class="card-sub">Sub-módulo compartido: la maduración pulmonar y la neuroprotección se calculan igual en ambos escenarios. Por defecto, los cortes son los del MSPBS Paraguay; las variantes de otras guías figuran al pie.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="parto-eg">EG — semanas</label>
+            <input type="number" id="parto-eg" inputmode="numeric" min="20" max="42" step="1" placeholder="30">
+          </div>
+          <div class="field-group">
+            <label for="parto-eg-d">EG — días <span class="unit">(0-6)</span></label>
+            <input type="number" id="parto-eg-d" inputmode="numeric" min="0" max="6" step="1" placeholder="4">
+          </div>
+          <div class="field-group">
+            <label for="parto-escenario">Escenario</label>
+            <select id="parto-escenario">
+              <option value="rpm" selected>RPM (rotura de membranas)</option>
+              <option value="app">APP (amenaza de parto prematuro)</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint">Si cargaste la FUM en los datos comunes, la EG se copia sola mientras no la edites acá (p. ej., corregida por ecografía).</p>
+        <div class="result-box rb-neutro" id="result-parto">
+          <div class="result-title" id="result-parto-title">Cargá la edad gestacional para ver la conducta</div>
+          <div class="result-detail" id="result-parto-detail"></div>
+        </div>
+        <div id="rpm-cx-wrap" hidden>
+          <h4 style="margin:14px 0 4px;">Conducta en RPM — flujograma paso a paso</h4>
+          <div class="fl-wrap" id="rpm-cx-flow"></div>
+        </div>
+        <p class="hint">Variantes de corte (figuran en las guías): corticoides — ACOG hasta 33⁶/⁷ (y tardío 34⁰/⁷-36⁶/⁷), FIGO/OMS hasta 34⁶/⁷, NICE ofrecer 24⁰/⁷-33⁶/⁷ y considerar hasta 35⁶/⁷. Neuroprotección — NICE menor a 30 (zona gris 30⁰/⁷-33⁶/⁷). La calculadora usa los cortes del MSPBS Paraguay: corticoides 24⁰/⁷ a 34⁰/⁷ (desde 34¹/⁷ ya no) y neuroprotección menor a 32.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> MSPBS Paraguay, Manual Nacional de Normas de Atención de las Principales Patologías Obstétricas (2018): maduración pulmonar 24⁰/⁷ a 34⁰/⁷ semanas con betametasona 12 mg IM ×2 · neuroprotección menor a 32 semanas · ACOG/FIGO/NICE (variantes) · esquemas de ATB de latencia ACOG/NICHD. Ver <a href="../guia.html#tab-app">guía APP</a>, <a href="../guia.html#tab-rpm">guía RPM</a> y <a href="../bibliografia.html#calc-parto">bibliografía</a>.</p>
+      </div>
+
+      <div class="card" id="madurez-card">
+        <h3>Madurez pulmonar fetal — interpretación de pruebas</h3>
+        <p class="card-sub">Elegí la prueba disponible y cargá el resultado. Todas predicen bien la madurez y mal la inmadurez: un resultado inmaduro no garantiza distrés respiratorio.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="mad-test">Prueba</label>
+            <select id="mad-test">
+              <option value="quantus" selected>quantusFLM® (ecografía + IA, no invasiva)</option>
+              <option value="ls">Índice lecitina/esfingomielina (L/E) en LA</option>
+              <option value="pg">Fosfatidilglicerol (PG) en LA</option>
+              <option value="lbc">Recuento de cuerpos lamelares (RCL) en LA</option>
+            </select>
+          </div>
+          <div class="field-group" id="mad-val-wrap"></div>
+        </div>
+        <div class="result-box rb-neutro" id="result-madurez">
+          <div class="result-title" id="result-madurez-title">Cargá el resultado de la prueba</div>
+          <div class="result-detail" id="result-madurez-detail"></div>
+        </div>
+        <p class="hint">Uso clínico: si la interrupción está indicada, el resultado no cambia la decisión; y si puede postergarse ante un resultado inmaduro, no había indicación suficiente (consenso 2011, citado en <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4002188/" target="_blank" rel="noopener">Varner 2013</a>). En RPM antes de las 34 semanas puede tener lugar, incluso con LA de pool vaginal para el PG.</p>
+        <p class="card-source" id="mad-source"></p>
+      </div>
+
+      <div class="card" id="tocol-card">
+        <h3>Tocolisis — selector de fármaco y cronómetro de dosis</h3>
+        <p class="card-sub">Objetivo: retrasar el parto hasta 48 h para completar maduración pulmonar, neuroprotección y traslado a Nivel III. No se usa como mantenimiento prolongado.</p>
+        <div class="form-grid">
+          <div class="field-group" style="grid-column:1/-1;">
+            <label for="tocol-farmaco">Útero-inhibidor</label>
+            <select id="tocol-farmaco">
+              <option value="nifedipino" selected>Nifedipino (1.ª línea ACOG/FIGO)</option>
+              <option value="atosiban">Atosiban (1.ª línea NICE/RCOG · cardiópatas)</option>
+              <option value="isosuprina">Isosuprina (betamimético)</option>
+              <option value="indometacina">Indometacina (preferida antes de la semana 32)</option>
+            </select>
+          </div>
+        </div>
+        <div id="tocol-detalle"></div>
+        <h4 class="pt-h4">Cronómetro de tocolisis <span>alerta en cada hito de dosis · sigue corriendo aunque salgas de la app</span></h4>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="tocol-btn-iniciar">Iniciar tocolisis</button>
+          <button type="button" class="btn btn-outline btn-sm" id="tocol-btn-pausar">Pausar</button>
+          <button type="button" class="btn btn-outline btn-sm" id="tocol-btn-reset">Reiniciar</button>
+          <button type="button" class="btn btn-primary btn-sm" id="tocol-btn-confirmar" hidden>Confirmar dosis</button>
+        </div>
+        <div class="result-box rb-neutro" id="result-tocol">
+          <div class="result-title" id="result-tocol-title">Cronómetro detenido</div>
+          <div class="result-detail" id="result-tocol-detail">Elegí el fármaco y tocá «Iniciar tocolisis» cuando se aplica la primera dosis.</div>
+        </div>
+        <p class="hint">En cada hito de dosis el cronómetro avisa que corresponde la próxima toma; confirmala y sigue corriendo sin reiniciarse. La progesterona es prevención (cérvix corto, antecedente), no forma parte de la tocolisis aguda.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> ACOG · FIGO · NICE NG25 (nifedipino, atosiban, indometacina) · Ministerio de Salud de Neuquén (Argentina), Guía «Salud de la embarazada — parto pretérmino» (isosuprina) · NICE NG25 y SOGC 398 (progesterona 200 mg vaginal, prevención).</p>
+      </div>
+
+      <div class="card" id="contr-card">
+        <h3>Contador de contracciones — dinámica uterina en 10 minutos</h3>
+        <p class="card-sub">Tocá el botón cada vez que la paciente tiene una contracción (referida o palpada). Ventana móvil de 10 minutos.</p>
+        <button type="button" class="contr-btn-big" id="contr-btn">Contracción</button>
+        <div class="result-box rb-neutro" id="result-contr">
+          <div class="result-title" id="result-contr-title">Sin contracciones registradas</div>
+          <div class="result-detail" id="result-contr-detail">Registrá las contracciones de 10 minutos para evaluar la dinámica uterina y la respuesta a la uteroinhibición.</div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-outline btn-sm" id="contr-btn-reset">Nuevo registro (borrar)</button>
+        </div>
+        <div class="table-scroll" id="contr-tl" hidden>
+          <table class="al-tl">
+            <thead><tr><th>#</th><th>Hora</th><th>Intervalo</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint">El contador describe la dinámica uterina (frecuencia e intervalos); la respuesta a la uteroinhibición se evalúa con la tendencia del registro y el protocolo de APP. No reemplaza la monitorización fetal.</p>
+        <p class="hint">En trabajo de parto, el botón «Tomar del contador» del <a href="#pg-card">partograma dinámico</a> carga el número de contracciones de los últimos 10 minutos.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> OMS/FIGO Labour Care Guide (registro de dinámica uterina en 10 min) · NICE NG25 (reevaluación de la tocolisis).</p>
+      </div>
+
+      <div class="card" id="pg-card">
+        <h3>Partograma dinámico — Ministerio CLAP · OMS 2020 · ACOG 2024</h3>
+        <p class="card-sub">Registrá cada evaluación. El gráfico y la interpretación cambian según el modelo elegido; los datos cargados se conservan al cambiar de modelo.</p>
+        <div class="form-grid">
+          <div class="field-group" style="grid-column:1/-1;">
+            <label for="pg-modelo">Modelo de partograma</label>
+            <select id="pg-modelo">
+              <option value="mspbs" selected>Ministerio CLAP (MSPBS · OPS/OMS-CLAP) — desde 4 cm, líneas de alerta y acción</option>
+              <option value="oms">OMS 2020 — Labour Care Guide, desde 5 cm, tiempo por centímetro</option>
+              <option value="acog">ACOG 2024 — fase activa desde 6 cm, criterios de detención</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pg-paridad">Paridad</label>
+            <select id="pg-paridad">
+              <option value="nul" selected>Nulípara</option>
+              <option value="mul">Multípara</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pg-desc-u">Descenso en</label>
+            <select id="pg-desc-u">
+              <option value="h" selected>Planos de Hodge</option>
+              <option value="q">Quintos palpables (abdominal)</option>
+            </select>
+          </div>
+          <div class="field-group pg-only-acog">
+            <label for="pg-acog-cat">Contracciones (ACOG)</label>
+            <select id="pg-acog-cat">
+              <option value="sin" selected>Sin catéter — con el contador de contracciones</option>
+              <option value="con">Con catéter de presión intrauterina (UMV)</option>
+            </select>
+          </div>
+          <div class="field-group pg-only-acog">
+            <label class="pg-check"><input type="checkbox" id="pg-epidural"> Analgesia epidural</label>
+          </div>
+        </div>
+
+        <h4 class="pt-h4">Nueva evaluación</h4>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="pg-hora">Hora</label>
+            <input type="time" id="pg-hora">
+          </div>
+          <div class="field-group">
+            <label for="pg-dil">Dilatación <span class="unit">(cm)</span></label>
+            <input type="number" id="pg-dil" inputmode="decimal" min="0" max="10" step="0.5" placeholder="4">
+          </div>
+          <div class="field-group">
+            <label for="pg-desc">Descenso</label>
+            <select id="pg-desc"></select>
+          </div>
+          <div class="field-group">
+            <label for="pg-la">Membranas / líquido</label>
+            <select id="pg-la"></select>
+          </div>
+          <div class="field-group">
+            <label for="pg-cn">Contracciones <span class="unit">(en 10 min)</span></label>
+            <input type="number" id="pg-cn" inputmode="numeric" min="0" max="10" step="1" placeholder="3">
+            <button type="button" class="btn btn-outline btn-sm pg-mini" id="pg-btn-contador">Tomar del contador</button>
+          </div>
+          <div class="field-group pg-only-mspbs pg-only-acog">
+            <label for="pg-ci">Intensidad</label>
+            <select id="pg-ci"></select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-cd">Duración <span class="unit">(segundos)</span></label>
+            <input type="number" id="pg-cd" inputmode="numeric" min="0" max="180" step="5" placeholder="40">
+          </div>
+          <div class="field-group pg-only-acog pg-only-cat">
+            <label for="pg-mvu">Unidades Montevideo <span class="unit">(UMV)</span></label>
+            <input type="number" id="pg-mvu" inputmode="numeric" min="0" max="600" step="10" placeholder="200">
+          </div>
+          <div class="field-group">
+            <label for="pg-fcf">FCF basal <span class="unit">(lpm)</span></label>
+            <input type="number" id="pg-fcf" inputmode="numeric" min="50" max="220" step="1" placeholder="140">
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-dec">Desaceleraciones</label>
+            <select id="pg-dec">
+              <option value="N" selected>N — no</option>
+              <option value="E">E — tempranas</option>
+              <option value="L">L — tardías</option>
+              <option value="V">V — variables</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pg-mold">Moldeamiento</label>
+            <select id="pg-mold">
+              <option value="0" selected>0 — ausente</option>
+              <option value="+">+ — suturas juntas</option>
+              <option value="++">++ — superpuestas, reducibles</option>
+              <option value="+++">+++ — superpuestas, irreductibles</option>
+            </select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-pos">Posición fetal</label>
+            <select id="pg-pos">
+              <option value="A" selected>A — anterior</option>
+              <option value="P">P — posterior</option>
+              <option value="T">T — transversa</option>
+            </select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-caput">Caput</label>
+            <select id="pg-caput">
+              <option value="0" selected>0</option>
+              <option value="+">+</option>
+              <option value="++">++</option>
+              <option value="+++">+++</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pg-oxi">Oxitocina <span class="unit">(mU/min o gotas/min)</span></label>
+            <input type="text" id="pg-oxi" placeholder="Vacío si no recibe">
+          </div>
+          <div class="field-group">
+            <label for="pg-pulso">Pulso materno <span class="unit">(lpm)</span></label>
+            <input type="number" id="pg-pulso" inputmode="numeric" min="30" max="200" step="1" placeholder="84">
+          </div>
+          <div class="field-group">
+            <label for="pg-pas">PA sistólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="pg-pas" inputmode="numeric" min="50" max="250" step="1" placeholder="115">
+          </div>
+          <div class="field-group">
+            <label for="pg-pad">PA diastólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="pg-pad" inputmode="numeric" min="30" max="160" step="1" placeholder="70">
+          </div>
+          <div class="field-group">
+            <label for="pg-temp">Temperatura <span class="unit">(°C)</span></label>
+            <input type="number" id="pg-temp" inputmode="decimal" min="33" max="42" step="0.1" placeholder="36.8">
+          </div>
+          <div class="field-group">
+            <label for="pg-prot">Orina — proteínas</label>
+            <select id="pg-prot"><option value="" selected>No registrada</option><option value="-">Negativa</option><option value="+">+</option><option value="++">++</option><option value="+++">+++</option></select>
+          </div>
+          <div class="field-group">
+            <label for="pg-acet">Orina — acetona</label>
+            <select id="pg-acet"><option value="" selected>No registrada</option><option value="-">Negativa</option><option value="+">+</option><option value="++">++</option><option value="+++">+++</option></select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-acomp">Acompañante</label>
+            <select id="pg-acomp"><option value="S" selected>S — sí</option><option value="N">N — no</option><option value="D">D — no lo desea</option></select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-analg">Alivio del dolor</label>
+            <select id="pg-analg"><option value="S" selected>S — sí</option><option value="N">N — no</option><option value="D">D — no lo desea</option></select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-liqo">Líquidos orales</label>
+            <select id="pg-liqo"><option value="S" selected>S — sí</option><option value="N">N — no</option><option value="D">D — no lo desea</option></select>
+          </div>
+          <div class="field-group pg-only-oms">
+            <label for="pg-postura">Postura</label>
+            <select id="pg-postura"><option value="MO" selected>MO — móvil / elegida</option><option value="SP">SP — supina</option></select>
+          </div>
+          <div class="field-group pg-only-acog">
+            <label class="pg-check"><input type="checkbox" id="pg-pujo"> Pujo activo iniciado</label>
+          </div>
+          <div class="field-group" style="grid-column:1/-1;">
+            <label for="pg-plan">Evaluación y plan <span class="unit">(compartido con la mujer)</span></label>
+            <input type="text" id="pg-plan" placeholder="Ej.: deambulación, hidratación oral, reevaluar en 4 h">
+          </div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="pg-btn-reg">Registrar evaluación</button>
+          <button type="button" class="btn btn-outline btn-sm" id="pg-btn-undo">Deshacer última</button>
+          <button type="button" class="btn btn-outline btn-sm" id="pg-btn-reset">Nuevo partograma (borrar)</button>
+          <button type="button" class="btn btn-outline btn-sm" id="pg-btn-pp">Iniciar control 2 h posparto</button>
+        </div>
+        <p class="hint" id="pg-aviso" aria-live="polite"></p>
+
+        <div class="result-box rb-neutro" id="result-pg">
+          <div class="result-title" id="result-pg-title">Partograma sin evaluaciones</div>
+          <div class="result-detail" id="result-pg-detail">Ministerio CLAP: el partograma se abre con 4 cm de dilatación, sobre la línea de alerta.</div>
+        </div>
+        <div class="al-prox" id="pg-prox" hidden></div>
+        <div class="pg-graf table-scroll" id="pg-graf"></div>
+        <div class="pg-leyenda" id="pg-leyenda"></div>
+        <p class="hint"><a href="../guia.html#pg-guia" target="_blank" rel="noopener">Cómo usar el partograma (flujogramas en las guías) →</a></p>
+        <p class="card-source" id="pg-fuente"></p>
+      </div>
+
+      <div class="card" id="alu-card">
+        <h3>Alumbramiento — tercer período</h3>
+        <p class="card-sub">Desde la salida del recién nacido hasta la expulsión de la placenta. Cronometra el tiempo, registra el mecanismo y la integridad placentaria, y pasa al control de las 2 horas.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="alu-nac">Hora del nacimiento</label>
+            <input type="time" id="alu-nac">
+          </div>
+          <div class="field-group">
+            <label for="alu-manejo">Manejo del alumbramiento</label>
+            <select id="alu-manejo">
+              <option value="activo" selected>Activo (oxitocina + tracción controlada + masaje)</option>
+              <option value="fisio">Fisiológico / expectante</option>
+            </select>
+          </div>
+          <div class="field-group" style="grid-column:1/-1;">
+            <label class="pg-check"><input type="checkbox" id="alu-oxi" checked> Oxitocina 10 UI IM antes del primer minuto (MSPBS)</label>
+          </div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="alu-btn-ini">Iniciar cronómetro</button>
+        </div>
+        <h4 class="pt-h4">Expulsión de la placenta</h4>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="alu-pla">Hora de expulsión</label>
+            <input type="time" id="alu-pla">
+          </div>
+          <div class="field-group">
+            <label for="alu-mec">Mecanismo</label>
+            <select id="alu-mec">
+              <option value="schultze" selected>Schultze — cara fetal primero</option>
+              <option value="duncan">Duncan — cara materna primero</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="alu-integ">Placenta y membranas</label>
+            <select id="alu-integ">
+              <option value="completa" selected>Completas</option>
+              <option value="incompleta">Incompleta o dudosa</option>
+              <option value="membranas">Membranas desgarradas o incompletas</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="alu-sang">Pérdida medida al alumbramiento <span class="unit">(mL)</span></label>
+            <input type="number" id="alu-sang" inputmode="numeric" min="0" max="5000" step="10" placeholder="250">
+          </div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="alu-btn-pla">Registrar alumbramiento</button>
+          <button type="button" class="btn btn-outline btn-sm" id="alu-btn-reset">Borrar</button>
+        </div>
+        <div class="result-box rb-neutro" id="result-alu">
+          <div class="result-title" id="result-alu-title">Alumbramiento sin iniciar</div>
+          <div class="result-detail" id="result-alu-detail">Iniciá el cronómetro con la hora del nacimiento.</div>
+        </div>
+        <div class="al-acc" id="alu-pp-acc" hidden>
+          <button type="button" class="btn btn-primary btn-sm" id="alu-btn-pp">Pasar al control de 2 h posparto</button>
+        </div>
+        <p class="hint"><a href="../guia.html#alu-guia" target="_blank" rel="noopener">Alumbramiento en las guías (signos de desprendimiento, Schultze y Duncan) →</a></p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://iris.who.int/server/api/core/bitstreams/88bf11a5-93b6-4d6b-bdaa-856b46c8ed3c/content" target="_blank" rel="noopener">OMS/FIGO/ICM 2025, recomendación 30 y sus observaciones</a> (sin HPP: a los 15 min tracción controlada, movilizar o vaciar la vejiga; a los 30 min preparar extracción manual; rec. 31: profilaxis antibiótica en la extracción manual; rec. 22: criterio de HPP) · <a href="https://www.mspbs.gov.py/dependencias/portal/adjunto/0c51be-NORMASDECUIDADOS.pdf" target="_blank" rel="noopener">MSPBS Paraguay, Normas de Cuidados 2022, p. 69</a> (manejo activo). Variante: <a href="https://www.nice.org.uk/guidance/ng235/chapter/Recommendations" target="_blank" rel="noopener">NICE NG235, 1.10.20</a> define alumbramiento prolongado a los 30 min con manejo activo y a los 60 min con manejo fisiológico; la calculadora usa la OMS 2025 como preferida.</p>
+      </div>
+
+      <div class="card" id="pp-card">
+        <h3>Control posparto inmediato — 2 primeras horas</h3>
+        <p class="card-sub">Vigilancia cada 15 minutos durante 2 horas: tono uterino (globo de seguridad de Pinard), pérdida medida, FC y PA. Calcula el índice de choque y la pérdida acumulada, y avisa cuando se cumple el criterio de hemorragia posparto.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="pp-via">Vía de nacimiento</label>
+            <select id="pp-via">
+              <option value="vag" selected>Parto vaginal</option>
+              <option value="ces">Cesárea</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pp-inicio">Hora del alumbramiento</label>
+            <input type="time" id="pp-inicio">
+          </div>
+          <div class="field-group" style="grid-column:1/-1;">
+            <label for="pp-sang0">Pérdida medida hasta el alumbramiento <span class="unit">(mL — bolsa calibrada o pesaje)</span></label>
+            <input type="number" id="pp-sang0" inputmode="numeric" min="0" max="5000" step="10" placeholder="250">
+          </div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="pp-btn-ini">Iniciar control de 2 h</button>
+        </div>
+
+        <h4 class="pt-h4">Nuevo control</h4>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="pp-hora">Hora</label>
+            <input type="time" id="pp-hora">
+          </div>
+          <div class="field-group">
+            <label for="pp-tono">Útero / globo de Pinard</label>
+            <select id="pp-tono">
+              <option value="ok" selected>Contraído — globo de Pinard formado</option>
+              <option value="blando">Blando — Pinard no formado (atonía)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="pp-sang">Pérdida desde el control anterior <span class="unit">(mL)</span></label>
+            <input type="number" id="pp-sang" inputmode="numeric" min="0" max="5000" step="10" placeholder="20">
+          </div>
+          <div class="field-group">
+            <label for="pp-fc">FC materna <span class="unit">(lpm)</span></label>
+            <input type="number" id="pp-fc" inputmode="numeric" min="30" max="220" step="1" placeholder="84">
+          </div>
+          <div class="field-group">
+            <label for="pp-pas">PA sistólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="pp-pas" inputmode="numeric" min="40" max="250" step="1" placeholder="112">
+          </div>
+          <div class="field-group">
+            <label for="pp-pad">PA diastólica <span class="unit">(mmHg)</span></label>
+            <input type="number" id="pp-pad" inputmode="numeric" min="20" max="160" step="1" placeholder="70">
+          </div>
+          <div class="field-group">
+            <label for="pp-temp">Temperatura <span class="unit">(°C, opcional)</span></label>
+            <input type="number" id="pp-temp" inputmode="decimal" min="33" max="42" step="0.1" placeholder="36.8">
+          </div>
+          <div class="field-group" style="grid-column:1/-1;">
+            <label class="pg-check"><input type="checkbox" id="pp-hema"> Dolor perineal intenso o hematoma</label>
+            <label class="pg-check"><input type="checkbox" id="pp-vejiga"> Globo vesical / no orinó</label>
+            <label class="pg-check"><input type="checkbox" id="pp-conc"> Conciencia alterada (no alerta)</label>
+          </div>
+        </div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="pp-btn-reg">Registrar control</button>
+          <button type="button" class="btn btn-outline btn-sm" id="pp-btn-undo">Deshacer último</button>
+          <button type="button" class="btn btn-outline btn-sm" id="pp-btn-reset">Nuevo registro (borrar)</button>
+        </div>
+        <p class="hint" id="pp-aviso" aria-live="polite">Iniciá el control con la hora del alumbramiento. Se esperan 8 controles: a los 15, 30, 45, 60, 75, 90, 105 y 120 minutos.</p>
+
+        <div class="result-box rb-neutro" id="result-pp">
+          <div class="result-title" id="result-pp-title">Control posparto sin iniciar</div>
+          <div class="result-detail" id="result-pp-detail">MSPBS: vigilancia estricta en las primeras 2 horas posteriores al parto, en sala de partos o recuperación.</div>
+        </div>
+        <div class="al-acc" id="pp-cr-acc" hidden>
+          <button type="button" class="btn btn-primary btn-sm pp-btn-rojo" id="pp-btn-rojo">Activar Código Rojo (lleva FC, PA y pérdida)</button>
+        </div>
+        <div class="al-prox" id="pp-prox" hidden></div>
+        <div class="pp-slots" id="pp-slots"></div>
+        <div class="table-scroll" id="pp-tl" hidden>
+          <table class="al-tl">
+            <thead><tr><th>#</th><th>Hora</th><th>Min</th><th>Útero</th><th>Pérdida (acum.)</th><th>FC</th><th>PA</th><th>IC</th><th>Color</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint"><a href="../guia.html#pp-guia" target="_blank" rel="noopener">Flujograma del puerperio inmediato y mediato en las guías →</a> · Aplicá la <a href="#" id="pp-link-eapo">Escala de Alerta Precoz Obstétrica</a> en cada control.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.mspbs.gov.py/dependencias/portal/adjunto/0c51be-NORMASDECUIDADOS.pdf" target="_blank" rel="noopener">MSPBS Paraguay, Normas de Cuidados Preconcepcional, Prenatal, Parto, Nacimiento y Puerperio, 3ª ed. 2022</a> (pp. 68-71: útero contraído y globo de Pinard cada 15 min las 2 primeras horas, EAPO, Código Rojo ante alarma, luego controles cada 6 h) · criterio de hemorragia posparto: <a href="https://iris.who.int/server/api/core/bitstreams/88bf11a5-93b6-4d6b-bdaa-856b46c8ed3c/content" target="_blank" rel="noopener">OMS/FIGO/ICM 2025, recomendación 22</a> (≥300 mL con FC &gt;100, índice de choque &gt;1, PAS &lt;100 o PAD &lt;60, o ≥500 mL; vigilancia especial en las primeras 2 h) · <a href="https://www.ncbi.nlm.nih.gov/books/NBK513802/table/executivesummary.tu1/" target="_blank" rel="noopener">OMS 2018, recomendaciones 52 y 55</a> (tono uterino, sangrado, altura uterina, temperatura y pulso).</p>
+      </div>
+
+      <div class="card" id="mgso4-card">
+        <h3>Sulfato de magnesio — esquemas y monitor de toxicidad</h3>
+        <p class="card-sub">Elegí la indicación. El monitor registra frecuencia respiratoria, diuresis y reflejo rotuliano: son los parámetros que se alteran primero en la toxicidad.</p>
+        <div class="form-grid">
+          <div class="field-group" style="grid-column:1/-1;">
+            <label for="mg-indicacion">Indicación</label>
+            <select id="mg-indicacion">
+              <option value="neuroproteccion" selected>Neuroprotección fetal (menor a 32 semanas)</option>
+              <option value="preeclampsia">Preeclampsia grave / eclampsia (esquema Pritchard)</option>
+            </select>
+          </div>
+        </div>
+        <div id="mg-ataque"></div>
+        <div id="mg-mant"></div>
+        <div class="mg-goteo" id="mg-goteo"></div>
+        <p class="hint">El esquema puede repetirse (re-esquema) según la evolución. Para reglar el gotero del volutrol: 25 microgotas por minuto (aprox. 8-9 macrogotas por minuto). Vigilá en este orden: diuresis (riesgo de acumulación), reflejo rotuliano y frecuencia respiratoria. El gluconato de calcio es rescate ante depresión respiratoria o inestabilidad; no es una neutralización gramo a gramo.</p>
+
+        <h4 class="pt-h4">Monitor de toxicidad</h4>
+        <div class="pt-help" style="margin-top:4px">Vigilar en orden: diuresis, reflejo rotuliano, frecuencia respiratoria.</div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="mg-fr">FR materna <span class="unit">(rpm)</span></label>
+            <input type="number" id="mg-fr" inputmode="numeric" min="0" step="1" placeholder="16">
+          </div>
+          <div class="field-group">
+            <label for="mg-diu">Diuresis <span class="unit">(mL/h)</span></label>
+            <input type="number" id="mg-diu" inputmode="numeric" min="0" step="1" placeholder="60">
+          </div>
+          <div class="field-group">
+            <label for="mg-rotuliano">Reflejo rotuliano</label>
+            <select id="mg-rotuliano">
+              <option value="presente" selected>Presente</option>
+              <option value="abolido">Abolido</option>
+            </select>
+          </div>
+        </div>
+        <div class="result-box rb-neutro" id="result-mgso4">
+          <div class="result-title" id="result-mgso4-title">Cargá FR, diuresis y reflejo rotuliano</div>
+          <div class="result-detail" id="result-mgso4-detail"></div>
+        </div>
+        <div class="mg-alerta" id="mg-alerta" hidden><strong>Suspender el MgSO4.</strong> Si hay depresión respiratoria o inestabilidad: gluconato de calcio 10%, 1 g (10 cc) IV lenta en 3-5 min, como rescate. Reevaluar diuresis y esquema.</div>
+        <div class="al-acc">
+          <button type="button" class="btn btn-primary btn-sm" id="mg-btn-reg">Registrar control</button>
+          <button type="button" class="btn btn-outline btn-sm" id="mg-btn-esquema">Iniciar reloj del esquema</button>
+          <button type="button" class="btn btn-outline btn-sm" id="mg-btn-reset">Borrar registro</button>
+        </div>
+        <p class="hint" id="mg-aviso" aria-live="polite">Registrá cada control: FR, diuresis y reflejo rotuliano. Con el esquema iniciado, el reloj marca las 24 horas.</p>
+        <div class="al-prox" id="mg-prox" hidden></div>
+        <div class="table-scroll" id="mg-tl" hidden>
+          <table class="al-tl">
+            <thead><tr><th>#</th><th>Hora</th><th>FR</th><th>Diuresis</th><th>Rotuliano</th><th>Color</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> MSPBS Paraguay, Guía de Código Rojo Materno Neonatal 2ª ed. 2022 (pág. 71: ataque Pritchard 14 g, mantenimiento IV 1-2 g/h e IM) · MSPBS, Manual Nacional 2018 (neuroprotección menor a 32 semanas: carga 4 g EV en 20 min) · ACOG/OMS (antídoto y corte de FR). Variantes (Zuspan EV, Universidad de Antioquia) en la <a href="../guia.html">guía</a>.</p>
+      </div>
+    </section>
+
     <section class="ia-bridge" aria-label="Analizar con CaVeSal IA">
       <div class="ia-bridge-text">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 9a3 3 0 0 0 1 2.2A3 3 0 0 0 6 16a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"/><path d="M15 3a3 3 0 0 1 3 3v.2A3 3 0 0 1 20 9a3 3 0 0 1-1 2.2A3 3 0 0 1 18 16a3 3 0 0 1-3 3h0a3 3 0 0 1-3-3"/></svg>
@@ -2986,7 +3585,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- MODAL EJEMPLOS -->
 <div id="modal_ejemplos" style="display:none;position:fixed;inset:0;background:rgba(13,27,45,.6);z-index:9998;align-items:flex-end;justify-content:center;padding:0" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 28px;width:100%;max-width:520px;font-family:'Segoe UI',sans-serif">
+  <div style="background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 28px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;font-family:'Segoe UI',sans-serif">
     <div style="font-size:.92rem;font-weight:800;color:#0D1B2D;margin-bottom:2px">📋 Cargar caso de ejemplo</div>
     <div style="font-size:.76rem;color:#4a6274;margin-bottom:16px">Completa los signos vitales y las escalas con un caso ilustrativo. Hacé scroll para ver el resultado.</div>
 
@@ -3005,6 +3604,29 @@ document.addEventListener('DOMContentLoaded', function(){
       <div style="font-size:.76rem;color:#4a6274">qSOFA 3/3: FC 118, PAS 88, fiebre 39,2°C, desorientada</div>
     </button>
 
+    <div style="font-size:.8rem;font-weight:800;color:#0e7490;margin:4px 0 8px;text-transform:uppercase;letter-spacing:.03em">Parto</div>
+    <button type="button" onclick="cargarEjemploParto('pg-mspbs')" style="width:100%;text-align:left;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;cursor:pointer;display:block;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma Ministerio CLAP</div>
+      <div style="font-size:.75rem;color:#4a6274">Nulípara: 4 → 6 → 7 cm en 8 h, alcanza la línea de acción</div>
+    </button>
+    <button type="button" onclick="cargarEjemploParto('pg-oms')" style="width:100%;text-align:left;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;cursor:pointer;display:block;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma OMS 2020 (LCG)</div>
+      <div style="font-size:.75rem;color:#4a6274">Multípara: 6 cm sin cambios en 5 h, alerta por tiempo en fase activa</div>
+    </button>
+    <button type="button" onclick="cargarEjemploParto('pg-acog')" style="width:100%;text-align:left;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;cursor:pointer;display:block;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Partograma ACOG 2024</div>
+      <div style="font-size:.75rem;color:#4a6274">Nulípara con epidural, 6 cm 4 h con contracciones inadecuadas sin catéter</div>
+    </button>
+    <button type="button" onclick="cargarEjemploParto('alu')" style="width:100%;text-align:left;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;cursor:pointer;display:block;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Alumbramiento</div>
+      <div style="font-size:.75rem;color:#4a6274">Placenta a los 34 min, mecanismo de Duncan, membranas incompletas</div>
+    </button>
+    <button type="button" onclick="cargarEjemploParto('pp')" style="width:100%;text-align:left;background:#e6f6f8;border:2px solid #0e7490;border-radius:12px;padding:12px 14px;cursor:pointer;display:block;margin-bottom:8px">
+      <div style="font-size:.86rem;font-weight:700;color:#0e7490;margin-bottom:3px">Control posparto 2 h</div>
+      <div style="font-size:.75rem;color:#4a6274">Útero blando a los 45 min; 440 mL con FC 106 y PAS 98: criterio de HPP</div>
+    </button>
+    <div style="font-size:.74rem;color:#4a6274;margin-bottom:16px">Los 3 partogramas también están como casos guiados en el <a href="../simulador.html" style="color:#0e7490;font-weight:700">simulador</a>.</div>
+
     <button type="button" onclick="document.getElementById('modal_ejemplos').style.display='none'"
       style="width:100%;padding:10px;background:#f0f4f8;border:none;border-radius:8px;font-size:.8rem;color:#4a6274;cursor:pointer">
       Cancelar
@@ -3012,6 +3634,42 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 
+<script>
+/* Ejemplos precargados de Parto (partograma por modelo, alumbramiento, control posparto 2 h).
+   Valores ilustrativos coherentes con los casos pg1/pg2/pg3 del simulador. */
+function cargarEjemploParto(tipo){
+  var modal = document.getElementById('modal_ejemplos'); if (modal) modal.style.display = 'none';
+  var nav = document.getElementById('navtab-parto'); if (nav) nav.click();
+  var H = 3600000, M = 60000, now = Date.now();
+  function ev(o){
+    var b = { ts: now, dil: null, du: 'h', dv: 'I', la: 'C', cn: 3, ci: 'mod', cd: 40, mvu: null, fcf: 138, dec: 'N', mold: '0', pos: 'A', caput: '0', oxi: '', pulso: 84, pas: 116, pad: 72, temp: 36.8, prot: '', acet: '', acomp: 'S', analg: 'N', liqo: 'S', postura: 'MO', pujo: false, plan: '', modelo: 'mspbs' };
+    for (var k in o) b[k] = o[k]; return b;
+  }
+  var pg = window.CaVeSalPartograma, card = 'pg-card';
+  if (tipo === 'pg-mspbs' && pg) pg.cargar({ modelo: 'mspbs', paridad: 'nul', du: 'h', cat: 'sin', epi: false, ev: [
+    ev({ ts: now - 8*H, dil: 4, dv: 'I', cn: 3, ci: 'mod', cd: 35, fcf: 140, pulso: 82 }),
+    ev({ ts: now - 4*H, dil: 6, dv: 'II', cn: 4, ci: 'mod', cd: 40, fcf: 136, pulso: 86 }),
+    ev({ ts: now, dil: 7, dv: 'II', cn: 4, ci: 'mod', cd: 45, fcf: 142, pulso: 88, pas: 118, pad: 74 }) ] });
+  else if (tipo === 'pg-oms' && pg) pg.cargar({ modelo: 'oms', paridad: 'mul', du: 'q', cat: 'sin', epi: false, ev: [
+    ev({ ts: now - 9*H, dil: 5, du: 'q', dv: '4', modelo: 'oms', cn: 3, ci: 'mod', cd: 40, fcf: 136 }),
+    ev({ ts: now - 5*H, dil: 6, du: 'q', dv: '3', modelo: 'oms', cn: 3, ci: 'mod', cd: 40, fcf: 140 }),
+    ev({ ts: now, dil: 6, du: 'q', dv: '3', modelo: 'oms', cn: 2, ci: 'leve', cd: 30, fcf: 144, pulso: 92, analg: 'N' }) ] });
+  else if (tipo === 'pg-acog' && pg) pg.cargar({ modelo: 'acog', paridad: 'nul', du: 'q', cat: 'sin', epi: true, ev: [
+    ev({ ts: now - 8*H, dil: 5, du: 'q', dv: '4', modelo: 'acog', cn: 3, ci: 'mod', cd: 40, fcf: 138, analg: 'S' }),
+    ev({ ts: now - 4*H, dil: 6, du: 'q', dv: '3', modelo: 'acog', cn: 3, ci: 'mod', cd: 40, fcf: 140, analg: 'S' }),
+    ev({ ts: now, dil: 6, du: 'q', dv: '3', modelo: 'acog', cn: 2, ci: 'leve', cd: 30, fcf: 142, analg: 'S' }) ] });
+  else if (tipo === 'alu' && window.CaVeSalAlumbramiento) { card = 'alu-card';
+    window.CaVeSalAlumbramiento.cargar({ nac: now - 40*M, manejo: 'activo', oxi: true, pla: now - 6*M, mec: 'duncan', integ: 'membranas', sang: 320 }); }
+  else if (tipo === 'pp' && window.CaVeSalPosparto) { card = 'pp-card';
+    var t0 = now - 62*M;
+    window.CaVeSalPosparto.cargar({ via: 'vag', inicio: t0, sang0: 250, ev: [
+      { ts: t0 + 15*M, tono: 'ok', sang: 30, fc: 84, pas: 112, pad: 70, temp: 36.8, hema: false, vejiga: false, conc: false },
+      { ts: t0 + 30*M, tono: 'ok', sang: 20, fc: 88, pas: 110, pad: 68, temp: null, hema: false, vejiga: false, conc: false },
+      { ts: t0 + 45*M, tono: 'blando', sang: 60, fc: 96, pas: 104, pad: 64, temp: null, hema: false, vejiga: true, conc: false },
+      { ts: t0 + 60*M, tono: 'blando', sang: 80, fc: 106, pas: 98, pad: 60, temp: 37.1, hema: false, vejiga: false, conc: false } ] }); }
+  setTimeout(function(){ var c = document.getElementById(card); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+}
+</script>
 <script>
 function mostrarEjemplosEmerg(){
   var m = document.getElementById('modal_ejemplos');
@@ -3294,8 +3952,9 @@ function cargarEjemploEmerg(tipo){
     $("#result-velez-title").textContent = "Grado " + GRADE_LABEL[worst] + " (define el peor parámetro)";
 
     var alertTxt = "";
-    if ((sangrado && sangrado > 1000) || worst !== "compensado") {
-      alertTxt = " — ACTIVAR CÓDIGO ROJO (hemorragia >1000mL y/o signo de choque).";
+    var sgV = (pulso > 100) || (pas < 100) || (pulso && pas && pulso / pas > 1);
+    if ((sangrado && sangrado >= 500) || (sangrado && sangrado >= 300 && sgV) || worst !== "compensado") {
+      alertTxt = " — ACTIVAR CÓDIGO ROJO (criterio OMS 2025: ≥300 mL con signo anormal o ≥500 mL, o signo de choque).";
       showAlert("alert-codigo-rojo");
     } else {
       hideAlert("alert-codigo-rojo");
@@ -4203,9 +4862,18 @@ function cargarEjemploEmerg(tipo){
     if (!parts.length) { box("qbl", "rb-neutro", "Cargá al menos un componente", ""); return; }
     var ces = val("qbl-via") === "ces", out = parts.slice();
     var cls = "rb-verde", title = "Pérdida cuantificada: " + f0(total) + " mL";
-    if (total >= 1000) { cls = "rb-rojo"; out.push("≥1000 mL: hemorragia posparto (reVITALize/ACOG, cualquier vía). Activar Código Rojo."); }
-    else if (!ces && total >= 500) { cls = "rb-naranja"; out.push("≥500 mL en parto vaginal: hemorragia posparto (OMS 2025). Iniciar E-MOTIVE."); }
-    else if (ces) out.push("Cesárea: umbral de HPP ≥1000 mL.");
+    /* Criterio HPP OMS/FIGO/ICM 2025 (rec. 22), para todas las vías: ≥300 mL + signo anormal, o ≥500 mL */
+    var fc = num("in-fc"), pas = num("in-pas"), pad = num("in-pad"), sg = [];
+    if (!isNaN(fc) && fc > 100) sg.push("FC " + f0(fc) + " &gt;100");
+    if (!isNaN(fc) && !isNaN(pas) && pas > 0 && fc / pas > 1) sg.push("índice de choque " + (fc / pas).toFixed(2) + " &gt;1");
+    if (!isNaN(pas) && pas < 100) sg.push("PAS " + f0(pas) + " &lt;100");
+    if (!isNaN(pad) && pad < 60) sg.push("PAD " + f0(pad) + " &lt;60");
+    var sinSV = isNaN(fc) && isNaN(pas) && isNaN(pad);
+    if (total >= 1000) { cls = "rb-rojo"; out.push("<strong>≥1000 mL: hemorragia posparto</strong> (OMS 2025; también umbral clásico reVITALize/ACOG). Activar Código Rojo y escalar."); }
+    else if (total >= 500) { cls = "rb-rojo"; out.push("<strong>≥500 mL: hemorragia posparto (OMS 2025, rec. 22)</strong>" + (ces ? ", también en cesárea" : "") + ". Iniciar MOTIVE y activar Código Rojo."); }
+    else if (total >= 300 && sg.length) { cls = "rb-rojo"; out.push("<strong>≥300 mL con " + sg.join(", ") + ": hemorragia posparto (OMS 2025, rec. 22).</strong> Lo que más pesa es el signo de descompensación: iniciar MOTIVE y activar Código Rojo."); }
+    else if (total >= 300) { cls = "rb-naranja"; out.push("≥300 mL: " + (sinSV ? "cargá FC y PA arriba (Signos vitales). Con FC &gt;100, índice de choque &gt;1, PAS &lt;100 o PAD &lt;60 ya es hemorragia posparto (OMS 2025)." : "sin signos anormales por ahora; con cualquier signo anormal ya es hemorragia posparto (OMS 2025). Repetir FC y PA.")); }
+    if (ces && total < 1000 && total >= 300) out.push("Cesárea: la OMS 2025 aplica el mismo criterio a todas las vías y advierte no normalizar pérdidas mayores en cesárea; el umbral ≥1000 mL de reVITALize/ACOG queda como referencia histórica.");
     var v = ebv();
     if (!isNaN(v)) {
       var pct = total / v * 100, g;
@@ -4282,7 +4950,7 @@ function cargarEjemploEmerg(tipo){
           (rmax > 1.5 ? ". Con razón &gt;1,5 probablemente se necesiten &gt;15 mL/kg; vigilar sobrecarga (TACO)." : "; objetivo razón &lt;1,5."));
       }
       if (!cond.length) cond.push("Valores sin indicación de reposición de factores. Mantener vigilancia y repetir cada 30–60 min mientras sangre.");
-      cond.push("Ácido tranexámico 1 g IV en 10 min dentro de las 3 h (segunda dosis a los 30 min si persiste el sangrado) — OMS 2025.");
+      cond.push("Ácido tranexámico 1 g IV en 10 min (1 mL/min, no en bolo rápido) dentro de las 3 h del nacimiento; segunda dosis si continúa a los 30 min o reaparece dentro de las 24 h — OMS 2025, rec. 27.");
     }
     out.push("<strong>Conducta:</strong>" + li(cond));
     box("cid", pos ? "rb-rojo" : (miss.length ? "rb-neutro" : "rb-verde"), (pos ? "CID: " : "Score: ") + pts + " pts (corte " + cut + ")", li(out));
@@ -4743,6 +5411,1186 @@ function cargarEjemploEmerg(tipo){
 
 </script>
 <script>
+/* CaVeSal® Emergencias — Módulo Parto y Puerperio (fase 1)
+   Conducta RPM/APP por EG · maduración pulmonar · neuroprotección · tocolisis con cronómetro de
+   dosis · contador de contracciones · MgSO4 con esquemas y monitor de toxicidad.
+   Algoritmo propio CaVeSal®. Fuentes citadas en cada tarjeta y en bibliografia.html */
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  function fmtH(ms) {
+    var min = Math.floor(ms / 60000);
+    var h = Math.floor(min / 60), m = min % 60;
+    return (h > 0 ? h + " h " : "") + m + " min";
+  }
+  function horaCorta(ts) { var d = new Date(ts); return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2); }
+
+  /* ================= EG ================= */
+  function egValor() {
+    var sem = parseFloat($("parto-eg").value);
+    var d = parseFloat($("parto-eg-d").value);
+    if (isNaN(sem)) return null;
+    if (isNaN(d) || d < 0) d = 0;
+    return { sem: sem, d: Math.min(6, Math.round(d)), total: sem + Math.min(6, d) / 7 };
+  }
+
+  /* ================= Conducta RPM / APP ================= */
+  function recalcParto() {
+    var box = $("result-parto"), t = $("result-parto-title"), d = $("result-parto-detail");
+    if (!box) return;
+    var eg = egValor();
+    if (!eg) { box.className = "result-box rb-neutro"; t.textContent = "Cargá la edad gestacional para ver la conducta"; d.innerHTML = ""; return; }
+    var escn = $("parto-escenario").value;
+    var mad = eg.total >= 24 && eg.total <= 34;           /* MSPBS: 24 a 34 semanas = 24⁰/⁷ a 34⁰/⁷ inclusive; 34¹/⁷ ya no (decisión del autor, 24/oct/2026) */
+    var neuro = eg.total >= 24 && eg.total < 32;          /* MSPBS/ACOG/FIGO: menor a 32 semanas (desde viabilidad) */
+    var html = "";
+
+    if (escn === "rpm") { mad = false; neuro = false; }
+    else html += mad ? '<span class="pt-chip si">Maduración pulmonar: SÍ</span>' : '<span class="pt-chip no">Maduración pulmonar: no indicada</span>';
+    if (escn !== "rpm") html += neuro ? '<span class="pt-chip si">Neuroprotección MgSO4: SÍ</span>' : '<span class="pt-chip no">Neuroprotección: no indicada</span>';
+    html += "<div>";
+
+    if (mad) {
+      html += '<div class="pt-esq"><strong>Maduración pulmonar (MSPBS: 24⁰/⁷ a 34⁰/⁷ semanas).</strong> Betametasona 12 mg IM c/24 h (2 dosis) o dexametasona 6 mg IM c/12 h (4 dosis). Rescate: nueva dosis si pasaron más de 14 días del esquema inicial y hay riesgo de parto inminente en 7 días.</div>';
+    }
+    if (neuro) {
+      html += '<div class="pt-esq"><strong>Neuroprotección fetal (menor a 32 semanas).</strong> MgSO4: carga 4 g EV en 20 min + mantenimiento 1 g/h. Esquema completo y monitor de toxicidad en la tarjeta «Sulfato de magnesio» de esta pestaña.</div>';
+    }
+
+    if (escn === "rpm") {
+      html += '<div class="pt-esq"><strong>RPM: seguí el flujograma de conducta de abajo.</strong> Primero descarta criterios de interrupción inmediata (Triple I, desprendimiento, compromiso fetal, prolapso de cordón, trabajo de parto) y luego indica la conducta por edad gestacional, el esquema antibiótico y las opciones.</div>';
+    } else {
+      if (eg.total >= 34) {
+        html += '<div class="pt-esq"><strong>APP 34 semanas o más.</strong> Sin tocolisis de rutina: completar la maduración y definir la finalización según la indicación materna o fetal.</div>';
+      } else if (eg.total >= 24) {
+        html += '<div class="pt-esq"><strong>APP 24⁰/⁷-33⁶/⁷ — tocolisis restringida a 48 h si no hay contraindicaciones.</strong> Objetivo: completar corticoides' + (neuro ? " y MgSO4" : "") + ' y trasladar a Nivel III si corresponde. Contraindicaciones: corioamnionitis, sangrado activo, RCIU severo, PE grave/eclampsia inestable, óbito, malformación letal.</div>';
+      } else {
+        html += '<div class="pt-esq"><strong>Menor a 24 semanas.</strong> Conducta individualizada: la tocolisis y los corticoides no son de rutina en la periviabilidad.</div>';
+      }
+    }
+    html += "</div>";
+    /* color semántico para el puente de IA (solo results no neutros se transmiten):
+       verde = escenario de término/estable, amarillo = pretérmino con conducta activa */
+    var esTermino = (escn === "rpm" ? eg.total >= 37 : eg.total >= 34);
+    box.className = "result-box " + (esTermino ? "rb-verde" : "rb-amarillo");
+    t.textContent = "EG " + eg.sem + "s " + eg.d + "d — " + (escn === "rpm" ? "RPM" : "APP");
+    d.innerHTML = html;
+    if (window.cavesalRpmRefresh) window.cavesalRpmRefresh();
+  }
+
+  /* EG desde la FUM (datos comunes) mientras el usuario no cargue a mano */
+  function sincronizarEG() {
+    if (!($("parto-eg") && $("parto-eg-d"))) return;
+    var fumVal = $("in-fum") ? $("in-fum").value : "";
+    if (!fumVal) return;
+    if ($("parto-eg").value !== "") return;
+    var fum = new Date(fumVal + "T00:00:00");
+    var days = Math.floor((Date.now() - fum.getTime()) / 86400000);
+    if (days < 140 || days > 300) return;
+    $("parto-eg").value = Math.floor(days / 7);
+    $("parto-eg-d").value = days % 7;
+    recalcParto();
+  }
+
+  /* ================= Tocolisis ================= */
+  var TOCOL = {
+    nifedipino: {
+      nombre: "Nifedipino",
+      esquema: "<strong>Carga:</strong> 10-20 mg VO, repetir c/20 min (máximo 40 mg en la 1.ª hora). <strong>Mantenimiento:</strong> 10-20 mg VO c/6-8 h ×48 h (máximo 120-180 mg/día).",
+      alertas: '<div class="mg-alerta">Precaución con MgSO4 concomitante: vigilar la PA por riesgo de hipotensión; evitar si la PA está baja. Vigilar PA cada 20 min durante la carga.</div>',
+      hitos: [[1, "fin de la carga (1.ª hora)"], [48, "fin del esquema (48 h)"]],
+      cadencia: 6, cadenciaTxt: "dosis de mantenimiento"
+    },
+    atosiban: {
+      nombre: "Atosiban",
+      esquema: "<strong>Bolo:</strong> 6,75 mg IV en 1 min. <strong>Infusión:</strong> 300 mcg/min ×3 h, luego 100 mcg/min hasta completar 48 h.",
+      alertas: "",
+      hitos: [[3, "cambio a mantenimiento (300→100 mcg/min)"], [48, "fin del esquema (48 h)"]],
+      cadencia: 0, cadenciaTxt: ""
+    },
+    isosuprina: {
+      nombre: "Isosuprina",
+      esquema: "<strong>Infusión:</strong> 100 mg (10 ampollas de 10 mg) en 500 cc de dextrosa 5% o SF. Inicio 10 gotas/min (100 mcg/min), aumento de 10 gotas cada 15 min según respuesta, hasta 40 gotas/min (400 mcg/min). Duración 12 h (máximo 24 h).",
+      alertas: '<div class="mg-alerta">Control de FC materna (<120 lpm), TA (>90/50) y FCF (<160) en cada ajuste de goteo. No exceder 12-24 h de infusión.</div>',
+      hitos: [[2, "fin de la titulación de goteo (2 h)"], [12, "fin de la infusión (12 h)"], [24, "límite absoluto (24 h)"]],
+      cadencia: 0, cadenciaTxt: ""
+    },
+    indometacina: {
+      nombre: "Indometacina",
+      esquema: "<strong>Carga:</strong> 50-100 mg rectal/VO. <strong>Mantenimiento:</strong> 25-50 mg VO c/6 h, máximo 48 h.",
+      alertas: '<div class="mg-alerta">Solo antes de la semana 32: después, riesgo de cierre precoz del ductus y oligohidramnios.</div>',
+      hitos: [[48, "fin del esquema (48 h)"]],
+      cadencia: 6, cadenciaTxt: "dosis de mantenimiento"
+    }
+  };
+
+  var tocolEstado = null;
+  try { tocolEstado = JSON.parse(localStorage.getItem("cavesal_tocol_v1") || "null"); } catch (e) { }
+
+  function tocolPersist() { try { localStorage.setItem("cavesal_tocol_v1", JSON.stringify(tocolEstado)); } catch (e) { } }
+
+  function tocolTranscurrido() {
+    if (!tocolEstado) return 0;
+    return tocolEstado.acum + (tocolEstado.corriendo ? Date.now() - tocolEstado.inicio : 0);
+  }
+
+  /* secuencia ordenada de hitos: fijos + periódicos */
+  function tocolHitos(f) {
+    var arr = [];
+    (f.hitos || []).forEach(function (x) { arr.push({ h: x[0], txt: x[1] }); });
+    if (f.cadencia > 0) {
+      for (var t = f.cadencia; t <= 48; t += f.cadencia) {
+        if (!arr.some(function (x) { return x.h === t; })) arr.push({ h: t, txt: f.cadenciaTxt + " (" + t + " h)" });
+      }
+    }
+    arr.sort(function (a, b) { return a.h - b.h; });
+    return arr;
+  }
+
+  function renderTocol() {
+    var sel = $("tocol-farmaco").value, f = TOCOL[sel], det = $("tocol-detalle");
+    if (det) det.innerHTML = '<div class="pt-esq">' + f.esquema + "</div>" + f.alertas;
+
+    var box = $("result-tocol"), t = $("result-tocol-title"), d = $("result-tocol-detail");
+    var btnConf = $("tocol-btn-confirmar");
+    if (tocolEstado && tocolEstado.farmaco !== sel) { tocolEstado = null; tocolPersist(); }
+    if (!tocolEstado) {
+      box.className = "result-box rb-neutro";
+      t.textContent = "Cronómetro detenido";
+      d.textContent = "Elegí el fármaco y tocá «Iniciar tocolisis» cuando se aplica la primera dosis.";
+      if (btnConf) btnConf.hidden = true;
+      return;
+    }
+    var ms = tocolTranscurrido();
+    var fAct = TOCOL[tocolEstado.farmaco];
+    var hitos = tocolHitos(fAct);
+    var confirmados = tocolEstado.confirmados || [];
+    var vencido = null, proximo = null;
+    for (var i = 0; i < hitos.length; i++) {
+      var hMs = hitos[i].h * 3600000;
+      if (confirmados.indexOf(hitos[i].h) >= 0) continue;
+      if (ms >= hMs) { if (!vencido) vencido = hitos[i]; }
+      else { proximo = hitos[i]; break; }
+    }
+    box.className = "result-box rb-neutro";
+    t.textContent = fAct.nombre + " — " + fmtH(ms) + (tocolEstado.corriendo ? "" : " (pausado)");
+    if (vencido) {
+      box.className = "result-box rb-amarillo";
+      d.textContent = "Hito vencido sin confirmar: " + vencido.txt + ". Confirmá la dosis administrada para continuar con las alertas.";
+      if (btnConf) { btnConf.hidden = false; btnConf.textContent = "Confirmar: " + vencido.txt; }
+    } else if (proximo) {
+      if (btnConf) btnConf.hidden = true;
+      d.textContent = "Próximo hito: " + proximo.txt + " — en " + fmtH(proximo.h * 3600000 - ms) + ".";
+    } else {
+      box.className = "result-box rb-verde";
+      if (btnConf) btnConf.hidden = true;
+      d.textContent = "Todos los hitos confirmados. Esquema de 48 h completado.";
+    }
+  }
+
+  function tickTocol() { if (tocolEstado) renderTocol(); }
+
+  /* ================= Contador de contracciones ================= */
+  var contrTs = [];
+  try { contrTs = JSON.parse(localStorage.getItem("cavesal_contr_v1") || "[]"); } catch (e) { }
+
+  function renderContr() {
+    var box = $("result-contr"), t = $("result-contr-title"), d = $("result-contr-detail");
+    var now = Date.now();
+    var win = contrTs.filter(function (x) { return now - x <= 600000; });
+    var n = win.length;
+    box.className = "result-box rb-neutro";
+    if (n === 0) {
+      t.textContent = "Sin contracciones en los últimos 10 minutos";
+      d.textContent = contrTs.length ? "Última contracción registrada: hace " + fmtH(now - contrTs[contrTs.length - 1]) + "." : "Registrá las contracciones de 10 minutos para evaluar la dinámica uterina.";
+    } else if (n <= 2) {
+      box.className = "result-box rb-verde";
+      t.textContent = n + (n === 1 ? " contracción" : " contracciones") + " en 10 min (≈ " + n * 6 + "/h)";
+      d.textContent = "Dinámica escasa o en descenso: compará con el registro anterior para evaluar la tendencia de la uteroinhibición.";
+    } else if (n <= 4) {
+      box.className = "result-box rb-amarillo";
+      t.textContent = n + " contracciones en 10 min (≈ " + n * 6 + "/h)";
+      d.textContent = "Dinámica moderada: compará con el registro anterior para evaluar la tendencia.";
+    } else {
+      box.className = "result-box rb-rojo";
+      t.textContent = n + " contracciones en 10 min (≈ " + n * 6 + "/h)";
+      d.textContent = "Dinámica frecuente: reevaluación del esquema de tocolisis y de la causa (infección, desprendimiento).";
+    }
+    var tl = $("contr-tl"), tb = tl ? tl.querySelector("tbody") : null;
+    if (tl && tb) {
+      var ult = contrTs.slice(-12);
+      if (ult.length) {
+        tl.hidden = false;
+        var html = "";
+        for (var i = 0; i < ult.length; i++) {
+          var prev = i > 0 ? ult[i] - ult[i - 1] : null;
+          html += "<tr><td>" + (contrTs.length - ult.length + i + 1) + "</td><td>" + horaCorta(ult[i]) + "</td><td>" + (prev ? fmtH(prev) : "—") + "</td></tr>";
+        }
+        tb.innerHTML = html;
+      } else tl.hidden = true;
+    }
+  }
+
+  /* ================= MgSO4 ================= */
+  var MG_IND = {
+    neuroproteccion: {
+      ataque: '<div class="pt-esq"><strong>Neuroprotección fetal — carga:</strong> 4 g EV = 8 cc de MgSO4 al 50% + 12 cc de SF (jeringa de 20 cc), pasar en 20 minutos.</div>',
+      mant: '<div class="pt-esq"><strong>Mantenimiento:</strong> 1 g/h IV en volutrol (8 cc + 92 cc de SF = 100 cc), hasta el parto o completar 12 horas (Manual Nacional MSPBS 2018).</div>',
+      goteo: "<strong>Para reglar el volutrol de 1 g/h:</strong> 8 cc de MgSO4 50% (4 g) + 92 cc de SF = 100 cc → 25 microgotas/min (≈ 8-9 macrogotas/min).",
+      durHoras: 12
+    },
+    preeclampsia: {
+      ataque: '<div class="pt-esq"><strong>Ataque — esquema Pritchard (MSPBS), 14 g totales.</strong> 10 g IM: 5 g (10 cc) en cada nalga. 4 g EV: 8 cc diluidos en 12 cc de SF (jeringa de 20 cc), en 20 minutos.</div>',
+      mant: '<div class="pt-esq"><strong>Mantenimiento — elegí la vía:</strong></div>',
+      goteo: "<strong>Para reglar el volutrol:</strong> 1 g/h = 8 cc (4 g) + 92 cc de SF = 100 cc → 25 microgotas/min. 2 g/h = 16 cc (8 g) + 84 cc de SF = 100 cc → mismo goteo.",
+      durHoras: 24
+    }
+  };
+
+  function renderMg() {
+    var ind = $("mg-indicacion").value, data = MG_IND[ind];
+    $("mg-ataque").innerHTML = data.ataque;
+    var mant = data.mant;
+    if (ind === "preeclampsia") {
+      mant += '<div class="form-grid"><div class="field-group" style="grid-column:1/-1;"><label for="mg-via">Vía de mantenimiento</label><select id="mg-via"><option value="iv" selected>IV — volutrol 100 cc</option><option value="im">IM — 5 g por horario</option></select></div><div class="field-group" style="grid-column:1/-1;" id="mg-via-det"></div></div>';
+    }
+    $("mg-mant").innerHTML = mant;
+    if (ind === "preeclampsia") {
+      var sel = $("mg-via");
+      var det = $("mg-via-det");
+      function viaDetalle() {
+        if (sel.value === "iv") {
+          det.innerHTML = '<label for="mg-dosis-iv">Dosis IV</label><select id="mg-dosis-iv"><option value="1" selected>1 g/h</option><option value="2">2 g/h</option></select><div id="mg-dosis-det" class="pt-esq" style="margin-top:8px;"></div>';
+          var selD = det.querySelector("#mg-dosis-iv");
+          function dosisDetalle() {
+            det.querySelector("#mg-dosis-det").innerHTML = selD.value === "1"
+              ? "<strong>1 g/h:</strong> 8 cc (4 g) + 92 cc de SF = 100 cc, a 25 microgotas/min. Por 24 horas."
+              : "<strong>2 g/h:</strong> 16 cc (8 g) + 84 cc de SF = 100 cc, al mismo goteo (25 microgotas/min). Por 24 horas.";
+          }
+          selD.addEventListener("change", dosisDetalle);
+          dosisDetalle();
+        } else {
+          det.innerHTML = '<div class="pt-esq"><strong>Texto oficial (MSPBS):</strong> 5 g (10 cc) en una nalga, alternando la nalga en cada horario (c/4 h). <strong>Opción 2 (variante de administración CaVeSal®):</strong> 5 cc (2,5 g) en cada nalga en el mismo horario, repitiendo en el siguiente horario. <strong>En ambas:</strong> la dosis es 5 g POR HORARIO (10 cc totales). <strong>Advertencia anti-subdosis:</strong> el error frecuente es aplicar 5 cc TOTALES por horario (2,5 g) creyendo que es la dosis completa.</div>';
+        }
+      }
+      sel.addEventListener("change", viaDetalle);
+      viaDetalle();
+    }
+    $("mg-goteo").innerHTML = data.goteo;
+  }
+
+  function renderMgTox() {
+    var box = $("result-mgso4"), t = $("result-mgso4-title"), d = $("result-mgso4-detail"), al = $("mg-alerta");
+    var fr = parseFloat($("mg-fr").value);
+    var diu = parseFloat($("mg-diu").value);
+    var rot = $("mg-rotuliano").value;
+    var tieneFr = !isNaN(fr), tieneDiu = !isNaN(diu);
+    var rojoResp = rot === "abolido" || (tieneFr && fr < 12);
+    var rojoDiu = tieneDiu && diu < 30;
+    if (!tieneFr && !tieneDiu && rot !== "abolido") {
+      box.className = "result-box rb-neutro";
+      t.textContent = "Cargá FR, diuresis y reflejo rotuliano";
+      d.textContent = "";
+      al.hidden = true;
+      return;
+    }
+    if (rojoResp) {
+      al.hidden = false;
+      box.className = "result-box rb-rojo";
+      t.textContent = "Suspender el MgSO4";
+      var partes = [];
+      if (tieneFr) partes.push("FR " + fr + " rpm");
+      if (tieneDiu) partes.push("diuresis " + diu + " mL/h");
+      partes.push("rotuliano " + rot);
+      d.textContent = partes.join(" · ") + ". Si hay depresión respiratoria o inestabilidad: gluconato de calcio 10%, 1 g (10 cc) IV lenta en 3-5 min, como rescate.";
+    } else if (rojoDiu) {
+      al.hidden = false;
+      box.className = "result-box rb-rojo";
+      t.textContent = "Suspender la infusión y reevaluar";
+      d.textContent = "Diuresis " + diu + " mL/h (<30): riesgo de acumulación. Descartar causas de oliguria y reevaluar el esquema antes de continuar.";
+    } else if (tieneFr && fr < 16) {
+      al.hidden = true;
+      box.className = "result-box rb-amarillo";
+      t.textContent = "Vigilancia estrecha — FR en zona límite";
+      d.textContent = "FR " + fr + " rpm (12-15)" + (tieneDiu ? " · diuresis " + diu + " mL/h" : "") + " · rotuliano " + rot + ". Reevaluar FR, diuresis y reflejos en la próxima hora.";
+    } else if (!tieneFr || !tieneDiu) {
+      al.hidden = true;
+      box.className = "result-box rb-neutro";
+      t.textContent = "Datos incompletos";
+      d.textContent = "Lo cargado está dentro de parámetros, pero faltan controles para descartar toxicidad: FR, diuresis y reflejo rotuliano.";
+    } else {
+      al.hidden = true;
+      box.className = "result-box rb-verde";
+      t.textContent = "Sin criterios de suspensión";
+      d.textContent = (tieneFr ? "FR " + fr + " rpm" : "FR sin cargar") + (tieneDiu ? " · diuresis " + diu + " mL/h" : " · diuresis sin cargar") + " · rotuliano " + rot + ". Continuar el esquema con controles por pauta.";
+    }
+  }
+
+  /* monitor MgSO4: registro + reloj del esquema */
+  var mgMon = null;
+  try { mgMon = JSON.parse(localStorage.getItem("cavesal_mgso4_mon_v1") || "null"); } catch (e) { }
+
+  function colorMgTox(fr, diu, rot) {
+    if (rot === "abolido" || fr < 12 || diu < 30) return "rojo";
+    if (fr < 16) return "amarillo";
+    return "verde";
+  }
+
+  function mgPersist() { try { localStorage.setItem("cavesal_mgso4_mon_v1", JSON.stringify(mgMon)); } catch (e) { } }
+
+  function renderMgMon() {
+    if (!mgMon) return;
+    var prox = $("mg-prox"), tl = $("mg-tl"), tb = tl ? tl.querySelector("tbody") : null;
+    if (mgMon.controles && mgMon.controles.length && tb) {
+      tl.hidden = false;
+      var html = "";
+      for (var i = 0; i < mgMon.controles.length; i++) {
+        var c = mgMon.controles[i];
+        html += "<tr><td>" + (i + 1) + "</td><td>" + horaCorta(c.ts) + "</td><td>" + c.fr + "</td><td>" + c.diu + "</td><td>" + c.rot + "</td><td>" + c.color + "</td></tr>";
+      }
+      tb.innerHTML = html;
+    }
+    if (mgMon.esquemaInicio) {
+      var dur = (mgMon.durHoras || 24) * 3600000;
+      var ms = Date.now() - mgMon.esquemaInicio;
+      if (ms < dur) {
+        prox.hidden = false;
+        prox.innerHTML = "<strong>Esquema de " + mgMon.durHoras + " h:</strong> transcurridas " + fmtH(ms) + " — restan " + fmtH(dur - ms) + ".";
+      } else {
+        prox.hidden = false;
+        prox.innerHTML = "<strong>Esquema de " + mgMon.durHoras + " h completado.</strong> Evaluar repetición del esquema (re-esquema) según evolución.";
+      }
+    }
+  }
+
+  /* ================= Init ================= */
+  document.addEventListener("DOMContentLoaded", function () {
+    /* conducta */
+    ["parto-eg", "parto-eg-d"].forEach(function (id) { var el = $(id); if (el) el.addEventListener("input", recalcParto); });
+    var escSel = $("parto-escenario"); if (escSel) escSel.addEventListener("change", recalcParto);
+    var inFum = $("in-fum");
+    if (inFum) inFum.addEventListener("input", function () { sincronizarEG(); });
+    sincronizarEG();
+    recalcParto();
+
+    /* tocolisis: restaurar fármaco guardado antes del primer render */
+    var tf = $("tocol-farmaco");
+    if (tf && tocolEstado && TOCOL[tocolEstado.farmaco]) tf.value = tocolEstado.farmaco;
+    if (tf) tf.addEventListener("change", function () {
+      if (tocolEstado && tocolEstado.farmaco !== tf.value) { tocolEstado = null; tocolPersist(); }
+      renderTocol();
+    });
+    var bi = $("tocol-btn-iniciar"), bp = $("tocol-btn-pausar"), br = $("tocol-btn-reset"), bc = $("tocol-btn-confirmar");
+    if (bi) bi.addEventListener("click", function () {
+      tocolEstado = { farmaco: $("tocol-farmaco").value, inicio: Date.now(), acum: 0, corriendo: true, confirmados: [] };
+      tocolPersist(); renderTocol();
+    });
+    if (bp) bp.addEventListener("click", function () {
+      if (!tocolEstado) return;
+      if (tocolEstado.corriendo) { tocolEstado.acum += Date.now() - tocolEstado.inicio; tocolEstado.corriendo = false; }
+      else { tocolEstado.inicio = Date.now(); tocolEstado.corriendo = true; }
+      tocolPersist(); renderTocol();
+    });
+    if (br) br.addEventListener("click", function () { tocolEstado = null; tocolPersist(); renderTocol(); });
+    if (bc) bc.addEventListener("click", function () {
+      if (!tocolEstado) return;
+      var fAct = TOCOL[tocolEstado.farmaco];
+      var ms = tocolTranscurrido();
+      var hitos = tocolHitos(fAct);
+      for (var i = 0; i < hitos.length; i++) {
+        if (ms >= hitos[i].h * 3600000 && (tocolEstado.confirmados || []).indexOf(hitos[i].h) < 0) {
+          tocolEstado.confirmados = tocolEstado.confirmados || [];
+          tocolEstado.confirmados.push(hitos[i].h);
+          break;
+        }
+      }
+      tocolPersist(); renderTocol();
+    });
+    renderTocol();
+    setInterval(tickTocol, 15000);
+
+    /* contracciones: la ventana se desliza sola */
+    var cb = $("contr-btn");
+    if (cb) cb.addEventListener("click", function () {
+      contrTs.push(Date.now());
+      try { localStorage.setItem("cavesal_contr_v1", JSON.stringify(contrTs)); } catch (e) { }
+      renderContr();
+    });
+    var cr = $("contr-btn-reset");
+    if (cr) cr.addEventListener("click", function () {
+      contrTs = [];
+      try { localStorage.removeItem("cavesal_contr_v1"); } catch (e) { }
+      renderContr();
+    });
+    renderContr();
+    setInterval(renderContr, 15000);
+
+    /* MgSO4 */
+    var mi = $("mg-indicacion"); if (mi) mi.addEventListener("change", renderMg);
+    renderMg();
+    ["mg-fr", "mg-diu"].forEach(function (id) { var el = $(id); if (el) el.addEventListener("input", renderMgTox); });
+    var mr = $("mg-rotuliano"); if (mr) mr.addEventListener("change", renderMgTox);
+    renderMgTox();
+    var mreg = $("mg-btn-reg");
+    if (mreg) mreg.addEventListener("click", function () {
+      var fr = parseFloat($("mg-fr").value), diu = parseFloat($("mg-diu").value), rot = $("mg-rotuliano").value;
+      if (isNaN(fr) || isNaN(diu)) return;
+      if (!mgMon) mgMon = { controles: [], esquemaInicio: null };
+      mgMon.controles.push({ ts: Date.now(), fr: fr, diu: diu, rot: rot, color: colorMgTox(fr, diu, rot) });
+      mgPersist(); renderMgMon();
+    });
+    var mesq = $("mg-btn-esquema");
+    if (mesq) mesq.addEventListener("click", function () {
+      if (!mgMon) mgMon = { controles: [], esquemaInicio: null };
+      mgMon.esquemaInicio = Date.now();
+      mgMon.durHoras = MG_IND[$("mg-indicacion").value].durHoras;
+      mgPersist(); renderMgMon();
+    });
+    var mres = $("mg-btn-reset");
+    if (mres) mres.addEventListener("click", function () {
+      mgMon = null;
+      try { localStorage.removeItem("cavesal_mgso4_mon_v1"); } catch (e) { }
+      var tl = $("mg-tl"), prox = $("mg-prox");
+      if (tl) tl.hidden = true; if (prox) prox.hidden = true;
+    });
+    renderMgMon();
+    setInterval(renderMgMon, 30000);
+  });
+
+  window.CaVeSalParto = {
+    egValor: egValor, TOCOL: TOCOL, MG_IND: MG_IND, tocolHitos: tocolHitos,
+    _tocol: function () { return tocolEstado; },
+    _contr: function () { return contrTs; },
+    _mg: function () { return mgMon; },
+    _simularTocol: function (h) { /* QA: simular tiempo transcurrido */
+      if (tocolEstado) { tocolEstado.acum = h * 3600000; tocolEstado.corriendo = false; tocolPersist(); renderTocol(); }
+    }
+  };
+})();
+</script>
+<script>
+/* CaVeSal® Emergencias — Partograma dinámico (fase 2)
+   Tres modelos seleccionables: Ministerio CLAP (MSPBS · OPS/OMS-CLAP, predeterminado), OMS 2020 (Labour Care Guide)
+   y ACOG 2024 (CPG 8). Algoritmo y diseño propios CaVeSal®; no reproduce los formularios originales. */
+(function () {
+  "use strict";
+  var KEY = "cavesal_pg_v1", H = 3600000;
+  function $(id) { return document.getElementById(id); }
+  function hc(ts) { var d = new Date(ts); return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2); }
+  function fmtH(ms) { if (ms < 0) ms = 0; var m = Math.round(ms / 60000), h = Math.floor(m / 60); return (h ? h + " h " : "") + (m % 60) + " min"; }
+  function num(id) { var v = parseFloat(String($(id).value).replace(",", ".")); return isNaN(v) ? null : v; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  if (!$("pg-card")) return;
+
+  var st = { modelo: "mspbs", paridad: "nul", du: "h", cat: "sin", epi: false, ev: [] };
+  try { var s0 = JSON.parse(localStorage.getItem(KEY) || "null"); if (s0 && s0.ev) st = s0; } catch (e) { }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+
+  var NOMBRE = { mspbs: "Ministerio CLAP", oms: "OMS 2020", acog: "ACOG 2024" };
+  var HODGE = [["", "No registrado"], ["L", "Libre (sobre I plano)"], ["I", "I plano"], ["II", "II plano"], ["III", "III plano"], ["IV", "IV plano"]];
+  var HODGE_Y = { L: 10, I: 8, II: 6, III: 4, IV: 2 };
+  var QUINTOS = [["", "No registrado"], ["5", "5/5"], ["4", "4/5"], ["3", "3/5"], ["2", "2/5"], ["1", "1/5"], ["0", "0/5"]];
+  var LA_TRAD = [["I", "I — membranas íntegras"], ["C", "C — líquido claro"], ["M", "M — meconial"], ["S", "S — sanguinolento"]];
+  var LA_OMS = [["I", "I — membranas íntegras"], ["C", "C — líquido claro"], ["M+", "M+ — meconio leve"], ["M++", "M++ — meconio moderado"], ["M+++", "M+++ — meconio espeso"], ["B", "B — sanguinolento"]];
+  var INT_MSPBS = [["", "No registrada"], ["leve", "Leve — menor de 20 s"], ["mod", "Moderada — 20 a 40 s"], ["fuerte", "Fuerte — mayor de 40 s"]];
+  var INT_ACOG = [["", "No registrada"], ["leve", "Leve (palpación)"], ["mod", "Moderada (palpación)"], ["fuerte", "Fuerte (palpación)"]];
+  var TONO = { leve: "#cfeaee", mod: "#5bb8c4", fuerte: "#00636c" };
+  var LCG_TH = { 5: 6, 6: 5, 7: 3, 8: 2.5, 9: 2 };
+
+  function fill(sel, opts, keep) {
+    var v = keep ? sel.value : null;
+    sel.innerHTML = opts.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + "</option>"; }).join("");
+    if (v != null && opts.some(function (o) { return o[0] === v; })) sel.value = v;
+  }
+  function syncForm() {
+    var card = $("pg-card");
+    card.setAttribute("data-modelo", st.modelo);
+    card.setAttribute("data-cat", st.cat);
+    $("pg-modelo").value = st.modelo; $("pg-paridad").value = st.paridad; $("pg-desc-u").value = st.du;
+    $("pg-acog-cat").value = st.cat; $("pg-epidural").checked = !!st.epi;
+    fill($("pg-desc"), st.du === "q" ? QUINTOS : HODGE, true);
+    fill($("pg-la"), st.modelo === "oms" ? LA_OMS : LA_TRAD, true);
+    fill($("pg-ci"), st.modelo === "acog" ? INT_ACOG : INT_MSPBS, true);
+    if (!$("pg-hora").value) $("pg-hora").value = hc(Date.now());
+  }
+
+  /* ---------- utilidades de registro ---------- */
+  function last() { return st.ev[st.ev.length - 1] || null; }
+  function descY(e) {
+    if (!e || e.dv === "" || e.dv == null) return null;
+    if (e.du === "q") return 2 * parseInt(e.dv, 10);
+    return HODGE_Y[e.dv] != null ? HODGE_Y[e.dv] : null;
+  }
+  function descTxt(e) { if (!e || e.dv === "" || e.dv == null) return "—"; return e.du === "q" ? e.dv + "/5" : (e.dv === "L" ? "Libre" : e.dv + " pl."); }
+  function laMec(la) { return /^M/.test(la || ""); }
+  function membRotas(la) { return la && la !== "I"; }
+  function ctxtInt(ci) { return ci === "leve" ? "leve" : ci === "mod" ? "moderada" : ci === "fuerte" ? "fuerte" : ""; }
+
+  function tsDeHora(hhmm) {
+    var p = /^(\d{1,2}):(\d{2})$/.exec(hhmm || ""), now = Date.now();
+    if (!p) return now;
+    var d = new Date(); d.setHours(+p[1], +p[2], 0, 0); var ts = d.getTime();
+    var L = last();
+    if (L) { while (ts < L.ts - 60000) ts += 24 * H; }
+    else if (ts > now + 10 * 60000) ts -= 24 * H;
+    return ts;
+  }
+
+  function registrar() {
+    var dil = num("pg-dil"), av = $("pg-aviso");
+    if (dil === null || dil < 0 || dil > 10) { av.textContent = "Cargá la dilatación (0 a 10 cm) para registrar la evaluación."; return; }
+    var ts = tsDeHora($("pg-hora").value), L = last();
+    if (L && dil < L.dil) { av.textContent = "Atención: la dilatación registrada es menor que la anterior (" + L.dil + " cm). Se registró igual; verificá el tacto."; }
+    else av.textContent = "";
+    var e = {
+      ts: ts, dil: dil, du: st.du, dv: $("pg-desc").value, la: $("pg-la").value,
+      cn: num("pg-cn"), ci: $("pg-ci").value, cd: num("pg-cd"), mvu: num("pg-mvu"),
+      fcf: num("pg-fcf"), dec: $("pg-dec").value, mold: $("pg-mold").value, pos: $("pg-pos").value, caput: $("pg-caput").value,
+      oxi: $("pg-oxi").value.trim(), pulso: num("pg-pulso"), pas: num("pg-pas"), pad: num("pg-pad"), temp: num("pg-temp"),
+      prot: $("pg-prot").value, acet: $("pg-acet").value,
+      acomp: $("pg-acomp").value, analg: $("pg-analg").value, liqo: $("pg-liqo").value, postura: $("pg-postura").value,
+      pujo: $("pg-pujo").checked, plan: $("pg-plan").value.trim(), modelo: st.modelo
+    };
+    st.ev.push(e); st.ev.sort(function (a, b) { return a.ts - b.ts; });
+    save();
+    ["pg-dil", "pg-cn", "pg-cd", "pg-mvu", "pg-fcf", "pg-pulso", "pg-pas", "pg-pad", "pg-temp", "pg-plan"].forEach(function (id) { $(id).value = ""; });
+    $("pg-prot").value = ""; $("pg-acet").value = "";
+    $("pg-hora").value = hc(Date.now());
+    render();
+  }
+
+  /* ---------- Ministerio CLAP ---------- */
+  function apertura() {
+    for (var i = 0; i < st.ev.length; i++) if (st.ev[i].dil >= 4 && st.ev[i].dil < 10) return st.ev[i];
+    for (i = 0; i < st.ev.length; i++) if (st.ev[i].dil >= 4) return st.ev[i];
+    return null;
+  }
+  function zonaMspbs(e, ap) {
+    if (!ap || e.dil < 4 || e.ts < ap.ts) return null;
+    var tA = ap.ts + (e.dil - ap.dil) * H;
+    if (e.ts <= tA + 60000) return "verde";
+    if (e.ts < tA + 4 * H) return "amarillo";
+    return "rojo";
+  }
+  function primero10() { for (var i = 0; i < st.ev.length; i++) if (st.ev[i].dil >= 10) return st.ev[i]; return null; }
+
+  function evalMspbs(now) {
+    var L = last(), ap = apertura(), r = { cls: "rb-neutro", t: "", d: "", lista: [], prox: null };
+    if (!L) { r.t = "Partograma sin evaluaciones"; r.d = "Ministerio CLAP: el partograma se abre con 4 cm de dilatación, sobre la línea de alerta."; return r; }
+    if (!ap) { r.t = "Fase latente (" + L.dil + " cm) — partograma aún no abierto"; r.d = "La norma MSPBS abre el partograma con 4 cm, registrando el primer punto sobre la línea de alerta. Seguí registrando FCF, contracciones y signos vitales."; return r; }
+    var p10 = primero10();
+    if (p10) {
+      var ex = now - p10.ts;
+      r.cls = ex >= 2 * H ? "rb-rojo" : "rb-verde";
+      r.t = ex >= 2 * H ? "Expulsivo de " + fmtH(ex) + ": superó las 2 horas" : "Período expulsivo — " + fmtH(ex) + " desde dilatación completa";
+      r.d = "La norma MSPBS describe una duración del expulsivo de hasta 2 horas. Signos vitales maternos y FCF frecuentes; pujo espontáneo, libre posición." + (ex >= 2 * H ? " <strong>Evaluación médica inmediata para decidir la vía del parto.</strong>" : "");
+      return r;
+    }
+    var z = zonaMspbs(L, ap), tA = ap.ts + (L.dil - ap.dil) * H;
+    if (z === "verde") {
+      r.cls = "rb-verde"; r.t = "Evolución normal — sobre la línea de alerta o a su izquierda (" + L.dil + " cm)";
+      r.d = "Continuar el plan: libre deambulación, hidratación oral, alimentación liviana y cambios de posición. Si no hay progreso, la curva alcanza la línea de alerta a las <strong>" + hc(tA) + "</strong> y la de acción a las <strong>" + hc(tA + 4 * H) + "</strong>.";
+    } else if (z === "amarillo") {
+      r.cls = "rb-amarillo"; r.t = "Desvío a la derecha de la línea de alerta (" + L.dil + " cm)";
+      r.d = "Evaluar las causas (dinámica uterina, estática fetal, probable desproporción) y corregir. Las 4 horas entre la línea de alerta y la de acción son el tiempo para la <strong>remisión oportuna</strong> si el parto no es inminente. Línea de acción a las <strong>" + hc(tA + 4 * H) + "</strong>.";
+    } else {
+      r.cls = "rb-rojo"; r.t = "Línea de acción alcanzada (" + L.dil + " cm)";
+      r.d = "<strong>Evaluación final y decisión de la vía de parto más segura</strong> (norma MSPBS). Si el centro no tiene capacidad resolutiva, la remisión corresponde a la zona de alerta: no esperar a esta línea.";
+    }
+    if (z !== "rojo" && now > tA + 60000 && now - L.ts > 30 * 60000) r.lista.push("Por la hora, sin nuevo tacto la curva ya estaría " + (now >= tA + 4 * H ? "en la línea de acción" : "a la derecha de la línea de alerta") + ": reevaluá según hallazgos clínicos.");
+    alertasTrad(L, r);
+    return r;
+  }
+  function alertasTrad(L, r) {
+    if (L.fcf != null && (L.fcf < 110 || L.fcf > 160)) r.lista.push("FCF " + L.fcf + " lpm fuera del rango 110-160: evaluar bienestar fetal.");
+    if (laMec(L.la)) r.lista.push("Líquido meconial: registrar y vigilar la FCF.");
+    if (L.la === "S") r.lista.push("Líquido sanguinolento: descartar desprendimiento de placenta.");
+    if (L.mold === "+++") r.lista.push("Moldeamiento +++: sospechar desproporción.");
+  }
+
+  /* ---------- OMS 2020 (LCG) ---------- */
+  function inicio5() { for (var i = 0; i < st.ev.length; i++) if (st.ev[i].dil >= 5) return st.ev[i]; return null; }
+  function tiempoEnCm(idx) {
+    var e = st.ev[idx], c = Math.floor(e.dil);
+    if (c < 5 || c > 9) return null;
+    for (var j = 0; j <= idx; j++) if (Math.floor(st.ev[j].dil) >= c) return { c: c, ms: e.ts - st.ev[j].ts, desde: st.ev[j].ts };
+    return null;
+  }
+  function alertasLcg(e, idx) {
+    var a = {}, dur;
+    if (e.fcf != null && (e.fcf < 110 || e.fcf >= 160)) a.fcf = 1;
+    if (e.dec === "L") a.dec = 1;
+    if (e.la === "M+++" || e.la === "B") a.la = 1;
+    if (e.pos === "P" || e.pos === "T") a.pos = 1;
+    if (e.caput === "+++") a.caput = 1;
+    if (e.mold === "+++") a.mold = 1;
+    if (e.pulso != null && (e.pulso < 60 || e.pulso >= 120)) a.pulso = 1;
+    if (e.pas != null && (e.pas < 80 || e.pas >= 140)) a.pas = 1;
+    if (e.pad != null && e.pad >= 90) a.pad = 1;
+    if (e.temp != null && (e.temp < 35 || e.temp >= 37.5)) a.temp = 1;
+    if (e.prot === "++" || e.prot === "+++") a.prot = 1;
+    if (e.acet === "++" || e.acet === "+++") a.acet = 1;
+    if (e.cn != null && (e.cn <= 2 || e.cn > 5)) a.cn = 1;
+    dur = e.cd; if (dur != null && (dur < 20 || dur > 60)) a.cd = 1;
+    if (e.acomp === "N") a.acomp = 1;
+    if (e.analg === "N") a.analg = 1;
+    if (e.liqo === "N") a.liqo = 1;
+    if (e.postura === "SP") a.postura = 1;
+    var t = tiempoEnCm(idx);
+    if (t && t.ms >= LCG_TH[t.c] * H) a.cerv = 1;
+    var p10 = primero10();
+    if (p10 && e.ts >= p10.ts && e.ts - p10.ts >= (st.paridad === "nul" ? 3 : 2) * H) a.exp = 1;
+    return a;
+  }
+  var ALNOM = { fcf: "FCF basal <110 o ≥160", dec: "desaceleraciones tardías", la: "líquido M+++ o sanguinolento", pos: "posición posterior o transversa", caput: "caput +++", mold: "moldeamiento +++", pulso: "pulso <60 o ≥120", pas: "PAS <80 o ≥140", pad: "PAD ≥90", temp: "temperatura <35 o ≥37,5 °C", prot: "proteinuria ++", acet: "acetonuria ++", cn: "contracciones ≤2 o >5 en 10 min", cd: "duración <20 o >60 s", acomp: "sin acompañante", analg: "sin alivio del dolor", liqo: "sin líquidos orales", postura: "posición supina", cerv: "tiempo en el mismo centímetro sobre el umbral", exp: "expulsivo sobre el umbral" };
+
+  function evalOms(now) {
+    var L = last(), r = { cls: "rb-neutro", t: "", d: "", lista: [] };
+    if (!L) { r.t = "Partograma sin evaluaciones"; r.d = "OMS 2020: la Guía de Cuidados del Trabajo de Parto se abre con 5 cm (fase activa)."; return r; }
+    var i5 = inicio5(), idx = st.ev.length - 1, a = alertasLcg(L, idx), keys = Object.keys(a);
+    keys.forEach(function (k) { r.lista.push("Alerta: " + ALNOM[k] + "."); });
+    if (!i5) { r.t = "Fase latente (" + L.dil + " cm) — la guía OMS 2020 se abre a 5 cm"; r.d = "Durante la fase latente no aplicar umbrales de fase activa. Apoyo continuo, líquidos orales y libre posición."; if (keys.length) r.cls = "rb-amarillo"; return r; }
+    var p10 = primero10();
+    if (p10) {
+      var lim = (st.paridad === "nul" ? 3 : 2) * H, ex = now - p10.ts;
+      r.t = "Segunda etapa — " + fmtH(ex) + " desde dilatación completa";
+      r.d = "Umbral de alerta OMS 2020: ≥" + (st.paridad === "nul" ? "3 h en nulípara" : "2 h en multípara") + ". FCF c/5 min y contracciones c/15 min." + (ex >= lim ? " <strong>Umbral alcanzado: avisar al profesional de mayor experiencia, evaluar y registrar el plan.</strong>" : " Alerta a las <strong>" + hc(p10.ts + lim) + "</strong>.");
+      r.cls = ex >= lim || keys.length ? "rb-amarillo" : "rb-verde";
+      return r;
+    }
+    var t = tiempoEnCm(idx), th = t ? LCG_TH[t.c] : null, enCm = t ? now - t.desde : 0;
+    if (keys.length) {
+      r.cls = "rb-amarillo"; r.t = keys.length + (keys.length === 1 ? " alerta registrada" : " alertas registradas") + " — " + L.dil + " cm";
+      r.d = "Ante una alerta: marcarla (círculo), avisar a la obstétrica o médico de mayor experiencia, registrar la evaluación y el plan, y compartirlo con la mujer.";
+    } else {
+      r.cls = "rb-verde"; r.t = "Sin alertas — " + L.dil + " cm";
+      r.d = "Continuar el cuidado de apoyo y el registro. Mientras no haya alertas, el progreso más lento que 1 cm/h no justifica intervenir.";
+    }
+    if (t) r.d += " En " + t.c + " cm desde las " + hc(t.desde) + " (" + fmtH(enCm) + "); umbral ≥" + String(th).replace(".", ",") + " h → <strong>" + hc(t.desde + th * H) + "</strong>.";
+    return r;
+  }
+
+  /* ---------- ACOG 2024 ---------- */
+  function adecuada(e) {
+    if (st.cat === "con") return e.mvu != null && e.mvu > 200;
+    return e.ci === "fuerte" && e.cn != null && e.cn >= 3;
+  }
+  function evalAcog(now) {
+    var L = last(), r = { cls: "rb-neutro", t: "", d: "", lista: [] };
+    if (!L) { r.t = "Partograma sin evaluaciones"; r.d = "ACOG 2024: la fase activa comienza a los 6 cm; los criterios de detención se aplican desde ahí con membranas rotas."; return r; }
+    var p10 = primero10();
+    if (p10) {
+      var ini = p10.ts;
+      for (var k = 0; k < st.ev.length; k++) if (st.ev[k].pujo && st.ev[k].ts >= p10.ts) { ini = st.ev[k].ts; break; }
+      var lim = (st.paridad === "nul" ? 3 : 2) * H, ex = now - ini;
+      r.t = "Segunda etapa — " + fmtH(ex) + " de " + (ini === p10.ts ? "dilatación completa" : "pujo activo");
+      r.d = "ACOG 2024: considerar detención con ≥" + (st.paridad === "nul" ? "3 h de pujo en nulípara" : "2 h de pujo en multípara") + "; pueden ser apropiadas duraciones mayores si hay progreso, individualizando (p. ej., con analgesia epidural o malposición)." + (st.epi ? " Tiene epidural: individualizar." : "");
+      if (ex >= lim) { r.cls = "rb-rojo"; r.d += " <strong>Umbral alcanzado: evaluar parto vaginal instrumental o cesárea.</strong>"; }
+      else { r.cls = "rb-verde"; r.d += " Umbral a las <strong>" + hc(ini + lim) + "</strong>."; }
+      if (ini === p10.ts) r.lista.push("Marcá «Pujo activo iniciado» en la evaluación en que comienza el pujo: ACOG cuenta las horas de pujo.");
+      return r;
+    }
+    if (L.dil < 6) {
+      r.t = "Fase latente según ACOG (" + L.dil + " cm)";
+      r.d = "Con menos de 6 cm no aplicar los criterios de fase activa. ACOG 2024 define fase latente prolongada como más de 16 h (nulíparas) y no tiene definición de detención de la fase latente: con madre y feto en buen estado, evitar la cesárea por fase latente prolongada.";
+      alertasTrad(L, r); return r;
+    }
+    var j = st.ev.length - 1; while (j > 0 && st.ev[j - 1].dil >= L.dil) j--;
+    var tc = st.ev[j].ts, conf = L.ts - tc;
+    if (!membRotas(L.la)) {
+      r.cls = "rb-amarillo"; r.t = "Fase activa (" + L.dil + " cm) con membranas íntegras";
+      r.d = "ACOG requiere membranas rotas para diagnosticar detención de la fase activa. Sin cambio cervical desde las " + hc(tc) + " (" + fmtH(now - tc) + "): considerar amniotomía si no progresa.";
+      alertasTrad(L, r); return r;
+    }
+    var ad = adecuada(L), oxIni = null;
+    for (var m = 0; m < st.ev.length; m++) if (st.ev[m].oxi && st.ev[m].ts >= tc) { oxIni = st.ev[m].ts; break; }
+    var criterio = st.cat === "con" ? "UMV >200 (catéter)" : "contracciones fuertes cada 3 min o menos (≥3 en 10 min), sin catéter";
+    if (ad) {
+      r.t = "Fase activa (" + L.dil + " cm) — contracciones adecuadas: " + criterio;
+      if (conf >= 4 * H) { r.cls = "rb-rojo"; r.t = "Criterio de detención de la fase activa (ACOG 2024)"; r.d = "≥6 cm, membranas rotas y sin cambio cervical durante " + fmtH(conf) + " con contracciones adecuadas (umbral ≥4 h). Evaluar cesárea."; }
+      else { r.cls = conf >= 2 * H ? "rb-amarillo" : "rb-verde"; r.d = "Sin cambio cervical desde las " + hc(tc) + " (confirmado por tacto: " + fmtH(conf) + "). Umbral de 4 h con contracciones adecuadas: <strong>" + hc(tc + 4 * H) + "</strong>."; }
+    } else if (oxIni) {
+      var co = L.ts - Math.max(tc, oxIni);
+      r.t = "Fase activa (" + L.dil + " cm) — contracciones inadecuadas con oxitocina";
+      if (co >= 6 * H) { r.cls = "rb-rojo"; r.t = "Criterio de detención de la fase activa (ACOG 2024)"; r.d = "≥6 cm, membranas rotas y sin cambio cervical durante " + fmtH(co) + " de oxitocina con contracciones inadecuadas (umbral ≥6 h). Evaluar cesárea."; }
+      else { r.cls = co >= 3 * H ? "rb-amarillo" : "rb-verde"; r.d = "Oxitocina desde las " + hc(oxIni) + "; sin cambio cervical confirmado " + fmtH(co) + ". Umbral de 6 h: <strong>" + hc(Math.max(tc, oxIni) + 6 * H) + "</strong>."; }
+    } else {
+      r.cls = "rb-amarillo"; r.t = "Fase activa (" + L.dil + " cm) — contracciones inadecuadas sin oxitocina";
+      r.d = "Con contracciones inadecuadas, ACOG mide la detención después de ≥6 h de oxitocina. Considerar conducción. Sin cambio cervical desde las " + hc(tc) + ".";
+    }
+    if (st.cat === "sin") r.lista.push("Sin catéter, la adecuación es una adaptación clínica (contracciones fuertes cada 3 min); el criterio textual de ACOG es UMV >200 con catéter de presión intrauterina.");
+    alertasTrad(L, r);
+    return r;
+  }
+
+  /* ---------- Próximos controles ---------- */
+  function ultimoCon(campo) { for (var i = st.ev.length - 1; i >= 0; i--) if (st.ev[i][campo] != null && st.ev[i][campo] !== "") return st.ev[i].ts; return null; }
+  function prox(now) {
+    var L = last(); if (!L || st.modelo === "acog") return null;
+    var p10 = primero10(), items = [];
+    function add(nombre, campo, min) { var t = ultimoCon(campo); if (t == null) t = L.ts; items.push({ n: nombre, t: t + min * 60000 }); }
+    if (st.modelo === "mspbs") {
+      add("FCF, contracciones y pulso", "fcf", 30); add("Temperatura", "temp", 120); add("Presión arterial", "pas", 240);
+    } else {
+      add("FCF", "fcf", p10 ? 5 : 30); add("Contracciones", "cn", p10 ? 15 : 30);
+      if (!p10) add("Tacto (dilatación y descenso)", "dil", 240);
+      add("Pulso, PA, temperatura y orina", "pulso", 240);
+    }
+    var venc = items.filter(function (x) { return x.t <= now; });
+    return { html: "Próximos controles (" + NOMBRE[st.modelo] + "): " + items.map(function (x) { return x.n + " " + (x.t <= now ? "<strong>ahora</strong>" : hc(x.t)); }).join(" · "), venc: venc.length > 0 };
+  }
+
+  /* ---------- Gráfico SVG (Ministerio CLAP y ACOG) ---------- */
+  function svgGraf(now) {
+    var ev = st.ev; if (!ev.length) return "";
+    var W = 780, L0 = 104, R0 = 50, PW = W - L0 - R0;
+    var t0 = ev[0].ts, tl = Math.max(ev[ev.length - 1].ts, now);
+    var span = Math.min(24, Math.max(12, Math.ceil((tl - t0) / H) + 1));
+    var ph = PW / span;
+    function X(t) { return L0 + (t - t0) / H * ph; }
+    var o = [], y = 4, i, e, ms = st.modelo === "mspbs";
+    function txt(x, yy, s, a, extra) { o.push('<text x="' + x.toFixed(1) + '" y="' + yy.toFixed(1) + '" font-size="' + ((extra && extra.fs) || 10) + '" text-anchor="' + (a || "start") + '" fill="' + ((extra && extra.c) || "#334") + '"' + ((extra && extra.b) ? ' font-weight="700"' : "") + ">" + esc(s) + "</text>"); }
+    function rowGrid(top, h) { for (var k = 0; k <= span; k++) o.push('<line x1="' + (L0 + k * ph).toFixed(1) + '" y1="' + top + '" x2="' + (L0 + k * ph).toFixed(1) + '" y2="' + (top + h) + '" stroke="#e1e6e8"/>'); o.push('<rect x="' + L0 + '" y="' + top + '" width="' + PW + '" height="' + h + '" fill="none" stroke="#b8c2c6"/>'); }
+    function rowTxt(label, top, h, fn) { rowGrid(top, h); txt(4, top + h / 2 + 3.5, label, "start", { fs: 9.5, b: 1 }); for (var k = 0; k < ev.length; k++) { var s = fn(ev[k]); if (s) txt(X(ev[k].ts) + 3, top + h / 2 + 3.5, s, "start", { fs: 9.5 }); } }
+    /* horas */
+    for (i = 0; i <= span; i++) { txt(L0 + i * ph, y + 10, hc(t0 + i * H), "middle", { fs: 8.5, c: "#556" }); }
+    y += 16;
+    /* FCF */
+    var fT = y, fH = 100; function FY(v) { return fT + fH - (Math.max(90, Math.min(190, v)) - 90) / 100 * fH; }
+    o.push('<rect x="' + L0 + '" y="' + FY(160) + '" width="' + PW + '" height="' + (FY(110) - FY(160)) + '" fill="#e8f5e9"/>');
+    rowGrid(fT, fH); txt(4, fT + 12, "FCF (lpm)", "start", { fs: 9.5, b: 1 });
+    [100, 120, 140, 160, 180].forEach(function (v) { o.push('<line x1="' + L0 + '" y1="' + FY(v) + '" x2="' + (L0 + PW) + '" y2="' + FY(v) + '" stroke="#e1e6e8"/>'); txt(L0 - 4, FY(v) + 3, String(v), "end", { fs: 8.5 }); });
+    var pf = ev.filter(function (z) { return z.fcf != null; });
+    if (pf.length > 1) o.push('<polyline fill="none" stroke="#7b3f61" stroke-width="1.5" points="' + pf.map(function (z) { return X(z.ts).toFixed(1) + "," + FY(z.fcf).toFixed(1); }).join(" ") + '"/>');
+    pf.forEach(function (z) { o.push('<circle cx="' + X(z.ts).toFixed(1) + '" cy="' + FY(z.fcf).toFixed(1) + '" r="3" fill="' + (z.fcf < 110 || z.fcf > 160 ? "#a13544" : "#7b3f61") + '"/>'); });
+    y = fT + fH + 2;
+    rowTxt("Líquido", y, 16, function (z) { return z.la; }); y += 16;
+    rowTxt("Moldeamiento", y, 16, function (z) { return z.mold === "0" ? "0" : z.mold; }); y += 18;
+    /* Cuello */
+    var cT = y, cH = 200; function CY(v) { return cT + cH - v / 10 * cH; }
+    rowGrid(cT, cH);
+    for (i = 0; i <= 10; i++) { o.push('<line x1="' + L0 + '" y1="' + CY(i) + '" x2="' + (L0 + PW) + '" y2="' + CY(i) + '" stroke="#e1e6e8"/>'); txt(L0 - 4, CY(i) + 3, String(i), "end", { fs: 8.5 }); }
+    txt(4, cT + 12, "Dilatación (cm)", "start", { fs: 9.5, b: 1 }); txt(4, cT + 24, "X dilatación", "start", { fs: 8.5, c: "#00636c" }); txt(4, cT + 35, "O descenso", "start", { fs: 8.5, c: "#5d4037" });
+    var du = st.du, rl = du === "q" ? [["5/5", 10], ["4/5", 8], ["3/5", 6], ["2/5", 4], ["1/5", 2], ["0/5", 0]] : [["Libre", 10], ["I", 8], ["II", 6], ["III", 4], ["IV", 2]];
+    rl.forEach(function (p) { txt(L0 + PW + 4, CY(p[1]) + 3, p[0], "start", { fs: 8.5, c: "#5d4037" }); });
+    o.push('<clipPath id="pgclip"><rect x="' + L0 + '" y="' + cT + '" width="' + PW + '" height="' + cH + '"/></clipPath>');
+    if (ms) {
+      var ap = apertura();
+      if (ap) {
+        var xa = X(ap.ts), xe = X(ap.ts + (10 - ap.dil) * H), d4 = 4 * ph, xm = L0 + PW + 400;
+        o.push('<g clip-path="url(#pgclip)">');
+        o.push('<polygon points="' + [xa, CY(ap.dil), xe, CY(10), L0 - 1, CY(10), L0 - 1, CY(ap.dil)].join(" ") + '" fill="#e6f4e6" opacity=".8"/>');
+        o.push('<polygon points="' + [xa, CY(ap.dil), xe, CY(10), xe + d4, CY(10), xa + d4, CY(ap.dil)].join(" ") + '" fill="#fbf1dc"/>');
+        o.push('<polygon points="' + [xa + d4, CY(ap.dil), xe + d4, CY(10), xm, CY(10), xm, CY(ap.dil)].join(" ") + '" fill="#fbebec"/>');
+        o.push('<line x1="' + xa + '" y1="' + CY(ap.dil) + '" x2="' + xe + '" y2="' + CY(10) + '" stroke="#a06a00" stroke-width="2.2"/>');
+        o.push('<line x1="' + (xa + d4) + '" y1="' + CY(ap.dil) + '" x2="' + (xe + d4) + '" y2="' + CY(10) + '" stroke="#a13544" stroke-width="2.2"/>');
+        o.push("</g>");
+        txt(Math.min(xe, L0 + PW - 4) - 4, CY(9.6), "Alerta", "end", { fs: 9.5, c: "#a06a00", b: 1 });
+        if (xe + d4 < L0 + PW) txt(xe + d4 - 4, CY(9.6), "Acción", "end", { fs: 9.5, c: "#a13544", b: 1 });
+      }
+    } else {
+      o.push('<line x1="' + L0 + '" y1="' + CY(6) + '" x2="' + (L0 + PW) + '" y2="' + CY(6) + '" stroke="#00636c" stroke-dasharray="6 4" stroke-width="1.6"/>');
+      txt(L0 + PW - 4, CY(6) - 4, "6 cm — inicio de fase activa (ACOG)", "end", { fs: 9.5, c: "#00636c", b: 1 });
+    }
+    var pd = ev.map(function (z) { return [X(z.ts), CY(z.dil)]; });
+    if (pd.length > 1) o.push('<polyline fill="none" stroke="#00636c" stroke-width="1.6" points="' + pd.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ") + '"/>');
+    pd.forEach(function (p) { o.push('<path d="M' + (p[0] - 4.5) + " " + (p[1] - 4.5) + "l9 9M" + (p[0] + 4.5) + " " + (p[1] - 4.5) + 'l-9 9" stroke="#00636c" stroke-width="2.4"/>'); });
+    var pdd = ev.filter(function (z) { return descY(z) != null; });
+    if (pdd.length > 1) o.push('<polyline fill="none" stroke="#5d4037" stroke-width="1.3" stroke-dasharray="4 3" points="' + pdd.map(function (z) { return X(z.ts).toFixed(1) + "," + CY(descY(z)).toFixed(1); }).join(" ") + '"/>');
+    pdd.forEach(function (z) { o.push('<circle cx="' + X(z.ts).toFixed(1) + '" cy="' + CY(descY(z)).toFixed(1) + '" r="4.5" fill="#fff" stroke="#5d4037" stroke-width="2"/>'); });
+    /* ahora */
+    if (now > t0 && now < t0 + span * H) o.push('<line x1="' + X(now).toFixed(1) + '" y1="' + cT + '" x2="' + X(now).toFixed(1) + '" y2="' + (cT + cH) + '" stroke="#55585c" stroke-dasharray="2 3"/>');
+    y = cT + cH;
+    for (i = 0; i <= span; i++) txt(L0 + i * ph, y + 12, String(i), "middle", { fs: 9 });
+    txt(4, y + 12, "Horas", "start", { fs: 9.5, b: 1 });
+    y += 18;
+    /* Contracciones */
+    var kT = y, kRow = 12, kH = 5 * kRow;
+    rowGrid(kT, kH); for (i = 1; i < 5; i++) o.push('<line x1="' + L0 + '" y1="' + (kT + i * kRow) + '" x2="' + (L0 + PW) + '" y2="' + (kT + i * kRow) + '" stroke="#e1e6e8"/>');
+    txt(4, kT + 14, "Contracciones", "start", { fs: 9.5, b: 1 }); txt(4, kT + 26, "en 10 min", "start", { fs: 8.5 });
+    for (i = 1; i <= 5; i++) txt(L0 - 4, kT + kH - (i - 1) * kRow - 3, String(i), "end", { fs: 8 });
+    var bw = Math.max(10, ph / 2 - 2);
+    ev.forEach(function (z) {
+      if (z.cn == null) return;
+      var n = Math.min(5, Math.round(z.cn)), x0 = X(z.ts);
+      for (var b = 0; b < n; b++) {
+        var fillc = ms ? (TONO[z.ci] || "#e6eaec") : "#e6eaec";
+        o.push('<rect x="' + x0.toFixed(1) + '" y="' + (kT + kH - (b + 1) * kRow + 1) + '" width="' + bw.toFixed(1) + '" height="' + (kRow - 2) + '" fill="' + fillc + '" stroke="#6b7a80" stroke-width=".6"/>');
+      }
+      if (!ms && z.ci) txt(x0 + bw / 2, kT + kH - n * kRow - 2, z.ci === "leve" ? "L" : z.ci === "mod" ? "M" : "F", "middle", { fs: 9, b: 1, c: "#00636c" });
+      if (z.cn > 5) txt(x0 + bw + 2, kT + 9, String(z.cn), "start", { fs: 8.5, b: 1 });
+    });
+    y = kT + kH + 2;
+    rowTxt("Oxitocina", y, 16, function (z) { return z.oxi || ""; }); y += 18;
+    /* Pulso y PA */
+    var vT = y, vH = 110; function VY(v) { return vT + vH - (Math.max(40, Math.min(180, v)) - 40) / 140 * vH; }
+    rowGrid(vT, vH); txt(4, vT + 12, "Pulso • y PA ↕", "start", { fs: 9.5, b: 1 });
+    [60, 80, 100, 120, 140, 160].forEach(function (v) { o.push('<line x1="' + L0 + '" y1="' + VY(v) + '" x2="' + (L0 + PW) + '" y2="' + VY(v) + '" stroke="#e1e6e8"/>'); txt(L0 - 4, VY(v) + 3, String(v), "end", { fs: 8.5 }); });
+    ev.forEach(function (z) {
+      var x0 = X(z.ts);
+      if (z.pas != null && z.pad != null) { o.push('<line x1="' + (x0 + 6) + '" y1="' + VY(z.pas) + '" x2="' + (x0 + 6) + '" y2="' + VY(z.pad) + '" stroke="#1f4e79" stroke-width="2"/>'); o.push('<path d="M' + (x0 + 2) + " " + (VY(z.pas) + 4) + "l4 -4l4 4M" + (x0 + 2) + " " + (VY(z.pad) - 4) + "l4 4l4 -4" + '" fill="none" stroke="#1f4e79" stroke-width="1.6"/>'); }
+      if (z.pulso != null) o.push('<circle cx="' + x0.toFixed(1) + '" cy="' + VY(z.pulso).toFixed(1) + '" r="3.2" fill="#a13544"/>');
+    });
+    y = vT + vH + 2;
+    rowTxt("Temperatura °C", y, 16, function (z) { return z.temp != null ? String(z.temp).replace(".", ",") : ""; }); y += 16;
+    rowTxt("Orina prot./acet.", y, 16, function (z) { return (z.prot || z.acet) ? (z.prot || "·") + "/" + (z.acet || "·") : ""; }); y += 18;
+    return '<svg viewBox="0 0 ' + W + " " + y + '" role="img" aria-label="Partograma ' + NOMBRE[st.modelo] + '">' + o.join("") + "</svg>";
+  }
+
+  /* ---------- Tabla dinámica OMS 2020 ---------- */
+  function tablaOms() {
+    var ev = st.ev; if (!ev.length) return "";
+    var i5 = inicio5(), als = ev.map(function (e, i) { return alertasLcg(e, i); });
+    function row(label, fn, key) {
+      return "<tr><td>" + label + "</td>" + ev.map(function (e, i) {
+        var v = fn(e, i), lat = !i5 || e.ts < i5.ts, al = key && als[i][key];
+        return "<td" + (al ? ' class="pg-al"' : lat ? ' class="pg-lat"' : "") + ">" + (al ? "<span>" + esc(v) + "</span>" : esc(v)) + "</td>";
+      }).join("") + "</tr>";
+    }
+    function sec(t) { return '<tr class="pg-sec"><td colspan="' + (ev.length + 1) + '">' + t + "</td></tr>"; }
+    function v(x) { return x == null || x === "" ? "—" : String(x).replace(".", ","); }
+    var h = '<table class="pg-tab"><thead><tr><th>Hora</th>' + ev.map(function (e) { return "<th>" + hc(e.ts) + "</th>"; }).join("") + "</tr></thead><tbody>";
+    h += row("Tiempo en fase activa", function (e) { return i5 && e.ts >= i5.ts ? fmtH(e.ts - i5.ts) : "latente"; });
+    h += sec("Cuidado de apoyo");
+    h += row("Acompañante <small>(alerta N)</small>", function (e) { return v(e.acomp); }, "acomp");
+    h += row("Alivio del dolor <small>(N)</small>", function (e) { return v(e.analg); }, "analg");
+    h += row("Líquidos orales <small>(N)</small>", function (e) { return v(e.liqo); }, "liqo");
+    h += row("Postura <small>(SP)</small>", function (e) { return v(e.postura); }, "postura");
+    h += sec("Bebé");
+    h += row("FCF basal <small>(&lt;110, ≥160)</small>", function (e) { return v(e.fcf); }, "fcf");
+    h += row("Desaceleraciones <small>(L)</small>", function (e) { return v(e.dec); }, "dec");
+    h += row("Líquido amniótico <small>(M+++, B)</small>", function (e) { return v(e.la); }, "la");
+    h += row("Posición fetal <small>(P, T)</small>", function (e) { return v(e.pos); }, "pos");
+    h += row("Caput <small>(+++)</small>", function (e) { return v(e.caput); }, "caput");
+    h += row("Moldeamiento <small>(+++)</small>", function (e) { return v(e.mold); }, "mold");
+    h += sec("Mujer");
+    h += row("Pulso <small>(&lt;60, ≥120)</small>", function (e) { return v(e.pulso); }, "pulso");
+    h += row("PA sistólica <small>(&lt;80, ≥140)</small>", function (e) { return v(e.pas); }, "pas");
+    h += row("PA diastólica <small>(≥90)</small>", function (e) { return v(e.pad); }, "pad");
+    h += row("Temperatura °C <small>(&lt;35, ≥37,5)</small>", function (e) { return v(e.temp); }, "temp");
+    h += row("Orina proteínas <small>(++)</small>", function (e) { return v(e.prot); }, "prot");
+    h += row("Orina acetona <small>(++)</small>", function (e) { return v(e.acet); }, "acet");
+    h += sec("Trabajo de parto");
+    h += row("Contracciones/10 min <small>(≤2, &gt;5)</small>", function (e) { return v(e.cn); }, "cn");
+    h += row("Duración (s) <small>(&lt;20, &gt;60)</small>", function (e) { return v(e.cd); }, "cd");
+    h += row("Cuello uterino (cm)", function (e) { return v(e.dil); }, "cerv");
+    h += row("Tiempo en ese cm <small>(5:≥6 h · 6:≥5 h · 7:≥3 h · 8:≥2,5 h · 9:≥2 h)</small>", function (e, i) { var t = tiempoEnCm(i); return t ? fmtH(t.ms) : (e.dil >= 10 ? "completa" : "—"); }, "cerv");
+    h += row("Segunda etapa <small>(≥" + (st.paridad === "nul" ? "3 h nulípara" : "2 h multípara") + ")</small>", function (e) { var p = primero10(); return p && e.ts >= p.ts ? fmtH(e.ts - p.ts) : "—"; }, "exp");
+    h += row("Descenso", function (e) { return descTxt(e); });
+    h += sec("Medicación y plan");
+    h += row("Oxitocina", function (e) { return v(e.oxi); });
+    h += row("Evaluación y plan", function (e) { return e.plan || "—"; });
+    return h + "</tbody></table>";
+  }
+
+  function leyenda() {
+    if (!st.ev.length) return "";
+    if (st.modelo === "mspbs") return '<span><i class="pg-sw" style="background:' + TONO.leve + '"></i>Leve (&lt;20 s)</span><span><i class="pg-sw" style="background:' + TONO.mod + '"></i>Moderada (20-40 s)</span><span><i class="pg-sw" style="background:' + TONO.fuerte + '"></i>Fuerte (&gt;40 s)</span><span><i class="pg-sw" style="background:#e6f4e6"></i>Normal</span><span><i class="pg-sw" style="background:#fbf1dc"></i>Alerta → acción (4 h)</span><span><i class="pg-sw" style="background:#fbebec"></i>Más allá de la acción</span>';
+    if (st.modelo === "acog") return "<span>L leve · M moderada · F fuerte (palpación)</span><span>Línea punteada: 6 cm</span>";
+    return '<span>Celda con círculo rojo = alerta (umbral OMS 2020 en cada fila)</span><span>Gris = fase latente</span>';
+  }
+  var FUENTE = {
+    mspbs: '<strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.mspbs.gov.py/dependencias/portal/adjunto/0c51be-NORMASDECUIDADOS.pdf" target="_blank" rel="noopener">MSPBS — Normas de Cuidados (partograma OPS/OMS-CLAP, CLAP/SMR 1577)</a> · <a href="https://www.mspbs.gov.py/dependencias/portal/adjunto/b4214b-ProtocoloPartoSeguroA41.pdf" target="_blank" rel="noopener">MSPBS — Protocolo Parto Seguro</a>. Diseño propio; no reproduce el formulario oficial.',
+    oms: '<strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://cdn.who.int/media/docs/default-source/reproductive-health/maternal-health/who-labour-care-guide.pdf?sfvrsn=bd7fe865_15" target="_blank" rel="noopener">WHO Labour Care Guide (2020)</a> · <a href="https://api.jhpiego.org/wp-content/uploads/2026/06/03-LCG-Participant-ENGLISH.pdf" target="_blank" rel="noopener">Jhpiego — LCG Participant Manual</a>. Diseño propio; no reproduce el formulario (CC BY-NC-SA).',
+    acog: '<strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.acog.org/clinical/clinical-guidance/clinical-practice-guideline/articles/2024/01/first-and-second-stage-labor-management" target="_blank" rel="noopener">ACOG Clinical Practice Guideline No. 8 (2024)</a> · adecuación sin catéter: <a href="https://health.usf.edu/media/cijpqel3/providefoci-inductiondystocia.pdf" target="_blank" rel="noopener">FPQC/USF PROVIDE</a>.'
+  };
+
+  function render() {
+    var now = Date.now(), r = st.modelo === "oms" ? evalOms(now) : st.modelo === "acog" ? evalAcog(now) : evalMspbs(now);
+    var box = $("result-pg"); box.className = "result-box " + r.cls;
+    box.setAttribute("data-modelo", st.modelo);
+    $("result-pg-title").textContent = NOMBRE[st.modelo] + ": " + r.t;
+    $("result-pg-detail").innerHTML = r.d + (r.lista.length ? '<ul class="pg-alist">' + r.lista.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : "") + (st.ev.length ? "<div><small>" + st.ev.length + (st.ev.length === 1 ? " evaluación" : " evaluaciones") + " · última " + hc(last().ts) + "</small></div>" : "");
+    var p = prox(now), px = $("pg-prox");
+    if (p) { px.hidden = false; px.className = "al-prox" + (p.venc ? " vencido" : ""); px.innerHTML = p.html; } else px.hidden = true;
+    $("pg-graf").innerHTML = st.modelo === "oms" ? tablaOms() : svgGraf(now);
+    $("pg-leyenda").innerHTML = leyenda();
+    $("pg-fuente").innerHTML = FUENTE[st.modelo];
+  }
+
+  /* ---------- eventos ---------- */
+  function setCfg() {
+    st.modelo = $("pg-modelo").value; st.paridad = $("pg-paridad").value; st.du = $("pg-desc-u").value;
+    st.cat = $("pg-acog-cat").value; st.epi = $("pg-epidural").checked;
+    save(); syncForm(); render();
+  }
+  ["pg-modelo", "pg-paridad", "pg-desc-u", "pg-acog-cat", "pg-epidural"].forEach(function (id) { $(id).addEventListener("change", setCfg); });
+  $("pg-btn-reg").addEventListener("click", registrar);
+  $("pg-btn-undo").addEventListener("click", function () { st.ev.pop(); save(); render(); $("pg-aviso").textContent = "Se eliminó la última evaluación."; });
+  $("pg-btn-reset").addEventListener("click", function () {
+    if (st.ev.length && !window.confirm("¿Borrar todas las evaluaciones de este partograma?")) return;
+    st.ev = []; save(); render(); $("pg-aviso").textContent = "Partograma nuevo.";
+  });
+  $("pg-btn-contador").addEventListener("click", function () {
+    var ts = []; try { ts = JSON.parse(localStorage.getItem("cavesal_contr_v1") || "[]"); } catch (e) { }
+    var now = Date.now(), n = ts.filter(function (x) { return now - x <= 600000; }).length;
+    $("pg-cn").value = n;
+    $("pg-aviso").textContent = n ? "Tomado del contador: " + n + " contracciones en los últimos 10 minutos." : "El contador no tiene contracciones en los últimos 10 minutos. Usá el contador de esta pestaña o cargá el número a mano.";
+  });
+  syncForm(); render();
+  setInterval(function () { if ($("pg-card").offsetParent !== null && st.ev.length) render(); }, 30000);
+
+  /* Ayuda para QA y simulador */
+  window.CaVeSalPartograma = {
+    estado: function () { return JSON.parse(JSON.stringify(st)); },
+    cargar: function (obj) { st = obj; save(); syncForm(); render(); },
+    evaluar: function (now) { now = now || Date.now(); return st.modelo === "oms" ? evalOms(now) : st.modelo === "acog" ? evalAcog(now) : evalMspbs(now); },
+    render: render
+  };
+})();
+</script>
+
+<script>
+/* CaVeSal® Emergencias — Alumbramiento (tercer período). Algoritmo propio CaVeSal®.
+   OMS/FIGO/ICM 2025 rec. 22, 30 y 31 · MSPBS Normas 2022 p. 69 · variante NICE NG235 1.10.20 */
+(function () {
+  "use strict";
+  var KEY = "cavesal_alu_v1", M = 60000;
+  function $(id) { return document.getElementById(id); }
+  if (!$("alu-card")) return;
+  function hc(ts) { var d = new Date(ts); return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2); }
+  function tsDe(hhmm, ref) {
+    var p = /^(\d{1,2}):(\d{2})$/.exec(hhmm || ""); if (!p) return Date.now();
+    var d = new Date(); d.setHours(+p[1], +p[2], 0, 0); var ts = d.getTime();
+    if (ref != null) { while (ts < ref - 5 * M) ts += 1440 * M; } else if (ts > Date.now() + 10 * M) ts -= 1440 * M;
+    return ts;
+  }
+  var st = { nac: null, manejo: "activo", oxi: true, pla: null, mec: "schultze", integ: "completa", sang: null };
+  try { var s0 = JSON.parse(localStorage.getItem(KEY) || "null"); if (s0) st = s0; } catch (e) { }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+
+  function evaluar(now) {
+    var fin = st.pla || now, min = Math.round((fin - st.nac) / M), cls = "verde", t = "", L = [];
+    var hpp = st.sang != null && st.sang >= 500;
+    if (!st.pla) {
+      t = "Alumbramiento en curso — " + min + " min desde el nacimiento";
+      if (min < 15) L.push("Esperar signos de desprendimiento: alargamiento del cordón, salida de sangre, útero que asciende y se globuliza (Schröder), el cordón no se retrae con la presión suprapúbica (Küstner). Tracción controlada solo con signos de desprendimiento.");
+      else if (min < 30) { cls = "amarillo"; L.push("15 min sin expulsión y sin HPP: tracción controlada del cordón, movilizar o poner en cuclillas, vaciar la vejiga. Vigilar sangrado (OMS 2025)."); }
+      else { cls = "rojo"; t = "Placenta retenida — " + min + " min sin expulsión"; L.push("30 min sin expulsión: preparar extracción manual de la placenta con analgesia y profilaxis antibiótica (OMS 2025, rec. 30 y 31). Uterotónico después de la extracción."); }
+      if (st.manejo === "fisio" && min >= 30 && min < 60) L.push("Manejo fisiológico: NICE NG235 define prolongado a los 60 min; la calculadora usa la OMS 2025 (30 min) como preferida.");
+      if (st.manejo === "activo" && !st.oxi) L.push("No consta la oxitocina 10 UI IM: administrarla (MSPBS, manejo activo).");
+      L.push("Si aparece HPP con la placenta retenida: uterotónico y extracción manual sin esperar (OMS 2025, rec. 30) — activar Código Rojo.");
+    } else {
+      t = "Alumbramiento de " + min + " min" + (min >= 30 ? " — prolongado" : " — dentro de lo esperado") + " · " + (st.mec === "duncan" ? "Duncan" : "Schultze");
+      if (min >= 30) { cls = "amarillo"; L.push("Duró 30 min o más (OMS 2025; NICE con manejo activo): mayor riesgo de hemorragia, vigilancia estrecha."); }
+      if (st.mec === "duncan") { if (cls === "verde") cls = "amarillo"; L.push("Mecanismo de Duncan: suele acompañarse de más sangrado y de restos de membranas; revisar con cuidado la placenta y las membranas."); }
+      if (st.integ !== "completa") { cls = "rojo"; L.push((st.integ === "incompleta" ? "Placenta incompleta o dudosa" : "Membranas incompletas") + ": riesgo de restos (T de tejido). Evaluar revisión de la cavidad y uterotónico; vigilar el sangrado."); }
+      L.push("Masaje uterino tras la expulsión y control del útero y del globo de Pinard cada 15 min durante 2 h (MSPBS).");
+    }
+    if (st.sang != null) {
+      if (hpp) { cls = "rojo"; L.unshift("<strong>Pérdida " + st.sang + " mL (≥500): hemorragia posparto (OMS 2025, rec. 22).</strong> Iniciar MOTIVE y activar Código Rojo."); }
+      else if (st.sang >= 300) L.unshift("Pérdida " + st.sang + " mL (≥300): con cualquier signo anormal (FC &gt;100, índice de choque &gt;1, PAS &lt;100 o PAD &lt;60) ya es hemorragia posparto (OMS 2025). Controlá FC y PA ahora.");
+    }
+    return { cls: cls, t: t, L: L, min: min };
+  }
+  function render() {
+    $("alu-manejo").value = st.manejo; $("alu-oxi").checked = !!st.oxi; $("alu-mec").value = st.mec; $("alu-integ").value = st.integ;
+    $("alu-sang").value = st.sang != null ? st.sang : "";
+    if (st.nac) $("alu-nac").value = hc(st.nac);
+    if (st.pla) $("alu-pla").value = hc(st.pla);
+    var box = $("result-alu");
+    if (!st.nac) { box.className = "result-box rb-neutro"; $("result-alu-title").textContent = "Alumbramiento sin iniciar"; $("result-alu-detail").textContent = "Iniciá el cronómetro con la hora del nacimiento."; $("alu-pp-acc").hidden = true; return; }
+    var r = evaluar(Date.now());
+    box.className = "result-box " + (r.cls === "rojo" ? "rb-rojo" : r.cls === "amarillo" ? "rb-amarillo" : "rb-verde");
+    $("result-alu-title").textContent = r.t;
+    $("result-alu-detail").innerHTML = '<ul class="pg-alist">' + r.L.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>";
+    $("alu-pp-acc").hidden = !st.pla;
+  }
+  function leer() {
+    st.manejo = $("alu-manejo").value; st.oxi = $("alu-oxi").checked; st.mec = $("alu-mec").value; st.integ = $("alu-integ").value;
+    var v = parseFloat($("alu-sang").value); st.sang = isNaN(v) ? null : v;
+  }
+  $("alu-btn-ini").addEventListener("click", function () {
+    leer(); st.nac = $("alu-nac").value ? tsDe($("alu-nac").value, null) : Date.now(); st.pla = null; $("alu-pla").value = ""; save(); render();
+  });
+  $("alu-btn-pla").addEventListener("click", function () {
+    leer(); if (!st.nac) st.nac = Date.now();
+    st.pla = $("alu-pla").value ? tsDe($("alu-pla").value, st.nac) : Date.now(); save(); render();
+  });
+  ["alu-manejo", "alu-oxi", "alu-mec", "alu-integ", "alu-sang"].forEach(function (id) { $(id).addEventListener("change", function () { leer(); save(); render(); }); });
+  $("alu-btn-reset").addEventListener("click", function () { st = { nac: null, manejo: "activo", oxi: true, pla: null, mec: "schultze", integ: "completa", sang: null }; save(); $("alu-nac").value = ""; $("alu-pla").value = ""; render(); });
+  $("alu-btn-pp").addEventListener("click", function () {
+    var pp = window.CaVeSalPosparto; if (!pp || !st.pla) return;
+    var cur = pp.estado();
+    if (cur.ev && cur.ev.length && !window.confirm("Hay un control posparto en curso. ¿Reemplazarlo?")) return;
+    pp.cargar({ via: "vag", inicio: st.pla, sang0: st.sang || 0, ev: [] });
+    $("pp-card").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  render();
+  setInterval(function () { if (st.nac && !st.pla && $("alu-card").offsetParent !== null) render(); }, 30000);
+  window.CaVeSalAlumbramiento = { estado: function () { return JSON.parse(JSON.stringify(st)); }, cargar: function (o) { st = o; save(); render(); }, render: render };
+})();
+</script>
+
+<script>
+/* CaVeSal® Emergencias — Control posparto inmediato (2 primeras horas)
+   MSPBS Normas de Cuidados 2022 (pp. 68-71) + criterio HPP OMS/FIGO/ICM 2025 (rec. 22).
+   Algoritmo y diseño propios CaVeSal®. */
+(function () {
+  "use strict";
+  var KEY = "cavesal_pp_v1", M = 60000;
+  function $(id) { return document.getElementById(id); }
+  if (!$("pp-card")) return;
+  function hc(ts) { var d = new Date(ts); return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2); }
+  function num(id) { var v = parseFloat(String($(id).value).replace(",", ".")); return isNaN(v) ? null : v; }
+  function f2(x) { return (Math.round(x * 100) / 100).toFixed(2); }
+
+  var st = { via: "vag", inicio: null, sang0: 0, ev: [] };
+  try { var s0 = JSON.parse(localStorage.getItem(KEY) || "null"); if (s0 && s0.ev) st = s0; } catch (e) { }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+
+  function tsDe(hhmm, ref) {
+    var p = /^(\d{1,2}):(\d{2})$/.exec(hhmm || ""), now = Date.now();
+    if (!p) return now;
+    var d = new Date(); d.setHours(+p[1], +p[2], 0, 0); var ts = d.getTime();
+    if (ref != null) { while (ts < ref - 60 * M) ts += 1440 * M; }
+    else if (ts > now + 10 * M) ts -= 1440 * M;
+    return ts;
+  }
+
+  /* Evaluación de un control (acumulado hasta ese control) */
+  function evalCtrl(e, acum) {
+    var si = e.fc && e.pas ? e.fc / e.pas : null, signos = [], alertas = [], cls = "verde";
+    if (e.fc != null && e.fc > 100) signos.push("FC " + e.fc + " &gt;100");
+    if (si != null && si > 1) signos.push("índice de choque " + f2(si) + " &gt;1");
+    if (e.pas != null && e.pas < 100) signos.push("PAS " + e.pas + " &lt;100");
+    if (e.pad != null && e.pad < 60) signos.push("PAD " + e.pad + " &lt;60");
+    var hpp = acum >= 500 || (acum >= 300 && signos.length > 0);
+    if (hpp || (si != null && si >= 1.4) || e.conc) cls = "rojo";
+    else if (e.tono === "blando" || signos.length || acum >= 300 || (si != null && si > 0.9) || (e.temp != null && e.temp >= 38) || e.hema || e.vejiga) cls = "amarillo";
+    if (hpp) alertas.push("<strong>Hemorragia posparto (OMS 2025):</strong> " + acum + " mL" + (acum >= 500 ? " (≥500 mL)" : " (≥300 mL con " + signos.join(", ") + ")") + ". Iniciar el paquete MOTIVE: masaje uterino, oxitócico, ácido tranexámico, fluidos IV, examen del tracto genital y escalar. Activar Código Rojo (MSPBS).");
+    else if (signos.length) alertas.push("Signo hemodinámico anormal: " + signos.join(", ") + ". Si la pérdida llega a 300 mL se cumple el criterio de hemorragia posparto.");
+    if (si != null && si >= 1.4) alertas.push("Índice de choque " + f2(si) + " ≥1,4: necesidad urgente de intervención.");
+    else if (si != null && si > 0.9 && !(si > 1)) alertas.push("Índice de choque " + f2(si) + " &gt;0,9: marcador de severidad, reevaluar en 15 min o antes.");
+    if (e.tono === "blando") alertas.push("Útero blando, Pinard no formado: masaje uterino y repetir el control a los 15 min (MSPBS). Descartar las 4T.");
+    if (!hpp && acum >= 300 && !signos.length) alertas.push("Pérdida acumulada " + acum + " mL sin signos anormales: vigilancia estrecha; con cualquier signo anormal ya es hemorragia posparto.");
+    if (e.temp != null && e.temp >= 38) alertas.push("Temperatura " + e.temp + " °C: evaluar infección (Código Amarillo).");
+    if (e.hema) alertas.push("Dolor perineal intenso o hematoma: revisar el canal del parto (trauma, la T de tejido/trauma).");
+    if (e.vejiga) alertas.push("Globo vesical: vaciar la vejiga; dificulta la retracción uterina.");
+    if (e.conc) alertas.push("Conciencia alterada: signo de alarma, activar respuesta inmediata.");
+    return { cls: cls, si: si, hpp: hpp, alertas: alertas };
+  }
+
+  function calc() {
+    var acum = st.sang0 || 0, out = [];
+    st.ev.forEach(function (e) { acum += e.sang || 0; var r = evalCtrl(e, acum); r.acum = acum; out.push(r); });
+    return out;
+  }
+  function slotDe(e) { var k = Math.round((e.ts - st.inicio) / (15 * M)); return Math.max(1, Math.min(8, k)); }
+
+  function render() {
+    var now = Date.now(), res = calc(), box = $("result-pp"), L = res[res.length - 1], Le = st.ev[st.ev.length - 1];
+    $("pp-via").value = st.via; $("pp-sang0").value = st.sang0 || "";
+    if (st.inicio) $("pp-inicio").value = hc(st.inicio);
+    if (!$("pp-hora").value) $("pp-hora").value = hc(now);
+    var cr = $("pp-cr-acc"); cr.hidden = true;
+    if (!st.inicio) {
+      box.className = "result-box rb-neutro"; $("result-pp-title").textContent = "Control posparto sin iniciar";
+      $("result-pp-detail").innerHTML = "MSPBS: vigilancia estricta en las primeras 2 horas posteriores al parto, en sala de partos o recuperación.";
+      $("pp-prox").hidden = true; $("pp-slots").innerHTML = ""; $("pp-tl").hidden = true; return;
+    }
+    var transc = Math.round((now - st.inicio) / M), algunRojo = res.some(function (r) { return r.cls === "rojo"; });
+    var titulo, det = "", cls;
+    if (!L) { cls = "rb-neutro"; titulo = "Control iniciado — " + transc + " min desde el alumbramiento"; det = "Pérdida hasta el alumbramiento: " + (st.sang0 || 0) + " mL. Registrá el primer control a los 15 minutos."; }
+    else {
+      cls = L.cls === "rojo" ? "rb-rojo" : L.cls === "amarillo" ? "rb-amarillo" : "rb-verde";
+      titulo = (L.cls === "rojo" ? "Alarma" : L.cls === "amarillo" ? "Vigilancia estrecha" : "Sin alarma") + " — pérdida acumulada " + L.acum + " mL" + (L.si != null ? " · IC " + f2(L.si) : "");
+      det = L.alertas.length ? '<ul class="pg-alist">' + L.alertas.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : "Útero contraído, signos vitales y pérdida dentro de lo esperado. Continuar controles cada 15 min.";
+      if (L.cls === "rojo") cr.hidden = false;
+    }
+    var hechos = {}; st.ev.forEach(function (e, i) { hechos[slotDe(e)] = res[i].cls; });
+    if (transc >= 120 && L) {
+      if (!algunRojo && L.cls === "verde") det += "<div><strong>Completó las 2 horas sin alarma:</strong> trasladar a la madre y al recién nacido a sala de puérperas. Luego controlar cada 6 h: signos vitales, globo de Pinard, loquios, alteraciones vulvoperineales, miembros inferiores, hábitos y estado emocional (MSPBS). Alta desde las 48 h si no hay hemorragia ni infección y los signos vitales son normales.</div>";
+      else det += "<div><strong>2 horas cumplidas con alarmas registradas:</strong> no trasladar hasta estabilizar; continuar la vigilancia y el manejo según el Código Rojo.</div>";
+    }
+    box.className = "result-box " + cls; $("result-pp-title").textContent = titulo; $("result-pp-detail").innerHTML = det;
+    /* Próximo control */
+    var px = $("pp-prox"), prox = null;
+    for (var k = 1; k <= 8; k++) if (!hechos[k]) { prox = k; break; }
+    if (prox && transc < 135) {
+      var due = st.inicio + prox * 15 * M, venc = now > due + 5 * M;
+      px.hidden = false; px.className = "al-prox" + (venc ? " vencido" : "");
+      px.innerHTML = (venc ? "Control vencido: " : "Próximo control: ") + prox * 15 + " min (" + hc(due) + ")";
+    } else px.hidden = true;
+    /* Grilla de 8 controles */
+    var h = "";
+    for (var j = 1; j <= 8; j++) {
+      var c = hechos[j], dueJ = st.inicio + j * 15 * M, est = c ? "pp-" + c : (now > dueJ + 5 * M ? "pp-venc" : "pp-pend");
+      h += '<div class="pp-slot ' + est + '"><b>' + j * 15 + "'</b><span>" + (c ? (c === "rojo" ? "Alarma" : c === "amarillo" ? "Vigilar" : "OK") : (est === "pp-venc" ? "Falta" : hc(dueJ))) + "</span></div>";
+    }
+    $("pp-slots").innerHTML = h;
+    var tb = $("pp-tl").querySelector("tbody");
+    tb.innerHTML = st.ev.map(function (e, i) {
+      var r = res[i];
+      return "<tr><td>" + (i + 1) + "</td><td>" + hc(e.ts) + "</td><td>" + Math.round((e.ts - st.inicio) / M) + "</td><td>" + (e.tono === "blando" ? "Blando" : "Contraído") + "</td><td>" + (e.sang || 0) + " (" + r.acum + ")</td><td>" + (e.fc != null ? e.fc : "—") + "</td><td>" + (e.pas != null ? e.pas + "/" + (e.pad != null ? e.pad : "—") : "—") + "</td><td>" + (r.si != null ? f2(r.si) : "—") + '</td><td><span class="al-chip c-' + r.cls + '">' + (r.cls === "rojo" ? "Rojo" : r.cls === "amarillo" ? "Amarillo" : "Verde") + "</span></td></tr>";
+    }).join("");
+    $("pp-tl").hidden = !st.ev.length;
+  }
+
+  function iniciar(ts) {
+    st.inicio = ts || tsDe($("pp-inicio").value, null);
+    if (!$("pp-inicio").value && !ts) st.inicio = Date.now();
+    st.via = $("pp-via").value; st.sang0 = num("pp-sang0") || 0; st.ev = [];
+    save(); $("pp-hora").value = ""; render();
+    $("pp-aviso").textContent = "Control iniciado a las " + hc(st.inicio) + ". Próximo control a las " + hc(st.inicio + 15 * M) + ".";
+  }
+  function registrar() {
+    var av = $("pp-aviso");
+    if (!st.inicio) { av.textContent = "Primero iniciá el control con la hora del alumbramiento."; return; }
+    var fc = num("pp-fc"), pas = num("pp-pas");
+    if (fc == null || pas == null) { av.textContent = "Cargá al menos FC y PA sistólica para registrar el control."; return; }
+    var L = st.ev[st.ev.length - 1], ts = tsDe($("pp-hora").value, L ? L.ts : st.inicio);
+    st.ev.push({ ts: ts, tono: $("pp-tono").value, sang: num("pp-sang") || 0, fc: fc, pas: pas, pad: num("pp-pad"), temp: num("pp-temp"), hema: $("pp-hema").checked, vejiga: $("pp-vejiga").checked, conc: $("pp-conc").checked });
+    st.ev.sort(function (a, b) { return a.ts - b.ts; });
+    save();
+    ["pp-sang", "pp-temp"].forEach(function (id) { $(id).value = ""; });
+    ["pp-hema", "pp-vejiga", "pp-conc"].forEach(function (id) { $(id).checked = false; });
+    $("pp-hora").value = ""; av.textContent = "Control registrado a las " + hc(ts) + ".";
+    render();
+  }
+  $("pp-btn-ini").addEventListener("click", function () {
+    if (st.ev.length && !window.confirm("¿Iniciar un control nuevo? Se borran los controles registrados.")) return;
+    iniciar(null);
+  });
+  $("pp-btn-reg").addEventListener("click", registrar);
+  $("pp-btn-undo").addEventListener("click", function () { st.ev.pop(); save(); render(); $("pp-aviso").textContent = "Se eliminó el último control."; });
+  $("pp-btn-reset").addEventListener("click", function () {
+    if (st.ev.length && !window.confirm("¿Borrar todo el registro posparto?")) return;
+    st = { via: $("pp-via").value, inicio: null, sang0: 0, ev: [] }; save(); $("pp-inicio").value = ""; render(); $("pp-aviso").textContent = "Registro borrado.";
+  });
+  $("pp-via").addEventListener("change", function () { st.via = this.value; save(); });
+  $("pp-sang0").addEventListener("change", function () { st.sang0 = num("pp-sang0") || 0; save(); render(); });
+  $("pp-btn-rojo").addEventListener("click", function () {
+    var L = st.ev[st.ev.length - 1], res = calc(), acum = res.length ? res[res.length - 1].acum : st.sang0;
+    function setV(id, v) { var el = $(id); if (!el || v == null) return; el.value = v; delete el.dataset.manual; el.dispatchEvent(new Event("input", { bubbles: true })); el.dispatchEvent(new Event("change", { bubbles: true })); }
+    var nav = $("navtab-rojo"); if (nav) nav.click();
+    if (L) { setV("in-fc", L.fc); setV("in-pas", L.pas); setV("in-pad", L.pad); }
+    setV("qbl-via", st.via); setV("qbl-bolsa", acum);
+    if (window.CaVeSalCoag && window.CaVeSalCoag.calcQBL) { try { window.CaVeSalCoag.calcQBL(); } catch (e) { } }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  $("pp-link-eapo").addEventListener("click", function (ev) {
+    ev.preventDefault(); var nav = $("navtab-rojo"); if (nav) nav.click();
+    var c = $("alerta-card"); if (c && c.scrollIntoView) c.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  var pgBtn = $("pg-btn-pp");
+  if (pgBtn) pgBtn.addEventListener("click", function () {
+    $("pp-card").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!st.inicio || window.confirm("Hay un control posparto en curso. ¿Iniciar uno nuevo con la hora actual?")) { $("pp-inicio").value = hc(Date.now()); iniciar(Date.now()); }
+  });
+  render();
+  setInterval(function () { if ($("pp-card").offsetParent !== null && st.inicio) render(); }, 30000);
+
+  window.CaVeSalPosparto = {
+    estado: function () { return JSON.parse(JSON.stringify(st)); },
+    cargar: function (obj) { st = obj; save(); $("pp-hora").value = ""; render(); },
+    evaluar: function () { return calc(); },
+    render: render
+  };
+})();
+</script>
+
+<script>
 /**
  * Puente Emergencias → CaVeSal® IA ("Analizar con CaVeSal® IA").
  *
@@ -4784,7 +6632,14 @@ function cargarEjemploEmerg(tipo){
     { id: "result-vol", tipo: "volemia_estimada", categoria: "codigo_rojo" },
     { id: "result-qbl", tipo: "cuantificacion_sangrado", categoria: "codigo_rojo" },
     { id: "result-cid", tipo: "coagulopatia_cid", categoria: "codigo_rojo" },
-    { id: "result-rot", tipo: "rotem", categoria: "codigo_rojo" }
+    { id: "result-rot", tipo: "rotem", categoria: "codigo_rojo" },
+    { id: "result-parto", tipo: "parto_prematuro_conducta", categoria: "parto" },
+    { id: "result-tocol", tipo: "tocolisis_cronometro", categoria: "parto" },
+    { id: "result-contr", tipo: "contador_contracciones", categoria: "parto" },
+    { id: "result-mgso4", tipo: "mgso4_toxicidad", categoria: "parto" },
+    { id: "result-alu", tipo: "alumbramiento", categoria: "parto" },
+    { id: "result-pp", tipo: "posparto_inmediato_2h", categoria: "parto" },
+    { id: "result-pg", tipo: "partograma", categoria: "parto" }
   ];
 
   var ESCALA_ALERTA_LABEL = {
@@ -4984,7 +6839,7 @@ window.VOZ_PROTOCOLOS = {
 
       { id: "t1", fase: "tono", t: "Masaje uterino externo continuo durante todo el manejo, hasta que el sangrado ceda.", ref: "MSPBS ICT, Etapa 3 · WHO MCPC 2017" },
       { id: "t2", fase: "tono", t: "Oxitocina 5 UI EV lento en 5 min (10 UI IM si no hay vía). Repetible a los 5 min hasta 10 UI. Mantenimiento: 20 UI en 500 cc de SF en 4 h.", v: "Oxitocina cinco unidades endovenosa lenta en cinco minutos, o diez unidades intramuscular si no hay vía. Repetible a los cinco minutos hasta diez unidades. Mantenimiento: veinte unidades en quinientos de suero fisiológico en cuatro horas.", timer: { min: 5, msg: "Cinco minutos desde la oxitocina. Evaluar repetir cinco unidades, hasta un máximo de diez." }, ref: "Guías, Modelo ICT ficha 7" },
-      { id: "t3", fase: "tono", t: "Ácido tranexámico 1 g IV en 10 min. No usar después de 3 h posparto.", v: "Ácido tranexámico un gramo endovenoso en diez minutos. No usar después de tres horas posparto.", timer: { min: 30, msg: "Treinta minutos desde el ácido tranexámico. Si el sangrado continúa, repetir un gramo." }, ref: "OMS 2025" },
+      { id: "t3", fase: "tono", t: "Ácido tranexámico 1 g IV en 10 min (1 mL/min, no en bolo rápido: hipotensión). Segunda dosis si continúa a los 30 min o reaparece dentro de las 24 h. No usar después de 3 h del nacimiento.", v: "Ácido tranexámico un gramo endovenoso, goteo en diez minutos, no en bolo rápido. Segunda dosis si continúa a los treinta minutos o reaparece dentro de las veinticuatro horas. No usar después de tres horas del nacimiento.", timer: { min: 30, msg: "Treinta minutos desde el ácido tranexámico. Si el sangrado continúa, repetir un gramo." }, ref: "OMS 2025" },
       { id: "t4", fase: "tono", t: "Revisar las 4T: Tono, Trauma (revisar y reparar el canal), Tejido (revisar placenta y cavidad) y Trombina (test del coágulo en tubo, 7 min).", v: "Revisar las cuatro T. Tono. Trauma: revisar y reparar el canal. Tejido: revisar placenta y cavidad. Trombina: test del coágulo en tubo, siete minutos.", ref: "Guías, Código Rojo ficha 5" },
       { id: "t5", fase: "tono", q: true, t: "¿Cedió el sangrado?", v: "¿Cedió el sangrado? Diga sí o no.", si: "v1", no: "t6" },
       { id: "t6", fase: "tono", t: "Compresión bimanual al menos 20 min o hasta que cese el sangrado. Continuar hasta que no sangre al liberar y el útero esté contraído.", v: "Compresión bimanual al menos veinte minutos o hasta que cese el sangrado.", timer: { min: 20, msg: "Veinte minutos de compresión bimanual. Liberar y verificar útero contraído sin sangrado." }, ref: "MSPBS ICT · WHO MCPC 2017" },
@@ -5769,5 +7624,395 @@ window.VOZ_ARBOL = [
 })();
 
 </script>
+<script>
+/* Enlace profundo desde las guías: full/#id-de-tarjeta activa la pestaña y desplaza a la tarjeta */
+(function () {
+  function ir() {
+    var h = (location.hash || "").slice(1); if (!/^[a-z][\w-]*-card$/.test(h)) return;
+    var el = document.getElementById(h); if (!el) return;
+    var sec = el.closest(".code-section"); if (sec) { var b = document.querySelector('[aria-controls="' + sec.id + '"]'); if (b) b.click(); }
+    setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 150);
+  }
+  window.addEventListener("hashchange", ir);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(ir, 300); }); else setTimeout(ir, 300);
+})();
+</script>
+<script>
+/* ================= RPM: flujogramas de diagnóstico y conducta + madurez fetal ================= */
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  var MSP = 'https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf';
+  var L = {
+    msp: '<a href="' + MSP + '" target="_blank" rel="noopener">MSPBS 2018</a>',
+    nice: '<a href="https://www.nice.org.uk/guidance/ng25" target="_blank" rel="noopener">NICE NG25</a>',
+    acog: '<a href="https://www.nccwebsite.org/content/documents/courses/Prelabor%20Rupture%20of%20Membranes.pdf" target="_blank" rel="noopener">ACOG PB 217 (2020)</a>',
+    rcog: '<a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/care-of-women-presenting-with-suspected-preterm-prelabour-rupture-of-membranes-from-24plus0-weeks-of-gestation-green-top-guideline-no-73/" target="_blank" rel="noopener">RCOG GTG 73</a>',
+    coch: '<a href="https://www.cochrane.org/evidence/CD007062_tocolytics-preterm-premature-rupture-membranes" target="_blank" rel="noopener">Cochrane, Mackeen 2014</a>',
+    alps: '<a href="https://missionandme.mission-health.org/wp-content/uploads/sites/5/2016/11/161026_nejm-alps_article.pdf" target="_blank" rel="noopener">ALPS, NEJM 2016</a>',
+    alps7: '<a href="https://jamanetwork.com/journals/jama/fullarticle/2818051" target="_blank" rel="noopener">seguimiento ALPS, JAMA 2024</a>',
+    ninan: '<a href="https://pubmed.ncbi.nlm.nih.gov/35404395/" target="_blank" rel="noopener">Ninan, JAMA Pediatr 2022</a>',
+    alao: '<a href="https://doi.org/10.1007/s00404-022-06501-8" target="_blank" rel="noopener">Alao 2023</a>',
+    acog713: '<a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/08/antenatal-corticosteroid-therapy-for-fetal-maturation" target="_blank" rel="noopener">ACOG CO 713</a>',
+    aium: '<a href="https://onlinelibrary.wiley.com/doi/10.1002/jum.16406" target="_blank" rel="noopener">AIUM/ACOG/SMFM</a>'
+  };
+
+  /* ---------- motor genérico de flujograma ---------- */
+  function Flow(el, nodes, start, ctx) {
+    this.el = el; this.nodes = nodes; this.start = start; this.ctx = ctx || {}; this.path = [];
+  }
+  Flow.prototype.current = function () {
+    var id = this.start;
+    for (var i = 0; i < this.path.length; i++) id = this.path[i].next;
+    return id;
+  };
+  Flow.prototype.choose = function (nodeId, label, next, data) {
+    this.path.push({ node: nodeId, label: label, next: next, data: data || null });
+    this.render();
+  };
+  Flow.prototype.back = function (idx) { this.path = this.path.slice(0, idx); this.render(); };
+  Flow.prototype.reset = function () { this.path = []; this.render(); };
+  Flow.prototype.data = function () {
+    var o = {};
+    this.path.forEach(function (p) { if (p.data) for (var k in p.data) o[k] = p.data[k]; });
+    return o;
+  };
+  Flow.prototype.render = function () {
+    var self = this, el = this.el, h = "";
+    if (!el) return;
+    var d = this.data();
+    this.path.forEach(function (p, i) {
+      var n = self.nodes[p.node];
+      var q = typeof n.q === "function" ? n.q(self.ctx, d) : n.q;
+      h += '<div class="fl-step done"><div class="fl-q">' + (i + 1) + '. ' + q + '</div><div class="fl-ans">' + p.label +
+        ' <button type="button" class="fl-edit" data-back="' + i + '">cambiar</button></div></div>';
+    });
+    var cid = this.current(), n = this.nodes[cid];
+    if (n.pre) { var r = n.pre(self.ctx, d); if (r) { n = self.nodes[r]; cid = r; } }
+    var num = this.path.length + 1;
+    if (n.type === "q") {
+      var q = typeof n.q === "function" ? n.q(self.ctx, d) : n.q;
+      h += '<div class="fl-step"><div class="fl-q">' + num + '. ' + q + '</div>';
+      if (n.info) h += '<div class="fl-info">' + (typeof n.info === "function" ? n.info(self.ctx, d) : n.info) + '</div>';
+      h += '<div class="fl-opts">';
+      n.opts.forEach(function (o, k) { h += '<button type="button" class="fl-opt" data-opt="' + k + '">' + o.label + '</button>'; });
+      h += '</div></div>';
+    } else if (n.type === "checks") {
+      h += '<div class="fl-step"><div class="fl-q">' + num + '. ' + n.q + '</div>';
+      if (n.info) h += '<div class="fl-info">' + n.info + '</div>';
+      h += '<div class="fl-checks">';
+      n.items.forEach(function (it) { h += '<label><input type="checkbox" data-chk="' + it[0] + '"><span>' + it[1] + '</span></label>'; });
+      h += '</div><button type="button" class="fl-go">Continuar</button></div>';
+    } else {
+      h += '<div class="fl-out">' + n.html(self.ctx, d) + '</div>';
+    }
+    if (this.path.length) h += '<button type="button" class="btn btn-outline btn-sm fl-reset">Reiniciar flujograma</button>';
+    el.innerHTML = h;
+    el.querySelectorAll("[data-back]").forEach(function (b) {
+      b.addEventListener("click", function () { self.back(parseInt(b.getAttribute("data-back"), 10)); });
+    });
+    var rs = el.querySelector(".fl-reset"); if (rs) rs.addEventListener("click", function () { self.reset(); });
+    if (n.type === "q") {
+      el.querySelectorAll("[data-opt]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var o = n.opts[parseInt(b.getAttribute("data-opt"), 10)];
+          self.choose(cid, o.label, typeof o.next === "function" ? o.next(self.ctx, d) : o.next, o.data);
+        });
+      });
+    } else if (n.type === "checks") {
+      el.querySelector(".fl-go").addEventListener("click", function () {
+        var sel = {}, labels = [];
+        el.querySelectorAll("[data-chk]").forEach(function (c) {
+          if (c.checked) { sel[c.getAttribute("data-chk")] = true; labels.push(c.parentNode.textContent); }
+        });
+        var any = labels.length > 0;
+        self.choose(cid, any ? labels.join(" · ") : "Ninguno", n.next(sel, self.ctx), { checks: sel });
+      });
+    } else if (n.bind) {
+      n.bind(el, self.ctx, d, self);
+    }
+  };
+
+  /* ---------- EG compartida con la tarjeta de conducta ---------- */
+  function egActual() {
+    var s = parseInt(($("parto-eg") || {}).value, 10), dd = parseInt(($("parto-eg-d") || {}).value, 10);
+    if (isNaN(s)) return null;
+    if (isNaN(dd)) dd = 0;
+    if (s < 20 || s > 42 || dd < 0 || dd > 6) return null;
+    return { sem: s, d: dd, total: s + dd / 7, txt: s + "+" + dd };
+  }
+
+  /* =============== DIAGNÓSTICO =============== */
+  var PRUEBAS = {
+    pamg: { n: "PAMG-1 (AmniSure®)", s: "98-99%", e: "98-100%" },
+    igfbp: { n: "IGFBP-1 (Actim PROM®)", s: "74-97%", e: "74-97%" },
+    urea: { n: "Urea en secreción vaginal (corte 1,25 mg/dL)", s: "94%", e: "82%" },
+    crea: { n: "Creatinina en secreción vaginal (corte 0,23 mg/dL)", s: "98%", e: "90%" },
+    fern: { n: "Cristalización (helecho)", s: "55-98%", e: "30-88%" },
+    nitra: { n: "Nitrazina (pH mayor a 6,5)", s: "90-97%", e: "16-70%" }
+  };
+  function tablaPruebas() {
+    var h = '<table class="fl-tbl"><thead><tr><th>Prueba</th><th>Sens.</th><th>Espec.</th></tr></thead><tbody>';
+    for (var k in PRUEBAS) h += '<tr><td>' + PRUEBAS[k].n + '</td><td>' + PRUEBAS[k].s + '</td><td>' + PRUEBAS[k].e + '</td></tr>';
+    return h + '</tbody></table>';
+  }
+  function irConducta() {
+    return '<button type="button" class="fl-go" data-ir-conducta="1">Ir a la conducta (RPM)</button>';
+  }
+  function bindIr(el) {
+    var b = el.querySelector("[data-ir-conducta]");
+    if (b) b.addEventListener("click", function () {
+      var s = $("parto-escenario"); if (s) { s.value = "rpm"; s.dispatchEvent(new Event("change")); }
+      var c = $("parto-card"); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+  var DX = {
+    d1: { type: "q", q: "¿Está en trabajo de parto establecido?",
+      opts: [{ label: "Sí", next: "dTP" }, { label: "No", next: "d2" }] },
+    dTP: { type: "out", html: function () {
+      return '<div class="result-box rb-amarillo"><div class="result-title">Trabajo de parto establecido: no hacen falta pruebas de RPM</div><div class="result-detail">' +
+        '<div class="pt-esq">Manejo del trabajo de parto; profilaxis del estreptococo del grupo B según corresponda. Si es pretérmino, maduración y neuroprotección según EG en la conducta. (' + L.nice + ')</div>' + irConducta() + '</div></div>';
+    }, bind: bindIr },
+    d2: { type: "q", q: "Especuloscopía estéril (sin tacto vaginal), con Valsalva o Tarnier: ¿se ve salir líquido por el orificio cervical externo o acumulado en el fondo de saco?",
+      info: "No hacer tacto vaginal en este momento. Evaluar también prolapso de cordón, cervicitis y dilatación; tomar muestras (cultivo, estreptococo del grupo B).",
+      opts: [{ label: "Sí, se ve líquido", next: "dOK" }, { label: "No o dudoso", next: "d3" }] },
+    dOK: { type: "out", html: function () {
+      return '<div class="result-box rb-amarillo"><div class="result-title">RPM confirmada por la clínica</div><div class="result-detail">' +
+        '<div class="pt-esq">Con salida visible de líquido no hace falta otra prueba (' + L.nice + '). Siguiente paso: conducta según edad gestacional y descarte de Triple I.</div>' + irConducta() + '</div></div>';
+    }, bind: bindIr },
+    d3: { type: "q", q: "¿Qué prueba tenés disponible?",
+      info: function () { return tablaPruebas() + 'Variantes: ' + L.nice + ' indica IGFBP-1 o PAMG-1 y desaconseja la nitrazina; ' + L.msp + ' acepta nitrazina o cristalografía antes del tacto, e IGFBP-1/PAMG-1 si el caso es dudoso. Urea y creatinina: ' + L.alao + ' (Nigeria, bajo costo).'; },
+      opts: [
+        { label: "PAMG-1 (AmniSure®)", next: "d4", data: { t: "pamg" } },
+        { label: "IGFBP-1 (Actim PROM®)", next: "d4", data: { t: "igfbp" } },
+        { label: "Urea / creatinina vaginal", next: "d4", data: { t: "crea" } },
+        { label: "Cristalización", next: "d4", data: { t: "fern" } },
+        { label: "Nitrazina", next: "d4", data: { t: "nitra" } },
+        { label: "Ninguna", next: "d5" }
+      ] },
+    d4: { type: "q", q: function (c, d) { return "Resultado de " + (d.t === "crea" ? "urea / creatinina vaginal" : PRUEBAS[d.t].n) + ":"; },
+      info: function (c, d) {
+        if (d.t === "nitra") return "Falsos positivos con sangre, semen, orina alcalina o vaginosis bacteriana.";
+        if (d.t === "crea") return "Positivo si urea mayor a 1,25 mg/dL o creatinina mayor a 0,23 mg/dL (" + L.alao + "). Cortes de un solo estudio: confirmar con el laboratorio local.";
+        return "";
+      },
+      opts: [{ label: "Positivo", next: "dPos" }, { label: "Negativo", next: "d5" }] },
+    dPos: { type: "out", html: function (c, d) {
+      var p = d.t === "crea" ? { s: "94-98%", e: "82-90%" } : PRUEBAS[d.t];
+      return '<div class="result-box rb-amarillo"><div class="result-title">RPM probable (prueba positiva)</div><div class="result-detail">' +
+        '<div class="pt-esq">Sensibilidad ' + p.s + ' · especificidad ' + p.e + '. Interpretala junto con la clínica: ninguna prueba aislada decide la conducta (' + L.nice + ').' +
+        (d.t === "nitra" || d.t === "fern" ? ' Con pruebas de baja especificidad, si la duda persiste, confirmá con PAMG-1/IGFBP-1 o amniocentesis.' : '') + '</div>' + irConducta() + '</div></div>';
+    }, bind: bindIr },
+    d5: { type: "q", q: "Ecografía — líquido amniótico:",
+      info: function () { return "Oligoamnios: bolsa máxima menor a 2 cm (preferido) o ILA de 5 cm o menos (" + L.aium + "). Orienta, no confirma (" + L.msp + ")."; },
+      opts: [{ label: "Oligoamnios (BM <2 cm o ILA ≤5 cm)", next: "d6" }, { label: "Líquido normal", next: "dNeg" }, { label: "Sin ecografía", next: "d6" }] },
+    d6: { type: "q", q: "¿Persiste la duda y el diagnóstico cambia la conducta?",
+      opts: [{ label: "Sí", next: "dAmnio" }, { label: "No", next: "dOligo" }] },
+    dAmnio: { type: "out", html: function () {
+      return '<div class="result-box rb-amarillo"><div class="result-title">Amniocentesis con colorante (estándar de oro en casos dudosos)</div><div class="result-detail">' +
+        '<div class="pt-esq">Instilar índigo carmín o fluoresceína guiado por ecografía y colocar un tampón vaginal: la tinción en 30-60 min confirma la RPM; pasado ese tiempo pierde especificidad (' + L.msp + ').</div>' +
+        '<div class="mg-alerta">Azul de metileno contraindicado por vía intraamniótica.</div>' +
+        '<div class="pt-esq">Aprovechá la muestra: Gram, glucosa (menor a 14 mg/dL sugiere infección), cultivo y, si se dispone, pruebas de madurez pulmonar (tarjeta «Madurez pulmonar fetal»).</div></div></div>';
+    } },
+    dOligo: { type: "out", html: function () {
+      return '<div class="result-box rb-amarillo"><div class="result-title">RPM no confirmada con oligoamnios</div><div class="result-detail">' +
+        '<div class="pt-esq">Repetí la especuloscopía tras reposo, reevaluá y descartá otras causas de oligoamnios (restricción de crecimiento, causas renales). Si la sospecha clínica es alta, manejala como RPM con vigilancia.</div></div></div>';
+    } },
+    dNeg: { type: "out", html: function () {
+      return '<div class="result-box rb-verde"><div class="result-title">RPM poco probable</div><div class="result-detail">' +
+        '<div class="pt-esq">Con prueba negativa no indicar antibióticos de latencia (' + L.nice + '). Explicar y pedir que vuelva si reaparece la pérdida. Diagnóstico diferencial (' + L.msp + '): leucorrea o vulvovaginitis, tapón mucoso, incontinencia o infección urinaria, semen.</div></div></div>';
+    } }
+  };
+
+  /* =============== CONDUCTA =============== */
+  var ATB = {
+    acog: { n: "ACOG PB 217 / NICHD (preferido, más actualizado)", t: 'Ampicilina 2 g EV c/6 h + eritromicina 250 mg EV c/6 h durante 48 h, luego amoxicilina 250 mg VO c/8 h + eritromicina base 333 mg VO c/8 h durante 5 días (7 días en total). Fuente: ' },
+    acogazi: { n: "ACOG con azitromicina", t: 'Igual que el esquema ACOG, reemplazando la eritromicina por azitromicina 1 g VO dosis única (alternativa adecuada si no hay eritromicina o no se tolera). Fuente: ' },
+    msp1: { n: "MSPBS 2018 — un fármaco + azitromicina", t: 'Uno de: ampicilina 2 g EV y luego 1 g c/4 h · amoxicilina 500 mg VO c/8 h · eritromicina 250 mg VO c/6 h · amoxicilina + sulbactam 1,5 g c/8 h; durante 7 días o hasta el parto, más azitromicina 1 g VO dosis única (Ureaplasma). Fuente: ' },
+    msp2: { n: "MSPBS 2018 — esquema combinado", t: 'Ampicilina 1-2 g EV c/6 h + eritromicina 500 mg VO c/6 h durante 48 h, luego amoxicilina (o ampicilina) 500 mg VO c/6 h + eritromicina 500 mg VO c/8 h durante 5 días (7 días en total). Fuente: ' },
+    nice: { n: "NICE NG25 / RCOG", t: 'Eritromicina 250 mg VO c/6 h hasta 10 días o hasta el trabajo de parto establecido, lo que ocurra primero. Fuente: ' }
+  };
+  var ATB_SRC = { acog: "acog", acogazi: "acog", msp1: "msp", msp2: "msp", nice: "nice" };
+  var estadoCx = { atb: "acog", alergia: false, tocol: false };
+
+  function bloqueATB(late) {
+    if (late) {
+      return '<div class="pt-esq"><strong>Antibióticos (34⁰/⁷-36⁶/⁷, ' + L.msp + ').</strong> ' +
+        (estadoCx.alergia ? '<strong>Alergia a penicilina: clindamicina 900 mg EV c/8 h</strong>' : 'Uno de: ampicilina 2 g EV y luego 1 g c/4 h · amoxicilina 500 mg VO c/8 h · eritromicina 250 mg VO c/6 h · amoxicilina + sulbactam 1,5 g c/8 h') +
+        '; 7 días o hasta el parto, más azitromicina 1 g VO dosis única. Variante: ' + L.acog + ' no indica antibióticos de latencia desde 34⁰/⁷; solo profilaxis del estreptococo del grupo B según cultivo.</div>';
+    }
+    var a = ATB[estadoCx.atb], h = "";
+    if (!estadoCx.alergia) h += '<div class="pt-esq"><strong>Antibióticos de latencia — ' + a.n + '.</strong> ' + a.t + L[ATB_SRC[estadoCx.atb]] + '.</div>';
+    else h += '<div class="mg-alerta">Alergia a penicilina: clindamicina 900 mg EV c/8 h durante 7 días o hasta el parto (' + L.msp + '), más azitromicina 1 g VO dosis única. ACOG: elegir según la gravedad de la reacción.</div>';
+    h += '<div class="pt-esq">Evitar amoxicilina + ácido clavulánico: más enterocolitis necrotizante (' + L.acog + ').</div>';
+    return h;
+  }
+  function controlesATB(late) {
+    var h = '<div class="fl-ctrl">';
+    if (!late) {
+      h += '<label for="rpm-atb">Esquema antibiótico' + (estadoCx.alergia ? ' (reemplazado por alergia)' : '') + '</label><select id="rpm-atb"' + (estadoCx.alergia ? ' disabled' : '') + '>';
+      for (var k in ATB) h += '<option value="' + k + '"' + (estadoCx.atb === k ? ' selected' : '') + '>' + ATB[k].n + '</option>';
+      h += '</select>';
+    }
+    h += '<label class="fl-inline"><input type="checkbox" id="rpm-alergia"' + (estadoCx.alergia ? ' checked' : '') + '> Alergia a penicilina</label>';
+    if (!late) h += '<label class="fl-inline"><input type="checkbox" id="rpm-tocol"' + (estadoCx.tocol ? ' checked' : '') + '> Mostrar opción de tocolisis (48 h)</label>';
+    return h + '</div>';
+  }
+  function bindControles(el, flow) {
+    var s = el.querySelector("#rpm-atb"); if (s) s.addEventListener("change", function () { estadoCx.atb = s.value; flow.render(); });
+    var a = el.querySelector("#rpm-alergia"); if (a) a.addEventListener("change", function () { estadoCx.alergia = a.checked; flow.render(); });
+    var t = el.querySelector("#rpm-tocol"); if (t) t.addEventListener("change", function () { estadoCx.tocol = t.checked; flow.render(); });
+  }
+  function bloqueCorticoides(eg) {
+    var si = eg.total >= 24 && eg.total <= 34;
+    var h = si ? '<span class="pt-chip si">Maduración pulmonar: SÍ</span>' : '<span class="pt-chip no">Maduración pulmonar: no indicada (corte MSPBS)</span>';
+    if (si) h += '<div class="pt-esq"><strong>Maduración pulmonar (24⁰/⁷ a 34⁰/⁷, ' + L.msp + ').</strong> Betametasona 12 mg IM c/24 h (2 dosis) o dexametasona 6 mg IM c/12 h (4 dosis). Solo sin corioamnionitis.</div>';
+    if (eg.total >= 33) {
+      h += '<div class="pt-esq"><strong>Observación sobre corticoides después de las 34 semanas.</strong> La calculadora sugiere madurar hasta 34⁰/⁷. Hay guías que extienden: ' + L.acog713 + ' hasta 36⁶/⁷ si no recibió un ciclo previo, sin diabetes pregestacional y sin corioamnionitis; ' + L.nice + ' considerar hasta 35⁶/⁷. Beneficio: menos morbilidad respiratoria (' + L.alps + ': RR 0,80). Efectos colaterales: hipoglucemia neonatal 24% vs 15% (RR 1,60); sin daño del neurodesarrollo a los 7 años (' + L.alps7 + '), aunque un estudio observacional asoció la exposición en tardíos y de término con más consultas neurocognitivas (' + L.ninan + ', certeza baja).</div>';
+    }
+    return h;
+  }
+  function bloqueTocol() {
+    if (!estadoCx.tocol) return '<div class="pt-esq"><strong>Tocolisis:</strong> no de rutina. Activá la casilla para ver la opción y su evidencia.</div>';
+    return '<div class="pt-esq"><strong>Tocolisis (opcional, 24⁰/⁷-33⁶/⁷, sin infección).</strong> ' + L.msp + ': solo para completar la maduración pulmonar o 48 h (fármacos y cronómetro en la tarjeta «Tocolisis»). Evidencia: prolonga la latencia unas 73 h pero aumenta la corioamnionitis antes de las 34 semanas (RR 1,79) sin beneficio neonatal (' + L.coch + '); ' + L.rcog + ' no la recomienda. Suspender ante cualquier signo de infección.</div>';
+  }
+
+  var CX = {
+    c0: { type: "out", pre: function () { return egActual() ? "c1" : null; }, html: function () {
+      return '<div class="result-box rb-neutro"><div class="result-title">Cargá la edad gestacional arriba para iniciar el flujograma</div></div>';
+    } },
+    c1: { type: "checks", q: "Criterios de interrupción inmediata (marcá los presentes):",
+      info: "Si no hay ninguno, tocá «Continuar» sin marcar.",
+      items: [["triple", "Triple I / corioamnionitis (fiebre + taquicardia materna o fetal, dolor uterino, LA purulento o fétido, leucocitosis)"],
+        ["dppni", "Desprendimiento de placenta o hemorragia activa"],
+        ["fetal", "Compromiso del bienestar fetal"],
+        ["cordon", "Prolapso de cordón"],
+        ["tp", "Trabajo de parto activo"],
+        ["letal", "Óbito o malformación letal"]],
+      next: function (sel) {
+        for (var k in sel) if (sel[k]) return "cInt";
+        var eg = egActual();
+        if (eg.total < 24) return "cPrev";
+        if (eg.total < 34) return "cUcin";
+        if (eg.total < 37) return "cVia";
+        return "cVia";
+      } },
+    cInt: { type: "out", html: function (c, d) {
+      var eg = egActual(), ch = d.checks || {}, h = "";
+      h += '<div class="result-box rb-rojo"><div class="result-title">Interrupción sin demora, a cualquier edad gestacional</div><div class="result-detail">';
+      h += '<div class="pt-esq">Vía según condiciones obstétricas (inducción o cesárea). Avisar a neonatología (' + L.msp + ').' + (ch.cordon ? ' Prolapso de cordón: cesárea de urgencia salvo parto inminente.' : '') + (ch.tp ? ' Trabajo de parto activo: no inhibir.' : '') + '</div>';
+      if (ch.triple) {
+        h += '<div class="mg-alerta">Corioamnionitis (' + L.msp + '): ampicilina 2 g EV c/6 h + gentamicina 2 mg/kg EV inicial y luego 1,5 mg/kg c/8 h (o 5 mg/kg c/24 h). Si es cesárea, agregar metronidazol 500 mg EV c/8 h o clindamicina 900 mg EV c/8 h. Continuar hasta 48 h sin signos de infección.</div>';
+        h += '<span class="pt-chip no">Maduración pulmonar: no (corioamnionitis — no demorar la interrupción)</span>';
+      } else if (eg.total >= 24 && eg.total <= 34) {
+        h += '<span class="pt-chip si">Maduración pulmonar: SÍ, si no demora la interrupción</span>';
+      }
+      if (eg.total >= 24 && eg.total < 32) h += '<span class="pt-chip si">Neuroprotección MgSO4: SÍ (parto probable en menos de 24 h)</span>';
+      if (!ch.triple && eg.total >= 24) h += '<div class="pt-esq">Profilaxis del estreptococo del grupo B intraparto según cultivo o factores de riesgo.</div>';
+      return h + '</div></div>';
+    } },
+    cPrev: { type: "out", html: function () {
+      return '<div class="result-box rb-amarillo"><div class="result-title">Menor a 24 semanas — previable: decisión consensuada con los padres</div><div class="result-detail">' +
+        '<div class="pt-esq">Asesoramiento conjunto obstetricia + neonatología sobre pronóstico (hipoplasia pulmonar, deformidades, infección, prematurez extrema) y opciones: manejo expectante o interrupción. Registrar la decisión.</div>' +
+        '<div class="pt-esq">' + L.msp + ': manejo expectante; considerar antibióticos desde las 20⁰/⁷ semanas. No se recomiendan antes de la viabilidad: profilaxis del estreptococo del grupo B, corticoides, tocolisis ni MgSO4. Interrumpir si aparece infección, desprendimiento o trabajo de parto.</div></div></div>';
+    } },
+    cUcin: { type: "q", q: function () { return "EG " + egActual().txt + ": ¿tu servicio tiene UCIN para esta edad gestacional?"; },
+      opts: [{ label: "Sí, tengo UCIN", next: "cExp", data: { deriv: false } }, { label: "No — derivar a Nivel III", next: "cExp", data: { deriv: true } }] },
+    cExp: { type: "out", html: function (c, d) {
+      var eg = egActual(), h = '<div class="result-box rb-amarillo"><div class="result-title">RPM ' + eg.txt + ' — manejo expectante' + (d.deriv ? ' con derivación in utero' : ' internada') + '</div><div class="result-detail">';
+      if (d.deriv) h += '<div class="mg-alerta">Derivar in utero a Nivel III. Antes del traslado: 1.ª dosis de corticoides, antibióticos' + (eg.total < 32 ? ' y MgSO4 si el parto es probable' : '') + ', sin demorar la salida.</div>';
+      h += bloqueCorticoides(eg);
+      h += eg.total < 32 ? '<span class="pt-chip si">Neuroprotección MgSO4: SÍ si el parto es probable en 24 h</span>' : '<span class="pt-chip no">Neuroprotección: no indicada (32 semanas o más)</span>';
+      h += controlesATB(false) + bloqueATB(false) + bloqueTocol();
+      h += '<div class="pt-esq"><strong>Vigilancia (' + L.msp + ').</strong> Signos vitales y curva térmica c/6 h, hemograma y PCR c/48 h, control de pérdidas, bienestar fetal. Interrumpir si hay contracciones que no ceden, signos de infección o compromiso fetal; si no, plan de finalización al llegar a 34⁰/⁷.</div>';
+      return h + '</div></div>';
+    }, bind: function (el, c, d, flow) { bindControles(el, flow); } },
+    cVia: { type: "q", q: function () { var eg = egActual(); return "EG " + eg.txt + (eg.total >= 37 ? " (término)" : " (pretérmino tardío)") + ": ¿hay indicación de cesárea?"; },
+      info: "Por ejemplo: presentación no cefálica, placenta previa, cesárea anterior con indicación de repetirla, compromiso fetal.",
+      opts: [{ label: "Sí", next: "cFin", data: { via: "ces" } }, { label: "No", next: "cBishop" }] },
+    cBishop: { type: "q", q: "Condiciones cervicales (puntaje de Bishop):",
+      opts: [{ label: "Favorable (más de 8)", next: "cFin", data: { via: "oxi" } },
+        { label: "Intermedio (7-8)", next: "cFin", data: { via: "int" } },
+        { label: "Desfavorable (6 o menos)", next: "cFin", data: { via: "mad" } }] },
+    cFin: { type: "out", html: function (c, d) {
+      var eg = egActual(), term = eg.total >= 37, h = '<div class="result-box ' + (term ? 'rb-verde' : 'rb-amarillo') + '"><div class="result-title">RPM ' + eg.txt + ' — ' + (term ? 'interrumpir' : 'pretérmino tardío') + '</div><div class="result-detail">';
+      var via = { ces: "Cesárea por la indicación obstétrica.", oxi: "Inducción con oxitocina.", int: "Inducción: oxitocina o maduración cervical según criterio clínico.", mad: "Maduración cervical (prostaglandinas, p. ej., misoprostol) y luego oxitocina." }[d.via];
+      if (term) {
+        h += '<div class="pt-esq"><strong>Finalizar por la vía más adecuada según condiciones cervicales (' + L.msp + ').</strong> ' + via + ' Variante: ' + L.nice + ' permite ofrecer inducción o expectante hasta 24 h.</div>';
+        h += '<div class="pt-esq"><strong>Antibióticos (' + L.msp + ').</strong> Estreptococo del grupo B positivo: ampicilina 2 g EV c/4 h hasta el nacimiento. Sin signos de infección y más de 18 h de rotura: penicilina G 5 millones UI EV y luego 2,5 millones c/4 h, o ampicilina 2 g EV y luego 1 g c/4 h, hasta el parto. Si no hay infección después del parto, suspender.</div>';
+      } else {
+        h += '<div class="pt-esq"><strong>Considerar la terminación según criterio obstétrico (' + L.msp + ').</strong> ' + via + ' Variante: ' + L.acog + ' acepta interrumpir o manejo expectante sin infección hasta 37⁰/⁷, con decisión compartida.</div>';
+        h += bloqueCorticoides(eg);
+        h += controlesATB(true) + bloqueATB(true);
+      }
+      h += '<div class="pt-esq">Más detalle en la <a href="../guia.html#tab-rpm">guía RPM</a> (fichas 2, 11 y 17).</div>';
+      return h + '</div></div>';
+    }, bind: function (el, c, d, flow) { bindControles(el, flow); } }
+  };
+
+  /* =============== MADUREZ FETAL =============== */
+  var VARNER = '<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4002188/" target="_blank" rel="noopener">Varner S et al. Rev Obstet Gynecol 2013;6(3-4):126-134</a>';
+  var PALACIO = '<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5625293/" target="_blank" rel="noopener">Palacio M et al. Am J Obstet Gynecol 2017 (multicéntrico, 730 casos)</a>';
+  function madInputs() {
+    var t = $("mad-test").value, w = $("mad-val-wrap");
+    if (t === "quantus") w.innerHTML = '<label for="mad-val">Resultado quantusFLM®</label><select id="mad-val"><option value="">Elegir…</option><option value="bajo">Bajo riesgo de morbilidad respiratoria</option><option value="alto">Alto riesgo de morbilidad respiratoria</option></select>';
+    else if (t === "pg") w.innerHTML = '<label for="mad-val">Fosfatidilglicerol</label><select id="mad-val"><option value="">Elegir…</option><option value="pres">Presente</option><option value="aus">Ausente</option></select>';
+    else if (t === "ls") w.innerHTML = '<label for="mad-val">Índice L/E</label><input type="number" id="mad-val" inputmode="decimal" min="0" max="10" step="0.1" placeholder="2,1">';
+    else w.innerHTML = '<label for="mad-val">RCL <span class="unit">(/µL)</span></label><input type="number" id="mad-val" inputmode="numeric" min="0" max="300000" step="1000" placeholder="52000">';
+    var v = $("mad-val"); v.addEventListener(v.tagName === "SELECT" ? "change" : "input", madCalc);
+    $("mad-source").innerHTML = '<strong>Algoritmo propio CaVeSal® · Basado en:</strong> ' + (t === "quantus" ? PALACIO : VARNER) + '. Más detalle en la <a href="../guia.html#tab-rpm">guía RPM</a>.';
+    madCalc();
+  }
+  function madCalc() {
+    var t = $("mad-test").value, v = $("mad-val"), box = $("result-madurez"), ti = $("result-madurez-title"), de = $("result-madurez-detail");
+    var val = v ? v.value : "", r = null;
+    if (val === "") { box.className = "result-box rb-neutro"; ti.textContent = "Cargá el resultado de la prueba"; de.innerHTML = ""; return; }
+    if (t === "quantus") {
+      r = val === "bajo" ? ["verde", "Bajo riesgo: compatible con madurez pulmonar", "VPN 95,5%: un resultado de bajo riesgo es muy confiable."]
+        : ["amarillo", "Alto riesgo de morbilidad respiratoria neonatal", "VPP 51%: la mitad de los «alto riesgo» no presenta morbilidad. Sensibilidad 74,3%, especificidad 88,6%. Requiere corte axial del tórax a nivel de 4 cámaras."];
+    } else if (t === "pg") {
+      r = val === "pres" ? ["verde", "PG presente: maduro", "Válido en muestras de pool vaginal y con sangre o meconio."]
+        : ["amarillo", "PG ausente: no predice distrés", "El PG aparece varias semanas después que el L/E maduro; su ausencia no indica inmadurez."];
+    } else if (t === "ls") {
+      var x = parseFloat(val);
+      if (isNaN(x)) return;
+      r = x >= 2 ? ["verde", "L/E " + x.toFixed(1) + ": maduro (2,0 o más)", "Baja incidencia de distrés respiratorio. Sangre o meconio alteran el resultado."]
+        : ["amarillo", "L/E " + x.toFixed(1) + ": inmaduro (menor a 2,0)", "Valor predictivo bajo para inmadurez; después de las 34 semanas aporta poco más que una EG confiable."];
+    } else {
+      var n = parseFloat(val);
+      if (isNaN(n)) return;
+      r = n > 50000 ? ["verde", "RCL " + n.toLocaleString("es-PY") + "/µL: maduro (más de 50.000)", "Cortes dependen del analizador: confirmá con tu laboratorio."]
+        : n < 15000 ? ["amarillo", "RCL " + n.toLocaleString("es-PY") + "/µL: inmaduro (menos de 15.000)", "Valor predictivo bajo para inmadurez."]
+        : ["neutro", "RCL " + n.toLocaleString("es-PY") + "/µL: intermedio (15.000-50.000)", "Indeterminado: complementar con L/E o PG."];
+    }
+    box.className = "result-box rb-" + r[0]; ti.textContent = r[1];
+    de.innerHTML = '<div class="pt-esq">' + r[2] + ' La madurez sola no indica interrumpir: integrar EG, infección y estado fetal.</div>';
+  }
+
+  /* =============== Init =============== */
+  var cxFlow = null;
+  window.cavesalRpmRefresh = function () {
+    var w = $("rpm-cx-wrap"); if (!w || !cxFlow) return;
+    var esc = $("parto-escenario");
+    w.hidden = !(esc && esc.value === "rpm");
+    if (!w.hidden) {
+      var eg = egActual(), key = eg ? eg.txt : "";
+      if (cxFlow.ctx.eg !== key) { cxFlow.ctx.eg = key; cxFlow.path = []; }
+      cxFlow.render();
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    if ($("rpm-dx-flow")) new Flow($("rpm-dx-flow"), DX, "d1").render();
+    if ($("rpm-cx-flow")) {
+      cxFlow = new Flow($("rpm-cx-flow"), CX, "c0", {});
+      ["parto-eg", "parto-eg-d"].forEach(function (id) { var e = $(id); if (e) e.addEventListener("input", window.cavesalRpmRefresh); });
+      var s = $("parto-escenario"); if (s) s.addEventListener("change", window.cavesalRpmRefresh);
+      window.cavesalRpmRefresh();
+    }
+    if ($("mad-test")) { $("mad-test").addEventListener("change", madInputs); madInputs(); }
+  });
+})();
+</script>
+
 </body>
 </html>
