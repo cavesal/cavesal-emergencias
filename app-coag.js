@@ -76,9 +76,18 @@
     if (!parts.length) { box("qbl", "rb-neutro", "Cargá al menos un componente", ""); return; }
     var ces = val("qbl-via") === "ces", out = parts.slice();
     var cls = "rb-verde", title = "Pérdida cuantificada: " + f0(total) + " mL";
-    if (total >= 1000) { cls = "rb-rojo"; out.push("≥1000 mL: hemorragia posparto (reVITALize/ACOG, cualquier vía). Activar Código Rojo."); }
-    else if (!ces && total >= 500) { cls = "rb-naranja"; out.push("≥500 mL en parto vaginal: hemorragia posparto (OMS 2025). Iniciar E-MOTIVE."); }
-    else if (ces) out.push("Cesárea: umbral de HPP ≥1000 mL.");
+    /* Criterio HPP OMS/FIGO/ICM 2025 (rec. 22), para todas las vías: ≥300 mL + signo anormal, o ≥500 mL */
+    var fc = num("in-fc"), pas = num("in-pas"), pad = num("in-pad"), sg = [];
+    if (!isNaN(fc) && fc > 100) sg.push("FC " + f0(fc) + " &gt;100");
+    if (!isNaN(fc) && !isNaN(pas) && pas > 0 && fc / pas > 1) sg.push("índice de choque " + (fc / pas).toFixed(2) + " &gt;1");
+    if (!isNaN(pas) && pas < 100) sg.push("PAS " + f0(pas) + " &lt;100");
+    if (!isNaN(pad) && pad < 60) sg.push("PAD " + f0(pad) + " &lt;60");
+    var sinSV = isNaN(fc) && isNaN(pas) && isNaN(pad);
+    if (total >= 1000) { cls = "rb-rojo"; out.push("<strong>≥1000 mL: hemorragia posparto</strong> (OMS 2025; también umbral clásico reVITALize/ACOG). Activar Código Rojo y escalar."); }
+    else if (total >= 500) { cls = "rb-rojo"; out.push("<strong>≥500 mL: hemorragia posparto (OMS 2025, rec. 22)</strong>" + (ces ? ", también en cesárea" : "") + ". Iniciar MOTIVE y activar Código Rojo."); }
+    else if (total >= 300 && sg.length) { cls = "rb-rojo"; out.push("<strong>≥300 mL con " + sg.join(", ") + ": hemorragia posparto (OMS 2025, rec. 22).</strong> Lo que más pesa es el signo de descompensación: iniciar MOTIVE y activar Código Rojo."); }
+    else if (total >= 300) { cls = "rb-naranja"; out.push("≥300 mL: " + (sinSV ? "cargá FC y PA arriba (Signos vitales). Con FC &gt;100, índice de choque &gt;1, PAS &lt;100 o PAD &lt;60 ya es hemorragia posparto (OMS 2025)." : "sin signos anormales por ahora; con cualquier signo anormal ya es hemorragia posparto (OMS 2025). Repetir FC y PA.")); }
+    if (ces && total < 1000 && total >= 300) out.push("Cesárea: la OMS 2025 aplica el mismo criterio a todas las vías y advierte no normalizar pérdidas mayores en cesárea; el umbral ≥1000 mL de reVITALize/ACOG queda como referencia histórica.");
     var v = ebv();
     if (!isNaN(v)) {
       var pct = total / v * 100, g;
@@ -155,7 +164,7 @@
           (rmax > 1.5 ? ". Con razón &gt;1,5 probablemente se necesiten &gt;15 mL/kg; vigilar sobrecarga (TACO)." : "; objetivo razón &lt;1,5."));
       }
       if (!cond.length) cond.push("Valores sin indicación de reposición de factores. Mantener vigilancia y repetir cada 30–60 min mientras sangre.");
-      cond.push("Ácido tranexámico 1 g IV en 10 min dentro de las 3 h (segunda dosis a los 30 min si persiste el sangrado) — OMS 2025.");
+      cond.push("Ácido tranexámico 1 g IV en 10 min (1 mL/min, no en bolo rápido) dentro de las 3 h del nacimiento; segunda dosis si continúa a los 30 min o reaparece dentro de las 24 h — OMS 2025, rec. 27.");
     }
     out.push("<strong>Conducta:</strong>" + li(cond));
     box("cid", pos ? "rb-rojo" : (miss.length ? "rb-neutro" : "rb-verde"), (pos ? "CID: " : "Score: ") + pts + " pts (corte " + cut + ")", li(out));

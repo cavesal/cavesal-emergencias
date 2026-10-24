@@ -1672,3 +1672,8 @@ body.voz-abierto { overflow: hidden; }
 .sim-caso.alerta, .sim-top.alerta { --c: var(--rojo-alert); --cbg: var(--rojo-alert-bg); }
 .subcard .subcard-body table.tbl-compact { font-size: 0.76rem; }
 .subcard .subcard-body table.tbl-compact th, .subcard .subcard-body table.tbl-compact td { padding: 4px 5px; hyphens: manual; }
+
+/* Buscador visible de guías */
+.guia-buscador { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); }
+.guia-res { max-height: 60vh; overflow-y: auto; }
+.guia-res:empty { display: none; }

@@ -3,7 +3,7 @@
    (que ya cita su fuente). "tab" = pestaña; "card" = texto del título de la ficha. */
 window.ACADEMY_GLOSARIO = [
   { t: "4T's", d: "Causas de hemorragia posparto: Tono 70 % (atonía), Trauma 20 % (desgarros), Tejido 10 % (restos), Trombina 1 % (coagulopatía).", tab: "rojo", card: "4T's, maniobras" },
-  { t: "Ácido tranexámico (TXA)", d: "Antifibrinolítico: 1 g IV en 10 min, repetir a los 30 min. No administrar después de 3 h del parto.", tab: "rojo", card: "Medicamentos" },
+  { t: "Ácido tranexámico (TXA)", d: "Antifibrinolítico: tratamiento de la HPP establecida. 1 g IV en 10 min (no en bolo rápido), segunda dosis si continúa a los 30 min o reaparece en 24 h. No después de 3 h del nacimiento. No se recomienda como profilaxis de rutina (OMS 2025).", tab: "rojo", card: "Medicamentos" },
   { t: "CABD", d: "Secuencia del Código Azul obstétrico: Circulación (compresiones), vía Aérea, Buena respiración (ventilación con presión positiva), Desfibrilar si el ritmo es desfibrilable. Con desplazamiento uterino a la izquierda.", tab: "azuloscuro", card: "Secuencia CABD" },
   { t: "Cesárea perimortem", d: "Según edad gestacional: <20 semanas no; 20-24 semanas según sospecha de compresión aortocava; >24 semanas siempre.", tab: "azuloscuro", card: "Cesárea perimortem" },
   { t: "Desplazamiento uterino izquierdo", d: "Desde las 20 semanas, para evitar la compresión aortocava. El manual se prefiere en la paciente inestable; alternativa: lateralización izquierda de 15-30°.", tab: "ict", card: "xABCDE" },

@@ -1,5 +1,5 @@
 /* CaVeSal® Emergencias — service worker. Subir VERSION en cada publicación. */
-const VERSION = "cavesal-emerg-v3";
+const VERSION = "cavesal-emerg-v10";
 const PRECACHE = [
   "./",
   "./academy-data.js",
@@ -32,6 +32,7 @@ const PRECACHE = [
   "./pwa.js",
   "./sim-data-alerta.js",
   "./sim-data-parto.js",
+  "./sim-data-partograma.js",
   "./sim-data.js",
   "./sim.js",
   "./simulador.html",

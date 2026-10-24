@@ -223,8 +223,9 @@
     $("#result-velez-title").textContent = "Grado " + GRADE_LABEL[worst] + " (define el peor parámetro)";
 
     var alertTxt = "";
-    if ((sangrado && sangrado > 1000) || worst !== "compensado") {
-      alertTxt = " — ACTIVAR CÓDIGO ROJO (hemorragia >1000mL y/o signo de choque).";
+    var sgV = (pulso > 100) || (pas < 100) || (pulso && pas && pulso / pas > 1);
+    if ((sangrado && sangrado >= 500) || (sangrado && sangrado >= 300 && sgV) || worst !== "compensado") {
+      alertTxt = " — ACTIVAR CÓDIGO ROJO (criterio OMS 2025: ≥300 mL con signo anormal o ≥500 mL, o signo de choque).";
       showAlert("alert-codigo-rojo");
     } else {
       hideAlert("alert-codigo-rojo");

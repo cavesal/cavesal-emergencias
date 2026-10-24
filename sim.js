@@ -88,7 +88,7 @@
       cel(nivel("t", vit.t, vit), "T", fmt(vit.t, 1), "°C") +
       cel(fcfCls, "FCF", vit.fcf == null ? "—" : vit.fcf, vit.fcf == null ? "nacido" : "lpm · normal 110-160") +
       cel("neutro", "Contracciones", esc(vit.cu || "—"), "") +
-      cel("neutro", "Dilatación", vit.dil == null ? "—" : vit.dil + " cm", vit.dil === 10 ? "completa" : vit.dil != null && vit.dil < 5 ? "fase latente" : vit.dil != null ? "fase activa" : "") +
+      cel("neutro", "Dilatación", vit.dil == null ? "—" : vit.dil + " cm", vit.fase ? vit.fase : vit.dil === 10 ? "completa" : vit.dil != null && vit.dil < 5 ? "fase latente" : vit.dil != null ? "fase activa" : "") +
       "</div>";
   }
   function monitor(vit) {
