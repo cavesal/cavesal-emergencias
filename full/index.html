@@ -1774,6 +1774,9 @@ body.voz-abierto { overflow: hidden; }
 .fl-tbl th, .fl-tbl td { border:1px solid #e1e7ec; padding:5px 6px; text-align:left; vertical-align:top; }
 .fl-tbl th { background:var(--cian-bg); color:var(--cian); }
 .fl-reset { margin-top:8px; }
+.fl-go.fl-rojo { background:var(--rojo-alert, #b3261e); }
+.fl-go.fl-ambar { background:#9a6700; }
+#sangrado1-card .fl-ctrl label, #sangrado2-card .fl-ctrl label { font-size:.85rem; font-weight:700; }
 </style>
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="manifest" href="manifest.json">
@@ -2168,6 +2171,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <!-- ============ Cargar caso de ejemplo ============ -->
   <div style="max-width:720px;margin:14px auto 0;padding:0 16px">
     <button type="button" onclick="mostrarEjemplosEmerg()" style="display:block;width:100%;padding:11px;background:#fff;border:1.5px solid #0EA5B7;border-radius:10px;font-size:.86rem;font-weight:700;color:#0EA5B7;cursor:pointer">📋 Cargar ejemplo</button>
+    <p style="margin:8px 0 0;font-size:.82rem;text-align:center;color:#4a5662">¿Edad gestacional dudosa? <a href="https://cavesal.app/demo/" target="_blank" rel="noopener" style="color:#0c4e54;font-weight:700">Usá gratis el Gestograma CaVeSal</a> (EG por FUM y ecografía).</p>
   </div>
 
   <!-- ============ Barra de datos comunes de paciente (siempre visible) ============ -->
@@ -2267,6 +2271,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-4" id="subtab-rojo-4">4. Recuperación</button>
         <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-5" id="subtab-rojo-5">5. Calculadoras / alertas</button>
         <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-6" id="subtab-rojo-6">6. Sangrado y coagulación</button>
+        <button class="sub-tab" role="tab" aria-selected="false" data-sub="rojo-7" id="subtab-rojo-7">7. Sangrados 1.ª y 2.ª mitad</button>
       </div>
 
       <!-- 1. Activación / reconocimiento -->
@@ -2361,9 +2366,12 @@ document.addEventListener('DOMContentLoaded', function(){
             <label><input type="checkbox" data-nivel="0" data-maniobra="bimanual">Compresión bimanual</label>
             <label><input type="checkbox" data-nivel="0" data-maniobra="aortica">Compresión externa de aorta</label>
             <label><input type="checkbox" data-nivel="1" data-maniobra="bakri">Balón intrauterino hidrostático (Bakri / Ellavy / artesanal — el disponible)</label>
+            <label><input type="checkbox" data-nivel="1" data-maniobra="zea">Técnica Zea: pinzamiento vaginal de las arterias uterinas (puente al quirófano)</label>
+            <label><input type="checkbox" data-nivel="2" data-maniobra="embolizacion">Embolización arterial (si está disponible y la paciente está estable)</label>
             <label><input type="checkbox" data-nivel="2" data-maniobra="transfusion">Transfusión de hemoderivados</label>
             <label><input type="checkbox" data-nivel="2" data-maniobra="traslado">Traslado a mayor nivel de complejidad</label>
             <label><input type="checkbox" data-nivel="3" data-maniobra="blynch">Sutura compresiva (B-Lynch / Hayman / Cho)</label>
+            <label><input type="checkbox" data-nivel="3" data-maniobra="ligaduras">Ligaduras vasculares (O'Leary / Posadas / Tsirulnikov / hipogástricas)</label>
             <label><input type="checkbox" data-nivel="3" data-maniobra="histerectomia">Histerectomía</label>
           </div>
           <div style="margin-top: var(--space-4);">
@@ -2649,6 +2657,32 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="result-detail" id="result-rot-detail"></div>
           </div>
           <p class="card-source">Algoritmo propio CaVeSal® · Basado en: Curry NS et al. BSH guideline, viscoelastic haemostatic assays (Br J Haematol 2018;182:789-806); Collins PW et al. OBS2 (Br J Anaesth 2017;119:411-21); Görlinger K et al. (Korean J Anesthesiol 2019;72:297-322) — dosis (g) = aumento A5 (mm) × peso ÷ 160; 10 U crio ≈ 2 g. Rango de referencia EXTEM: Drotarova M et al. (Diagnostics 2023;13:3219).</p>
+        </div>
+      </div>
+
+      <!-- 7. Sangrados 1.ª y 2.ª mitad -->
+      <div class="sub-panel" id="sub-rojo-7">
+        <div class="card" id="sangrado1-card">
+          <h3>Sangrado de la 1.ª mitad del embarazo</h3>
+          <p class="card-sub">Aborto (amenaza, en curso, incompleto, completo, diferido, infectado), embarazo de localización desconocida, ectópico y mola. Respondé cada paso; podés corregir con «cambiar».</p>
+          <div class="fl-ctrl">
+            <label for="sg-ect-guia">Criterios del ectópico tubario</label>
+            <select id="sg-ect-guia"><option value="cvs" selected>CaVeSal (híbrido, recomendado)</option><option value="msp">MSPBS Paraguay 2018</option><option value="nice">NICE NG126</option></select>
+            <label for="sg-mola-guia">Seguimiento de la mola</label>
+            <select id="sg-mola-guia"><option value="msp" selected>Ministerio (MSPBS)</option><option value="rcog">RCOG 2020</option></select>
+          </div>
+          <div class="fl-wrap" id="sg1-flow"></div>
+          <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf" target="_blank" rel="noopener">MSPBS Paraguay 2018</a> · <a href="https://iris.who.int/server/api/core/bitstreams/027eaae6-73bb-49fc-a214-ccd639efab71/content" target="_blank" rel="noopener">OMS 2022</a> · <a href="https://www.nice.org.uk/guidance/ng126" target="_blank" rel="noopener">NICE NG126</a> · <a href="https://www.imss.gob.mx/sites/all/statics/guiasclinicas/088GRR.pdf" target="_blank" rel="noopener">GPC IMSS-088</a> · <a href="https://obgyn.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/1471-0528.16266?download=true" target="_blank" rel="noopener">RCOG 2020</a>. No reemplaza el juicio clínico.</p>
+        </div>
+        <div class="card" id="sangrado2-card">
+          <h3>Sangrado de la 2.ª mitad del embarazo</h3>
+          <p class="card-sub">Placenta previa, desprendimiento (DPPNI), rotura uterina, vasa previa y espectro de placenta acreta. Sin tacto vaginal hasta descartar placenta previa.</p>
+          <div class="fl-ctrl">
+            <label for="sg-pas-guia">Momento del nacimiento en acretismo (PAS)</label>
+            <select id="sg-pas-guia"><option value="msp" selected>MSPBS: internar a las 32, nacimiento 36-37</option><option value="acog">ACOG/SMFM: 34+0 a 35+6</option><option value="figo">FIGO/RCOG: 35+0 a 36+6</option></select>
+          </div>
+          <div class="fl-wrap" id="sg2-flow"></div>
+          <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf" target="_blank" rel="noopener">MSPBS Paraguay 2018</a> · <a href="https://www.rcog.org.uk/media/pwdi1tef/gtg_63.pdf" target="_blank" rel="noopener">RCOG GTG 63</a> · <a href="https://www.acog.org/clinical/clinical-guidance/obstetric-care-consensus/articles/2018/12/placenta-accreta-spectrum" target="_blank" rel="noopener">ACOG/SMFM PAS</a> · <a href="https://publications.smfm.org/publications/579-society-for-maternal-fetal-medicine-consult-series-44/" target="_blank" rel="noopener">SMFM vasa previa</a> · <a href="https://www.gynultrazvuk.cz/uploads/publication/115/doc/2018-figo-consensus-guidelines-on-pas-disorders-nonconservative-surgical-management.pdf" target="_blank" rel="noopener">FIGO 2018</a>. No reemplaza el juicio clínico.</p>
         </div>
       </div>
 
@@ -3063,6 +3097,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="card" id="parto-card">
         <h3>RPM y APP — conducta según edad gestacional</h3>
         <p class="card-sub">Sub-módulo compartido: la maduración pulmonar y la neuroprotección se calculan igual en ambos escenarios. Por defecto, los cortes son los del MSPBS Paraguay; las variantes de otras guías figuran al pie.</p>
+        <p class="hint">¿Dilatación indolora o cuello corto en el 2.º trimestre? <a href="#iic-card" data-ir-iic="1">Ver incompetencia cervical y cerclaje</a>.</p>
         <div class="form-grid">
           <div class="field-group">
             <label for="parto-eg">EG — semanas</label>
@@ -3091,6 +3126,13 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
         <p class="hint">Variantes de corte (figuran en las guías): corticoides — ACOG hasta 33⁶/⁷ (y tardío 34⁰/⁷-36⁶/⁷), FIGO/OMS hasta 34⁶/⁷, NICE ofrecer 24⁰/⁷-33⁶/⁷ y considerar hasta 35⁶/⁷. Neuroprotección — NICE menor a 30 (zona gris 30⁰/⁷-33⁶/⁷). La calculadora usa los cortes del MSPBS Paraguay: corticoides 24⁰/⁷ a 34⁰/⁷ (desde 34¹/⁷ ya no) y neuroprotección menor a 32.</p>
         <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> MSPBS Paraguay, Manual Nacional de Normas de Atención de las Principales Patologías Obstétricas (2018): maduración pulmonar 24⁰/⁷ a 34⁰/⁷ semanas con betametasona 12 mg IM ×2 · neuroprotección menor a 32 semanas · ACOG/FIGO/NICE (variantes) · esquemas de ATB de latencia ACOG/NICHD. Ver <a href="../guia.html#tab-app">guía APP</a>, <a href="../guia.html#tab-rpm">guía RPM</a> y <a href="../bibliografia.html#calc-parto">bibliografía</a>.</p>
+      </div>
+
+      <div class="card" id="iic-card">
+        <h3>Incompetencia ístmico-cervical y cerclaje</h3>
+        <p class="card-sub">Dentro de la amenaza de parto pretérmino: cuándo indicar cerclaje (por antecedente, por ecografía o de urgencia), técnicas (McDonald, Shirodkar, Espinosa Flores, abdominal) y papel de la fibronectina.</p>
+        <div class="fl-wrap" id="iic-flow"></div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2014/02/cerclage-for-the-management-of-cervical-insufficiency" target="_blank" rel="noopener">ACOG PB 142</a> · <a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/cervical-cerclage-green-top-guideline-no-75/" target="_blank" rel="noopener">RCOG GTG 75 (2022)</a> · <a href="https://www.imss.gob.mx/sites/all/statics/guiasclinicas/539GER.pdf" target="_blank" rel="noopener">GPC IMSS 539</a>. No reemplaza el juicio clínico.</p>
       </div>
 
       <div class="card" id="madurez-card">
@@ -3987,7 +4029,7 @@ function cargarEjemploEmerg(tipo){
     0: "Nivel 0 — E-MOTIVE (detección temprana)",
     1: "Nivel 1 — TXA + compresión bimanual uterina",
     2: "Nivel 2 — 2ª línea farmacológica + balón intrauterino + transfusión",
-    3: "Nivel 3 — Cirugía (B-Lynch, Hayman, Cho, histerectomía)"
+    3: "Nivel 3 — Cirugía (suturas compresivas, ligaduras vasculares, histerectomía)"
   };
   function recalcNivel() {
     var maxNivel = 0;
@@ -7733,6 +7775,7 @@ window.VOZ_ARBOL = [
     }
   };
 
+  window.CaVeSalFlow = Flow;
   /* ---------- EG compartida con la tarjeta de conducta ---------- */
   function egActual() {
     var s = parseInt(($("parto-eg") || {}).value, 10), dd = parseInt(($("parto-eg-d") || {}).value, 10);
@@ -8011,6 +8054,453 @@ window.VOZ_ARBOL = [
     }
     if ($("mad-test")) { $("mad-test").addEventListener("change", madInputs); madInputs(); }
   });
+})();
+</script>
+
+<script>
+/* ================= Sangrados 1.ª y 2.ª mitad + incompetencia cervical (flujogramas) ================= */
+(function () {
+  "use strict";
+  var Flow;
+  function $(id) { return document.getElementById(id); }
+  function A(u, t) { return '<a href="' + u + '" target="_blank" rel="noopener">' + t + '</a>'; }
+  var MSP = "https://www.mspbs.gov.py/dependencias/progsalud/adjunto/717658-ManualNacionaldeNormasdeAtenciondelasPrincipalesPatologiasObstetricas.pdf";
+  var L = {
+    msp: A(MSP, "MSPBS 2018"),
+    oms: A("https://iris.who.int/server/api/core/bitstreams/027eaae6-73bb-49fc-a214-ccd639efab71/content", "OMS 2022 (atención del aborto)"),
+    imss088: A("https://www.facmed.unam.mx/sg/css/GPC/SIDSS-GPC/gpc/docs/IMSS-088-08-ER.pdf", "GPC IMSS-088-08"),
+    ecu: A("https://aplicaciones.msp.gob.ec/salud/archivosdigitales/documentosDirecciones/dnn/archivos/GPC%20Aborto%20espont%C3%A1neo,%20incompleto,%20diferido%20y%20retenido.pdf", "GPC Ecuador"),
+    ssc: A("https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-guidelines-2021", "Surviving Sepsis Campaign 2021"),
+    niceM: A("https://www.nice.org.uk/guidance/ng126/chapter/Management-of-miscarriage", "NICE NG126"),
+    niceE: A("https://www.nice.org.uk/guidance/ng126/chapter/Management-of-tubal-ectopic-pregnancy", "NICE NG126"),
+    coch18: A("https://www.cochrane.org/evidence/CD005943_progestogen-treating-threatened-miscarriage", "Cochrane 2018"),
+    coch21: A("https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013792.pub2/full", "Cochrane 2021 (Devall)"),
+    ranz: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC10003391/", "RANZCOG"),
+    fogsi: A("https://www.fogsi.org/wp-content/uploads/2024/11/SI_KPP_Management-of-women-with-threatened-miscarriage_for-FOGSI.pdf", "FOGSI 2024"),
+    aafp: A("https://www.aafp.org/afp/2020/0515/p599", "AAFP 2020"),
+    gtg21: A("https://thebusog.org/wp-content/uploads/2026/07/busog-summary-of-rcog-gtg-21.pdf", "RCOG GTG 21"),
+    mola: A("https://obgyn.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/1471-0528.16266?download=true", "RCOG 2020 (enfermedad trofoblástica)"),
+    eshre: A("https://www.eshre.eu/-/media/sitecore-files/Guidelines/Recurrent-pregnancy-loss/2022/ESHRE-RPL-Guideline-_-Update-2022_-Final-Version-January-2023_v2.pdf", "ESHRE 2022"),
+    gtg17: A("https://www.rcog.org.uk/media/3cbgonl0/gtg_17.pdf", "RCOG GTG 17"),
+    gtg63: A("https://www.rcog.org.uk/media/pwdi1tef/gtg_63.pdf", "RCOG GTG 63"),
+    timing: A("https://openmfm.org/decks/delivery-timing-master-table/index.html", "ACOG/SMFM (momento del nacimiento)"),
+    smfmVasa: A("https://publications.smfm.org/publications/579-society-for-maternal-fetal-medicine-consult-series-44/", "SMFM Consult Series 44"),
+    acogPas: A("https://www.acog.org/clinical/clinical-guidance/obstetric-care-consensus/articles/2018/12/placenta-accreta-spectrum", "ACOG/SMFM OCC 7"),
+    figoNC: A("https://www.gynultrazvuk.cz/uploads/publication/115/doc/2018-figo-consensus-guidelines-on-pas-disorders-nonconservative-surgical-management.pdf", "FIGO 2018 (cirugía no conservadora)"),
+    figoC: A("https://discovery.ucl.ac.uk/id/eprint/10049174/1/FIGO%20CG%20PAS%20Con%20Man%20-%20accepted%20version.pdf", "FIGO 2018 (manejo conservador)"),
+    toco: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC3263934/", "estudios observacionales (PMC)"),
+    abrTerm: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC11368588/", "revisión PMC 2024"),
+    col: A("http://www.scielo.org.co/scielo.php?script=sci_arttext&pid=S0034-74342013000400004", "GPC Colombia 2013"),
+    unal: A("https://bffrepositorio.unal.edu.co/server/api/core/bitstreams/273235dc-0f5d-4da0-a8d7-49b5431a6f7c/content", "Universidad Nacional de Colombia"),
+    worcs: A("https://apps.worcsacute.nhs.uk/KeyDocumentPortal/Home/DownloadFile/4805", "NHS Worcestershire"),
+    cun: A("https://www.cun.es/diccionario-medico/terminos/anillo-bandl", "Clínica Universidad de Navarra"),
+    om19: A("http://www.fertilab.net/descargables/publicaciones/obstetricia_moderna/om_19.pdf", "Obstetricia Moderna, cap. 19"),
+    medway: A("https://www.medway.com.br/conteudos/rotura-uterina-repercussao-clinica-e-conduta/", "Medway"),
+    zea: A("https://inper.mx/descargas/pdf/tecnicaZea.pdf", "INPer — técnica Zea"),
+    posadas: A("https://ginecologiayobstetricia.org.mx/articulo/control-efectivo-de-la-hemorragia-obstetrica-posparto-mediante-desarterializacion-selectiva-uterina-descripcion-de-la-tecnica-posadas", "Ginecol Obstet Méx — técnica Posadas"),
+    acog142: A("https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2014/02/cerclage-for-the-management-of-cervical-insufficiency", "ACOG PB 142"),
+    gtg75: A("https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/cervical-cerclage-green-top-guideline-no-75/", "RCOG GTG 75 (2022)"),
+    imss539: A("https://www.imss.gob.mx/sites/all/statics/guiasclinicas/539GER.pdf", "GPC IMSS 539"),
+    scielo: A("https://www.scielo.org.mx/scielo.php?pid=S0300-90412020000200071&script=sci_arttext_plus&tlng=es", "Ginecol Obstet Méx 2020"),
+    unam: A("https://ru.dgb.unam.mx/server/api/core/bitstreams/fa6b67c3-a15d-404a-9cdb-2e42dec8434d/content", "UNAM (técnica Espinosa Flores)"),
+    statp: A("https://www.ncbi.nlm.nih.gov/books/NBK560523/", "StatPearls — cerclaje"),
+    acogPtb: A("https://renaissance.stonybrookmedicine.edu/sites/default/files/ACOG%20Practice%20Bulletin%20Prediction%20and%20prevention%20of%20preterm%20birth_1.pdf", "ACOG (predicción y prevención del parto pretérmino)")
+  };
+  var DEMO = "https://cavesal.app/demo/";
+  function box(cls, titulo, cuerpo) {
+    return '<div class="result-box ' + cls + '"><div class="result-title">' + titulo + '</div><div class="result-detail">' + cuerpo + '</div></div>';
+  }
+  function esq(t) { return '<div class="pt-esq">' + t + '</div>'; }
+  function obs(t) { return '<p class="hint">' + t + '</p>'; }
+  var BTN_ROJO = '<button type="button" class="fl-go fl-rojo" data-ir-rojo="1">Ir al Código Rojo (flujograma de hemorragia y obstetricia crítica)</button>';
+  var BTN_COAG = '<button type="button" class="btn btn-outline btn-sm" data-ir-coag="1">Sangrado y coagulación (fibrinógeno, CID)</button>';
+  var BTN_SEPSIS = '<button type="button" class="fl-go fl-ambar" data-ir-sepsis="1">Ir al Código Amarillo — Sepsis</button>';
+  var LINK_PAS = '<p class="hint"><strong>Cálculo del acretismo:</strong> está en la calculadora prenatal (clasificación CaVeSal del espectro de placenta acreta). ' + A(DEMO, "Descargá la calculadora prenatal para ver el cálculo de acretismo") + '.</p>';
+  var ANTI_D = "Rh negativo no sensibilizada: inmunoglobulina anti-D.";
+  var RECURRENTE = obs("<strong>Pérdida recurrente:</strong> OMS y " + L.gtg17 + ": 3 pérdidas consecutivas; " + L.eshre + ": 2 o más, no necesariamente consecutivas. En la literatura nacional (Acosta, Ginecoobstetricia, Paraguay): 3 seguidas o 5 no consecutivas. Si se cumple: ofrecer consejería genética y evaluación ginecoobstétrica/reproductiva.");
+
+  /* ============ 1.ª MITAD ============ */
+  function sel(id) { var e = $(id); return e ? e.value : ""; }
+  function bsa() {
+    var p = parseFloat(($("in-peso") || {}).value), t = parseFloat(($("in-talla") || {}).value);
+    if (!(p > 0 && t > 0)) return null;
+    return Math.sqrt(p * t / 3600);
+  }
+  function mtxDosis() {
+    var s = bsa();
+    if (!s) return "Metotrexato 50 mg/m² IM dosis única (cargá peso y talla en la barra superior para calcular la dosis).";
+    return "Metotrexato 50 mg/m² IM dosis única: superficie corporal " + s.toFixed(2) + " m² (Mosteller) → <strong>" + Math.round(50 * s) + " mg IM</strong>.";
+  }
+  var MTX_SEG = "βhCG los días 4 y 7: si cae 15 % o más entre el día 4 y el 7, control semanal hasta negativizar; si no cae, 2.ª dosis o cirugía. Hemograma, función renal y hepática antes de indicar.";
+
+  var S1 = {
+    a0: { type: "q", q: "¿Inestabilidad hemodinámica, EAPO en rojo o sangrado mayor?",
+      info: "Ante un sangrado mayor con EAPO alterada conviene ir primero al flujograma del Código Rojo (manejo de la obstetricia crítica) y volver acá para la causa.",
+      opts: [{ label: "Sí", next: "aRojo" }, { label: "No", next: "a1" }] },
+    aRojo: { type: "q", q: "Activá el Código Rojo y estabilizá", info: BTN_ROJO + "<br>Mientras tanto: 2 vías gruesas, laboratorio con grupo y factor, fibrinógeno, βhCG y ecografía en la cama.",
+      opts: [{ label: "Estabilizada o en paralelo: buscar la causa", next: "a1" }] },
+    a1: { type: "q", q: "βhCG positiva y ecografía: ¿dónde está el embarazo?",
+      opts: [
+        { label: "Intrauterino", next: "a2" },
+        { label: "Sin localizar (PUL)", next: "aPUL" },
+        { label: "Ectópico o masa anexial", next: "e1" },
+        { label: "Sospecha de mola (útero grande, βhCG muy alta, vesículas)", next: "mOut" }
+      ] },
+    a2: { type: "q", q: "Cuadro clínico",
+      opts: [
+        { label: "Amenaza (conato): OCI cerrado, embrión vivo", next: "aAmen" },
+        { label: "En curso, inminente: cuello con dilatación", next: "a3", data: { tipo: "curso" } },
+        { label: "En curso, inevitable: rotura de bolsa", next: "a3", data: { tipo: "curso" } },
+        { label: "Incompleto: restos en la cavidad", next: "a3", data: { tipo: "incompleto" } },
+        { label: "Completo: cavidad vacía", next: "aComp" },
+        { label: "Diferido o retenido: óbito confirmado por ecografía", next: "a3", data: { tipo: "diferido" } },
+        { label: "Infectado: fiebre, loquios fétidos, dolor", next: "aSep" }
+      ] },
+    a3: { type: "q", q: "Edad gestacional",
+      opts: [{ label: "Menos de 13 semanas", next: "aEvac", data: { eg: "p" } }, { label: "13 a 22 semanas", next: "aEvac", data: { eg: "g" } }] },
+    aAmen: { type: "out", html: function () {
+      return box("rb-amarillo", "Amenaza de aborto", esq("<strong>CaVeSal recomienda:</strong> progesterona micronizada 400 mg vaginal cada 12 h hasta las 16 semanas, aun sin antecedente de aborto. Reposo relativo, control ecográfico en 7 a 14 días. " + ANTI_D) +
+        obs("Variantes: " + L.msp + " no indica progesterona de rutina. " + L.niceM + " la indica solo si hubo un aborto previo (400 mg vaginal c/12 h hasta las 16 semanas). Apoyan su uso " + L.ranz + ", " + L.fogsi + " y " + L.coch18 + "; " + L.coch21 + " muestra beneficio probable sobre todo con antecedente de aborto."));
+    } },
+    aComp: { type: "out", html: function () {
+      return box("rb-verde", "Aborto completo", esq("No requiere evacuación (" + L.oms + "). Control clínico y de βhCG si no hubo ecografía previa que confirme embarazo intrauterino. " + ANTI_D)) + RECURRENTE;
+    } },
+    aEvac: { type: "out", html: function (c, d) {
+      var t = d.tipo, p = d.eg === "p", h;
+      if (t === "diferido") {
+        h = p ? "Preparación cervical con misoprostol 800 µg vaginal c/3 h (2 dosis) o 600 µg sublingual c/3 h (2 dosis) y luego AMEU (" + L.msp + ", p. 63)."
+              : "Misoprostol 200 µg c/4-6 h hasta 5 dosis (c/6 h si hay cicatriz uterina) hasta la expulsión fetal; después, legrado uterino instrumental. Oxitocina como alternativa entre las 16 y 22 semanas (" + L.msp + ", p. 63).";
+        h = "<strong>Requiere óbito confirmado por ecografía.</strong> " + h;
+      } else if (t === "incompleto") {
+        h = p ? "AMEU, o misoprostol 600 µg VO o 400 µg sublingual (" + L.oms + "). " + L.msp + ": misoprostol 400-800 µg vaginal como alternativa."
+              : "Legrado uterino instrumental tras la expulsión; si el cuello está cerrado, preparar con misoprostol (" + L.msp + ").";
+      } else {
+        h = p ? "Evacuación por AMEU con analgesia." : "Esperar la expulsión fetal (oxitocina o misoprostol según " + L.msp + ") y luego legrado uterino instrumental.";
+      }
+      return box("rb-amarillo", t === "diferido" ? "Aborto diferido" : t === "incompleto" ? "Aborto incompleto" : "Aborto en curso", esq(h + " " + ANTI_D) +
+        obs("Evacuación: la " + L.oms + " recomienda aspiración y desaconseja el legrado cortante antes de las 14 semanas; el " + L.msp + " usa AMEU antes de las 13 semanas y legrado de 13 a 22.")) + RECURRENTE;
+    } },
+    aSep: { type: "q", q: "¿Sepsis o shock séptico (EAPO en rojo, hipotensión que no responde a volumen, lactato elevado)?",
+      opts: [{ label: "Sí", next: "aShock" }, { label: "No: aborto infectado sin sepsis", next: "aInf" }] },
+    aShock: { type: "out", html: function () {
+      return box("rb-rojo", "Aborto séptico con sepsis o shock: evacuación inmediata", esq("Antibiótico EV en la 1.ª hora y evacuación uterina inmediata como control del foco, sin esperar el intervalo (" + L.ssc + "; Regla 4-5-3). Activá el Código Amarillo.") + BTN_SEPSIS);
+    } },
+    aInf: { type: "out", html: function () {
+      return box("rb-amarillo", "Aborto infectado sin sepsis", esq("Antibiótico EV y evacuación uterina <strong>6 a 8 horas después de iniciado el antibiótico</strong> (" + L.imss088 + "; " + L.ecu + "), para reducir el riesgo de embolia séptica.") +
+        esq("Esquemas " + L.msp + " (2 antibióticos EV, 72 h): ampicilina + metronidazol · cefazolina + metronidazol · ceftriaxona + metronidazol · gentamicina + metronidazol · gentamicina + clindamicina · ampicilina/sulbactam + clindamicina · o ampicilina 2 g + gentamicina 5 mg/kg + metronidazol.") +
+        obs("La misma GPC IMSS-088-08 menciona 12 horas en otra sección; otras guías usan 6-12 h o 24-48 h. Si aparece sepsis, se evacúa de inmediato.") + BTN_SEPSIS);
+    } },
+    aPUL: { type: "out", html: function () {
+      return box("rb-amarillo", "Embarazo de localización desconocida (PUL)", esq("No tratar sin confirmación ecográfica. Repetir βhCG a las 48 h: aumento mínimo esperado 49 % (βhCG inicial menor a 1500), 40 % (1500-3000) o 33 % (mayor a 3000) (" + L.aafp + "). Un ascenso menor al esperado o una meseta sugiere ectópico o embarazo no evolutivo.") +
+        obs("Con βhCG menor a 1000 la conducta solo se decide si la ecografía muestra masa anexial o saco. Zona discriminatoria: hasta 3500 mUI/mL según ACOG."));
+    } },
+    e1: { type: "q", q: "¿Ectópico complicado: líquido libre, dolor intenso o inestabilidad?",
+      info: "Líquido libre en el fondo de saco = ectópico complicado hasta demostrar lo contrario.",
+      opts: [{ label: "Sí", next: "eRoto" }, { label: "No", next: "e2" }] },
+    eRoto: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico complicado o roto: cirugía urgente", esq("Laparoscopia o laparotomía según estabilidad; salpingectomía de elección (" + L.msp + "). Reposición de volumen y hemoderivados. " + ANTI_D) + BTN_ROJO);
+    } },
+    e2: { type: "q", q: "Localización",
+      opts: [
+        { label: "Tubario", next: "e3" },
+        { label: "Cervical", next: "eCerv" },
+        { label: "Cicatriz de cesárea", next: "eCic" },
+        { label: "Intersticial o cornual", next: "eCorn" },
+        { label: "Abdominal", next: "eAbd" }
+      ] },
+    e3: { type: "q", q: "βhCG actual (mUI/mL)",
+      info: "Debe haber confirmación ecográfica: masa anexial o saco extrauterino.",
+      opts: [
+        { label: "Menos de 1000", next: "e4", data: { h: 1 } },
+        { label: "1000 a 1499", next: "e4", data: { h: 2 } },
+        { label: "1500 a 4999", next: "e4", data: { h: 3 } },
+        { label: "5000 o más", next: "e4", data: { h: 4 } }
+      ] },
+    e4: { type: "q", q: "¿Masa de 35 mm o más, actividad cardíaca embrionaria o dolor significativo?",
+      opts: [{ label: "Sí", next: "eOut", data: { cr: 1 } }, { label: "No", next: "eOut", data: { cr: 0 } }] },
+    eOut: { type: "out", html: function (c, d) {
+      var g = sel("sg-ect-guia") || "cvs", h = d.h, cr = d.cr, r, cls = "rb-amarillo", tit;
+      if (g === "msp") {
+        if (cr || h === 4) { tit = "Cirugía (salpingectomía de elección)"; r = "Con masa mayor a 40 mm, actividad cardíaca o βhCG mayor a 6000: cirugía. Si la βhCG está entre 5000 y 6000, la masa mide 40 mm o menos y no hay latido, el MSPBS todavía permite metotrexato."; }
+        else { tit = "Expectante o metotrexato"; r = "Expectante si βhCG menor a 5000 y en descenso, masa de 35 mm o menos, líquido de 300 mL o menos y sin latido. Metotrexato si βhCG menor a 6000 y masa de 40 mm o menos. " + mtxDosis(); }
+        r += " (" + L.msp + ")";
+      } else if (g === "nice") {
+        if (cr || h === 4) { tit = "Cirugía"; r = "βhCG de 5000 o más, masa de 35 mm o más, latido o dolor significativo: cirugía (" + L.niceE + ")."; }
+        else if (h === 1) { tit = "Expectante (ofrecer)"; r = "βhCG de 1000 o menos, estable y sin dolor: ofrecer conducta expectante; βhCG los días 2, 4 y 7 (" + L.niceE + ")."; }
+        else if (h === 2) { tit = "Expectante (considerar) o metotrexato"; r = "βhCG 1000-1500: considerar expectante; metotrexato de 1.ª línea si βhCG menor a 1500. " + mtxDosis(); }
+        else { tit = "Metotrexato o cirugía, a elección informada"; r = "βhCG 1500-5000 sin dolor, sin latido y masa menor a 35 mm. " + mtxDosis(); }
+      } else {
+        if (cr || h === 4) { tit = "Cirugía"; cls = "rb-rojo"; r = "βhCG de 5000 o más, masa de 35 mm o más, latido o dolor significativo: salpingectomía (o salpingostomía si la otra trompa está dañada)."; }
+        else if (h === 1) { tit = "Expectante"; cls = "rb-verde"; r = "βhCG menor a 1000 en descenso, masa menor a 35 mm, sin latido y sin dolor significativo: βhCG c/48 h hasta negativizar. Si sube o aparece dolor: metotrexato o cirugía."; }
+        else { tit = "Metotrexato"; r = "βhCG 1000 a menos de 5000, masa menor a 35 mm, sin latido, laboratorio normal y posibilidad de seguimiento. " + mtxDosis(); }
+        r = "<strong>Conducta híbrida CaVeSal.</strong> " + r;
+      }
+      return box(cls, "Ectópico tubario: " + tit, esq(r) + esq(MTX_SEG + " " + ANTI_D) +
+        obs("Variantes: " + L.msp + " (expectante con βhCG menor a 5000; metotrexato con menos de 6000 y masa de 40 mm o menos) · " + L.niceE + " (expectante con 1000 o menos; metotrexato con menos de 1500 o 1500-5000 a elección). Cambiá la guía con el selector."));
+    } },
+    eCerv: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico cervical", esq("Metotrexato (sistémico o local) como 1.ª línea si está estable (" + L.gtg21 + "). Para evacuar o si sangra: embolización de las arterias uterinas o pinzamiento vaginal de las uterinas (técnica Zea, " + L.zea + ") y balón cervical. Sangrado incontrolable: histerectomía.") + BTN_ROJO);
+    } },
+    eCic: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico en cicatriz de cesárea", esq("No se recomienda conducta expectante ni metotrexato sistémico solo (" + L.gtg21 + "). Aspiración guiada por ecografía o resección (histeroscópica, laparoscópica o vaginal), con embolización arterial previa si hay alto riesgo de sangrado."));
+    } },
+    eCorn: { type: "out", html: function () {
+      return box("rb-amarillo", "Ectópico intersticial o cornual", esq("Metotrexato si está estable y cumple criterios; resección cornual laparoscópica si fracasa o es grande. Riesgo de rotura tardía con hemorragia masiva (" + L.gtg21 + ")."));
+    } },
+    eAbd: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico abdominal", esq("Temprano: laparoscopia. Avanzado: laparotomía extrayendo el feto y dejando la placenta en el lugar si está adherida a vísceras o vasos; el metotrexato posterior es controvertido (" + L.gtg21 + ")."));
+    } },
+    mOut: { type: "out", html: function () {
+      var g = sel("sg-mola-guia") || "msp";
+      var seg = g === "rcog"
+        ? "<strong>RCOG 2020:</strong> mola completa: si la βhCG se normaliza antes de los 56 días, seguimiento hasta 6 meses desde la evacuación; si no, 6 meses desde la normalización. Mola parcial: alta con 2 muestras normales separadas 4 semanas (" + L.mola + ")."
+        : "<strong>Ministerio:</strong> βhCG semanal, luego quincenal y mensual hasta 3 negativas; luego mensual 6 meses y bimestral 6 meses (seguimiento de 1 año). Rx de tórax a los 14 días, 6 y 12 meses (" + L.msp + ").";
+      return box("rb-amarillo", "Enfermedad trofoblástica gestacional (mola)",
+        '<table class="fl-tbl"><thead><tr><th></th><th>Completa</th><th>Parcial</th></tr></thead><tbody>' +
+        '<tr><td>Ecografía</td><td>«Tormenta de nieve» / panal de abejas, sin embrión</td><td>Placenta con quistes, feto (a menudo con malformaciones o RCIU)</td></tr>' +
+        '<tr><td>Útero</td><td>Mayor que la amenorrea</td><td>Acorde o menor</td></tr>' +
+        '<tr><td>βhCG</td><td>Muy elevada</td><td>Elevada o normal</td></tr>' +
+        '<tr><td>Cariotipo</td><td>Diploide, paterno</td><td>Triploide</td></tr></tbody></table>' +
+        esq("Signos: sangrado con expulsión de vesículas, hiperémesis, preeclampsia precoz, hipertiroidismo, quistes tecaluteínicos. Laboratorio: βhCG basal, hemograma, TSH, grupo y factor. <strong>Rx de tórax siempre.</strong>") +
+        esq("Evacuación por aspiración (AMEU) con oxitocina una vez iniciada la aspiración; histopatología siempre. " + ANTI_D) + esq(seg) +
+        obs("Anticoncepción durante el seguimiento. Meseta o ascenso de la βhCG: sospechar neoplasia trofoblástica y derivar."));
+    } }
+  };
+
+  /* ============ 2.ª MITAD ============ */
+  var GRADOS = '<table class="fl-tbl"><thead><tr><th>Grado (MSPBS)</th><th>Desprendimiento</th><th>Clínica</th></tr></thead><tbody>' +
+    '<tr><td>I</td><td>Menos del 11 % (hematoma menor a 150 mL)</td><td>FCF normal</td></tr>' +
+    '<tr><td>II</td><td>Alrededor del 50 % (hasta 500 mL)</td><td>Hipertonía, compromiso fetal, consumo de fibrinógeno</td></tr>' +
+    '<tr><td>III</td><td>Más del 50 %</td><td>Tetania uterina, feto muerto o comprometido, shock, CID, útero de Couvelaire</td></tr></tbody></table>';
+  var S2 = {
+    b0: { type: "q", q: "¿Inestabilidad hemodinámica, EAPO en rojo o sangrado mayor?",
+      info: "Ante un sangrado mayor con EAPO alterada, ir primero al Código Rojo. Cesárea a cualquier edad gestacional si la causa es obstétrica y la madre está inestable (" + L.msp + ", p. 83). No hacer tacto vaginal hasta descartar placenta previa.",
+      opts: [{ label: "Sí", next: "bRojo" }, { label: "No", next: "b1" }] },
+    bRojo: { type: "q", q: "Activá el Código Rojo", info: BTN_ROJO + "<br>" + BTN_COAG,
+      opts: [{ label: "En paralelo: identificar la causa", next: "b1" }] },
+    b1: { type: "q", q: "¿Qué cuadro predomina?",
+      opts: [
+        { label: "Sangrado rojo, indoloro, útero blando", next: "p1" },
+        { label: "Dolor, hipertonía, sangrado oscuro", next: "d1" },
+        { label: "Intraparto: hiperdinamia, dolor, signos de inminencia de rotura", next: "r1" },
+        { label: "Sangrado al romperse las membranas con alteración de la FCF", next: "vOut" },
+        { label: "Sospecha o diagnóstico de acretismo (PAS)", next: "aP1" }
+      ] },
+    p1: { type: "q", q: "Placenta previa: ¿cesárea previa o sospecha ecográfica de acretismo?",
+      info: "Sin tacto vaginal. Clasificación MSPBS: oclusiva total, oclusiva parcial, marginal, lateral (borde a más de 2 cm del OCI). Diagnóstico definitivo desde las 32 semanas.",
+      opts: [{ label: "No, o acretismo descartado", next: "p2" }, { label: "Sí: acretismo sospechado o confirmado", next: "aP1" }] },
+    p2: { type: "q", q: "Sangrado",
+      opts: [{ label: "Importante o persistente", next: "pCes" }, { label: "Leve, madre estable y bienestar fetal", next: "p3" }, { label: "Sin sangrado (diagnóstico ecográfico)", next: "p4" }] },
+    pCes: { type: "out", html: function () {
+      return box("rb-rojo", "Placenta previa con sangrado importante: cesárea inmediata", esq("A cualquier edad gestacional (" + L.msp + "). Las técnicas hemostáticas (B-Lynch, Cho, O'Leary, Posadas, Tsirulnikov, hipogástricas, embolización) están en el Código Rojo.") + BTN_ROJO);
+    } },
+    p3: { type: "q", q: "Edad gestacional",
+      opts: [{ label: "Menos de 34+0 semanas", next: "pExp" }, { label: "34+0 semanas o más", next: "pFin" }] },
+    pExp: { type: "out", html: function () {
+      return box("rb-amarillo", "Previa con sangrado leve antes de las 34 semanas: conducta expectante", esq("Internación, reposo, sin tacto vaginal. Maduración pulmonar (24+0 a 34+0). Neuroprotección con MgSO₄ si hay riesgo de nacimiento antes de las 32 semanas. " + ANTI_D + " Hemograma y reserva de sangre.") +
+        esq("<strong>Tocolisis (criterio híbrido):</strong> nifedipina solo si hay trabajo de parto pretérmino, sangrado leve, madre estable y sin compromiso fetal (" + L.msp + "). Con sangrado mayor, inestabilidad o compromiso fetal: evitar y finalizar (" + L.gtg63 + ").") +
+        obs("El MSPBS menciona 35 semanas en el capítulo de placenta previa y 34 en el de hemorragias; CaVeSal usa 34+0 por coherencia con la maduración pulmonar."));
+    } },
+    pFin: { type: "out", html: function () {
+      return box("rb-rojo", "Previa con sangrado desde las 34 semanas: finalizar", esq("Cesárea ante cualquier nuevo episodio de sangrado (" + L.msp + "). En la marginal en trabajo de parto puede intentarse amniotomía y parto vaginal con quirófano listo; en la lateral el parto vaginal es posible."));
+    } },
+    p4: { type: "q", q: "Tipo de placenta previa",
+      opts: [{ label: "Oclusiva (total o parcial)", next: "pOcl" }, { label: "Marginal", next: "pMarg" }, { label: "Lateral (más de 2 cm del OCI)", next: "pLat" }] },
+    pOcl: { type: "out", html: function () {
+      return box("rb-amarillo", "Previa oclusiva asintomática: cesárea programada", esq("<strong>MSPBS:</strong> internación a las 36 semanas y cesárea electiva a las 37 (" + L.msp + ").") +
+        obs("ACOG/SMFM: 36+0 a 37+6 semanas (" + L.timing + "). Con cesárea previa: descartar acretismo.") + LINK_PAS);
+    } },
+    pMarg: { type: "out", html: function () {
+      return box("rb-amarillo", "Previa marginal", esq("En trabajo de parto puede intentarse amniotomía y parto vaginal, con quirófano listo; si sangra, cesárea (" + L.msp + ")."));
+    } },
+    pLat: { type: "out", html: function () {
+      return box("rb-verde", "Placenta lateral (borde a más de 2 cm)", esq("El parto vaginal es posible (" + L.msp + ")."));
+    } },
+    d1: { type: "q", q: "Desprendimiento de placenta normoinserta: ¿feto vivo?",
+      info: GRADOS,
+      opts: [{ label: "Sí", next: "d2" }, { label: "No (óbito)", next: "dMuerto" }] },
+    dMuerto: { type: "out", html: function () {
+      return box("rb-rojo", "DPPNI con feto muerto", esq("<strong>MSPBS:</strong> cesárea en los grados II y III, con feto vivo o muerto (" + L.msp + ", p. 83). Corregir la coagulopatía (fibrinógeno, plasma, plaquetas) y reponer volumen.") + BTN_COAG +
+        obs("Observación: " + L.gtg63 + ", la " + L.col + " y el capítulo de la " + L.unal + " recomiendan parto vaginal si la madre está estable, con amniotomía precoz y oxitocina; cesárea si hay inestabilidad o falla del progreso."));
+    } },
+    d2: { type: "q", q: "¿Compromiso fetal (FCF alterada) o inestabilidad materna?",
+      opts: [{ label: "Sí", next: "dCes" }, { label: "No", next: "d3" }] },
+    dCes: { type: "out", html: function () {
+      return box("rb-rojo", "DPPNI con compromiso: cesárea de emergencia", esq("Hipertonía: amniotomía para descomprimir si el cuello lo permite, sin retrasar la cesárea (" + L.worcs + "). Grados II-III: cesárea (" + L.msp + "). Coagulación, fibrinógeno y reserva de sangre.") + BTN_COAG + BTN_ROJO);
+    } },
+    d3: { type: "q", q: "Edad gestacional",
+      opts: [{ label: "Menos de 34+0 semanas", next: "dExp" }, { label: "34+0 semanas o más", next: "d4" }] },
+    dExp: { type: "out", html: function () {
+      return box("rb-amarillo", "DPPNI leve (grado I) pretérmino: conducta expectante vigilada", esq("Internación, maduración pulmonar, monitoreo materno-fetal estricto (FCF continua, sangrado, tono, coagulación). Finalizar si el sangrado persiste o aparece compromiso (" + L.msp + "). " + ANTI_D) +
+        obs("<strong>Tocolisis:</strong> decisión del obstetra senior, solo en desprendimiento leve con madre estable y sin compromiso fetal, para completar la maduración pulmonar (" + L.toco + "). " + L.gtg63 + ": no usar con sangrado mayor, inestabilidad o compromiso fetal."));
+    } },
+    d4: { type: "q", q: "¿Trabajo de parto avanzado con buen progreso y FCF tranquilizadora?",
+      opts: [{ label: "Sí", next: "dVag" }, { label: "No", next: "dCes2" }] },
+    dVag: { type: "out", html: function () {
+      return box("rb-amarillo", "DPPNI a término en trabajo de parto avanzado: parto vaginal posible", esq("Amniotomía (descomprime y acelera), monitoreo continuo, quirófano listo; cesárea ante cualquier deterioro (" + L.abrTerm + "; " + L.worcs + ")."));
+    } },
+    dCes2: { type: "out", html: function () {
+      return box("rb-rojo", "DPPNI desde las 34 semanas sin parto inminente: finalizar", esq("Desde las 34 semanas se finaliza la gestación (" + L.msp + "); cesárea si el parto vaginal no es inminente. Amniotomía previa si es accesible.") + BTN_COAG);
+    } },
+    r1: { type: "checks", q: "Inminencia de rotura uterina: marcá los signos presentes",
+      info: "Tríada clásica de Bandl, Frommel y Pinard (" + L.cun + "; " + L.om19 + ").",
+      items: [
+        ["bandl", "<strong>Signo de Bandl:</strong> anillo de retracción patológico que asciende hacia el ombligo (útero «en reloj de arena»)"],
+        ["frommel", "<strong>Signo de Frommel:</strong> ligamentos redondos tensos, palpables como cuerdas"],
+        ["pinard", "<strong>Signo de Pinard:</strong> sangrado genital escaso y oscuro"],
+        ["hiper", "Hiperdinamia o taquisistolia, sobre todo con oxitocina o misoprostol"],
+        ["hemat", "Hematuria (sospecha de compromiso vesical)"],
+        ["fcf", "Alteración de la FCF"]
+      ],
+      next: function (s, ctx) { ctx.rotIn = s; return "r2"; } },
+    r2: { type: "checks", q: "Rotura consumada: marcá los signos presentes",
+      items: [
+        ["dolor", "Dolor brusco y constante, o dolor en el hombro (hemoperitoneo)"],
+        ["cese", "Cese brusco de las contracciones"],
+        ["altura", "Pérdida de altura de la presentación"],
+        ["partes", "Partes fetales palpables bajo la pared abdominal"],
+        ["shock", "Shock"],
+        ["bradi", "Bradicardia fetal grave o ausencia de latidos"]
+      ],
+      next: function (s, ctx) {
+        if (Object.keys(s).length) return "rRot";
+        return Object.keys(ctx.rotIn || {}).length ? "rInm" : "rNada";
+      } },
+    rInm: { type: "out", html: function (c) {
+      var hem = c.rotIn && c.rotIn.hemat;
+      return box("rb-rojo", "Inminencia de rotura uterina", esq("Suspender oxitocina o misoprostol, uteroinhibición aguda mientras se prepara el quirófano y cesárea urgente (" + L.medway + ").") +
+        (hem ? esq("Hematuria: revisar la vejiga durante la cirugía.") : "") +
+        obs("Pinard: algunas fuentes lo describen como edema cervical (" + L.cun + ")."));
+    } },
+    rRot: { type: "out", html: function (c, d) {
+      var hem = c.rotIn && c.rotIn.hemat;
+      return box("rb-rojo", "Rotura uterina consumada: laparotomía inmediata", esq("Cesárea o laparotomía de emergencia. Histerorrafia si la rotura no es extensa, no compromete el parametrio y la paciente está estable; histerectomía si es irreparable o hay inestabilidad (" + L.msp + ", p. 200).") +
+        (hem ? esq("Hematuria: explorar vejiga y uréteres.") : "") + BTN_ROJO);
+    } },
+    rNada: { type: "out", html: function () {
+      return box("rb-verde", "Sin signos de rotura", esq("Reevaluar dinámica, FCF y sangrado; buscar otras causas (DPPNI, previa). Con cicatriz uterina e inducción: monitoreo continuo."));
+    } },
+    vOut: { type: "out", html: function () {
+      return box("rb-rojo", "Vasa previa", esq("<strong>Sangrado con RPM o trabajo de parto: cesárea de emergencia</strong> a cualquier edad gestacional; equipo neonatal listo para transfusión (" + L.smfmVasa + ").") +
+        esq("Diagnóstico prenatal sin sangrado: considerar internación entre las 30 y 34 semanas, maduración pulmonar y cesárea programada entre 34+0 y 37+0 semanas (" + L.timing + ")."));
+    } },
+    aP1: { type: "q", q: "Espectro de placenta acreta (PAS): situación",
+      info: "Acreta 80 %, increta 15 %, percreta menos del 5 %; focal, parcial o total (" + L.msp + "). " + LINK_PAS,
+      opts: [{ label: "Programada (sin sangrado)", next: "aProg" }, { label: "Sangrado activo o urgencia", next: "aUrg" }, { label: "Acretismo focal o deseo de conservar el útero", next: "aCons" }] },
+    aProg: { type: "out", html: function () {
+      var g = sel("sg-pas-guia") || "msp", t;
+      if (g === "acog") t = "<strong>ACOG/SMFM:</strong> nacimiento entre 34+0 y 35+6 semanas (" + L.acogPas + ").";
+      else if (g === "figo") t = "<strong>FIGO/RCOG:</strong> nacimiento entre 35+0 y 36+6 semanas (" + L.figoNC + ").";
+      else t = "<strong>MSPBS:</strong> internación a las 32 semanas y nacimiento entre las 36 y 37 (" + L.msp + ").";
+      return box("rb-amarillo", "PAS programado: cesárea-histerectomía en centro de referencia", esq(t) +
+        esq("Equipo multidisciplinario, reserva de hemoderivados, ácido tranexámico 1 g IV. Incisión uterina alejada de la placenta, sin intentar despegarla ni dar uterotónicos; histerectomía total con la placenta en el lugar (" + L.figoNC + "). Embolización arterial si hay radiología intervencionista.") +
+        obs("Cambiá el momento del nacimiento con el selector."));
+    } },
+    aUrg: { type: "out", html: function () {
+      return box("rb-rojo", "PAS con sangrado: cesárea-histerectomía de emergencia", esq("Ácido tranexámico 1 g IV, transfusión masiva, histerectomía con la placenta en el lugar. Ligaduras de uterinas o hipogástricas, o embolización si está disponible (" + L.msp + "). El despegamiento manual forzado está abandonado.") + BTN_ROJO + BTN_COAG);
+    } },
+    aCons: { type: "out", html: function () {
+      return box("rb-amarillo", "PAS: manejo conservador (casos seleccionados)", esq("Opciones: dejar la placenta en el lugar, resección focal en un solo tiempo, embolización arterial (" + L.figoC + "). Solo en centros con experiencia y seguimiento estrecho por riesgo de sangrado e infección.") +
+        obs("El MSPBS incluye el metotrexato; FIGO no lo recomienda. Los balones en las ilíacas y la desvascularización preventiva no se recomiendan de rutina."));
+    } }
+  };
+
+  /* ============ INCOMPETENCIA CERVICAL ============ */
+  var TECNICAS = '<table class="fl-tbl"><thead><tr><th>Técnica</th><th>Vía y momento</th></tr></thead><tbody>' +
+    '<tr><td>McDonald</td><td>Vaginal, en bolsa de tabaco sin disección; la más usada</td></tr>' +
+    '<tr><td>Shirodkar</td><td>Vaginal, con disección vesicocervical, más alta</td></tr>' +
+    '<tr><td>Espinosa Flores</td><td>Vaginal: ligadura transcardinal simple, sin disección de la mucosa; tiempo corto y retiro fácil (' + L.unam + ')</td></tr>' +
+    '<tr><td>Abdominal (Benson-Durfee)</td><td>Antes del embarazo o a las 10-14 semanas, tras falla de un cerclaje vaginal o cuello muy corto/amputado; nacimiento por cesárea</td></tr></tbody></table>';
+  var CONTRA = "Contraindicaciones: trabajo de parto activo, infección intraamniótica, sangrado activo, RPM, DPPNI, anomalía fetal letal u óbito.";
+  var RETIRO = "Retiro del cerclaje vaginal a las 36-37 semanas, o antes si hay trabajo de parto o RPM.";
+  var FFN = "La fibronectina fetal no diagnostica la incompetencia: predice el parto pretérmino en la amenaza de parto pretérmino (valor predictivo negativo alto) (" + L.acogPtb + ").";
+  var IIC = {
+    i1: { type: "q", q: "¿Cuál es el escenario?",
+      info: "Incompetencia ístmico-cervical: dilatación indolora del cuello en el 2.º trimestre, sin contracciones ni DPPNI. Primaria (congénita, malformación uterina, déficit de colágeno) o secundaria (conización, dilataciones, desgarros).",
+      opts: [
+        { label: "Antecedente de pérdidas o partos pretérmino de 2.º trimestre", next: "i2" },
+        { label: "Cuello corto en la ecografía transvaginal (sin dilatación)", next: "i3" },
+        { label: "Dilatación indolora con membranas visibles", next: "i5" },
+        { label: "Contracciones: amenaza de parto pretérmino", next: "iApp" }
+      ] },
+    i2: { type: "q", q: "¿Cuántas pérdidas o partos pretérmino de 2.º trimestre, con dilatación indolora?",
+      opts: [{ label: "3 o más", next: "iHist", data: { n: 3 } }, { label: "1 o 2", next: "iHist", data: { n: 1 } }, { label: "Cerclaje previo por incompetencia", next: "iHist", data: { n: 0 } }] },
+    iHist: { type: "out", html: function (c, d) {
+      var r = d.n === 3 ? "Cerclaje por antecedente a las 12-14 semanas (" + L.gtg75 + "; " + L.acog142 + ")."
+        : d.n === 0 ? "Cerclaje por antecedente a las 12-14 semanas (" + L.acog142 + ")."
+        : "<strong>ACOG:</strong> se puede ofrecer cerclaje por antecedente con 1 pérdida típica (" + L.acog142 + "). <strong>RCOG:</strong> ecografía transvaginal seriada de 16 a 24 semanas y cerclaje si el cuello mide 25 mm o menos (" + L.gtg75 + ").";
+      return box("rb-amarillo", "Cerclaje por antecedente (profiláctico)", esq(r + " Antes: ecografía con vitalidad y tamizaje de aneuploidías.") + TECNICAS + esq(CONTRA + " " + RETIRO));
+    } },
+    i3: { type: "q", q: "Longitud cervical y antecedente",
+      opts: [
+        { label: "25 mm o menos antes de las 24 semanas, con parto pretérmino espontáneo previo (menor a 34 semanas) o pérdida de 2.º trimestre", next: "iEco" },
+        { label: "20 mm o menos, sin antecedente de parto pretérmino", next: "iProg" },
+        { label: "Más de 25 mm", next: "iNorm" }
+      ] },
+    iEco: { type: "out", html: function () {
+      return box("rb-amarillo", "Cerclaje indicado por ecografía", esq("Embarazo único con antecedente y cuello de 25 mm o menos antes de las 24 semanas: cerclaje (" + L.acog142 + "; " + L.gtg75 + "). Progesterona vaginal como alternativa o complemento según el caso.") + TECNICAS + esq(CONTRA + " " + RETIRO) + obs(FFN));
+    } },
+    iProg: { type: "out", html: function () {
+      return box("rb-verde", "Cuello corto sin antecedente: progesterona vaginal", esq("Progesterona vaginal (200 mg diarios hasta las 36 semanas). El cerclaje no se recomienda si el cuello corto es un hallazgo aislado sin antecedente (" + L.acogPtb + "; " + L.gtg75 + ").") + obs(FFN));
+    } },
+    iNorm: { type: "out", html: function () {
+      return box("rb-verde", "Cuello normal", esq("Con antecedente de riesgo: control de la longitud cervical cada 1-2 semanas entre las 16 y 24 semanas (" + L.gtg75 + ")."));
+    } },
+    i5: { type: "q", q: "Edad gestacional y condiciones",
+      opts: [
+        { label: "Menos de 24 semanas, sin contracciones, infección, sangrado ni RPM", next: "iRes" },
+        { label: "24 semanas o más, o con contracciones, infección, sangrado o RPM", next: "iNoRes" }
+      ] },
+    iRes: { type: "out", html: function () {
+      return box("rb-rojo", "Cerclaje de urgencia (por examen físico, «de rescate»)", esq("Embarazo único con dilatación indolora antes de las 24 semanas, sin contracciones, infección intraamniótica ni DPPNI (" + L.acog142 + "; " + L.statp + "). Descartar Triple I antes de colocarlo (la amniocentesis previa no tiene consenso, " + L.gtg75 + ").") + TECNICAS + esq(RETIRO));
+    } },
+    iNoRes: { type: "out", html: function () {
+      return box("rb-amarillo", "Sin indicación de cerclaje de urgencia", esq("Manejar como amenaza de parto pretérmino o RPM según el caso (maduración, neuroprotección, antibióticos). " + CONTRA) +
+        '<button type="button" class="fl-go" data-ir-app="1">Ir a la conducta de APP / RPM</button>');
+    } },
+    iApp: { type: "out", html: function () {
+      return box("rb-amarillo", "Amenaza de parto pretérmino", esq("El cerclaje no corresponde con contracciones. Seguí la conducta de APP.") + obs(FFN) + '<button type="button" class="fl-go" data-ir-app="1">Ir a la conducta de APP / RPM</button>');
+    } }
+  };
+
+  /* ---------- enlaces entre tarjetas ---------- */
+  function irSub(btnId) {
+    var nav = document.querySelector('[aria-controls="code-rojo"]'); if (nav) nav.click();
+    var b = $(btnId); if (b) b.click();
+    var sec = $("code-rojo"); if (sec) setTimeout(function () { sec.scrollIntoView({ behavior: "smooth", block: "start" }); }, 80);
+  }
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t.closest("[data-ir-rojo]")) { e.preventDefault(); irSub("subtab-rojo-1"); }
+    else if (t.closest("[data-ir-coag]")) { e.preventDefault(); irSub("subtab-rojo-6"); }
+    else if (t.closest("[data-ir-sepsis]")) {
+      e.preventDefault();
+      var nb = document.querySelector('[aria-controls="code-ambar"]'); if (nb) nb.click();
+      var s = $("code-ambar"); if (s) setTimeout(function () { s.scrollIntoView({ behavior: "smooth", block: "start" }); }, 80);
+    } else if (t.closest("[data-ir-app]")) {
+      e.preventDefault();
+      var np = document.querySelector('[aria-controls="code-parto"]'); if (np) np.click();
+      var es = $("parto-escenario"); if (es) { es.value = "app"; es.dispatchEvent(new Event("change")); }
+      var pc = $("parto-card"); if (pc) setTimeout(function () { pc.scrollIntoView({ behavior: "smooth", block: "start" }); }, 80);
+    } else if (t.closest("[data-ir-iic]")) {
+      e.preventDefault();
+      var ic = $("iic-card"); if (ic) ic.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  function initSg() {
+    Flow = window.CaVeSalFlow;
+    if (!Flow) return;
+    var f1, f2, f3;
+    if ($("sg1-flow")) { f1 = new Flow($("sg1-flow"), S1, "a0", {}); f1.render(); }
+    if ($("sg2-flow")) { f2 = new Flow($("sg2-flow"), S2, "b0", {}); f2.render(); }
+    if ($("iic-flow")) { f3 = new Flow($("iic-flow"), IIC, "i1", {}); f3.render(); }
+    ["sg-ect-guia", "sg-mola-guia"].forEach(function (id) { var e = $(id); if (e && f1) e.addEventListener("change", function () { f1.render(); }); });
+    var pg = $("sg-pas-guia"); if (pg && f2) pg.addEventListener("change", function () { f2.render(); });
+    ["in-peso", "in-talla"].forEach(function (id) { var e = $(id); if (e && f1) e.addEventListener("input", function () { f1.render(); }); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(initSg, 0); }); else setTimeout(initSg, 0);
+  window.cavesalSangrados = { S1: S1, S2: S2, IIC: IIC };
 })();
 </script>
 

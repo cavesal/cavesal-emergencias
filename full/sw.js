@@ -1,5 +1,5 @@
 /* CaVeSal® Emergencias — Calculadora completa. Service worker. Subir CACHE en cada publicación. */
-const CACHE = "cavesal-emerg-full-v6";
+const CACHE = "cavesal-emerg-full-v7";
 
 self.addEventListener("install", e => {
   e.waitUntil(
