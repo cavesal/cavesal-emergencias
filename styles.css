@@ -1351,6 +1351,8 @@ select.dose-select {
 .qr-card strong { display: block; font-size: 0.9rem; color: var(--primary); }
 .qr-card span { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: var(--space-2); }
 .qr-card a { font-size: 0.8rem; word-break: break-all; }
+.qr-link { display: block; cursor: pointer; }
+.qr-link:hover img, .qr-link:focus-visible img { outline: 2px solid var(--primary); outline-offset: 2px; }
 .author-lead { font-weight: 600; }
 .about-note { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: var(--space-3); margin-top: var(--space-4); }
 .legal-links { text-align: center; margin: var(--space-5) 0 var(--space-2); display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap; font-size: 0.85rem; }
