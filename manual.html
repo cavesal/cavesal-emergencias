@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial y Manual de Uso · CaVeSal® Emergencias Obstétricas</title>
+<meta name="description" content="Tutorial paso a paso de CaVeSal® Emergencias Obstétricas y Parto: Código Rojo, Código THAE, sepsis, tromboprofilaxis, parto y puerperio, modo voz, Modo Guía y simulador."/>
+<meta name="author" content="CaVeSal"/>
+<link rel="icon" href="img/favicon.png"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Tutorial y Manual de Uso · CaVeSal® Emergencias Obstétricas"/>
+<meta property="og:description" content="Tutorial paso a paso de CaVeSal® Emergencias Obstétricas y Parto: Código Rojo, Código THAE, sepsis, tromboprofilaxis, parto y puerperio, modo voz, Modo Guía y simulador."/>
+<meta property="og:url" content="https://cavesal.app/cavesal-emergencias/manual.html"/>
+<meta property="og:image" content="https://cavesal.app/cavesal-emergencias/og-manual-emergencias.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Tutorial y Manual de Uso de CaVeSal® Emergencias Obstétricas y Parto"/>
+<meta property="og:site_name" content="CaVeSal®"/>
+<meta property="og:locale" content="es_PY"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Tutorial y Manual de Uso · CaVeSal® Emergencias Obstétricas"/>
+<meta name="twitter:description" content="Tutorial paso a paso de CaVeSal® Emergencias Obstétricas y Parto: Código Rojo, Código THAE, sepsis, tromboprofilaxis, parto y puerperio, modo voz, Modo Guía y simulador."/>
+<meta name="twitter:image" content="https://cavesal.app/cavesal-emergencias/og-manual-emergencias.jpg"/>
+<style>
+  :root{
+    --navy:#0D1B2D;--teal:#0EA5B7;--teal-lt:#e6f7f9;--slate:#4a6274;--mist:#f2f7f9;--border:#d0e8ed;--gold:#c9a227;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--mist);color:var(--navy);line-height:1.6}
+  header{background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;padding:32px 20px;text-align:center}
+  header h1{font-size:1.4rem;font-weight:800}
+  header p{font-size:.9rem;opacity:.85;margin-top:6px}
+  main{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+
+  nav.toc{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 12px rgba(14,165,183,.10)}
+  nav.toc h2{font-size:1rem;color:var(--teal);margin-bottom:10px}
+  nav.toc>ol{padding-left:18px;font-size:.88rem}
+  nav.toc>ol>li{margin-bottom:10px;font-weight:700}
+  nav.toc>ol>li>a{color:var(--navy);text-decoration:none}
+  nav.toc ol ol{padding-left:18px;font-weight:400;margin-top:4px}
+  nav.toc ol ol li{margin-bottom:3px;font-size:.84rem}
+  nav.toc a{color:var(--navy);text-decoration:none}
+  nav.toc ol ol a{color:var(--slate)}
+  nav.toc a:hover{color:var(--teal)}
+
+  .tab-divider{background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff;border-radius:14px;padding:16px 20px;margin:26px 0 14px;scroll-margin-top:16px}
+  .tab-divider:first-of-type{margin-top:0}
+  .tab-divider h2{font-size:1.15rem;display:flex;align-items:center;gap:8px}
+  .tab-divider p{font-size:.8rem;opacity:.88;margin-top:4px}
+
+  section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 12px rgba(14,165,183,.10);scroll-margin-top:16px}
+  section h2{font-size:1.1rem;color:var(--teal);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  section h3{font-size:.95rem;color:var(--navy);margin:14px 0 6px}
+  section .ref{font-size:.74rem;color:var(--slate);margin-bottom:14px;font-style:italic}
+  section p{font-size:.9rem;margin-bottom:10px}
+
+  .step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+  .step-num{background:var(--teal);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800;flex-shrink:0;margin-top:2px}
+  .step p{font-size:.88rem;margin:0}
+
+  .tip{background:var(--teal-lt);border-left:3px solid var(--teal);border-radius:8px;padding:12px 14px;font-size:.85rem;margin-top:10px}
+  .warn{background:#fff8e6;border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;font-size:.85rem;margin-top:10px}
+
+  .shot{border:2px dashed var(--border);border-radius:12px;padding:22px;text-align:center;color:var(--slate);font-size:.82rem;margin:14px 0;background:#fafdfe}
+  .shot .cam{font-size:1.6rem;display:block;margin-bottom:6px}
+  .shot code{background:#eef7f9;padding:2px 6px;border-radius:5px;font-size:.78rem;color:var(--navy)}
+
+  .new{background:#eafbf0;border-left:3px solid #0d8f4a;border-radius:8px;padding:10px 14px;font-size:.78rem;margin-bottom:10px;color:#0d6b38;font-weight:600;display:inline-block}
+
+  .updated{font-size:.78rem;color:var(--slate);text-align:center;margin-top:20px}
+  a{color:var(--teal)}
+  .back-top{display:inline-block;margin-top:14px;font-size:.78rem}
+
+
+  .fig{margin:14px 0;text-align:center}
+  .fig img{max-width:100%;width:420px;border-radius:12px;box-shadow:0 2px 10px rgba(14,165,183,.18);border:1px solid var(--border)}
+  .fig figcaption{font-size:.76rem;color:var(--slate);margin-top:6px}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0}
+  .two .fig{margin:0}
+  .two .fig img{width:100%}
+  .two>*{min-width:0}.fig{min-width:0}.fig img{height:auto}
+  .badge{display:inline-block;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle}
+  .b-full{background:#0D1B2D;color:#fff}.b-demo{background:#dcfce7;color:#15803d}
+  ul.list{padding-left:20px;margin:6px 0 10px}ul.list li{font-size:.88rem;margin-bottom:5px}
+  .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .cta{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:700;font-size:.86rem;text-decoration:none}
+  .cta.dark{background:linear-gradient(135deg,#0D1B2D,#0EA5B7);color:#fff}
+  .cta.line{border:1.5px solid var(--teal);color:var(--teal);background:#fff}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Tutorial y Manual de Uso · CaVeSal® Emergencias Obstétricas</h1>
+  <p>Cómo usar cada módulo, en el mismo orden en que aparece en la app</p>
+</header>
+
+<main>
+
+<nav class="toc" id="top">
+  <h2>Contenido</h2>
+  <ol>
+    <li><a href="#intro">Antes de empezar</a>
+      <ol>
+        <li><a href="#demo-full">Demo y versión completa</a></li>
+        <li><a href="#instalar">Instalar y activar</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-inicio">Pantalla principal</a>
+      <ol>
+        <li><a href="#entrada">Entrada rápida: emergencia ahora o desde cero</a></li>
+        <li><a href="#ejemplos">Cargar ejemplo</a></li>
+        <li><a href="#barra">Barra de datos de la paciente</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-rojo">Código Rojo — Hemorragia</a>
+      <ol style="list-style:none;padding-left:16px">
+        <li><a href="#rojo-1">1. Activación (choque, Vélez)</a></li>
+        <li><a href="#rojo-2">2. Respuesta primaria (E-MOTIVE, 4T)</a></li>
+        <li><a href="#rojo-3">3. Refractaria y escalada Nivel 0-3</a></li>
+        <li><a href="#rojo-5">5. Calculadoras y alertas (EAPO, HELLP)</a></li>
+        <li><a href="#rojo-6">6. Sangrado y coagulación</a></li>
+        <li><a href="#rojo-7">7. Sangrados de la 1.ª y 2.ª mitad</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-thae">Código THAE — Hipertensión</a></li>
+    <li><a href="#tab-sepsis">Código Amarillo — Sepsis</a></li>
+    <li><a href="#tab-trombo">Tromboprofilaxis</a></li>
+    <li><a href="#tab-parto">Parto y Puerperio</a></li>
+    <li><a href="#tab-voz">Modo voz manos libres</a></li>
+    <li><a href="#tab-guia">Modo Guía y bibliografía</a></li>
+    <li><a href="#tab-sim">Simulador</a></li>
+    <li><a href="#tab-acerca">Acerca y aviso legal</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+  <h2>Antes de empezar</h2>
+  <p>CaVeSal® Emergencias Obstétricas es una herramienta de apoyo a la decisión clínica para la guardia y la sala de partos. Reúne en una sola app los cinco módulos de emergencia (<strong>Código Rojo, Código THAE, Código Amarillo — Sepsis, Tromboprofilaxis y Parto y Puerperio</strong>), un modo voz manos libres, el Modo Guía con las guías resumidas y un simulador de casos.</p>
+  <p>Los datos comunes de la paciente se cargan <strong>una sola vez</strong> en la barra superior y se copian solos a todos los módulos. Cada tarjeta muestra su fuente al pie y, cuando hay más de una guía con buen respaldo, un selector para elegir el criterio.</p>
+  <p>Todo se calcula <strong>en tu dispositivo</strong>. La app funciona sin conexión una vez instalada y no envía datos de pacientes a servidores.</p>
+  <div class="warn">Es una herramienta de <strong>apoyo a la decisión clínica</strong> para profesionales de la salud. No diagnostica, no reemplaza el juicio del profesional tratante ni las guías oficiales vigentes, y no es un dispositivo médico.</div>
+</section>
+
+<section id="demo-full">
+  <h2>Demo y versión completa</h2>
+  <p><strong>Demo gratuita</strong> (<a href="https://cavesal.app/cavesal-emergencias/demo/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/demo/</a>): índice de choque, PAM e IMC, qSOFA puntual, Escala de Alerta Obstétrica en versión estática (una carga, sin seguimiento), el simulador y los ejemplos precargados.</p>
+  <p><strong>Versión completa</strong> (<a href="https://cavesal.app/cavesal-emergencias/full/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/full/</a>): suma el Código Rojo completo, Código THAE, sangrado y coagulación, sepsis con Criterios California, SIRS y MEOWS, tromboprofilaxis, parto y puerperio con partogramas, el modo voz manos libres, la Escala de Alerta dinámica con reloj de hora de oro, el Modo Guía y el puente con CaVeSal® IA.</p>
+  <figure class="fig"><img src="img/manual/27-demo.jpg" alt="Demo: el recuadro superior indica qué está liberado" loading="lazy"><figcaption>Demo: el recuadro superior indica qué está liberado</figcaption></figure>
+</section>
+
+<section id="instalar">
+  <h2>Instalar y activar</h2>
+  <div class="step"><div class="step-num">1</div><p>Adquirí Emergencias sola o en combo en <a href="https://cavesal.gumroad.com/l/cavesal" target="_blank" rel="noopener">Gumroad</a>, o por transferencia en <a href="https://cavesal.github.io/comprar.html?producto=emergencia" target="_blank" rel="noopener">Comprar sin tarjeta</a>. Te llega <strong>1 clave</strong> de Emergencias por correo (formato XXXX-XXXX-XXXX-XXXX). En los combos llega además la clave de cada app incluida.</p></div>
+  <div class="step"><div class="step-num">2</div><p>Abrí <a href="https://cavesal.app/cavesal-emergencias/full/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/full/</a> en el dispositivo donde la vas a usar e <strong>instalala primero</strong>: en Android, menú de Chrome y "Instalar app" o "Agregar a pantalla de inicio"; en iPhone, botón Compartir de Safari y "Agregar a pantalla de inicio".</p></div>
+  <div class="step"><div class="step-num">3</div><p>Abrí CaVeSal® desde el ícono instalado, pegá tu clave y tocá <strong>Activar</strong>.</p></div>
+  <div class="step"><div class="step-num">4</div><p>Listo: queda habilitada de forma permanente en ese dispositivo, con las actualizaciones incluidas.</p></div>
+  <div class="tip">La clave es válida para un solo dispositivo. Si la activás en el navegador antes de instalar, al abrir la app instalada te la va a volver a pedir.</div>
+  <figure class="fig"><img src="img/manual/00-activacion.jpg" alt="Pantalla de activación de la versión completa" loading="lazy"><figcaption>Pantalla de activación de la versión completa</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-inicio">
+  <h2>Pantalla principal</h2>
+  <p>Arriba, el menú (Inicio, Simulador, Versión Demo, Modo Guía y Acerca). Debajo, la entrada rápida, el botón de ejemplos y la barra de datos de la paciente.</p>
+</div>
+
+<section id="entrada">
+  <h2>Entrada rápida: emergencia ahora o desde cero</h2>
+  <ul class="list">
+    <li><strong>Tengo una emergencia ahora:</strong> elegís el código (Rojo, THAE, Amarillo o Azul) y se abre el modo voz, que dicta cada paso. Ver <a href="#tab-voz">Modo voz</a>.</li>
+    <li><strong>Empezar desde cero:</strong> preguntas de sí o no que te llevan al código que corresponde cuando todavía no está claro qué está pasando.</li>
+  </ul>
+  <figure class="fig"><img src="img/manual/01-inicio.jpg" alt="Pantalla principal de la versión completa" loading="lazy"><figcaption>Pantalla principal de la versión completa</figcaption></figure>
+</section>
+
+<section id="ejemplos">
+  <h2>Cargar ejemplo <span class="badge b-demo">También en la demo</span></h2>
+  <p>Carga un caso ilustrativo para ver cómo responde cada módulo: Código Rojo (choque hipovolémico), Código THAE (preeclampsia severa), Código Amarillo (sepsis), los tres partogramas, alumbramiento y control posparto de 2 horas. Hacé scroll para ver los resultados.</p>
+  <figure class="fig"><img src="img/manual/02-ejemplos.jpg" alt="Menú de casos de ejemplo" loading="lazy"><figcaption>Menú de casos de ejemplo</figcaption></figure>
+</section>
+
+<section id="barra">
+  <h2>Barra de datos de la paciente</h2>
+  <p>Cargá peso, talla, FUM, FC, PAS y PAD. La app calcula al instante <strong>IMC, edad gestacional, PAM e índice de choque</strong>, con color según el umbral. Estos datos se copian a todas las tablas mientras no los edites en cada una.</p>
+  <div class="tip">¿Edad gestacional dudosa? Desde la misma pantalla hay un enlace al Gestograma CaVeSal®, gratuito, para calcularla por FUM y ecografía.</div>
+  <figure class="fig"><img src="img/manual/03-paciente.jpg" alt="Barra de datos comunes con IMC, EG, PAM e índice de choque" loading="lazy"><figcaption>Barra de datos comunes con IMC, EG, PAM e índice de choque</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-rojo">
+  <h2>Código Rojo — Hemorragia obstétrica <span class="badge b-full">Versión completa</span></h2>
+  <p>Siete subpestañas que siguen la secuencia real de atención: activación, respuesta primaria, refractaria, recuperación, calculadoras, sangrado y coagulación, y sangrados del embarazo.</p>
+</div>
+
+<section id="rojo-1">
+  <h2>1. Activación: clasificación del choque</h2>
+  <p>Ingresá sangrado estimado, sensorio, perfusión, pulso y PAS. El grado de choque (Vélez 2009) lo define <strong>el peor parámetro</strong>, y la tarjeta indica si corresponde activar el Código Rojo según el criterio de la OMS 2025.</p>
+  <figure class="fig"><img src="img/manual/04-velez.jpg" alt="Clasificación del choque hipovolémico con resultado" loading="lazy"><figcaption>Clasificación del choque hipovolémico con resultado</figcaption></figure>
+</section>
+
+<section id="rojo-2">
+  <h2>2. Respuesta primaria: E-MOTIVE y 4T</h2>
+  <p>Lista de chequeo del paquete E-MOTIVE (detección temprana, masaje uterino, oxitócicos, ácido tranexámico, fluidos y examen) y clasificación de la causa por las 4T (tono, trauma, tejido, trombina).</p>
+  <figure class="fig"><img src="img/manual/05-emotive.jpg" alt="Paquete E-MOTIVE" loading="lazy"><figcaption>Paquete E-MOTIVE</figcaption></figure>
+</section>
+
+<section id="rojo-3">
+  <h2>3. Refractaria y escalada Nivel 0-3</h2>
+  <p>Marcá las maniobras realizadas y la app sugiere el nivel de respuesta: compresión bimanual y aórtica, balón intrauterino, técnica Zea, embolización, hemoderivados, traslado, suturas compresivas, ligaduras vasculares (O'Leary, Posadas, Tsirulnikov, hipogástricas) e histerectomía.</p>
+  <figure class="fig"><img src="img/manual/06-escalada.jpg" alt="Maniobras y escalada de respuesta con el nivel sugerido" loading="lazy"><figcaption>Maniobras y escalada de respuesta con el nivel sugerido</figcaption></figure>
+</section>
+
+<section id="rojo-5">
+  <h2>5. Calculadoras y alertas</h2>
+  <p><strong>Escala de Alerta Obstétrica:</strong> por defecto EAPO MSPBS 2025/2022, con selector de escala (incluida la Alerta Obstétrica CaVeSal®). Los signos vitales se completan solos desde la barra superior y la tarjeta recuerda la hora de oro y la frecuencia de controles según el color.</p>
+  <p><strong>Síndrome HELLP:</strong> selector de criterio (por defecto Mississippi). Con plaquetas, AST/ALT y LDH clasifica y propone la conducta.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/08-alerta.jpg" alt="Escala de Alerta Obstétrica con selector" loading="lazy"><figcaption>Escala de Alerta Obstétrica con selector</figcaption></figure><figure class="fig"><img src="img/manual/09-hellp.jpg" alt="HELLP con selector de criterio" loading="lazy"><figcaption>HELLP con selector de criterio</figcaption></figure></div>
+</section>
+
+<section id="rojo-6">
+  <h2>6. Sangrado y coagulación</h2>
+  <p>Volemia estimada y pérdida sanguínea permitida (con el peso de la barra superior), cuantificación del sangrado (gravimétrica y aspirado), coagulopatía por laboratorio con scores de CID, y lectura de ROTEM (EXTEM/FIBTEM) con dosis orientativas.</p>
+  <figure class="fig"><img src="img/manual/10-volemia.jpg" alt="Volemia estimada y pérdida sanguínea permitida" loading="lazy"><figcaption>Volemia estimada y pérdida sanguínea permitida</figcaption></figure>
+</section>
+
+<section id="rojo-7">
+  <h2>7. Sangrados de la 1.ª y 2.ª mitad del embarazo</h2>
+  <p>Flujogramas paso a paso: respondés cada pregunta y la app avanza; podés corregir cualquier respuesta con «cambiar».</p>
+  <ul class="list">
+    <li><strong>1.ª mitad:</strong> amenaza de aborto y aborto en sus formas, embarazo de localización desconocida, ectópico (con selector de criterios) y mola (con selector de seguimiento).</li>
+    <li><strong>2.ª mitad:</strong> placenta previa, desprendimiento, rotura uterina, vasa previa y espectro de placenta acreta (con selector del momento del nacimiento).</li>
+  </ul>
+  <div class="two"><figure class="fig"><img src="img/manual/11-sangrado1.jpg" alt="Flujograma de sangrado de la 1.ª mitad" loading="lazy"><figcaption>Flujograma de sangrado de la 1.ª mitad</figcaption></figure><figure class="fig"><img src="img/manual/12-sangrado2.jpg" alt="Flujograma de sangrado de la 2.ª mitad" loading="lazy"><figcaption>Flujograma de sangrado de la 2.ª mitad</figcaption></figure></div>
+</section>
+
+<div class="tab-divider" id="tab-thae">
+  <h2>Código THAE — Trastornos hipertensivos <span class="badge b-full">Versión completa</span></h2>
+  <p>Clasificación automática con la PA de la barra superior, fenotipo hemodinámico (índice TAM/FC), lesión de órgano blanco y proteinuria, selector de antihipertensivo, cociente sFlt-1/PlGF, Doppler de arteria oftálmica, algoritmo guiado y checklist de eclampsia.</p>
+</div>
+<section>
+  <h2>Clasificación y tratamiento</h2>
+  <p>Con PAS ≥160 o PAD ≥110 la tarjeta marca hipertensión severa y la indicación de activar el código. El selector de antihipertensivo muestra dosis, intervalo y dosis máxima de cada fármaco.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/13-thae.jpg" alt="Clasificación automática de la hipertensión" loading="lazy"><figcaption>Clasificación automática de la hipertensión</figcaption></figure><figure class="fig"><img src="img/manual/14-antihta.jpg" alt="Selector de antihipertensivo" loading="lazy"><figcaption>Selector de antihipertensivo</figcaption></figure></div>
+</section>
+
+<div class="tab-divider" id="tab-sepsis">
+  <h2>Código Amarillo — Sepsis materna <span class="badge b-full">Versión completa</span></h2>
+  <p>Triage obstétrico OTAS, Criterios California, tamizaje comparativo (qSOFA, SIRS y MEOWS), paquete "Sepsis 4-5-3" con temporizadores y esquema antibiótico por foco.</p>
+</div>
+<section>
+  <h2>Tamizaje y paquete con temporizador</h2>
+  <p>Ningún score por sí solo confirma ni descarta una sepsis: la tarjeta comparativa lo aclara. El paquete 4-5-3 arranca los temporizadores de 1, 3 y 6 horas y lleva la lista de lo que hay que tomar, suministrar y considerar.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/15-qsofa.jpg" alt="qSOFA, SIRS y MEOWS: selector comparativo" loading="lazy"><figcaption>qSOFA, SIRS y MEOWS: selector comparativo</figcaption></figure><figure class="fig"><img src="img/manual/16-bundle.jpg" alt="Paquete Sepsis 4-5-3 con temporizador" loading="lazy"><figcaption>Paquete Sepsis 4-5-3 con temporizador</figcaption></figure></div>
+</section>
+
+<div class="tab-divider" id="tab-trombo">
+  <h2>Tromboprofilaxis — sistema semáforo <span class="badge b-full">Versión completa</span></h2>
+  <p>Medidas generales, escala de riesgo en cuatro colores y calculadora de dosis de heparina de bajo peso molecular según el peso.</p>
+</div>
+<section>
+  <h2>Riesgo y dosis de HBPM</h2>
+  <p>Marcá los factores presentes. El resultado toma la <strong>categoría más grave alcanzada</strong> y la acción que corresponde. La dosis se calcula con el peso de la barra superior, el fármaco y el tipo de dosis elegidos.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/17-trombo.jpg" alt="Escala de riesgo en semáforo" loading="lazy"><figcaption>Escala de riesgo en semáforo</figcaption></figure><figure class="fig"><img src="img/manual/18-hbpm.jpg" alt="Calculadora de dosis de HBPM" loading="lazy"><figcaption>Calculadora de dosis de HBPM</figcaption></figure></div>
+</section>
+
+<div class="tab-divider" id="tab-parto">
+  <h2>Parto y Puerperio <span class="badge b-full">Versión completa</span></h2>
+  <p>RPM y amenaza de parto pretérmino, incompetencia cervical y cerclaje, madurez pulmonar, tocolisis, contador de contracciones, partogramas, alumbramiento, control posparto y sulfato de magnesio.</p>
+</div>
+<section>
+  <h2>RPM y APP</h2>
+  <p>Diagnóstico de RPM con flujograma de casillas y conducta según edad gestacional. La maduración pulmonar y la neuroprotección se calculan igual en RPM y en amenaza de parto pretérmino. Por defecto se usan los cortes del MSPBS Paraguay; las variantes de otras guías figuran al pie.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/19-rpm.jpg" alt="RPM: diagnóstico paso a paso" loading="lazy"><figcaption>RPM: diagnóstico paso a paso</figcaption></figure><figure class="fig"><img src="img/manual/20-rpmconducta.jpg" alt="Conducta según edad gestacional" loading="lazy"><figcaption>Conducta según edad gestacional</figcaption></figure></div>
+</section>
+<section>
+  <h2>Tocolisis y partograma</h2>
+  <p><strong>Tocolisis:</strong> selector de fármaco con dosis de carga y mantenimiento, y un cronómetro que avisa cada toma.</p>
+  <p><strong>Partograma dinámico:</strong> tres modelos (Ministerio CLAP, OMS 2020 y ACOG 2024). Registrás cada evaluación; el gráfico y la interpretación cambian según el modelo, y los datos se conservan al cambiar de modelo.</p>
+  <div class="two"><figure class="fig"><img src="img/manual/21-tocolisis.jpg" alt="Tocolisis con cronómetro de dosis" loading="lazy"><figcaption>Tocolisis con cronómetro de dosis</figcaption></figure><figure class="fig"><img src="img/manual/22-partograma.jpg" alt="Partograma dinámico" loading="lazy"><figcaption>Partograma dinámico</figcaption></figure></div>
+</section>
+<section>
+  <h2>Sulfato de magnesio</h2>
+  <p>Elegí la indicación (por ejemplo, neuroprotección fetal antes de las 32 semanas o prevención de eclampsia) y la app arma la carga, el mantenimiento y el goteo. El monitor de toxicidad registra frecuencia respiratoria, diuresis y reflejo rotuliano, e indica si hay criterios de suspensión.</p>
+  <figure class="fig"><img src="img/manual/23-mgso4.jpg" alt="Esquemas de MgSO4 y monitor de toxicidad" loading="lazy"><figcaption>Esquemas de MgSO4 y monitor de toxicidad</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-voz">
+  <h2>Modo voz manos libres <span class="badge b-full">Versión completa</span></h2>
+  <p>Para cuando tenés las manos ocupadas: la app dicta cada paso en voz alta y avanza cuando el equipo confirma.</p>
+</div>
+<section>
+  <h2>Cómo funciona</h2>
+  <div class="step"><div class="step-num">1</div><p>Tocá <strong>Tengo una emergencia ahora</strong> y elegí el código: Rojo (hemorragia), THAE (hipertensión grave), Amarillo (sepsis) o Azul (paro y colapso).</p></div>
+  <div class="step"><div class="step-num">2</div><p>Aceptá el permiso de micrófono. El reloj arranca en el minuto cero y arriba se ven las fases del código.</p></div>
+  <div class="step"><div class="step-num">3</div><p>Decí <strong>«cumplido»</strong> para avanzar, <strong>«repetir»</strong>, <strong>«atrás»</strong>, <strong>«sí»</strong> o <strong>«no»</strong>. También podés usar los botones de pantalla.</p></div>
+  <div class="step"><div class="step-num">4</div><p>Al cerrar el código queda el <strong>registro con hora</strong> de cada paso.</p></div>
+  <div class="tip">Funciona mejor en Chrome o Edge (Android y computadora). Es un apoyo a la memoria del equipo y no reemplaza el criterio clínico.</div>
+  <div class="two"><figure class="fig"><img src="img/manual/24-voz.jpg" alt="Elección del código para el modo voz" loading="lazy"><figcaption>Elección del código para el modo voz</figcaption></figure><figure class="fig"><img src="img/manual/24b-voz-rojo.jpg" alt="Código Rojo en modo voz" loading="lazy"><figcaption>Código Rojo en modo voz</figcaption></figure></div>
+</section>
+
+<div class="tab-divider" id="tab-guia">
+  <h2>Modo Guía y bibliografía <span class="badge b-full">Versión completa</span></h2>
+  <p>La guía de acceso rápido ante una emergencia obstétrica: definiciones, clasificaciones, flujogramas, dosis y técnicas de cada código, con las variantes de cada guía y su referencia.</p>
+</div>
+<section>
+  <h2>Cómo buscar</h2>
+  <p>Usá el buscador por palabra clave (por ejemplo: partograma, código rojo, sangrado, tromboprofilaxis), el glosario o la autoevaluación. Cada código tiene su propia guía desplegable. La bibliografía completa, con enlaces a las fuentes, está en la página de bibliografía.</p>
+  <figure class="fig"><img src="img/manual/25-guia.jpg" alt="Modo Guía con buscador y códigos" loading="lazy"><figcaption>Modo Guía con buscador y códigos</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-sim">
+  <h2>Simulador <span class="badge b-demo">También en la demo</span></h2>
+  <p>Doce casos ficticios para entrenar al equipo: emergencias maternas, Escala de Alerta, trabajo de parto con partogramas, Código Azul Obstétrico (RCP) y modo voz.</p>
+</div>
+<section>
+  <h2>Cómo se juega</h2>
+  <p>La app presenta a la paciente, vos decidís y el caso reacciona, con monitor de signos vitales. Al final recibís la devolución con la fuente de cada respuesta. Podés activar el reloj para practicar con tiempo límite por decisión.</p>
+  <figure class="fig"><img src="img/manual/26-simulador.jpg" alt="Simulador con casos por categoría" loading="lazy"><figcaption>Simulador con casos por categoría</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-acerca">
+  <h2>Acerca y aviso legal</h2>
+  <p>Autor clínico, bases clínicas, ecosistema CaVeSal® con los QR de cada app, y enlaces a precios, términos y privacidad.</p>
+</div>
+<section id="aviso-legal">
+  <h2>Aviso legal</h2>
+  <p>CaVeSal® es una herramienta de <strong>apoyo a la decisión clínica</strong> para profesionales de la salud. No diagnostica, no reemplaza el juicio clínico del médico tratante ni la evaluación individualizada, y no es un dispositivo médico. Las decisiones clínicas son responsabilidad exclusiva del profesional.</p>
+  <p>CaVeSal® implementa <strong>algoritmos propios</strong>, desarrollados a partir de las referencias citadas en cada tarjeta. La mención de guías, sociedades e instituciones (MSPBS, OMS, FIGO, NICE, RCOG, ACOG, SMFM, Surviving Sepsis Campaign, AHA, entre otras) tiene fines de atribución bibliográfica; ninguna de ellas patrocina, avala ni certifica CaVeSal®.</p>
+  <figure class="fig"><img src="img/manual/28-acerca.jpg" alt="Pestaña Acerca" loading="lazy"><figcaption>Pestaña Acerca</figcaption></figure>
+  <div class="tip">Enlaces relacionados: <a href="https://cavesal.app/instrucciones.html">Cómo activar la versión completa</a> · <a href="https://cavesal.app/precios.html">Precios</a> · <a href="https://cavesal.app/terminos.html">Términos de Servicio</a> · <a href="https://cavesal.app/privacidad.html">Política de Privacidad</a>.</div>
+  <div class="ctas">
+    <a class="cta line" href="https://cavesal.app/cavesal-emergencias/demo/" target="_blank" rel="noopener">Probar la demo gratis</a>
+    <a class="cta dark" href="https://cavesal.gumroad.com/l/cavesal" target="_blank" rel="noopener">Adquirir la versión completa</a>
+  </div>
+  <a class="back-top" href="#top">Volver al índice</a>
+</section>
+
+<p class="updated">¿Dudas sobre algún módulo? Escribinos a <a href="mailto:drverasalerno@gmail.com">drverasalerno@gmail.com</a> · Dr. Carlos Vera Salerno · CaVeSal® · Última actualización: octubre de 2026</p>
+
+</main>
+</body>
+</html>
