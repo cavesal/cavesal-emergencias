@@ -67,7 +67,7 @@
             ops: [
               { t: "Cesárea perimortem en el lugar, con nacimiento hacia el minuto 5, sin trasladar ni interrumpir la RCP.", ok: true, fb: "Correcto. Con más de 20-24 semanas, si no hay retorno de la circulación al minuto 4, histerotomía en el lugar para nacer hacia el minuto 5: mejora la reanimación materna." },
               { t: "Trasladar al quirófano para hacer la cesárea en condiciones estériles.", fb: "El traslado demora y empeora la RCP. Se hace donde está la paciente." },
-              { t: "Seguir la RCP 20 minutos más antes de decidir.", fb: "El beneficio de la evacuación uterina depende del tiempo: se prepara al minuto 4." }
+              { t: "Seguir la RCP 20 minutos más antes de decidir.", fb: "El beneficio de la evacuación uterina depende del tiempo: la histerotomía empieza al minuto 4 para nacer al minuto 5." }
             ], peor: { sat: -5 }, ref: "AHA 2020 · cesárea perimortem", url: AHA },
           { tipo: "opcion", q: "Nace el feto y se recupera el pulso materno. ¿Qué sigue?",
             ops: [
