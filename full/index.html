@@ -845,6 +845,51 @@ footer.app-footer strong {
 .code-nav-btn.tealoscuro[aria-selected="true"] { border-color: var(--tealoscuro); background: var(--tealoscuro-bg); color: var(--tealoscuro); }
 .code-nav-btn.coral[aria-selected="true"] { border-color: var(--coral); background: var(--coral-bg); color: var(--coral); }
 .code-nav-btn.oliva[aria-selected="true"] { border-color: var(--oliva); background: var(--oliva-bg); color: var(--oliva); }
+/* ---- Código Azul Obstétrico (RCP) ---- */
+.code-nav-btn.azuloscuro[aria-selected="true"] { border-color: var(--azuloscuro); background: var(--azuloscuro-bg); color: var(--azuloscuro); }
+#code-rcp .section-intro h2 { color: var(--azuloscuro); }
+.rcp-clock { margin: 14px 0 10px; padding: 16px; border-radius: 16px; background: var(--azuloscuro-bg); border: 2px solid var(--azuloscuro-border); text-align: center; }
+.rcp-time { font-size: clamp(3.2rem, 14vw, 5rem); font-weight: 800; line-height: 1; color: var(--azuloscuro); font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.rcp-bar { position: relative; height: 12px; border-radius: 999px; background: #fff; border: 1px solid var(--azuloscuro-border); margin: 14px 4px 22px; }
+.rcp-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: var(--azuloscuro); transition: width .25s linear; }
+.rcp-mark { position: absolute; top: 14px; transform: translateX(-50%); font-size: .72rem; font-weight: 700; color: var(--azuloscuro); }
+.rcp-mark::before { content: ""; position: absolute; left: 50%; top: -16px; width: 2px; height: 14px; background: var(--azuloscuro-border); }
+.rcp-mark.m4, .rcp-mark.m5 { color: #a32020; }
+.rcp-mark.m4::before, .rcp-mark.m5::before { background: #a32020; }
+.rcp-msg { font-size: 1rem; font-weight: 700; line-height: 1.4; color: #0D1B2D; }
+.rcp-sub { font-size: .88rem; margin-top: 6px; color: var(--text-muted); }
+.rcp-clock[data-fase="h4"] { background: #fdecec; border-color: #a32020; animation: rcpPulse 1s ease-in-out infinite; }
+.rcp-clock[data-fase="h4"] .rcp-time, .rcp-clock[data-fase="h4"] .rcp-msg { color: #a32020; }
+.rcp-clock[data-fase="h4"] .rcp-bar-fill { background: #a32020; }
+.rcp-clock[data-fase="h5"] { background: #fdecec; border-color: #a32020; }
+.rcp-clock[data-fase="h5"] .rcp-time, .rcp-clock[data-fase="h5"] .rcp-msg { color: #a32020; }
+.rcp-clock[data-fase="h5"] .rcp-bar-fill { background: #a32020; }
+.rcp-clock[data-fase="rce"] { background: var(--verde-bg); border-color: var(--verde-border); }
+.rcp-clock[data-fase="rce"] .rcp-time, .rcp-clock[data-fase="rce"] .rcp-msg { color: var(--verde); }
+@keyframes rcpPulse { 50% { box-shadow: 0 0 0 6px rgba(163,32,32,.18); } }
+@media (prefers-reduced-motion: reduce) { .rcp-clock[data-fase="h4"] { animation: none; } }
+.rcp-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+.rcp-actions.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.rcp-btn { flex: 1 1 160px; min-height: 48px; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--azuloscuro-border); background: #fff; color: var(--azuloscuro); font-weight: 700; font-size: .92rem; cursor: pointer; }
+.rcp-btn.start { background: var(--azuloscuro); border-color: var(--azuloscuro); color: #fff; font-size: 1.05rem; flex-basis: 220px; }
+.rcp-btn.hist { border-color: #e2a4a4; color: #a32020; }
+.rcp-btn.rce { border-color: var(--verde-border); color: var(--verde); }
+.rcp-btn:disabled { opacity: .45; cursor: not-allowed; }
+.rcp-btn:not(:disabled):active { transform: scale(.98); }
+.rcp-adre { margin: 6px 0 10px; padding: 10px 12px; border-radius: 12px; font-size: .92rem; font-weight: 700; background: #eef1f4; color: #3b4652; }
+.rcp-adre.ok { background: var(--verde-bg); color: var(--verde); }
+.rcp-adre.late { background: #fdecec; color: #a32020; }
+.rcp-log-wrap { margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.rcp-log-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.rcp-log { margin: 0; padding-left: 1.2em; font-size: .9rem; line-height: 1.6; font-variant-numeric: tabular-nums; max-height: 220px; overflow: auto; }
+.rcp-log .rcp-empty { list-style: none; margin-left: -1.2em; color: var(--text-muted); }
+.rcp-notes { margin: 12px 0 0; padding-left: 1.2em; font-size: .88rem; line-height: 1.5; display: flex; flex-direction: column; gap: 4px; }
+.rcp-ah td { vertical-align: top; font-size: .9rem; }
+.rcp-ah td:first-child { width: 2em; color: var(--azuloscuro); font-size: 1.05rem; }
+.rcp-ah-go { margin-top: 6px; }
+.rcp-ah-go .btn, .rcp-ah-go a { font-size: .85rem; }
+.rcp-esq { border-color: var(--azuloscuro-border); }
+.rcp-esq strong { color: var(--azuloscuro); }
 
 .code-section {
   display: none;
@@ -2242,6 +2287,10 @@ document.addEventListener('DOMContentLoaded', function(){
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M5.6 5.6l2.8 2.8M18.4 5.6l-2.8 2.8M2 12h4M18 12h4M5.6 18.4l2.8-2.8M18.4 18.4l-2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg>
       Sepsis Materna
     </button>
+    <button class="code-nav-btn azuloscuro" role="tab" aria-selected="false" aria-controls="code-rcp" id="navtab-rcp" data-code="rcp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2 6 4-14 2 6h6"/></svg>
+      Código Azul Obstétrico
+    </button>
     <button class="code-nav-btn violeta" role="tab" aria-selected="false" aria-controls="code-trombo" id="navtab-trombo" data-code="trombo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/><path d="M9 14h6"/></svg>
       Tromboprofilaxis
@@ -2450,7 +2499,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="rojo:rojo-1">Hemorragia · Código Rojo</button>
               <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="azul">Hipertensión · THAE</button>
               <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="ambar">Infección · Sepsis</button>
-              <a class="btn btn-outline btn-sm" href="../guia.html#tab-azuloscuro">Paro · Código Azul</a>
+              <button type="button" class="btn btn-outline btn-sm" data-alerta-ir="rcp">Paro · Código Azul Obstétrico</button>
             </div>
           </div>
 
@@ -3022,6 +3071,128 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
         <div class="dose-detail" id="detail-foco" style="display:none;"></div>
         <p class="card-source">Fuente: esquemas antibióticos por foco, guía de emergencias obstétricas de referencia.</p>
+      </div>
+    </section>
+
+    <!-- ================= CÓDIGO AZUL OBSTÉTRICO (RCP) ================= -->
+    <section class="code-section" id="code-rcp" role="tabpanel" aria-labelledby="navtab-rcp">
+      <div class="section-intro">
+        <h2>Código Azul Obstétrico — Paro / Colapso Materno</h2>
+        <p>Cronómetro con la regla de oro de los 4 minutos, activación del equipo, causas A-H y antídotos. También disponible por voz en «Tengo una emergencia ahora».</p>
+      </div>
+
+      <div class="card rcp-card" id="rcp-card">
+        <h3>Cronómetro de RCP — regla de los 4 minutos</h3>
+        <p class="card-sub">Sin retorno de la circulación espontánea (RCE) al <strong>minuto 4</strong>: iniciar la histerotomía resucitativa en el lugar, sin trasladar ni detener la RCP, para lograr el <strong>nacimiento al minuto 5</strong>. Avisa cada 2 minutos para el control del ritmo y lleva la ventana de adrenalina.</p>
+
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="rcp-fondo">Altura uterina</label>
+            <select id="rcp-fondo">
+              <option value="si">En o sobre el ombligo (≥20 sem)</option>
+              <option value="no">Debajo del ombligo (&lt;20 sem)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rcp-clock" id="rcp-clock" data-fase="idle">
+          <div class="rcp-time" id="rcp-time" aria-live="off">00:00</div>
+          <div class="rcp-bar" aria-hidden="true">
+            <div class="rcp-bar-fill" id="rcp-bar-fill"></div>
+            <span class="rcp-mark" style="left:33.33%">2</span>
+            <span class="rcp-mark m4" style="left:66.66%">4</span>
+            <span class="rcp-mark m5" style="left:83.33%">5</span>
+          </div>
+          <div class="rcp-msg" id="rcp-msg" role="status" aria-live="assertive">Tocá «Iniciar paro» en el momento del reconocimiento. Si el paro no fue presenciado, el reloj cuenta desde el inicio de la RCP.</div>
+          <div class="rcp-sub" id="rcp-sub"></div>
+        </div>
+
+        <div class="rcp-adre" id="rcp-adre" hidden></div>
+        <div class="rcp-actions">
+          <button type="button" class="rcp-btn start" id="rcp-start">Iniciar paro · minuto 0</button>
+          <button type="button" class="rcp-btn" id="rcp-plus" disabled>+1 min (paro previo)</button>
+        </div>
+        <div class="rcp-actions grid" id="rcp-ev" aria-label="Registrar eventos">
+          <button type="button" class="rcp-btn ev" data-ev="adre" disabled>Adrenalina 1 mg</button>
+          <button type="button" class="rcp-btn ev" data-ev="descarga" disabled>Descarga</button>
+          <button type="button" class="rcp-btn ev" data-ev="amio" disabled>Amiodarona</button>
+          <button type="button" class="rcp-btn ev" data-ev="ritmo" disabled>Ritmo controlado</button>
+          <button type="button" class="rcp-btn ev hist" data-ev="histero" disabled>Histerotomía iniciada</button>
+          <button type="button" class="rcp-btn ev hist" data-ev="nacimiento" disabled>Nacimiento</button>
+          <button type="button" class="rcp-btn ev rce" data-ev="rce" disabled>RCE lograda</button>
+        </div>
+
+        <div class="rcp-log-wrap">
+          <div class="rcp-log-head"><strong>Registro</strong>
+            <span><button type="button" class="btn btn-outline btn-sm" id="rcp-copy">Copiar registro</button>
+            <button type="button" class="btn btn-outline btn-sm" id="rcp-reset">Reiniciar</button></span>
+          </div>
+          <ol class="rcp-log" id="rcp-log"><li class="rcp-empty">Sin eventos.</li></ol>
+        </div>
+
+        <ul class="rcp-notes">
+          <li><strong>AHA 2025:</strong> la preparación del parto resucitativo (nuevo nombre de la cesárea perimortem) empieza en el reconocimiento del paro; el objetivo es completar el nacimiento al minuto 5.</li>
+          <li>Si el pronóstico materno es claramente irrecuperable (lesión no sobrevivible o paro prolongado), no se espera al minuto 4.</li>
+          <li>Si no se logró al minuto 5, igual se completa la evacuación uterina: después del minuto 5 todavía puede beneficiar a la madre.</li>
+          <li>Variante de las <a href="../guia.html#tab-azuloscuro">Guías, ficha 4</a>: menos de 20 semanas no; 20 a 24 semanas según la sospecha de compresión aortocava; más de 24 semanas siempre.</li>
+          <li>Ritmo, energía de descarga y amiodarona: <a href="../guia.html#tab-azuloscuro">Guías, ficha 3</a>.</li>
+        </ul>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.ahajournals.org/doi/10.1161/CIR.0000000000000300" target="_blank" rel="noopener">Jeejeebhoy FM et al. Cardiac Arrest in Pregnancy: A Scientific Statement From the American Heart Association. Circulation 2015;132:1747-73</a> (iniciar a los 4 minutos para el nacimiento a los 5; adrenalina 1 mg cada 3-5 minutos).</p>
+      </div>
+
+      <div class="card">
+        <h3>Activación y RCP en la gestante</h3>
+        <p class="card-sub">Marcá cada acción cumplida.</p>
+        <div class="checklist" id="rcp-check">
+          <label><input type="checkbox">Pulso 10 segundos: si no hay pulso, activar Código Azul Obstétrico y anotar la hora</label>
+          <label><input type="checkbox">Activar el equipo: líder, anestesia, obstetricia, neonatología, enfermería, farmacia</label>
+          <label><input type="checkbox">RCP de alta calidad 30:2, minimizar interrupciones</label>
+          <label><input type="checkbox">Desplazamiento uterino manual a la izquierda, continuo (fondo en o sobre el ombligo)</label>
+          <label><input type="checkbox">DEA o desfibrilador cuando esté indicado</label>
+          <label><input type="checkbox">Vía aérea precoz por el profesional más experimentado (vía aérea difícil frecuente)</label>
+          <label><input type="checkbox">Vía venosa por encima del diafragma</label>
+          <label><input type="checkbox">Si recibe MgSO4: suspenderlo y dar calcio</label>
+          <label><input type="checkbox">Retirar los monitores fetales</label>
+          <label><input type="checkbox">Kit de histerotomía en el lugar desde el minuto 0 (no trasladar)</label>
+          <label><input type="checkbox">Sospecha de embolia de líquido amniótico: activar transfusión masiva</label>
+          <label><input type="checkbox">Equipo neonatal listo para recibir al recién nacido</label>
+        </div>
+        <p class="card-source"><strong>Fuente:</strong> <a href="https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-SC-ACLS-CA-in-Pregnancy-250620.pdf" target="_blank" rel="noopener">American Heart Association, Cardiac Arrest in Pregnancy Algorithm (2025)</a>.</p>
+      </div>
+
+      <div class="card">
+        <h3>Causas del colapso (A-H) y antídotos</h3>
+        <p class="card-sub">Mientras sigue la RCP, buscá la causa. Los botones te llevan al código que corresponde.</p>
+        <div class="table-scroll"><table class="data-table rcp-ah">
+          <tbody>
+            <tr><td><strong>A</strong></td><td>Anestesia (toxicidad por anestésico local, bloqueo alto), asma<div class="rcp-ah-go"><a href="#rcp-lipidos">Emulsión lipídica ↓</a></div></td></tr>
+            <tr><td><strong>B</strong></td><td>Hemorragia (bleeding)<div class="rcp-ah-go"><button type="button" class="btn btn-outline btn-sm" data-alerta-ir="rojo:rojo-1">Código Rojo</button></div></td></tr>
+            <tr><td><strong>C</strong></td><td>Cardiovascular (miocardiopatía, IAM, disección, arritmia)</td></tr>
+            <tr><td><strong>D</strong></td><td>Drogas y fármacos: MgSO4, opioides, insulina, anestésicos<div class="rcp-ah-go">Calcio ↓</div></td></tr>
+            <tr><td><strong>E</strong></td><td>Embolia: líquido amniótico o TEP<div class="rcp-ah-go"><a href="../guia.html#tab-azuloscuro">Guías, ficha 5</a></div></td></tr>
+            <tr><td><strong>F</strong></td><td>Fiebre: sepsis y choque séptico<div class="rcp-ah-go"><button type="button" class="btn btn-outline btn-sm" data-alerta-ir="ambar">Sepsis</button></div></td></tr>
+            <tr><td><strong>G</strong></td><td>Generales: 6H (hipoxia, hipo/hiperkalemia, acidosis, hipotermia, hipovolemia, hipoglucemia) y 6T (taponamiento, trombosis pulmonar y coronaria, tóxicos, neumotórax, trauma)</td></tr>
+            <tr><td><strong>H</strong></td><td>Hipertensión: preeclampsia, eclampsia, HELLP, hemorragia cerebral<div class="rcp-ah-go"><button type="button" class="btn btn-outline btn-sm" data-alerta-ir="azul">Código Azul THAE</button></div></td></tr>
+          </tbody>
+        </table></div>
+        <div class="pt-esq rcp-esq"><strong>Intoxicación por MgSO4:</strong> suspender la infusión y dar gluconato de calcio 10 % 30 mL IV (3 g) o cloruro de calcio 10 % 10 mL IV (1 g).</div>
+        <p class="card-source"><strong>Fuente:</strong> <a href="https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-SC-ACLS-CA-in-Pregnancy-250620.pdf" target="_blank" rel="noopener">American Heart Association, Cardiac Arrest in Pregnancy Algorithm (2025)</a>, etiologías A-H. Dosis de calcio: Jeejeebhoy FM et al., AHA 2015, y <a href="../guia.html#tab-azuloscuro">Guías, ficha 4</a>.</p>
+      </div>
+
+      <div class="card" id="rcp-lipidos">
+        <h3>Toxicidad por anestésico local — emulsión lipídica 20 %</h3>
+        <p class="card-sub">Usa el peso de la barra superior. Darla temprano, aun durante la RCP. En el paro por anestésico local: adrenalina en dosis bajas (1 µg/kg o menos); evitar vasopresina, bloqueantes cálcicos, betabloqueantes y anestésicos locales.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="rcp-peso">Peso <span class="unit">(kg)</span></label>
+            <input type="number" id="rcp-peso" inputmode="decimal" min="30" max="250" step="0.1" placeholder="Toma el peso de arriba">
+          </div>
+        </div>
+        <div class="result-box rb-neutro" id="rcp-lip-res">
+          <div class="result-title" id="rcp-lip-title">Ingresá el peso</div>
+          <div class="result-detail" id="rcp-lip-detail"></div>
+        </div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://asra.com/docs/default-source/guidelines-articles/local-anesthetic-systemic-toxicity-rgb.pdf" target="_blank" rel="noopener">Neal JM, Neal EJ, Weinberg GL. ASRA Local Anesthetic Systemic Toxicity Checklist, 2020 (Reg Anesth Pain Med 2021;46:81-2)</a>. No hay dosis específica para la gestante; en menos de 70 kg ASRA sugiere peso ideal.</p>
       </div>
     </section>
 
@@ -7013,8 +7184,8 @@ window.VOZ_PROTOCOLOS = {
       { cada: 2, msg: "Dos minutos de RCP o cinco ciclos: reevaluar el ritmo.", ref: "Guías Código Azul ficha 3" }
     ],
     hitos: [
-      { min: 4, msg: "Minuto cuatro sin respuesta: prepararse para la histerotomía de emergencia.", ref: "Guías Código Azul ficha 3" },
-      { min: 5, msg: "Minuto cinco: cesárea perimortem si hay más de veinticuatro semanas. Avisar al equipo neonatal.", ref: "Guías Código Azul fichas 3-4" }
+      { min: 4, msg: "Minuto cuatro sin retorno de la circulación: iniciar la histerotomía ahora, en el lugar y sin detener la RCP. Objetivo: nacimiento al minuto cinco.", ref: "AHA 2015 · Guías Código Azul ficha 3" },
+      { min: 5, msg: "Minuto cinco: objetivo de nacimiento. Si todavía no nació, completar la evacuación uterina sin detener la RCP. Equipo neonatal listo.", ref: "AHA 2025 · Guías Código Azul fichas 3-4" }
     ],
     pasos: [
       { id: "z1", fase: "activar", t: "No responde: activar Código Azul Obstétrico. Reloj en marcha.", ref: "Guías Código Azul ficha 2" },
@@ -7030,7 +7201,7 @@ window.VOZ_PROTOCOLOS = {
       { id: "rd2", fase: "ritmo", t: "Si persiste: otra descarga + amiodarona 300 mg IV (150 mg adicionales si persiste la TV). Adrenalina 1 mg IV después de la 2.ª descarga, cada 3-5 min.", v: "Si persiste: otra descarga más amiodarona trescientos miligramos endovenoso. Adrenalina un miligramo después de la segunda descarga, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, next: "zc", ref: "Guías Código Azul ficha 3" },
       { id: "rn1", fase: "ritmo", t: "Asistolia o AESP: continuar compresiones y ventilación. Adrenalina 1 mg IV apenas haya acceso venoso, cada 3-5 min.", v: "Asistolia o actividad eléctrica sin pulso: continuar compresiones y ventilación. Adrenalina un miligramo endovenoso apenas haya acceso, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, ref: "Guías Código Azul ficha 3" },
 
-      { id: "zc", fase: "histerotomia", t: "Cesárea perimortem: <20 sem NO; 20-24 sem según sospecha de compresión aortocava; >24 sem SIEMPRE, al minuto 5. Avisar al equipo neonatal si EG >24 sem.", v: "Cesárea perimortem: menos de veinte semanas, no; veinte a veinticuatro, según compresión aortocava; más de veinticuatro, siempre, al minuto cinco. Avisar al equipo neonatal.", ref: "Guías Código Azul fichas 3-4" },
+      { id: "zc", fase: "histerotomia", t: "Regla de los 4 minutos: sin RCE al minuto 4, iniciar la histerotomía (cesárea perimortem) en el lugar para el nacimiento al minuto 5. <20 sem NO; 20-24 sem según sospecha de compresión aortocava; >24 sem SIEMPRE. Avisar al equipo neonatal si EG >24 sem.", v: "Regla de los cuatro minutos: sin retorno de la circulación al minuto cuatro, iniciar la histerotomía en el lugar, para el nacimiento al minuto cinco. Menos de veinte semanas, no; veinte a veinticuatro, según compresión aortocava; más de veinticuatro, siempre. Avisar al equipo neonatal.", ref: "Guías Código Azul fichas 3-4" },
       { id: "zh", fase: "causa", t: "Buscar causas reversibles: 6H (hipoxia, hipo/hipercalemia, acidosis, hipotermia, hipovolemia, hipoglicemia) y 6T (taponamiento, TEP, trombosis coronaria, tóxicos, neumotórax, trauma). Intoxicación por MgSO₄: gluconato de calcio 10 % 30 mL o cloruro de calcio 10 % 10 mL.", v: "Buscar causas reversibles: seis H y seis T. Si hay intoxicación por sulfato de magnesio: gluconato de calcio al diez por ciento, treinta mililitros, o cloruro de calcio diez mililitros.", ref: "Guías Código Azul fichas 1 y 4" },
       { id: "zr", fase: "causa", q: true, t: "¿Hay retorno de la circulación espontánea (o la paciente tenía pulso)?", v: "¿Hay retorno de la circulación espontánea? Diga sí o no.", si: "zf", no: "r1" },
       { id: "zf", fase: "causa", t: "Registrar la hora y continuar el tratamiento de la causa del colapso con el código que corresponda.", ref: "Guías Código Azul", fin: true }
@@ -8505,5 +8676,172 @@ window.VOZ_ARBOL = [
 })();
 </script>
 
+<script>
+/* ============ Código Azul Obstétrico — cronómetro RCP (regla de los 4 minutos) ============ */
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  if (!$("rcp-card")) return;
+  var KEY = "cvs-rcp-v1";
+  var st = { t0: 0, run: false, fin: 0, ev: [], adre: 0, nac: false, avisos: {} };
+  var audio = null, wake = null, tick = null;
+
+  function guardar() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  function cargar() { try { var x = JSON.parse(localStorage.getItem(KEY) || "null"); if (x && x.t0) st = x; } catch (e) {} }
+  function ahora() { return st.run ? Date.now() : (st.fin || Date.now()); }
+  function seg() { return st.t0 ? Math.max(0, (ahora() - st.t0) / 1000) : 0; }
+  function mmss(s) { s = Math.floor(s); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+  function hora(ms) { var d = new Date(ms); return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0") + ":" + String(d.getSeconds()).padStart(2, "0"); }
+  function fondoSi() { return $("rcp-fondo").value === "si"; }
+
+  function beep(n, largo) {
+    try {
+      if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+      var t = audio.currentTime;
+      for (var i = 0; i < n; i++) {
+        var o = audio.createOscillator(), g = audio.createGain();
+        o.type = "square"; o.frequency.value = largo ? 880 : 660;
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + (largo ? 0.55 : 0.22));
+        o.connect(g); g.connect(audio.destination); o.start(t); o.stop(t + (largo ? 0.6 : 0.25));
+        t += largo ? 0.75 : 0.35;
+      }
+    } catch (e) {}
+    if (navigator.vibrate) navigator.vibrate(largo ? [400, 150, 400, 150, 400] : [200]);
+  }
+  function pedirWake() { try { if ("wakeLock" in navigator && !wake) navigator.wakeLock.request("screen").then(function (w) { wake = w; w.addEventListener("release", function () { wake = null; }); }).catch(function () {}); } catch (e) {} }
+  function soltarWake() { try { if (wake) wake.release(); } catch (e) {} wake = null; }
+
+  var NOMBRES = { inicio: "Inicio del paro (minuto 0)", plus: "Ajuste: +1 min de paro previo", adre: "Adrenalina 1 mg IV", descarga: "Descarga", amio: "Amiodarona", ritmo: "Control de ritmo", histero: "Histerotomía iniciada", nacimiento: "Nacimiento", rce: "RCE lograda — reloj detenido", aviso4: "Aviso: minuto 4 sin RCE, iniciar histerotomía", aviso5: "Aviso: minuto 5, objetivo de nacimiento" };
+  function registrar(tipo) { st.ev.push({ k: tipo, s: Math.round(seg()), h: Date.now() }); guardar(); pintarLog(); }
+  function pintarLog() {
+    var ol = $("rcp-log");
+    if (!st.ev.length) { ol.innerHTML = '<li class="rcp-empty">Sin eventos.</li>'; return; }
+    ol.innerHTML = st.ev.map(function (e) { return "<li><strong>" + mmss(e.s) + "</strong> · " + hora(e.h) + " · " + NOMBRES[e.k] + "</li>"; }).join("");
+    ol.scrollTop = ol.scrollHeight;
+  }
+
+  function habilitar() {
+    $("rcp-start").disabled = st.run;
+    $("rcp-start").textContent = st.run ? "Paro en curso" : (st.t0 ? "Nuevo paro · minuto 0" : "Iniciar paro · minuto 0");
+    $("rcp-plus").disabled = !st.run;
+    Array.prototype.forEach.call(document.querySelectorAll("#rcp-ev .rcp-btn"), function (b) { b.disabled = !st.run; });
+  }
+
+  function pintar() {
+    var s = seg(), clk = $("rcp-clock"), msg = $("rcp-msg"), sub = $("rcp-sub");
+    $("rcp-time").textContent = mmss(s);
+    $("rcp-bar-fill").style.width = Math.min(100, s / 360 * 100) + "%";
+    var fase = "idle", m = "", ss = "";
+    if (!st.t0) {
+      m = "Tocá «Iniciar paro» en el momento del reconocimiento. Si el paro no fue presenciado, el reloj cuenta desde el inicio de la RCP.";
+    } else if (!st.run) {
+      fase = "rce"; m = "Reloj detenido en " + mmss(s) + ". Registrá la hora y tratá la causa del colapso.";
+    } else {
+      var ciclo = Math.floor(s / 120) + 1, prox = 120 - (s % 120);
+      ss = "Ciclo " + ciclo + " · próximo control de ritmo en " + mmss(prox);
+      if (!fondoSi()) {
+        fase = "run"; m = "Útero por debajo del ombligo: la histerotomía no aporta descompresión aortocava. RCP estándar y búsqueda de la causa.";
+      } else if (st.nac) {
+        fase = "run"; m = "Nacimiento registrado. Continuar la RCP y tratar la causa; el equipo neonatal recibe al recién nacido.";
+      } else if (s < 240) {
+        fase = "run"; m = "RCP de calidad + desplazamiento uterino a la izquierda. Preparar la histerotomía desde ya.";
+        ss = "Faltan " + mmss(240 - s) + " para el minuto 4 · " + ss;
+      } else if (s < 300) {
+        fase = "h4"; m = "MINUTO 4 SIN RCE: INICIAR LA HISTEROTOMÍA AHORA, en el lugar y sin detener la RCP.";
+        ss = "Objetivo: nacimiento en " + mmss(300 - s) + " · " + ss;
+      } else {
+        fase = "h5"; m = "Minuto 5: objetivo de nacimiento. Si todavía no nació, completar la evacuación uterina sin detener la RCP: sigue beneficiando a la madre.";
+      }
+    }
+    clk.setAttribute("data-fase", fase);
+    if (msg.textContent !== m) msg.textContent = m;
+    sub.textContent = ss;
+    pintarAdre(s);
+  }
+
+  function pintarAdre(s) {
+    var box = $("rcp-adre");
+    if (!st.run || !st.adre) { box.hidden = true; return; }
+    box.hidden = false;
+    var d = s - st.adre;
+    if (d < 180) { box.className = "rcp-adre"; box.textContent = "Adrenalina hace " + mmss(d) + " · próxima dosis entre 3 y 5 min (en " + mmss(180 - d) + ")."; }
+    else if (d <= 300) { box.className = "rcp-adre ok"; box.textContent = "Adrenalina hace " + mmss(d) + " · ventana de 3 a 5 min abierta: dar la próxima dosis."; }
+    else { box.className = "rcp-adre late"; box.textContent = "Adrenalina hace " + mmss(d) + " · pasaron más de 5 min: dosis atrasada."; }
+  }
+
+  function avisos() {
+    if (!st.run) return;
+    var s = seg(), c = Math.floor(s / 120);
+    if (c >= 1 && !st.avisos["c" + c]) { st.avisos["c" + c] = 1; beep(2, false); guardar(); }
+    if (fondoSi() && !st.nac) {
+      if (s >= 240 && !st.avisos.h4) { st.avisos.h4 = 1; registrar("aviso4"); beep(3, true); }
+      if (s >= 300 && !st.avisos.h5) { st.avisos.h5 = 1; registrar("aviso5"); beep(3, true); }
+    }
+    if (st.adre) {
+      var d = s - st.adre;
+      if (d >= 180 && !st.avisos["a3_" + st.adre]) { st.avisos["a3_" + st.adre] = 1; beep(1, false); guardar(); }
+    }
+  }
+
+  function loop() { avisos(); pintar(); }
+  function arrancarLoop() { if (!tick) tick = setInterval(loop, 250); }
+
+  $("rcp-start").addEventListener("click", function () {
+    if (st.t0 && !st.run && st.ev.length && !confirm("¿Empezar un paro nuevo? Se borra el registro anterior.")) return;
+    st = { t0: Date.now(), run: true, fin: 0, ev: [], adre: 0, nac: false, avisos: {} };
+    registrar("inicio"); beep(1, false); pedirWake(); habilitar(); arrancarLoop(); pintar();
+  });
+  $("rcp-plus").addEventListener("click", function () { if (!st.run) return; st.t0 -= 60000; registrar("plus"); pintar(); });
+  Array.prototype.forEach.call(document.querySelectorAll("#rcp-ev .rcp-btn"), function (b) {
+    b.addEventListener("click", function () {
+      if (!st.run) return;
+      var k = b.getAttribute("data-ev");
+      if (k === "adre") st.adre = Math.round(seg());
+      if (k === "nacimiento") st.nac = true;
+      registrar(k);
+      if (k === "rce") { st.run = false; st.fin = Date.now(); guardar(); soltarWake(); habilitar(); }
+      pintar();
+    });
+  });
+  $("rcp-fondo").addEventListener("change", pintar);
+  $("rcp-reset").addEventListener("click", function () {
+    if (st.ev.length && !confirm("¿Reiniciar el cronómetro y borrar el registro?")) return;
+    st = { t0: 0, run: false, fin: 0, ev: [], adre: 0, nac: false, avisos: {} };
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    soltarWake(); habilitar(); pintarLog(); pintar();
+  });
+  $("rcp-copy").addEventListener("click", function () {
+    if (!st.ev.length) return;
+    var txt = "Código Azul Obstétrico — registro\n" + st.ev.map(function (e) { return mmss(e.s) + " (" + hora(e.h) + ") " + NOMBRES[e.k]; }).join("\n") + "\nAltura uterina: " + (fondoSi() ? "en o sobre el ombligo" : "debajo del ombligo");
+    var b = this, ok = function () { var t = b.textContent; b.textContent = "Copiado"; setTimeout(function () { b.textContent = t; }, 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, function () { prompt("Copiá el registro:", txt); });
+    else prompt("Copiá el registro:", txt);
+  });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && st.run) pedirWake(); });
+
+  /* ---- Emulsión lipídica 20 % (ASRA 2020) ---- */
+  function lip() {
+    var pIn = $("rcp-peso"), sup = $("in-peso");
+    var p = parseFloat(String(pIn.value || (sup && sup.value) || "").replace(",", "."));
+    var box = $("rcp-lip-res"), ti = $("rcp-lip-title"), de = $("rcp-lip-detail");
+    if (!p || p < 30 || p > 250) { box.className = "result-box rb-neutro"; ti.textContent = "Ingresá el peso (30 a 250 kg)"; de.innerHTML = ""; return; }
+    var max = Math.round(12 * p), r = function (x) { return Math.round(x * 10) / 10; };
+    box.className = "result-box rb-naranja";
+    if (p > 70) {
+      ti.textContent = "Más de 70 kg: bolo de 100 mL en 2-3 min";
+      de.innerHTML = "Infusión: 200-250 mL en 15-20 min.<br>Si sigue inestable: repetir el bolo y duplicar la infusión.<br>Continuar al menos 15 min después de lograr la estabilidad.<br>Dosis máxima: 12 mL/kg = <strong>" + max + " mL</strong>.";
+    } else {
+      ti.textContent = "Bolo: " + r(1.5 * p) + " mL en 2-3 min (1,5 mL/kg)";
+      de.innerHTML = "Infusión: " + r(0.25 * p) + " mL/min (0,25 mL/kg/min) = " + Math.round(0.25 * p * 60) + " mL/h.<br>Si sigue inestable: repetir el bolo y duplicar la infusión (" + r(0.5 * p) + " mL/min).<br>Continuar al menos 15 min después de lograr la estabilidad.<br>Dosis máxima: 12 mL/kg = <strong>" + max + " mL</strong>.";
+    }
+  }
+  $("rcp-peso").addEventListener("input", lip);
+  var sp = $("in-peso"); if (sp) sp.addEventListener("input", lip);
+
+  cargar(); pintarLog(); habilitar(); pintar(); lip();
+  if (st.run) { pedirWake(); arrancarLoop(); }
+})();
+</script>
 </body>
 </html>
