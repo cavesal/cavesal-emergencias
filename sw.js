@@ -1,5 +1,5 @@
 /* CaVeSal® Emergencias — service worker. Subir VERSION en cada publicación. */
-const VERSION = "cavesal-emerg-v14";
+const VERSION = "cavesal-emerg-v15";
 const PRECACHE = [
   "./",
   "./academy-data.js",
@@ -51,7 +51,7 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", e => {
   e.waitUntil(
     caches.keys()
-      .then(ks => Promise.all(ks.filter(k => k.startsWith("cavesal-emerg-") && k !== VERSION).map(k => caches.delete(k))))
+      .then(ks => Promise.all(ks.filter(k => /^cavesal-emerg-v\d+$/.test(k) && k !== VERSION).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
