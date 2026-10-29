@@ -3840,11 +3840,11 @@
 <div class="cover-icon"><svg aria-hidden="true" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6"></path><circle cx="18" cy="16" r="3"></circle></svg></div>
 <div>
 <h2>Mode of Delivery — Robson Classification, Bishop Score, and Maternal-Fetal Biometry</h2>
-<p>Cesarean audit (WHO/PAHO), cervical ripening, and cesarean alert criteria for macrosomia, SGA/FGR, and maternal height.</p>
+<p>Robson classification at admission with management by group, cesarean audit (WHO/PAHO), cervical ripening, and cesarean alert criteria for macrosomia, SGA/FGR, and maternal height.</p>
 </div>
 </div>
 <div class="subcard-grid">
-<div class="subcard" style="grid-column: 1/-1;">
+<div class="subcard" id="via-robson" style="grid-column: 1/-1;">
 <h3><span class="num">1</span>Robson Classification — 10 groups (WHO 2015, FIGO 2016)</h3>
 <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Group</th><th>Definition</th></tr></thead><tbody>
@@ -3861,10 +3861,42 @@
 </tbody></table></div>
 <p class="source-note tbl-cred"><strong>CaVeSal® proprietary algorithm · Based on</strong>: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" rel="noopener" target="_blank">PAHO/WHO — Robson Classification: application manual (2018)</a>.</p>
 <p class="hint">It is classified using 6 variables: parity, prior cesarean delivery, onset of labor, number of fetuses, presentation/lie, and GA. Groups are mutually exclusive. Groups 1, 2 and 5 usually account for most cesarean deliveries and are the target of reduction strategies. Source: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" rel="noopener" target="_blank">PAHO/WHO — Robson Classification: application manual (2018)</a>.</p>
+<div class="table-scroll"><table><caption>The 6 variables</caption><thead><tr><th>Variable</th><th>Options</th><th>Note</th></tr></thead><tbody>
+<tr><td>Parity</td><td>Nulliparous · Multiparous</td><td>Multiparous: at least one previous birth, vaginal or cesarean</td></tr>
+<tr><td>Previous cesarean</td><td>No · 1 · 2 or more</td><td>Defines subgroups 5.1 and 5.2</td></tr>
+<tr><td>Onset of labor</td><td>Spontaneous · Induced · Cesarean before labor</td><td>As found at admission, regardless of what was planned. An emergency cesarean before labor starts counts as «before labor»</td></tr>
+<tr><td>Number of fetuses</td><td>Singleton · Multiple</td><td></td></tr>
+<tr><td>Presentation / lie</td><td>Cephalic · Breech · Transverse or oblique</td><td></td></tr>
+<tr><td>Gestational age</td><td>Weeks</td><td>Cut-off at 37+0</td></tr>
+</tbody></table></div>
+<p class="source-note tbl-cred"><strong>CaVeSal® proprietary table · Based on</strong>: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">PAHO/WHO — Robson Classification: application manual (2018)</a>.</p>
+<h4>Classification at admission and real-time use</h4>
+<ul><li>It is applied to <strong>every woman admitted for birth</strong>, prospectively: each woman is assigned a group at admission and followed to the outcome (<a href="https://robson-classification-platform.srhr.org/about" target="_blank" rel="noopener">WHO — Robson Platform</a>; <a href="https://www.who.int/news/item/30-11-2017-the-robson-classification-implementation-manual" target="_blank" rel="noopener">WHO implementation manual</a>).</li><li><strong>Real-time</strong> use is institutional: each birth is recorded as it happens to track the cesarean rate by group and plan actions (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10603507/" target="_blank" rel="noopener">quality improvement experience</a>). WHO provides a platform where hospitals upload these data (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9047423/" target="_blank" rel="noopener">WHO Bulletin</a>).</li><li>Standard report by group: number of cesareans, number of women, group size, group cesarean rate, absolute and relative contribution to the overall rate (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12220109/" target="_blank" rel="noopener">Robson report table</a>).</li><li>Robson <strong>does not assess whether a cesarean was appropriately indicated</strong>: that requires an audit of indications.</li><li>In CaVeSal®: the Prenatal Calculator shows the <strong>probable group</strong> (prognosis); the Emergency calculator assigns the <strong>group at admission</strong> with intrapartum management (Labor tab).</li></ul>
 </div>
 </div>
+        <div class="subcard" id="via-robson-conducta" style="grid-column: 1/-1;">
+          <h3><span class="num">2</span>Robson — intrapartum management by group</h3>
+          <div class="subcard-body">
+<div class="table-scroll"><table><thead><tr><th>Group</th><th>Management</th><th>Sources</th></tr></thead><tbody>
+<tr><td><strong>1</strong></td><td>Prolonged latent phase and slow but progressive labor <strong>are not indications for cesarean</strong>. Partograph according to the chosen model (Ministry CLAP from 4 cm, WHO 2020 from 5 cm, ACOG from 6 cm). Active-phase arrest: ≥6 cm with ruptured membranes and no change with ≥4 h of adequate contractions or ≥6 h of oxytocin with inadequate contractions. Second stage: ≥3 h of pushing before diagnosing arrest (longer with epidural, individualized). Continuous support.</td><td><a href="https://iris.who.int/bitstream/handle/10665/337693/9789240017566-eng.pdf" target="_blank" rel="noopener">WHO — Labour Care Guide 2020</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Safe prevention of the primary cesarean delivery (2014)</a></td></tr>
+<tr><td style="white-space:nowrap"><strong>2a / 4a</strong></td><td>Induce only with a clear indication; from 41+0 weeks induction is recommended. Bishop ≤6: cervical ripening (oral misoprostol 25 µg q2h or vaginal 25 µg q6h, balloon, or balloon + oxytocin). Do not diagnose failed induction in the latent phase before ≥24 h of induction and ≥12-18 h of oxytocin after membrane rupture. Never unsupervised; induce where an operating room is available.</td><td><a href="https://iris.who.int/server/api/core/bitstreams/5c7a9d97-37c7-4e1f-afd8-840e50495fc9/content" target="_blank" rel="noopener">WHO — Induction of labour at or beyond term (2022)</a> · <a href="https://www.who.int/publications/i/item/9789241501156" target="_blank" rel="noopener">WHO — Induction of labour (2011)</a> · <a href="https://iris.who.int/server/api/core/bitstreams/54318a55-62e7-4c96-ab6f-ec0a16963568/content" target="_blank" rel="noopener">WHO — Mechanical methods (2022)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Safe prevention of the primary cesarean delivery (2014)</a></td></tr>
+<tr><td style="white-space:nowrap"><strong>2b / 4b</strong></td><td>Verify and document the indication. Without a medical indication, do not schedule before 39 weeks.</td><td><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2019/02/avoidance-of-nonmedically-indicated-early-term-deliveries-and-associated-neonatal-morbidities" target="_blank" rel="noopener">ACOG CO 765 (2019)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Safe prevention of the primary cesarean delivery (2014)</a></td></tr>
+<tr><td><strong>3</strong></td><td>Same criteria as Group 1 with multiparous standards. Second stage: ≥2 h of pushing. Lowest cesarean rate group: a cesarean here deserves review of the indication.</td><td><a href="https://iris.who.int/bitstream/handle/10665/337693/9789240017566-eng.pdf" target="_blank" rel="noopener">WHO — Labour Care Guide 2020</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Safe prevention of the primary cesarean delivery (2014)</a></td></tr>
+<tr><td><strong>5.1</strong></td><td>VBAC if: low transverse (or low vertical) incision, no previous rupture and no contraindication to vaginal birth. <strong>Contraindicated</strong>: classical cesarean, T or J incision, previous rupture. Only with 24-h emergency cesarean, blood bank and NICU. Continuous fetal monitoring and one-to-one care (abnormal FHR is the most common sign of rupture). Induction with mechanical methods; <strong>misoprostol contraindicated</strong>; oxytocin with caution. Epidural not contraindicated. Interval under 18 months: higher risk. EFW &gt;4500 g: cesarean (FIGO).</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — VBAC (2025)</a> · <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin" target="_blank" rel="noopener">ACOG PB 205 (2019)</a> · <a href="https://www.rcog.org.uk/media/kpkjwd5h/gtg_45.pdf" target="_blank" rel="noopener">RCOG GTG 45</a> · <a href="https://www.who.int/publications/i/item/9789241501156" target="_blank" rel="noopener">WHO — Induction of labour (2011)</a></td></tr>
+<tr><td><strong>5.2</strong></td><td>Two cesareans: FIGO generally does not recommend VBAC (only with a previous vaginal birth, senior obstetrician counseling and a high-complexity center); RCOG and ACOG allow it with counseling. Three or more: cesarean. With placenta previa or low anterior placenta, rule out accreta.</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — VBAC (2025)</a> · <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin" target="_blank" rel="noopener">ACOG PB 205 (2019)</a> · <a href="https://www.rcog.org.uk/media/kpkjwd5h/gtg_45.pdf" target="_blank" rel="noopener">RCOG GTG 45</a></td></tr>
+<tr><td><strong>6</strong></td><td>Offer external cephalic version (ECV) from 36 weeks. Without ECV: planned cesarean from 39 weeks, or vaginal breech birth only with an institutional protocol, trained operator and written consent. In labor: ultrasound (type of breech, head flexion, EFW) and continuous monitoring; inadequate progress → cesarean. Imminent delivery: hands-off assistance.</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/30045211/" target="_blank" rel="noopener">ACOG CO 745 (2018, reaf. 2023)</a> · <a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/management-of-breech-presentation-green-top-guideline-no-20b/" target="_blank" rel="noopener">RCOG GTG 20b</a></td></tr>
+<tr><td><strong>7</strong></td><td>Same as Group 6, with ECV from 37 weeks. With one previous low transverse cesarean, ECV may be attempted if she is a good VBAC candidate.</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/30045211/" target="_blank" rel="noopener">ACOG CO 745 (2018, reaf. 2023)</a> · <a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/management-of-breech-presentation-green-top-guideline-no-20b/" target="_blank" rel="noopener">RCOG GTG 20b</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — VBAC (2025)</a></td></tr>
+<tr><td><strong>8</strong></td><td>Uncomplicated dichorionic or monochorionic diamniotic twins, &gt;32 weeks, first twin cephalic, no significant discordance: vaginal birth and cesarean are equally safe. First twin non-cephalic: cesarean. Monoamniotic: cesarean (32+0-33+6). Triplets: cesarean. One previous low transverse cesarean does not contraindicate VBAC. Active third stage due to higher hemorrhage risk.</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK546070/" target="_blank" rel="noopener">NICE NG137 (2019)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/34011891/" target="_blank" rel="noopener">ACOG PB 231 (2021)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Safe prevention of the primary cesarean delivery (2014)</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — VBAC (2025)</a></td></tr>
+<tr><td><strong>9</strong></td><td>In labor or with ruptured membranes: <strong>cesarean</strong> (cord prolapse, uterine rupture). Before labor and without contraindications: ECV from 37 weeks. Ultrasound to rule out a mechanical cause (placenta previa, fibroids, anomalies). With back down, consider a vertical uterine incision.</td><td><a href="https://www.glowm.com/article/heading/vol-10--common-obstetric-conditions--abnormal-liepresentation/id/414593" target="_blank" rel="noopener">GLOWM</a> · <a href="https://www.ncbi.nlm.nih.gov/sites/books/NBK482475/" target="_blank" rel="noopener">StatPearls — ECV</a></td></tr>
+<tr><td><strong>10</strong></td><td>Lung maturation, neuroprotection, tocolysis and PROM according to the preterm labor and PROM cards in this guide. Notify neonatology. Prematurity alone does not determine the mode of birth; it is decided by obstetric conditions.</td><td><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2021/07/medically-indicated-late-preterm-and-early-term-deliveries" target="_blank" rel="noopener">ACOG CO 831 (2021)</a></td></tr>
+</tbody></table></div>
+<p class="source-note tbl-cred"><strong>CaVeSal® proprietary algorithm · Based on</strong>: sources listed for each group · <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">PAHO/WHO — Robson Classification (2018)</a>.</p>
+<p class="hint">Fetal lung maturation, magnesium sulfate neuroprotection, tocolysis and PROM follow the management already set in their cards in this guide and in the calculator. Does not replace clinical judgment.</p>
+          </div>
+        </div>
+
 <div class="subcard">
-<h3><span class="num">2</span>Bishop Score</h3>
+<h3><span class="num">3</span>Bishop Score</h3>
 <div class="subcard-body">
 <div class="table-scroll"><table><caption>Score 0-13</caption><thead><tr><th>Parameter</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody>
 <tr><td>Dilation (cm)</td><td>0</td><td>1-2</td><td>3-4</td><td>≥5</td></tr>
@@ -3884,7 +3916,7 @@
 </div>
 </div>
 <div class="subcard">
-<h3><span class="num">3</span>SGA vs FGR (Delphi consensus)</h3>
+<h3><span class="num">4</span>SGA vs FGR (Delphi consensus)</h3>
 <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Category</th><th>Criterion</th></tr></thead><tbody>
 <tr><td>SGA</td><td>EFW and/or AC p3-p10, normal anatomy and <strong>normal Doppler</strong>; follow-up every 2 weeks</td></tr>
@@ -3895,7 +3927,7 @@
 </div>
 </div>
 <div class="subcard">
-<h3><span class="num">4</span>Macrosomia and cesarean delivery alert (ACOG PB 216)</h3>
+<h3><span class="num">5</span>Macrosomia and cesarean delivery alert (ACOG PB 216)</h3>
 <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Glycemic status</th><th>EFW</th><th>Management</th></tr></thead><tbody>
 <tr><td>No diabetes</td><td class="grade-severo">≥5000 g</td><td>Planned cesarean delivery justified</td></tr>
@@ -3908,13 +3940,13 @@
 </div>
 </div>
 <div class="subcard" style="grid-column: 1/-1;">
-<h3><span class="num">5</span>Short maternal stature and cephalopelvic disproportion (CPD)</h3>
+<h3><span class="num">6</span>Short maternal stature and cephalopelvic disproportion (CPD)</h3>
 <div class="subcard-body">
 <ul><li><strong>Height &lt;145-150 cm is not an indication for cesarean delivery</strong> (WHO 2018, FIGO, ACOG): it is a biomechanical risk factor; allow a trial of labor with a strict partograph and, if available, intrapartum ultrasound.</li><li>MSPBS: height &lt;145 cm → referral to orthopedics and genetics (possible skeletal dysplasia), not a criterion for mode of delivery.</li><li><strong>CPD is diagnosed intrapartum:</strong> adequate uterine activity (3-5/10 min, &gt;2-4 h), dilation ≥5-6 cm, and lack of progress in dilation or descent. Signs: cervical edema, marked caput with overlapping sutures, persistent asynclitism. Once confirmed → cesarean delivery.</li><li>Estimated fetal weight ≥4000 g + short stature → heightened alert for surveillance of CPD, not automatic cesarean delivery.</li></ul><p class="hint">Sources: WHO Intrapartum care 2018 · MSPBS Manual Nacional Prenatal · ACOG PB 216 · Williams Obstetrics 26.ª ed. (2022) · Caldwell-Moloy 1933 (tipos de pelvis).</p>
 </div>
 </div>
 </div>
-<p class="source-note">Sources: OPS/OMS Clasificación de Robson (2018) · StatPearls Bishop Score · ACOG PB 216 (2020) · RCOG GTG 42 · Consenso Delphi de RCIU · WHO 2018 · MSPBS Paraguay.</p>
+<p class="source-note">Sources: OPS/OMS Clasificación de Robson (2018) · StatPearls Bishop Score · ACOG PB 216 (2020) · RCOG GTG 42 · Consenso Delphi de RCIU · WHO 2018 · MSPBS Paraguay · WHO Robson Platform · FIGO VBAC 2025 · ACOG/SMFM 2014 · WHO Induction 2011/2022 · ACOG CO 745, 765, 831 · ACOG PB 205, 231 · RCOG GTG 45, 20b · NICE NG137.</p>
 </section>
 <div class="disclaimer-box" style="margin-top: var(--space-8);">
       This is the <strong>Guide Mode</strong>: reference content, with no patient data entry or calculations. To calculate shock index, MAP, EAPO, Vélez or HELLP using real data, use the <a href="full/">Calculator Mode (Full)</a>.

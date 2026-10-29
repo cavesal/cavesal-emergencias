@@ -128,7 +128,7 @@ window.ACADEMY_GLOSARIO = [
  },
  {
   "t": "Robson",
-  "d": "Classificação das cesáreas em 10 grupos (OMS 2015, FIGO 2016).",
+  "d": "Classificação de todas as mulheres admitidas para o parto em 10 grupos segundo 6 variáveis (OMS 2015, FIGO 2016); permite auditar a taxa de cesáreas por grupo. Cada grupo tem sua conduta intraparto.",
   "tab": "via",
   "card": "Classificação de Robson — 10 grupos (OMS 2015, FIGO 2016)"
  },

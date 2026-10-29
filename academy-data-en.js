@@ -128,7 +128,7 @@ window.ACADEMY_GLOSARIO = [
  },
  {
   "t": "Robson",
-  "d": "Classification of cesarean deliveries into 10 groups (WHO 2015, FIGO 2016).",
+  "d": "Classification of every woman admitted for birth into 10 groups using 6 variables (WHO 2015, FIGO 2016); allows auditing the cesarean rate by group. Each group has its intrapartum management.",
   "tab": "via",
   "card": "Robson Classification — 10 groups (WHO 2015, FIGO 2016)"
  },

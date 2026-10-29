@@ -4096,11 +4096,11 @@
         <div class="cover-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="18" cy="16" r="3"/></svg></div>
         <div>
           <h2>Vía del Parto — Clasificación de Robson, Bishop y biometría materno-fetal</h2>
-          <p>Auditoría de cesáreas (OMS/OPS), maduración cervical y criterios de alerta de cesárea por macrosomía, PEG/RCIU y talla materna.</p>
+          <p>Clasificación de Robson al ingreso con conducta por grupo, auditoría de cesáreas (OMS/OPS), maduración cervical y criterios de alerta de cesárea por macrosomía, PEG/RCIU y talla materna.</p>
         </div>
       </div>
       <div class="subcard-grid">
-        <div class="subcard" style="grid-column: 1/-1;">
+        <div class="subcard" id="via-robson" style="grid-column: 1/-1;">
           <h3><span class="num">1</span>Clasificación de Robson — 10 grupos (OMS 2015, FIGO 2016)</h3>
           <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Grupo</th><th>Definición</th></tr></thead><tbody>
@@ -4117,11 +4117,43 @@
 </tbody></table></div>
 <p class="source-note tbl-cred"><strong>Algoritmo propio CaVeSal® · Basado en</strong>: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a>.</p>
 <p class="hint">Se clasifica con 6 variables: paridad, cesárea previa, inicio del parto, número de fetos, presentación/situación y EG. Grupos mutuamente excluyentes. Los grupos 1, 2 y 5 suelen concentrar la mayoría de las cesáreas y son el blanco de las estrategias de reducción. Fuente: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a>.</p>
+          <div class="table-scroll"><table><caption>Las 6 variables</caption><thead><tr><th>Variable</th><th>Opciones</th><th>Nota</th></tr></thead><tbody>
+<tr><td>Paridad</td><td>Nulípara · Multípara</td><td>Multípara: al menos un parto previo, vaginal o por cesárea</td></tr>
+<tr><td>Cesárea previa</td><td>No · 1 · 2 o más</td><td>Define los subgrupos 5.1 y 5.2</td></tr>
+<tr><td>Inicio del trabajo de parto</td><td>Espontáneo · Inducido · Cesárea antes del trabajo de parto</td><td>Según la situación al ingreso, sin importar cómo se había planificado. La cesárea de urgencia antes de iniciar el trabajo de parto cuenta como «antes del trabajo de parto»</td></tr>
+<tr><td>Número de fetos</td><td>Único · Múltiple</td><td></td></tr>
+<tr><td>Presentación / situación</td><td>Cefálica · Pelviana · Transversa u oblicua</td><td></td></tr>
+<tr><td>Edad gestacional</td><td>Semanas</td><td>Corte en 37+0</td></tr>
+</tbody></table></div>
+<p class="source-note tbl-cred"><strong>Tabla propia CaVeSal® · Basada en</strong>: <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a>.</p>
+<h4>Clasificación al ingreso y uso en tiempo real</h4>
+<ul><li>Se aplica a <strong>todas las mujeres al ingresar para el parto</strong>, en forma prospectiva: cada mujer recibe su grupo al ingreso y se sigue hasta el resultado (<a href="https://robson-classification-platform.srhr.org/about" target="_blank" rel="noopener">OMS — Plataforma Robson</a>; <a href="https://www.who.int/news/item/30-11-2017-the-robson-classification-implementation-manual" target="_blank" rel="noopener">manual de aplicación OMS</a>).</li><li>El uso <strong>en tiempo real</strong> es institucional: se registra cada parto a medida que ocurre para seguir la tasa de cesáreas por grupo y planificar acciones (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10603507/" target="_blank" rel="noopener">experiencia de mejora de calidad</a>). La OMS ofrece una plataforma donde los hospitales cargan esos datos (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9047423/" target="_blank" rel="noopener">Boletín de la OMS</a>).</li><li>Informe estándar por grupo: número de cesáreas, número de mujeres, tamaño del grupo, tasa de cesárea del grupo, contribución absoluta y contribución relativa a la tasa global (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12220109/" target="_blank" rel="noopener">tabla de informe Robson</a>).</li><li>Robson <strong>no evalúa si una cesárea estuvo bien indicada</strong>: para eso hace falta una auditoría de indicaciones.</li><li>En CaVeSal®: la Calculadora Prenatal muestra el <strong>grupo probable</strong> (pronóstico); la calculadora de Emergencias asigna el <strong>grupo al ingreso</strong> con la conducta intraparto (pestaña Parto).</li></ul>
+</div>
+        </div>
+
+                <div class="subcard" id="via-robson-conducta" style="grid-column: 1/-1;">
+          <h3><span class="num">2</span>Robson — conducta intraparto por grupo</h3>
+          <div class="subcard-body">
+<div class="table-scroll"><table><thead><tr><th>Grupo</th><th>Conducta</th><th>Fuentes</th></tr></thead><tbody>
+<tr><td><strong>1</strong></td><td>Fase latente prolongada y progreso lento pero progresivo <strong>no son indicación de cesárea</strong>. Partograma según el modelo elegido (Ministerio CLAP desde 4 cm, OMS 2020 desde 5 cm, ACOG desde 6 cm). Detención de fase activa: ≥6 cm con membranas rotas, sin cambios con ≥4 h de dinámica adecuada o ≥6 h de oxitocina con dinámica inadecuada. Segundo período: ≥3 h de pujo antes de diagnosticar detención (más con epidural, individualizado). Acompañamiento continuo.</td><td><a href="https://iris.who.int/bitstream/handle/10665/337693/9789240017566-eng.pdf" target="_blank" rel="noopener">OMS — Guía de Cuidados del Trabajo de Parto 2020</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Prevención segura de la cesárea primaria (2014)</a></td></tr>
+<tr><td style="white-space:nowrap"><strong>2a / 4a</strong></td><td>Inducir solo con indicación clara; desde 41+0 sem la inducción está recomendada. Bishop ≤6: maduración cervical (misoprostol oral 25 µg c/2 h o vaginal 25 µg c/6 h, balón, o balón + oxitocina). No declarar inducción fallida en fase latente antes de ≥24 h de inducción y ≥12-18 h de oxitocina tras la rotura de membranas. Nunca sin vigilancia; inducir donde haya quirófano.</td><td><a href="https://iris.who.int/server/api/core/bitstreams/5c7a9d97-37c7-4e1f-afd8-840e50495fc9/content" target="_blank" rel="noopener">OMS — Inducción al término o después (2022)</a> · <a href="https://www.who.int/publications/i/item/9789241501156" target="_blank" rel="noopener">OMS — Inducción del trabajo de parto (2011)</a> · <a href="https://iris.who.int/server/api/core/bitstreams/54318a55-62e7-4c96-ab6f-ec0a16963568/content" target="_blank" rel="noopener">OMS — Métodos mecánicos (2022)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Prevención segura de la cesárea primaria (2014)</a></td></tr>
+<tr><td style="white-space:nowrap"><strong>2b / 4b</strong></td><td>Verificar y documentar la indicación. Sin indicación médica, no programar antes de las 39 semanas.</td><td><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2019/02/avoidance-of-nonmedically-indicated-early-term-deliveries-and-associated-neonatal-morbidities" target="_blank" rel="noopener">ACOG CO 765 (2019)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Prevención segura de la cesárea primaria (2014)</a></td></tr>
+<tr><td><strong>3</strong></td><td>Mismos criterios del Grupo 1 con estándares de multípara. Segundo período: ≥2 h de pujo. Es el grupo con menor tasa de cesárea: una cesárea acá merece revisión de la indicación.</td><td><a href="https://iris.who.int/bitstream/handle/10665/337693/9789240017566-eng.pdf" target="_blank" rel="noopener">OMS — Guía de Cuidados del Trabajo de Parto 2020</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Prevención segura de la cesárea primaria (2014)</a></td></tr>
+<tr><td><strong>5.1</strong></td><td>PVDC si: incisión segmentaria transversa (o vertical baja), sin rotura previa ni contraindicación de parto vaginal. <strong>Contraindicado</strong>: cesárea clásica, incisión en T o J, rotura previa. Solo con cesárea de urgencia las 24 h, banco de sangre y neonatología. Monitoreo fetal continuo y atención uno a uno (la alteración de la FCF es el signo más frecuente de rotura). Inducción con métodos mecánicos; <strong>misoprostol contraindicado</strong>; oxitocina con precaución. Epidural no contraindicada. Intervalo menor a 18 meses: más riesgo. PFE &gt;4500 g: cesárea (FIGO).</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — PVDC (2025)</a> · <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin" target="_blank" rel="noopener">ACOG PB 205 (2019)</a> · <a href="https://www.rcog.org.uk/media/kpkjwd5h/gtg_45.pdf" target="_blank" rel="noopener">RCOG GTG 45</a> · <a href="https://www.who.int/publications/i/item/9789241501156" target="_blank" rel="noopener">OMS — Inducción del trabajo de parto (2011)</a></td></tr>
+<tr><td><strong>5.2</strong></td><td>Dos cesáreas: FIGO no recomienda PVDC en general (solo con parto vaginal previo, consejería por obstetra senior y centro de alta complejidad); RCOG y ACOG lo admiten con consejería. Tres o más: cesárea. Con placenta previa o inserción baja anterior, descartar acretismo.</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — PVDC (2025)</a> · <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin" target="_blank" rel="noopener">ACOG PB 205 (2019)</a> · <a href="https://www.rcog.org.uk/media/kpkjwd5h/gtg_45.pdf" target="_blank" rel="noopener">RCOG GTG 45</a></td></tr>
+<tr><td><strong>6</strong></td><td>Ofrecer versión cefálica externa (VCE) desde las 36 sem. Sin VCE: cesárea programada desde las 39 sem, o parto vaginal en pelviana solo con protocolo institucional, operador entrenado y consentimiento escrito. En trabajo de parto: ecografía (tipo de pelviana, flexión de la cabeza, PFE) y monitoreo continuo; progreso inadecuado → cesárea. Expulsivo inminente: asistencia sin tracción.</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/30045211/" target="_blank" rel="noopener">ACOG CO 745 (2018, reaf. 2023)</a> · <a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/management-of-breech-presentation-green-top-guideline-no-20b/" target="_blank" rel="noopener">RCOG GTG 20b</a></td></tr>
+<tr><td><strong>7</strong></td><td>Igual que el Grupo 6, con VCE desde las 37 sem. Con una cesárea segmentaria previa, la VCE puede intentarse si es buena candidata a PVDC.</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/30045211/" target="_blank" rel="noopener">ACOG CO 745 (2018, reaf. 2023)</a> · <a href="https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/management-of-breech-presentation-green-top-guideline-no-20b/" target="_blank" rel="noopener">RCOG GTG 20b</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — PVDC (2025)</a></td></tr>
+<tr><td><strong>8</strong></td><td>Bicorial o monocorial biamniótico no complicado, &gt;32 sem, primer gemelo cefálico, sin discordancia significativa: parto vaginal y cesárea son igual de seguros. Primer gemelo no cefálico: cesárea. Monoamniótico: cesárea (32+0-33+6). Triples: cesárea. Una cesárea segmentaria previa no contraindica el PVDC. Alumbramiento activo por mayor riesgo de hemorragia.</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK546070/" target="_blank" rel="noopener">NICE NG137 (2019)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/34011891/" target="_blank" rel="noopener">ACOG PB 231 (2021)</a> · <a href="https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf" target="_blank" rel="noopener">ACOG/SMFM — Prevención segura de la cesárea primaria (2014)</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/" target="_blank" rel="noopener">FIGO — PVDC (2025)</a></td></tr>
+<tr><td><strong>9</strong></td><td>En trabajo de parto o con membranas rotas: <strong>cesárea</strong> (prolapso de cordón, rotura uterina). Antes del trabajo de parto y sin contraindicaciones: VCE desde las 37 sem. Ecografía para descartar causa mecánica (placenta previa, miomas, anomalías). Con dorso inferior, considerar incisión uterina vertical.</td><td><a href="https://www.glowm.com/article/heading/vol-10--common-obstetric-conditions--abnormal-liepresentation/id/414593" target="_blank" rel="noopener">GLOWM</a> · <a href="https://www.ncbi.nlm.nih.gov/sites/books/NBK482475/" target="_blank" rel="noopener">StatPearls — VCE</a></td></tr>
+<tr><td><strong>10</strong></td><td>Maduración pulmonar, neuroprotección, tocolisis y RPM según las fichas APP y RPM de esta guía. Avisar a neonatología. La prematurez sola no define la vía de parto; se decide por las condiciones obstétricas.</td><td><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2021/07/medically-indicated-late-preterm-and-early-term-deliveries" target="_blank" rel="noopener">ACOG CO 831 (2021)</a></td></tr>
+</tbody></table></div>
+<p class="source-note tbl-cred"><strong>Algoritmo propio CaVeSal® · Basado en</strong>: fuentes indicadas en cada grupo · <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson (2018)</a>.</p>
+<p class="hint">La maduración pulmonar, la neuroprotección con sulfato de magnesio, la tocolisis y la RPM siguen las conductas ya establecidas en sus fichas de esta guía y en la calculadora. No reemplaza el juicio clínico.</p>
           </div>
         </div>
 
-        <div class="subcard">
-          <h3><span class="num">2</span>Índice de Bishop</h3>
+<div class="subcard">
+          <h3><span class="num">3</span>Índice de Bishop</h3>
           <div class="subcard-body">
 <div class="table-scroll"><table><caption>Puntaje 0-13</caption><thead><tr><th>Parámetro</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody>
 <tr><td>Dilatación (cm)</td><td>0</td><td>1-2</td><td>3-4</td><td>≥5</td></tr>
@@ -4142,7 +4174,7 @@
         </div>
 
         <div class="subcard">
-          <h3><span class="num">3</span>PEG vs RCIU (consenso Delphi)</h3>
+          <h3><span class="num">4</span>PEG vs RCIU (consenso Delphi)</h3>
           <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Categoría</th><th>Criterio</th></tr></thead><tbody>
 <tr><td>PEG</td><td>PFE y/o CA p3-p10, anatomía normal y <strong>Doppler normal</strong>; control c/2 semanas</td></tr>
@@ -4154,7 +4186,7 @@
         </div>
 
         <div class="subcard">
-          <h3><span class="num">4</span>Macrosomía y alerta de cesárea (ACOG PB 216)</h3>
+          <h3><span class="num">5</span>Macrosomía y alerta de cesárea (ACOG PB 216)</h3>
           <div class="subcard-body">
 <div class="table-scroll"><table><thead><tr><th>Estado glucémico</th><th>PFE</th><th>Conducta</th></tr></thead><tbody>
 <tr><td>No diabética</td><td class="grade-severo">≥5000 g</td><td>Cesárea programada justificada</td></tr>
@@ -4168,13 +4200,13 @@
         </div>
 
         <div class="subcard" style="grid-column: 1/-1;">
-          <h3><span class="num">5</span>Talla materna baja y desproporción cefalopélvica (DCP)</h3>
+          <h3><span class="num">6</span>Talla materna baja y desproporción cefalopélvica (DCP)</h3>
           <div class="subcard-body">
 <ul><li><strong>Talla &lt;145-150 cm no es indicación de cesárea</strong> (OMS 2018, FIGO, ACOG): es un factor de alerta biomecánico; permitir prueba de parto con partograma estricto y, si existe, ecografía intraparto.</li><li>MSPBS: talla &lt;145 cm → referencia a ortopedia y genética (posible displasia esquelética), no criterio de vía de parto.</li><li><strong>La DCP se diagnostica intraparto:</strong> dinámica adecuada (3-5/10 min, &gt;2-4 h), dilatación ≥5-6 cm y falta de progreso de la dilatación o del descenso. Signos: edema de cuello, caput exuberante con cabalgamiento, asinclitismo persistente. Confirmada → cesárea.</li><li>PFE ≥4000 g + talla baja → alerta reforzada de vigilancia de DCP, no cesárea automática.</li></ul><p class="hint">Fuentes: WHO Intrapartum care 2018 · MSPBS Manual Nacional Prenatal · ACOG PB 216 · Williams Obstetrics 26.ª ed. (2022) · Caldwell-Moloy 1933 (tipos de pelvis).</p>
           </div>
         </div>
       </div>
-      <p class="source-note">Fuentes: OPS/OMS Clasificación de Robson (2018) · StatPearls Bishop Score · ACOG PB 216 (2020) · RCOG GTG 42 · Consenso Delphi de RCIU · WHO 2018 · MSPBS Paraguay.</p>
+      <p class="source-note">Fuentes: OPS/OMS Clasificación de Robson (2018) · StatPearls Bishop Score · ACOG PB 216 (2020) · RCOG GTG 42 · Consenso Delphi de RCIU · WHO 2018 · MSPBS Paraguay · OMS Plataforma Robson · FIGO PVDC 2025 · ACOG/SMFM 2014 · OMS Inducción 2011/2022 · ACOG CO 745, 765, 831 · ACOG PB 205, 231 · RCOG GTG 45, 20b · NICE NG137.</p>
     </section>
 
     <div class="disclaimer-box" style="margin-top: var(--space-8);">

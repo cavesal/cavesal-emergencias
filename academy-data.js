@@ -23,7 +23,7 @@ window.ACADEMY_GLOSARIO = [
   { t: "McRoberts", d: "Hiperflexión e hiperabducción de las caderas maternas; resuelve alrededor del 90 % de las distocias de hombros.", tab: "distocias", card: "primer nivel" },
   { t: "PAM", d: "Presión arterial media = (PAS + 2 × PAD) / 3.", tab: "azul", card: "Presión Arterial Media" },
   { t: "qSOFA obstétrico", d: "PAS <90 mmHg, FR ≥25/min y estado mental alterado; 1 punto cada uno. ≥2 = alto riesgo de deterioro.", tab: "ambar", card: "qSOFA Obstétrico" },
-  { t: "Robson", d: "Clasificación de las cesáreas en 10 grupos (OMS 2015, FIGO 2016).", tab: "via", card: "Robson" },
+  { t: "Robson", d: "Clasificación de todas las mujeres al ingreso para el parto en 10 grupos según 6 variables (OMS 2015, FIGO 2016); permite auditar la tasa de cesáreas por grupo. Cada grupo tiene su conducta intraparto.", tab: "via", card: "Robson" },
   { t: "SSSAO", d: "Mnemónico del trastorno hipertensivo: Soporte, Seguridad, Sulfato de magnesio (impregnación 4-6 g IV, mantenimiento 1-2 g/h hasta 24 h posparto), Antihipertensivos, Obstétrico (maduración, bienestar fetal y momento de finalizar).", tab: "azul", card: "SSSAO" },
   { t: "Sulfato de magnesio — toxicidad", d: "Suspender o no repetir con FR <12/min (MSPBS) o <16/min (OMS), reflejo rotuliano ausente o diuresis <30 mL/h. Antídoto: gluconato de calcio al 10 %, 1 g IV en 3 min.", tab: "ict", card: "Monitorización" },
   { t: "Swansea", d: "Criterios del hígado graso agudo del embarazo: ≥6 de 14 criterios sin otra causa que los explique (Ch'ng et al. 2002).", tab: "azul", card: "Swansea" },
