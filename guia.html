@@ -27,6 +27,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CaVeSal Emerg.">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="alternate" hreflang="es" href="https://cavesal.app/cavesal-emergencias/guia.html">
+<link rel="alternate" hreflang="en" href="https://cavesal.app/cavesal-emergencias/guia-en.html">
+<link rel="alternate" hreflang="pt" href="https://cavesal.app/cavesal-emergencias/guia-pt.html">
+<style>.lang-switch{display:inline-flex;gap:2px;margin-left:4px}.lang-pill[aria-current=page]{background:rgba(255,255,255,.28);font-weight:800}</style>
 </head>
 <body>
 <div class="app-shell">
@@ -43,6 +47,7 @@
       <a class="pill-link" href="manual.html">Tutorial</a>
       <a class="pill-link" href="acerca.html">Acerca</a>
       <a class="pill-link" href="/academy/">Academy</a>
+      <span class="lang-switch" role="group" aria-label="Idioma / Language / Idioma"><a class="pill-link lang-pill" href="guia.html" hreflang="es" lang="es" aria-current="page">ES</a><a class="pill-link lang-pill" href="guia-en.html" hreflang="en" lang="en">EN</a><a class="pill-link lang-pill" href="guia-pt.html" hreflang="pt" lang="pt">PT</a></span>
     </div>
   </header>
   <div class="academy-strip" role="note">
@@ -4208,5 +4213,6 @@
   document.getElementById(unlocked ? 'content' : 'locked-msg').style.display = 'block';
 })();
 </script>
+<script>document.querySelectorAll('.lang-pill').forEach(function(a){a.addEventListener('click',function(){if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;});});</script>
 </body>
 </html>
