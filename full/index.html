@@ -3256,7 +3256,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <section class="code-section" id="code-parto" role="tabpanel" aria-labelledby="navtab-parto">
       <div class="section-intro">
         <h2>Parto y Puerperio — APP, RPM y MgSO4</h2>
-        <p>Conducta según edad gestacional en rotura prematura de membranas y amenaza de parto prematuro, tocolisis con cronómetro de dosis, contador de contracciones y esquemas de sulfato de magnesio con monitor de toxicidad.</p>
+        <p>Conducta según edad gestacional en rotura prematura de membranas y amenaza de parto prematuro, clasificación de Robson al ingreso con conducta por grupo, tocolisis con cronómetro de dosis, contador de contracciones y esquemas de sulfato de magnesio con monitor de toxicidad.</p>
       </div>
 
       <div class="card" id="rpm-dx-card">
@@ -3381,6 +3381,62 @@ document.addEventListener('DOMContentLoaded', function(){
         <p class="hint">El contador describe la dinámica uterina (frecuencia e intervalos); la respuesta a la uteroinhibición se evalúa con la tendencia del registro y el protocolo de APP. No reemplaza la monitorización fetal.</p>
         <p class="hint">En trabajo de parto, el botón «Tomar del contador» del <a href="#pg-card">partograma dinámico</a> carga el número de contracciones de los últimos 10 minutos.</p>
         <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> OMS/FIGO Labour Care Guide (registro de dinámica uterina en 10 min) · NICE NG25 (reevaluación de la tocolisis).</p>
+      </div>
+
+      <div class="card" id="robson-card">
+        <h3>Clasificación de Robson al ingreso — grupo y conducta</h3>
+        <p class="card-sub">La OMS clasifica a toda mujer al ingresar para el parto con 6 variables. Cargalas y la app asigna el grupo definitivo con la conducta intraparto de ese grupo. La paridad se comparte con el partograma.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="rb-paridad">Paridad</label>
+            <select id="rb-paridad">
+              <option value="nul" selected>Nulípara</option>
+              <option value="mul">Multípara</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="rb-ces">Cesáreas previas</label>
+            <select id="rb-ces">
+              <option value="0" selected>Ninguna</option>
+              <option value="1">Una</option>
+              <option value="2">Dos o más</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="rb-inicio">Inicio del trabajo de parto</label>
+            <select id="rb-inicio">
+              <option value="esp" selected>Espontáneo</option>
+              <option value="ind">Inducido</option>
+              <option value="ces">Cesárea antes del trabajo de parto</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="rb-fetos">Número de fetos</label>
+            <select id="rb-fetos">
+              <option value="1" selected>Único</option>
+              <option value="m">Múltiple</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="rb-pres">Presentación / situación</label>
+            <select id="rb-pres">
+              <option value="cef" selected>Cefálica</option>
+              <option value="pel">Pelviana</option>
+              <option value="tra">Transversa u oblicua</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="rb-eg">EG — semanas</label>
+            <input type="number" id="rb-eg" inputmode="numeric" min="20" max="44" step="1" placeholder="39">
+          </div>
+        </div>
+        <p class="hint">Inicio según la situación al ingreso, sin importar cómo se había planificado. La cesárea de urgencia antes de iniciar el trabajo de parto cuenta como «antes del trabajo de parto». Multípara: al menos un parto previo, vaginal o por cesárea. La EG se copia de la conducta RPM/APP o de la FUM mientras no la edites acá.</p>
+        <div class="result-box rb-neutro" id="result-robson">
+          <div class="result-title" id="result-robson-title">Cargá la edad gestacional para asignar el grupo</div>
+          <div class="result-detail" id="result-robson-detail"></div>
+        </div>
+        <p class="hint">Robson sirve para auditar la tasa de cesáreas del servicio por grupo (tabla de informe OMS); no evalúa si una cesárea estuvo bien indicada. <a href="../guia.html#via-robson-conducta">Ver tabla completa de conductas en la guía</a>.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a> · <a href="https://robson-classification-platform.srhr.org/about" target="_blank" rel="noopener">OMS — Plataforma Robson</a>. Conductas: fuentes de cada grupo y <a href="../bibliografia.html#mod-via">bibliografía</a>.</p>
       </div>
 
       <div class="card" id="pg-card">
@@ -8842,6 +8898,178 @@ window.VOZ_ARBOL = [
 
   cargar(); pintarLog(); habilitar(); pintar(); lip();
   if (st.run) { pedirWake(); arrancarLoop(); }
+})();
+</script>
+<script>
+/* Clasificación de Robson al ingreso — Algoritmo propio CaVeSal® · Basado en: OPS/OMS 2018 y fuentes por grupo */
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var KEY = "cavesal_em_robson";
+  function L(href, txt) { return '<a href="' + href + '" target="_blank" rel="noopener">' + txt + "</a>"; }
+  function GO(id, txt) { return '<a href="#' + id + '" data-rb-go="' + id + '">' + txt + "</a>"; }
+  var F = {
+    lcg: L("https://iris.who.int/bitstream/handle/10665/337693/9789240017566-eng.pdf", "OMS — Guía de Cuidados del Trabajo de Parto 2020"),
+    acogPrim: L("https://www.ajog.org/article/S0002-9378%2814%2900055-6/pdf", "ACOG/SMFM — Prevención segura de la cesárea primaria (2014, reafirmado)"),
+    omsInd22: L("https://iris.who.int/server/api/core/bitstreams/5c7a9d97-37c7-4e1f-afd8-840e50495fc9/content", "OMS — Inducción al término o después (2022)"),
+    omsInd11: L("https://www.who.int/publications/i/item/9789241501156", "OMS — Inducción del trabajo de parto (2011)"),
+    omsMec: L("https://iris.who.int/server/api/core/bitstreams/54318a55-62e7-4c96-ab6f-ec0a16963568/content", "OMS — Métodos mecánicos (2022)"),
+    acog765: L("https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2019/02/avoidance-of-nonmedically-indicated-early-term-deliveries-and-associated-neonatal-morbidities", "ACOG CO 765 (2019)"),
+    figo: L("https://pmc.ncbi.nlm.nih.gov/articles/PMC12447697/", "FIGO — PVDC, buena práctica (2025)"),
+    acog205: L("https://www.acog.org/clinical/clinical-guidance/practice-bulletin", "ACOG PB 205 (2019)"),
+    rcog45: L("https://www.rcog.org.uk/media/kpkjwd5h/gtg_45.pdf", "RCOG Green-top 45"),
+    acog745: L("https://pubmed.ncbi.nlm.nih.gov/30045211/", "ACOG CO 745 (2018, reafirmado 2023)"),
+    rcog20b: L("https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/management-of-breech-presentation-green-top-guideline-no-20b/", "RCOG Green-top 20b"),
+    nice137: L("https://www.ncbi.nlm.nih.gov/books/NBK546070/", "NICE NG137 (2019)"),
+    acog231: L("https://pubmed.ncbi.nlm.nih.gov/34011891/", "ACOG PB 231 (2021)"),
+    glowm: L("https://www.glowm.com/article/heading/vol-10--common-obstetric-conditions--abnormal-liepresentation/id/414593", "GLOWM — Situación y presentación anómalas"),
+    vce: L("https://www.ncbi.nlm.nih.gov/sites/books/NBK482475/", "StatPearls — Versión cefálica externa"),
+    acog831: L("https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2021/07/medically-indicated-late-preterm-and-early-term-deliveries", "ACOG CO 831 (2021)")
+  };
+  var PG = GO("pg-card", "Partograma dinámico");
+  var IND = ["Inducir solo con indicación clara; desde 41+0 sem la inducción está recomendada.",
+    "Cuello desfavorable (Bishop ≤6): maduración cervical con misoprostol (oral 25 µg c/2 h o vaginal 25 µg c/6 h), balón, o balón + oxitocina.",
+    "No declarar inducción fallida en fase latente antes de ≥24 h de inducción y ≥12-18 h de oxitocina tras la rotura de membranas, si madre y feto lo permiten.",
+    "Nunca sin vigilancia con oxitocina o misoprostol; inducir donde haya quirófano."];
+  var CESP = ["Verificar y documentar la indicación de la cesárea.",
+    "Sin indicación médica, no programar antes de las 39 semanas."];
+  var C = {
+    "1": { cls: "rb-verde", d: "Nulípara, feto único, cefálico, ≥37 sem, trabajo de parto espontáneo",
+      li: ["La fase latente prolongada y el progreso lento pero progresivo <strong>no son indicación de cesárea</strong>.",
+        "Seguir el " + PG + " con el modelo elegido (Ministerio CLAP desde 4 cm, OMS 2020 desde 5 cm, ACOG 2024 desde 6 cm).",
+        "Detención de fase activa: ≥6 cm con membranas rotas, sin cambios con ≥4 h de dinámica adecuada o ≥6 h de oxitocina con dinámica inadecuada.",
+        "Segundo período: al menos 3 h de pujo antes de diagnosticar detención (más con epidural, individualizado).",
+        "Acompañamiento continuo. Es uno de los grupos que más aporta a la tasa de cesáreas."],
+      f: [F.lcg, F.acogPrim] },
+    "2a": { cls: "rb-amarillo", d: "Nulípara, feto único, cefálico, ≥37 sem, inducido", li: IND.concat(["Luego, mismos estándares de progreso del Grupo 1 en el " + PG + "."]), f: [F.omsInd22, F.omsInd11, F.omsMec, F.acogPrim] },
+    "2b": { cls: "rb-amarillo", d: "Nulípara, feto único, cefálico, ≥37 sem, cesárea antes del trabajo de parto", li: CESP, f: [F.acog765, F.acogPrim] },
+    "3": { cls: "rb-verde", d: "Multípara sin cesárea previa, feto único, cefálico, ≥37 sem, trabajo de parto espontáneo",
+      li: ["Mismos criterios de fase activa del Grupo 1, con estándares de multípara en el " + PG + ".",
+        "Segundo período: al menos 2 h de pujo antes de diagnosticar detención.",
+        "Es el grupo con la tasa de cesárea más baja: una cesárea acá merece revisión de la indicación."],
+      f: [F.lcg, F.acogPrim] },
+    "4a": { cls: "rb-amarillo", d: "Multípara sin cesárea previa, feto único, cefálico, ≥37 sem, inducido", li: IND.concat(["Luego, estándares de multípara en el " + PG + "."]), f: [F.omsInd22, F.omsInd11, F.omsMec, F.acogPrim] },
+    "4b": { cls: "rb-amarillo", d: "Multípara sin cesárea previa, feto único, cefálico, ≥37 sem, cesárea antes del trabajo de parto", li: CESP, f: [F.acog765, F.acogPrim] },
+    "5.1": { cls: "rb-amarillo", d: "Una cesárea previa, feto único, cefálico, ≥37 sem",
+      li: ["Parto vaginal después de cesárea (PVDC) si: incisión segmentaria transversa (o vertical baja), sin rotura uterina previa y sin contraindicación de parto vaginal.",
+        "<strong>Contraindicado:</strong> cesárea clásica, incisión en T o J, rotura uterina previa.",
+        "Solo con cesárea de urgencia las 24 h, banco de sangre y neonatología.",
+        "Monitoreo fetal electrónico continuo y atención uno a uno: la alteración de la FCF es el signo más frecuente de rotura.",
+        "Inducción: no contraindicada, pero baja el éxito y sube el riesgo de rotura. Métodos mecánicos (Foley, amniotomía). <strong>Misoprostol contraindicado.</strong> Oxitocina con precaución.",
+        "Epidural no contraindicada; mismos estándares de progreso. Intervalo entre nacimientos menor a 18 meses: más riesgo. PFE &gt;4500 g: cesárea (FIGO).",
+        "Signos de inminencia de rotura: " + '<a href="#code-rojo" data-ir-sg2="1">Código Rojo → Sangrados 2.ª mitad</a>' + "."],
+      f: [F.figo, F.acog205, F.rcog45, F.omsInd11] },
+    "5.2": { cls: "rb-amarillo", d: "Dos o más cesáreas previas, feto único, cefálico, ≥37 sem",
+      li: ["Dos cesáreas: FIGO no recomienda PVDC en general; solo con parto vaginal previo, consejería por obstetra senior y centro de alta complejidad. RCOG y ACOG lo admiten con consejería.",
+        "Tres o más: cesárea.",
+        "Con placenta previa o inserción baja anterior, descartar acretismo.",
+        "Si se intenta PVDC: mismas condiciones del 5.1 (monitoreo continuo, sin misoprostol)."],
+      f: [F.figo, F.acog205, F.rcog45] },
+    "6": { cls: "rb-amarillo", d: "Nulípara, feto único, pelviana",
+      li: ["Fuera del trabajo de parto: ofrecer versión cefálica externa (VCE) desde las 36 sem, con quirófano disponible.",
+        "Sin VCE: cesárea programada desde las 39 sem, o parto vaginal en pelviana solo con protocolo institucional, operador entrenado y consentimiento escrito.",
+        "En trabajo de parto: ecografía (tipo de pelviana, flexión de la cabeza, PFE) y monitoreo continuo; progreso inadecuado → cesárea.",
+        "Expulsivo inminente: asistencia sin tracción."],
+      f: [F.acog745, F.rcog20b] },
+    "7": { cls: "rb-amarillo", d: "Multípara, feto único, pelviana (incluye cesárea previa)",
+      li: ["Igual que el Grupo 6, con VCE desde las 37 sem.",
+        "Con una cesárea segmentaria previa, la VCE puede intentarse si es buena candidata a PVDC."],
+      f: [F.acog745, F.rcog20b, F.figo] },
+    "8": { cls: "rb-amarillo", d: "Embarazo múltiple (incluye cesárea previa)",
+      li: ["Bicorial o monocorial biamniótico no complicado, &gt;32 sem, primer gemelo cefálico y sin discordancia significativa: parto vaginal y cesárea son igual de seguros.",
+        "Primer gemelo no cefálico: cesárea. Monoamniótico: cesárea (programada a las 32+0-33+6). Triples: cesárea.",
+        "Una cesárea segmentaria previa no contraindica el PVDC.",
+        "Alumbramiento activo por mayor riesgo de hemorragia: " + GO("alu-card", "Alumbramiento") + " · " + '<a href="#code-rojo" data-ir-rojo="1">Código Rojo</a>' + "."],
+      f: [F.nice137, F.acog231, F.acogPrim, F.figo] },
+    "9": { cls: "rb-rojo", d: "Feto único en situación transversa u oblicua (incluye cesárea previa)",
+      li: ["<strong>En trabajo de parto o con membranas rotas: cesárea</strong> (riesgo de prolapso de cordón y de rotura uterina).",
+        "Antes del trabajo de parto y sin contraindicaciones: VCE desde las 37 sem.",
+        "Ecografía para descartar causa mecánica (placenta previa, miomas, anomalías).",
+        "Con dorso inferior, considerar incisión uterina vertical."],
+      f: [F.glowm, F.vce] },
+    "10": { cls: "rb-amarillo", d: "Feto único cefálico menor a 37 sem (incluye cesárea previa)",
+      li: ["Maduración pulmonar y neuroprotección según la conducta ya establecida: " + GO("parto-card", "RPM y APP — conducta según EG") + " · " + GO("mgso4-card", "Sulfato de magnesio") + ".",
+        "Tocolisis solo si corresponde: " + GO("tocol-card", "Tocolisis") + ". Con sospecha de rotura de membranas: " + GO("rpm-dx-card", "RPM — diagnóstico") + ".",
+        "Avisar a neonatología.",
+        "La prematurez sola no define la vía de parto; se decide por las condiciones obstétricas."],
+      f: [F.acog831, "fuentes de las tarjetas enlazadas"] }
+  };
+
+  function grupo(v) {
+    if (v.fetos === "m") return "8";
+    if (v.pres === "tra") return "9";
+    if (v.pres === "pel") return v.par === "nul" ? "6" : "7";
+    if (v.eg < 37) return "10";
+    if (v.ces === "1") return "5.1";
+    if (v.ces === "2") return "5.2";
+    if (v.par === "nul") return v.ini === "ind" ? "2a" : v.ini === "ces" ? "2b" : "1";
+    return v.ini === "ind" ? "4a" : v.ini === "ces" ? "4b" : "3";
+  }
+  function leer() {
+    return { par: $("rb-paridad").value, ces: $("rb-ces").value, ini: $("rb-inicio").value, fetos: $("rb-fetos").value, pres: $("rb-pres").value, eg: parseInt($("rb-eg").value, 10) };
+  }
+  function guardar() {
+    try { var v = leer(); v.egTxt = $("rb-eg").value; localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+  }
+  function render() {
+    var v = leer(), box = $("result-robson"), t = $("result-robson-title"), d = $("result-robson-detail");
+    if (!(v.eg >= 20 && v.eg <= 44)) {
+      box.className = "result-box rb-neutro"; t.textContent = "Cargá la edad gestacional para asignar el grupo"; d.innerHTML = ""; return;
+    }
+    var g = grupo(v), c = C[g];
+    box.className = "result-box " + c.cls;
+    t.textContent = "Robson Grupo " + g + " — " + c.d;
+    d.innerHTML = "<ul>" + c.li.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" +
+      '<p class="card-source" style="margin-top:6px"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> ' + c.f.join(" · ") + ".</p>";
+  }
+  function cambio(e) {
+    var id = e && e.target ? e.target.id : "";
+    if (id === "rb-ces" && $("rb-ces").value !== "0" && $("rb-paridad").value === "nul") $("rb-paridad").value = "mul";
+    if (id === "rb-paridad" && $("rb-paridad").value === "nul") $("rb-ces").value = "0";
+    if (id === "rb-eg") $("rb-eg").dataset.manual = $("rb-eg").value === "" ? "" : "1";
+    var pp = $("pg-paridad");
+    if ((id === "rb-paridad" || id === "rb-ces") && pp && pp.value !== $("rb-paridad").value) { pp.value = $("rb-paridad").value; pp.dispatchEvent(new Event("change")); }
+    guardar(); render();
+  }
+  function egAuto() {
+    var e = $("rb-eg"); if (!e || e.dataset.manual === "1") return;
+    var pe = $("parto-eg"), sem = pe && pe.value !== "" ? parseInt(pe.value, 10) : NaN;
+    if (isNaN(sem)) {
+      var f = $("in-fum") ? $("in-fum").value : "";
+      if (f) { var days = Math.floor((Date.now() - new Date(f + "T00:00:00").getTime()) / 86400000); if (days >= 140 && days <= 308) sem = Math.floor(days / 7); }
+    }
+    if (!isNaN(sem) && String(sem) !== e.value) { e.value = sem; render(); }
+  }
+  function init() {
+    if (!$("robson-card")) return;
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (s) {
+        ["paridad:par", "ces:ces", "inicio:ini", "fetos:fetos", "pres:pres"].forEach(function (k) { var a = k.split(":"); if (s[a[1]]) $("rb-" + a[0]).value = s[a[1]]; });
+        if (s.egTxt) { $("rb-eg").value = s.egTxt; $("rb-eg").dataset.manual = "1"; }
+      }
+    } catch (e) {}
+    if ($("pg-paridad") && !(s && s.par)) $("rb-paridad").value = $("pg-paridad").value;
+    ["rb-paridad", "rb-ces", "rb-inicio", "rb-fetos", "rb-pres"].forEach(function (id) { $(id).addEventListener("change", cambio); });
+    $("rb-eg").addEventListener("input", cambio);
+    var pp = $("pg-paridad");
+    if (pp) pp.addEventListener("change", function () {
+      if ($("rb-paridad").value !== pp.value) { $("rb-paridad").value = pp.value; if (pp.value === "nul") $("rb-ces").value = "0"; guardar(); render(); }
+    });
+    ["parto-eg", "in-fum"].forEach(function (id) { var el = $(id); if (el) { el.addEventListener("input", egAuto); el.addEventListener("change", egAuto); } });
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-rb-go]");
+      if (a) { e.preventDefault(); var t = $(a.getAttribute("data-rb-go")); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+      if (e.target.closest && e.target.closest("[data-ir-sg2]")) {
+        e.preventDefault();
+        var nav = document.querySelector('[aria-controls="code-rojo"]'); if (nav) nav.click();
+        var b = $("subtab-rojo-7"); if (b) b.click();
+        setTimeout(function () { var f = $("sg2-flow") || $("code-rojo"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); }, 120);
+      }
+    });
+    egAuto(); render();
+    window.CaVeSalRobson = { grupo: grupo, render: render };
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 50); }); else setTimeout(init, 50);
 })();
 </script>
 <script>/* Academy se abre aparte (no reemplaza la app) y lleva la clave para entrar directo */
