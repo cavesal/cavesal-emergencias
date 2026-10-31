@@ -3438,6 +3438,66 @@ document.addEventListener('DOMContentLoaded', function(){
         <p class="hint">Robson sirve para auditar la tasa de cesáreas del servicio por grupo (tabla de informe OMS); no evalúa si una cesárea estuvo bien indicada. <a href="../guia.html#via-robson-conducta">Ver tabla completa de conductas en la guía</a>.</p>
         <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a> · <a href="https://robson-classification-platform.srhr.org/about" target="_blank" rel="noopener">OMS — Plataforma Robson</a>. Conductas: fuentes de cada grupo y <a href="../bibliografia.html#mod-via">bibliografía</a>.</p>
       </div>
+      <div class="card" id="bishop-card">
+        <h3>Índice de Bishop — condiciones cervicales</h3>
+        <p class="card-sub">Cargá el tacto vaginal. La app suma el puntaje (0 a 13), lo interpreta y, con la paridad del Robson, indica hasta dónde seguir la maduración cervical. En los grupos 2a y 4a el resultado aparece también en la conducta del Robson.</p>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="bs-dil">Dilatación (cm)</label>
+            <select id="bs-dil">
+              <option value="" selected>—</option>
+              <option value="0">0 cm (0)</option>
+              <option value="1">1-2 cm (1)</option>
+              <option value="2">3-4 cm (2)</option>
+              <option value="3">5 cm o más (3)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="bs-borr">Borramiento (%)</label>
+            <select id="bs-borr">
+              <option value="" selected>—</option>
+              <option value="0">0-30 % (0)</option>
+              <option value="1">40-50 % (1)</option>
+              <option value="2">60-70 % (2)</option>
+              <option value="3">80 % o más (3)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="bs-alt">Altura de la presentación</label>
+            <select id="bs-alt">
+              <option value="" selected>—</option>
+              <option value="0">−3 (0)</option>
+              <option value="1">−2 (1)</option>
+              <option value="2">−1 / 0 (2)</option>
+              <option value="3">+1 / +2 (3)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="bs-cons">Consistencia</label>
+            <select id="bs-cons">
+              <option value="" selected>—</option>
+              <option value="0">Firme (0)</option>
+              <option value="1">Media (1)</option>
+              <option value="2">Blanda (2)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="bs-pos">Posición del cuello</label>
+            <select id="bs-pos">
+              <option value="" selected>—</option>
+              <option value="0">Posterior (0)</option>
+              <option value="1">Media (1)</option>
+              <option value="2">Anterior (2)</option>
+            </select>
+          </div>
+        </div>
+        <div class="result-box rb-neutro" id="result-bishop">
+          <div class="result-title" id="result-bishop-title">Cargá el examen cervical</div>
+          <div class="result-detail" id="result-bishop-detail"></div>
+        </div>
+        <p class="hint">Con dilatación, borramiento y altura ya se muestra el Bishop simplificado. El Bishop se diseñó para multíparas a término; en nulíparas y pretérmino se usa igual, con menor valor predictivo. <a href="../guia.html#tab-via">Ver la ficha en la guía</a>.</p>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK470368/" target="_blank" rel="noopener">StatPearls — Bishop Score (2024)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19623003/" target="_blank" rel="noopener">ACOG PB 107 — Inducción del trabajo de parto</a> · <a href="https://www.nice.org.uk/guidance/ng207/chapter/Recommendations" target="_blank" rel="noopener">NICE NG207 (2021)</a>.</p>
+      </div>
 
       <div class="card" id="pg-card">
         <h3>Partograma dinámico — Ministerio CLAP · OMS 2020 · ACOG 2024</h3>
@@ -8203,6 +8263,7 @@ window.VOZ_ARBOL = [
       info: "Por ejemplo: presentación no cefálica, placenta previa, cesárea anterior con indicación de repetirla, compromiso fetal.",
       opts: [{ label: "Sí", next: "cFin", data: { via: "ces" } }, { label: "No", next: "cBishop" }] },
     cBishop: { type: "q", q: "Condiciones cervicales (puntaje de Bishop):",
+      info: function () { var b = window.CaVeSalBishop ? window.CaVeSalBishop.calc() : null; return b && b.total !== null ? "Según la tarjeta Índice de Bishop: <strong>" + b.total + "/13 — " + b.banda + "</strong>." : "Podés calcularlo en la tarjeta Índice de Bishop (Parto)."; },
       opts: [{ label: "Favorable (más de 8)", next: "cFin", data: { via: "oxi" } },
         { label: "Intermedio (7-8)", next: "cFin", data: { via: "int" } },
         { label: "Desfavorable (6 o menos)", next: "cFin", data: { via: "mad" } }] },
@@ -9018,7 +9079,14 @@ window.VOZ_ARBOL = [
     var g = grupo(v), c = C[g];
     box.className = "result-box " + c.cls;
     t.textContent = "Robson Grupo " + g + " — " + c.d;
-    d.innerHTML = "<ul>" + c.li.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" +
+    var li = c.li.slice();
+    if ((g === "2a" || g === "4a") && window.CaVeSalBishop) {
+      var b = window.CaVeSalBishop.calc();
+      li.unshift(b.total !== null ? "<strong>Bishop actual " + b.total + "/13 — " + b.banda + ".</strong> " + b.texto + (b.banda !== "favorable" ? " " + window.CaVeSalBishop.meta() : "") + " " + GO("bishop-card", "Ver Bishop")
+        : b.simple !== null ? "<strong>Bishop simplificado " + b.simple + "/9 — " + (b.simple > 5 ? "favorable" : "desfavorable") + ".</strong> " + GO("bishop-card", "Completar el Bishop")
+        : "Cargá el " + GO("bishop-card", "índice de Bishop") + " para definir si hace falta maduración cervical.");
+    }
+    d.innerHTML = "<ul>" + li.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" +
       '<p class="card-source" style="margin-top:6px"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> ' + c.f.join(" · ") + ".</p>";
   }
   function cambio(e) {
@@ -9070,6 +9138,64 @@ window.VOZ_ARBOL = [
     window.CaVeSalRobson = { grupo: grupo, render: render };
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 50); }); else setTimeout(init, 50);
+})();
+</script>
+<script>
+/* Índice de Bishop — Algoritmo propio CaVeSal® · Basado en: StatPearls 2024, ACOG PB 107, NICE NG207 */
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var KEY = "cavesal_em_bishop", IDS = ["bs-dil", "bs-borr", "bs-alt", "bs-cons", "bs-pos"];
+  function val(id) { var e = $(id); return e && e.value !== "" ? parseInt(e.value, 10) : null; }
+  function calc() {
+    var v = IDS.map(val), r = { total: null, simple: null, banda: "", texto: "", cls: "rb-neutro" };
+    if (v[0] !== null && v[1] !== null && v[2] !== null) r.simple = v[0] + v[1] + v[2];
+    if (v.every(function (x) { return x !== null; })) {
+      r.total = v.reduce(function (a, b) { return a + b; }, 0);
+      if (r.total > 8) { r.banda = "favorable"; r.cls = "rb-verde"; r.texto = "Probabilidad de parto vaginal similar al trabajo de parto espontáneo (ACOG). Inducción con oxitocina, con o sin amniotomía (NICE)."; }
+      else if (r.total >= 7) { r.banda = "intermedio"; r.cls = "rb-amarillo"; r.texto = "Zona intermedia: NICE indica amniotomía y oxitocina con más de 6; ACOG todavía no lo considera favorable (más de 8). Decidir según paridad y contexto."; }
+      else { r.banda = "desfavorable"; r.cls = "rb-amarillo"; r.texto = "Cuello desfavorable: maduración cervical antes de la oxitocina (ACOG, NICE), con el esquema de la conducta de inducción (grupos 2a y 4a del Robson)."; }
+    }
+    return r;
+  }
+  function meta() {
+    var p = $("rb-paridad") ? $("rb-paridad").value : "", r = calc(), obj = p === "nul" ? 8 : p === "mul" ? 6 : 0;
+    if (!obj) return "";
+    var quien = p === "nul" ? "Nulípara" : "Multípara";
+    if (r.total !== null && r.total >= obj) return quien + ": ya alcanzó la meta de maduración de CMQCC (" + obj + " o más).";
+    return quien + ": seguir la maduración hasta un Bishop de " + obj + " o más (CMQCC).";
+  }
+  function render() {
+    var r = calc(), box = $("result-bishop"), t = $("result-bishop-title"), d = $("result-bishop-detail");
+    if (!box) return;
+    box.className = "result-box " + r.cls;
+    if (r.total !== null) {
+      t.textContent = "Bishop " + r.total + "/13 — " + r.banda;
+      var li = [r.texto];
+      if (r.banda !== "favorable" && meta()) li.push(meta());
+      li.push("Bishop simplificado " + r.simple + "/9: " + (r.simple > 5 ? "favorable (más de 5)." : "desfavorable (5 o menos)."));
+      d.innerHTML = "<ul>" + li.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>";
+    } else if (r.simple !== null) {
+      box.className = "result-box " + (r.simple > 5 ? "rb-verde" : "rb-amarillo");
+      t.textContent = "Bishop simplificado " + r.simple + "/9 — " + (r.simple > 5 ? "favorable" : "desfavorable");
+      d.innerHTML = "<ul><li>" + (r.simple > 5 ? "Más de 5: rinde igual que un Bishop completo de más de 8 (StatPearls)." : "5 o menos: cuello desfavorable, maduración cervical antes de la oxitocina.") + "</li><li>Completá consistencia y posición para el Bishop completo.</li></ul>";
+    } else { t.textContent = "Cargá el examen cervical"; d.innerHTML = ""; }
+  }
+  function cambio() {
+    try { var o = {}; IDS.forEach(function (id) { o[id] = $(id).value; }); localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+    render();
+    if (window.CaVeSalRobson) window.CaVeSalRobson.render();
+  }
+  function init() {
+    if (!$("bishop-card")) return;
+    try { var s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s) IDS.forEach(function (id) { if (s[id] != null) $(id).value = s[id]; }); } catch (e) {}
+    IDS.forEach(function (id) { $(id).addEventListener("change", cambio); });
+    var p = $("rb-paridad"); if (p) p.addEventListener("change", render);
+    var pp = $("pg-paridad"); if (pp) pp.addEventListener("change", function () { setTimeout(render, 0); });
+    window.CaVeSalBishop = { calc: calc, meta: meta, render: render };
+    render();
+    if (window.CaVeSalRobson) window.CaVeSalRobson.render();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 60); }); else setTimeout(init, 60);
 })();
 </script>
 <script>/* Academy se abre aparte (no reemplaza la app) y lleva la clave para entrar directo */
