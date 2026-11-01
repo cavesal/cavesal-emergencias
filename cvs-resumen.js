@@ -90,6 +90,15 @@
     if (e.style && e.style.display === "none") return false;
     return e.offsetParent !== null || e.getClientRects().length > 0 || !!e.closest(".code-section") || !!e.closest(".cvn-page");
   }
+  var SNAP = {};
+  function firma(box) { return box.className + "|" + t($(box.id + "-title") || box.querySelector(".result-title")); }
+  function tomarSnap(forzar) { document.querySelectorAll(".result-box[id]").forEach(function (b) { if (forzar || !(b.id in SNAP)) SNAP[b.id] = firma(b); }); }
+  function cardDe(box) { var c = box.closest(".card"), up; while (c && (up = c.parentElement && c.parentElement.closest(".card"))) c = up; return c; }
+  function cuenta(box) {
+    var c = cardDe(box);
+    if (c && Array.prototype.some.call(c.querySelectorAll("input, select, textarea"), function (e) { return e.type !== "hidden" && cambiado(e); })) return true;
+    return (box.id in SNAP) && SNAP[box.id] !== firma(box);
+  }
   function recolectar() {
     var out = { basicos: [], alertas: [], grupos: [], peor: null };
     function kv(lbl, v, sub) { if (v && v !== "—") out.basicos.push({ l: lbl, v: v, s: sub || "" }); }
@@ -112,6 +121,7 @@
     document.querySelectorAll(".result-box").forEach(function (box) {
       if (!box.id || box.classList.contains("rb-neutro") || !visible(box)) return;
       if (box.closest("#cvs-res") || box.closest("#cvn-p-resultado")) return;
+      if (!cuenta(box)) return;
       var tt = t($(box.id + "-title")) || t(box.querySelector(".result-title"));
       if (!tt) return;
       var det = $(box.id + "-detail") || box.querySelector(".result-detail");
@@ -242,6 +252,9 @@
       ".rs-global small{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;font-weight:700}" +
       ".rs-global strong{display:block;font-size:1.35rem;line-height:1.15}" +
       ".rs-global.n-rojo{background:#c0392b}.rs-global.n-naranja{background:#ea580c}.rs-global.n-amarillo{background:#ca8a04}.rs-global.n-verde{background:#16a34a}" +
+      ".rs-ley{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.74rem;color:#475569;margin:-4px 0 12px}" +
+      ".rs-ley span{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:3px 9px;font-weight:700;color:#1e293b}" +
+      ".rs-ley span i{width:9px;height:9px;border-radius:50%}" +
       ".rs-global .dot{width:14px;height:14px;border-radius:50%;background:#fff;flex-shrink:0;opacity:.9}" +
       "#cvn-p-resultado .rs-ia{align-items:center;margin:0 0 14px;padding:14px}" +
       "#cvn-p-resultado .rs-ia .mz{width:78px}" +
@@ -517,11 +530,12 @@
     $("rs-file").addEventListener("change", abrirJSON);
   }
 
+var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i style="background:#16a34a"></i>Verde</span><span><i style="background:#ca8a04"></i>Amarillo</span><span><i style="background:#ea580c"></i>Naranja</span><span><i style="background:#c0392b"></i>Rojo</span></div>';
   function abrir() {
     if (paginaActual !== "resultado") return mostrar("resultado");
     if (!hayDatos()) {
       $("rs-hora").textContent = "";
-      $("rs-global").innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Resultado</small><strong>No tenés datos cargados</strong></div></div>';
+      $("rs-global").innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Resultado</small><strong>No tenés datos cargados</strong></div></div>' + LEYENDA;
       $("rs-contenido").innerHTML = '<div class="rs-card rs-vacio"><p>Cargá los datos en <b>Códigos</b> o en <b>Parto y puerperio</b> y apretá <b>Calcular</b>. Acá vas a ver el resultado y la conducta.</p><button type="button" class="rs-btn main" data-ir="codigos">Ir a Códigos</button></div>';
       return;
     }
@@ -530,9 +544,9 @@
     $("rs-hora").textContent = "Calculado: " + hoy();
     var g = $("rs-global");
     if (d.peor) {
-      g.innerHTML = '<div class="rs-global n-' + d.peor + '"><span class="dot"></span><div><small>Nivel de alerta más alto</small><strong>' + NOMBRE_NIVEL[d.peor] + "</strong></div></div>";
+      g.innerHTML = '<div class="rs-global n-' + d.peor + '"><span class="dot"></span><div><small>Nivel de alerta más alto · resumen de diagnóstico y conducta</small><strong>' + NOMBRE_NIVEL[d.peor] + "</strong></div></div>" + LEYENDA;
     } else {
-      g.innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Nivel de alerta</small><strong>Sin resultados todavía</strong></div></div>';
+      g.innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Nivel de alerta</small><strong>Sin resultados todavía</strong></div></div>' + LEYENDA;
     }
   }
   function cerrar() { }
@@ -837,6 +851,7 @@
 
   function init() {
     injectCSS(); injectNavCSS(); cssPac(); armarNavegacion(); construirPanel(); construirPacientes(); engancharEjemplos();
+    tomarSnap(); setTimeout(function () { if (!hayDatos()) tomarSnap(true); }, 1500);
     setActual(DEMO ? null : localStorage.getItem(PA));
     window.cvsAbrirResumen = abrir; window.cvsMostrar = mostrar;
   }
