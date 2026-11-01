@@ -1,5 +1,5 @@
 /* CaVeSal® Emergencias — service worker. Subir VERSION en cada publicación. */
-const VERSION = "cavesal-emerg-v30";
+const VERSION = "cavesal-emerg-v31";
 const PRECACHE = [
   "./",
   "./academy-data.js",
@@ -67,13 +67,13 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return; // IA, voz y pagos: siempre red
-  if (req.mode === "navigate") {
+  if (req.mode === "navigate" || /\.(html|js|css|json)$/.test(url.pathname)) {
     // Páginas: red primero (trae cambios), caché si no hay conexión
     e.respondWith(
-      fetch(req).then(r => {
+      fetch(req, { cache: "no-cache" }).then(r => {
         if (r && r.status === 200) { const c = r.clone(); caches.open(VERSION).then(ca => ca.put(req, c)); }
         return r;
-      }).catch(() => caches.match(req, { ignoreSearch: true }).then(m => m || caches.match("./index.html")))
+      }).catch(() => caches.match(req).then(m => m || caches.match(req, { ignoreSearch: true })).then(m => m || caches.match("./index.html")))
     );
     return;
   }

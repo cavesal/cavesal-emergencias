@@ -1,9 +1,13 @@
-/* CaVeSal® Emergencias — Demo. Service worker. Subir CACHE en cada publicación. */
-const CACHE = "cavesal-emerg-demo-v15";
+/* CaVeSal® Emergencias — demo. Service worker. Subir CACHE en cada publicación.
+   Red primero para páginas y scripts (siempre la versión nueva si hay conexión);
+   la copia guardada solo se usa sin internet. */
+const CACHE = "cavesal-emerg-demo-v22";
 
 self.addEventListener("install", e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(["./","../cvs-resumen.js?v=1"])).then(() => self.skipWaiting())
+    caches.open(CACHE)
+      .then(c => c.addAll([new Request("./index.html", { cache: "reload" }), new Request("../cvs-resumen.js?v=8", { cache: "reload" })]))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -18,14 +22,22 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET") return;
-  if (new URL(req.url).origin !== location.origin) return; // IA, voz y pagos: siempre red
-  e.respondWith(
-    caches.match(req, { ignoreSearch: true }).then(cached => {
-      const net = fetch(req).then(r => {
+  const url = new URL(req.url);
+  if (url.origin !== location.origin) return; // IA, voz y pagos: siempre red
+  const esCodigo = req.mode === "navigate" || /\.(html|js|css|json)$/.test(url.pathname) || url.pathname.endsWith("/");
+  if (esCodigo) {
+    e.respondWith(
+      fetch(req, { cache: "no-cache" }).then(r => {
         if (r && r.status === 200) { const c = r.clone(); caches.open(CACHE).then(ca => ca.put(req, c)); }
         return r;
-      }).catch(() => cached);
-      return cached || net;
-    })
+      }).catch(() => caches.match(req).then(m => m || caches.match(req, { ignoreSearch: true })).then(m => m || caches.match("./index.html")))
+    );
+    return;
+  }
+  e.respondWith(
+    caches.match(req).then(cached => cached || fetch(req).then(r => {
+      if (r && r.status === 200) { const c = r.clone(); caches.open(CACHE).then(ca => ca.put(req, c)); }
+      return r;
+    }))
   );
 });
