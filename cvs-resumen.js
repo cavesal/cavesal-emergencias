@@ -191,6 +191,8 @@
       ".cvn-tab i[data-n]{display:block}.cvn-tab i[data-n='rojo']{background:#ef4444}.cvn-tab i[data-n='naranja']{background:#f97316}.cvn-tab i[data-n='amarillo']{background:#eab308}.cvn-tab i[data-n='verde']{background:#22c55e}" +
       "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:8px;padding:14px;border:2px solid #fde68a;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font:900 1.08rem/1 inherit;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(234,88,12,.5);animation:cvnGlow 2.2s ease-in-out infinite}" +
       "#cvn-calc svg{width:20px;height:20px;fill:#fff}" +
+      "#cvn-nueva{display:inline-flex;align-items:center;gap:6px}#cvn-nueva svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}" +
+      ".rs-vacio{text-align:center}.rs-vacio p{margin:0 0 12px;color:#334155;line-height:1.5}" +
       "#cvn-calc:active{transform:scale(.98)}" +
       "@keyframes cvnGlow{50%{box-shadow:0 4px 24px rgba(245,158,11,.85),0 0 0 3px rgba(253,230,138,.35)}}" +
       "@media (prefers-reduced-motion:reduce){#cvn-calc{animation:none}}" +
@@ -295,6 +297,14 @@
       if (/^Inicio$/i.test(x) || /Versión Demo/i.test(x)) a.remove();
       if (DEMO && /Versión completa/i.test(x)) { a.textContent = "Activar Full"; }
     });
+    var tl = top.querySelector(".topbar-links");
+    if (tl && !document.getElementById("cvn-nueva")) {
+      var nb = document.createElement("a");
+      nb.href = "#"; nb.id = "cvn-nueva"; nb.className = (tl.querySelector("a") || {}).className || "";
+      nb.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>Nueva consulta';
+      nb.addEventListener("click", function (e) { e.preventDefault(); nuevaConsulta(); });
+      tl.insertBefore(nb, tl.firstChild);
+    }
 
     /* barra fija: 4 pestañas + Calcular */
     var nav = document.createElement("nav");
@@ -459,7 +469,7 @@
     var dot = nav.querySelector(".cvn-tab[data-p='resultado'] i");
     setInterval(function () {
       if (document.hidden) return;
-      var p = recolectar().peor;
+      var p = hayDatos() ? recolectar().peor : null;
       if (p) dot.setAttribute("data-n", p); else dot.removeAttribute("data-n");
     }, 1500);
   }
@@ -492,10 +502,12 @@
     host.appendChild(w);
     w.addEventListener("click", function (e) {
       var pa = e.target.closest("[data-pa]");
-      if (pa) { if (pa.getAttribute("data-pa") === "guardar") guardarEnFicha(); else mostrar("pacientes"); return; }
+      if (pa) { if (pa.getAttribute("data-pa") === "guardar") { if (!hayDatos()) return alert("No tenés datos cargados. Cargá los datos y apretá Calcular."); guardarEnFicha(); } else mostrar("pacientes"); return; }
+      var ir = e.target.closest("[data-ir]"); if (ir) return mostrar(ir.getAttribute("data-ir"));
       var b = e.target.closest("[data-a]"); if (!b) return;
       var a = b.getAttribute("data-a");
       if (DEMO) return upgrade();
+      if (a !== "abrir" && !hayDatos()) return alert("No tenés datos cargados. Cargá los datos y apretá Calcular.");
       if (a === "ia") { if (typeof window.analizarConCavesalIA === "function") window.analizarConCavesalIA(); return; }
       if (a === "json") return guardarJSON();
       if (a === "abrir") return $("rs-file").click();
@@ -507,6 +519,12 @@
 
   function abrir() {
     if (paginaActual !== "resultado") return mostrar("resultado");
+    if (!hayDatos()) {
+      $("rs-hora").textContent = "";
+      $("rs-global").innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Resultado</small><strong>No tenés datos cargados</strong></div></div>';
+      $("rs-contenido").innerHTML = '<div class="rs-card rs-vacio"><p>Cargá los datos en <b>Códigos</b> o en <b>Parto y puerperio</b> y apretá <b>Calcular</b>. Acá vas a ver el resultado y la conducta.</p><button type="button" class="rs-btn main" data-ir="codigos">Ir a Códigos</button></div>';
+      return;
+    }
     var d = recolectar();
     $("rs-contenido").innerHTML = htmlResumen(d, false);
     $("rs-hora").textContent = "Calculado: " + hoy();
@@ -572,6 +590,28 @@
       ev.target.value = "";
     };
     r.readAsText(f);
+  }
+  function cambiado(e) {
+    if (e.type === "time") return false;
+    if (e.type === "radio" || e.type === "checkbox") return e.checked !== e.defaultChecked;
+    if (e.tagName === "SELECT") {
+      var def = 0;
+      for (var i = 0; i < e.options.length; i++) if (e.options[i].defaultSelected) { def = i; break; }
+      return e.options.length > 0 && e.selectedIndex !== def;
+    }
+    return e.value !== e.defaultValue;
+  }
+  function hayDatos() { return todos().some(cambiado); }
+  var CLAVES_FORM = ["cavesal_alerta_monitor_v1", "cavesal_pg_v1", "cavesal_alu_v1", "cavesal_pp_v1", "cvs-rcp-v1", "cavesal_tocol_v1", "cavesal_mgso4_mon_v1", "cavesal_contr_v1", "cavesal_em_robson_din"];
+  function nuevaConsulta() {
+    if (!confirm("¿Empezar una nueva consulta? Se borran los datos cargados en pantalla. Las fichas de pacientes no se tocan.")) return;
+    todos().forEach(function (e) {
+      if (e.type === "radio" || e.type === "checkbox") e.checked = e.defaultChecked;
+      else if (e.tagName === "SELECT") Array.prototype.forEach.call(e.options, function (o) { o.selected = o.defaultSelected; });
+      else e.value = e.defaultValue;
+    });
+    try { CLAVES_FORM.forEach(function (k) { localStorage.removeItem(k); }); localStorage.removeItem(PA); } catch (er) { }
+    location.replace(location.pathname);
   }
   function restaurar(c) {
         todos().forEach(function (e) {
