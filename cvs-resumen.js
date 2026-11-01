@@ -778,6 +778,11 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
         if (!confirm("¿Borrar la ficha de " + p.nombre + " y todos sus casos?")) return;
         savePacs(a.filter(function (x) { return x.id !== pid; })); if (localStorage.getItem(PA) === pid) setActual(null); else renderPacientes(); return;
       }
+      if (acc === "ppdf" || acc === "pword") {
+        if (!(p.casos || []).length) return alert("Esta paciente todavía no tiene casos guardados. Calculá una emergencia y tocá «Guardar en su ficha» en Resultado.");
+        salida(docPaciente(p), acc === "ppdf" ? "pdf" : "word", "CaVeSal-Emergencias_" + (p.nombre || "paciente").replace(/[^\wáéíóúñÁÉÍÓÚÑ]+/g, "-").slice(0, 30) + "_resumen");
+        return;
+      }
       var c = (p.casos || []).filter(function (x) { return x.id === cid; })[0]; if (!c) return;
       if (acc === "abrir") { setActual(pid); restaurar(c.campos || {}); setTimeout(function () { mostrar("resultado"); }, 400); return; }
       if (acc === "pdf" || acc === "word") { salida(docCaso(p, c), acc, "CaVeSal-Emergencias_" + (p.nombre || "caso").replace(/[^\wáéíóúñÁÉÍÓÚÑ]+/g, "-").slice(0, 30) + "_" + c.fecha.slice(0, 10)); return; }
@@ -799,6 +804,7 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
         '<div class="pc-m">' + [p.edad ? esc(p.edad) + " años" : "", p.hc ? "HC " + esc(p.hc) : "", cs.length + (cs.length === 1 ? " caso guardado" : " casos guardados")].filter(Boolean).join(" · ") + "</div>" +
         '<div class="pc-b">' + (es ? '<button type="button" data-pc="quitar" data-id="' + p.id + '">Quitar de esta emergencia</button>' : '<button type="button" class="main" data-pc="usar" data-id="' + p.id + '">Usar en esta emergencia</button>') +
         '<button type="button" data-pc="ver" data-id="' + p.id + '">Casos (' + cs.length + ")</button>" +
+        '<button type="button" data-pc="ppdf" data-id="' + p.id + '">PDF</button><button type="button" data-pc="pword" data-id="' + p.id + '">Word</button>' +
         '<button type="button" data-pc="editar" data-id="' + p.id + '">Editar</button><button type="button" class="del" data-pc="borrar" data-id="' + p.id + '">Borrar</button></div>' +
         '<div class="pc-casos" hidden>' + (cs.length ? cs.map(function (c) {
           return '<div class="pc-caso"><i style="background:' + (DOT[c.peor] || "#94a3b8") + '"></i><span>' + esc(fFecha(c.fecha)) + (c.peor ? " · nivel " + esc(NOMBRE_NIVEL[c.peor]) : "") + "</span>" +
@@ -831,6 +837,18 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
     var ok = $("rs-pacok"); if (ok) ok.innerHTML = '<div class="pc-ok">Caso guardado en la ficha de ' + esc(p.nombre) + " (" + esc(hoy()) + ").</div>";
   }
 
+  function docPaciente(p) {
+    var dp = [];
+    dp.push("<b>Paciente:</b> " + esc(p.nombre)); if (p.edad) dp.push("<b>Edad:</b> " + esc(p.edad) + " años"); if (p.hc) dp.push("<b>HC:</b> " + esc(p.hc));
+    var cs = (p.casos || []).slice().sort(function (a, b) { return String(b.fecha).localeCompare(String(a.fecha)); });
+    var h = '<h1>CaVeSal® Emergencias Obstétricas — Resumen de la paciente</h1><div class="sub">Exportado ' + esc(hoy()) + " · cavesal.app</div>" +
+      '<div class="rs-card"><h3>Datos de la paciente</h3><div>' + dp.join(" · ") + "</div>" + (p.notas ? '<div style="margin-top:6px"><b>Notas:</b> ' + esc(p.notas) + "</div>" : "") +
+      '<div style="margin-top:6px"><b>Casos guardados:</b> ' + cs.length + "</div></div>";
+    cs.forEach(function (c, i) {
+      h += '<h2 style="font-size:13pt;color:#0e7490;margin:16px 0 6px;border-bottom:1px solid #cbd5e1;padding-bottom:3px">' + (i === 0 ? "Último caso" : "Caso") + " · " + esc(fFecha(c.fecha)) + (c.peor ? " · nivel " + esc(NOMBRE_NIVEL[c.peor]) : "") + "</h2>" + (c.html || "");
+    });
+    return h + LEGAL;
+  }
   function docCaso(p, c) {
     var dp = [];
     dp.push("<b>Paciente:</b> " + esc(p.nombre)); if (p.edad) dp.push("<b>Edad:</b> " + esc(p.edad) + " años"); if (p.hc) dp.push("<b>HC:</b> " + esc(p.hc));
