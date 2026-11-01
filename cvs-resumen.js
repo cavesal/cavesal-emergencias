@@ -88,7 +88,7 @@
   function visible(e) {
     if (!e) return false;
     if (e.style && e.style.display === "none") return false;
-    return e.offsetParent !== null || e.getClientRects().length > 0 || !!e.closest(".code-section");
+    return e.offsetParent !== null || e.getClientRects().length > 0 || !!e.closest(".code-section") || !!e.closest(".cvn-page");
   }
   function recolectar() {
     var out = { basicos: [], alertas: [], grupos: [], peor: null };
@@ -111,12 +111,12 @@
     var mapa = {};
     document.querySelectorAll(".result-box").forEach(function (box) {
       if (!box.id || box.classList.contains("rb-neutro") || !visible(box)) return;
-      if (box.closest("#cvs-res")) return;
+      if (box.closest("#cvs-res") || box.closest("#cvn-p-resultado")) return;
       var tt = t($(box.id + "-title")) || t(box.querySelector(".result-title"));
       if (!tt) return;
       var det = $(box.id + "-detail") || box.querySelector(".result-detail");
       var sec = box.closest(".code-section");
-      var secT = sec ? t(sec.querySelector(".section-intro h2, h2")) : "";
+      var secT = sec ? t(sec.querySelector(".section-intro h2, h2")) : (box.closest("#alerta-card") ? "Alerta Obstétrica CaVeSal®" : "");
       var card = box.closest(".card");
       var cardT = card ? t(card.querySelector("h3") || card.querySelector("h4")) : "";
       var n = nivel(box);
@@ -158,25 +158,325 @@
     return h;
   }
 
+  /* ================= NAVEGACIÓN POR PESTAÑAS ================= */
+  var PAGINAS = [
+    ["emergencia", "Tengo una emergencia", '<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>'],
+    ["codigos", "Códigos", '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'],
+    ["parto", "Parto y puerperio", '<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/>'],
+    ["resultado", "Resultado", '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2"/><path d="m9 14 2 2 4-4"/>']
+  ];
+  var CODIGOS = {
+    rojo: ["Código Rojo", "Hemorragia obstétrica"],
+    azul: ["Código Azul THAE", "Hipertensión / preeclampsia"],
+    ambar: ["Código Amarillo — Sepsis", "Infección materna grave"],
+    rcp: ["Código Azul Obstétrico", "Paro / colapso materno"]
+  };
+  var NOMBRE_NIVEL = { rojo: "Rojo", naranja: "Naranja", amarillo: "Amarillo", verde: "Verde" };
+
+  function injectNavCSS() {
+    var c = "" +
+      ".topbar{position:relative!important;top:auto!important}" +
+      ".patient-bar{position:relative!important;top:auto!important}" +
+      "#cvn-nav{position:sticky;top:0;z-index:60;background:linear-gradient(135deg,#0D1B2D,#0c4e54);padding:8px 10px 10px;box-shadow:0 4px 14px rgba(13,27,45,.25)}" +
+      "#cvn-nav .cvn-in{max-width:1100px;margin:0 auto}" +
+      ".cvn-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}" +
+      ".cvn-tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;padding:6px 4px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#e6f4f6;font:700 .74rem/1.15 inherit;font-family:inherit;text-align:center;cursor:pointer}" +
+      ".cvn-tab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}" +
+      ".cvn-tab[aria-selected='true']{background:#fff;color:#0c4e54;border-color:#fff}" +
+      ".cvn-tab[data-p='emergencia']{border-color:rgba(255,120,120,.6)}" +
+      ".cvn-tab[data-p='emergencia'][aria-selected='true']{color:#a13544}" +
+      ".cvn-tab i{position:absolute;top:6px;right:8px;width:10px;height:10px;border-radius:50%;display:none;border:2px solid #fff}" +
+      ".cvn-tab i[data-n]{display:block}.cvn-tab i[data-n='rojo']{background:#ef4444}.cvn-tab i[data-n='naranja']{background:#f97316}.cvn-tab i[data-n='amarillo']{background:#eab308}.cvn-tab i[data-n='verde']{background:#22c55e}" +
+      "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:8px;padding:12px;border:0;border-radius:12px;background:#fff;color:#0D1B2D;font:800 1rem/1 inherit;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}" +
+      "#cvn-calc svg{width:18px;height:18px;fill:#f59e0b}" +
+      "#cvn-nav[data-p='emergencia'] #cvn-calc,#cvn-nav[data-p='resultado'] #cvn-calc{display:none}" +
+      ".cvn-sos{max-width:1100px;margin:16px auto 0;padding:0 16px}" +
+      ".cvn-sos>div{background:linear-gradient(135deg,#7f1d1d,#c0392b);color:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 6px 18px rgba(161,53,68,.3)}" +
+      ".cvn-sos h2{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:1.15rem;font-weight:800;color:#fff}" +
+      ".cvn-sos h2 i{width:12px;height:12px;border-radius:50%;background:#fff;flex-shrink:0;animation:cvnPulse 1.2s ease-in-out infinite}" +
+      "@keyframes cvnPulse{50%{opacity:.25;transform:scale(.7)}}@media (prefers-reduced-motion:reduce){.cvn-sos h2 i{animation:none}}" +
+      ".cvn-sos p{margin:0;font-size:.88rem;line-height:1.45;color:#fff}.cvn-sos p+p{margin-top:6px}" +
+      ".cvn-sos b{color:#fff}" +
+      ".cvn-page .demo-banner{margin-top:14px}.cvn-page .emerg-entry{margin-top:10px}.cvn-page .emerg-btn{min-height:78px}.cvn-page .emerg-btn strong{font-size:1.12rem}" +
+      ".cvn-page{display:none}.cvn-page.on{display:block}" +
+      ".cvn-page .card,.cvn-page .code-section,.cvn-page .sub-tabs,.cvn-page .patient-bar,.cvn-page .section-intro{scroll-margin-top:130px}" +
+      ".cvn-wrap{max-width:1280px;margin:0 auto;padding:16px 16px 8px}" +
+      ".cvn-h{font-size:1.1rem;font-weight:800;color:#0D1B2D;margin:6px 0 4px}" +
+      ".cvn-p{font-size:.85rem;color:#4a5662;margin:0 0 12px;line-height:1.45}" +
+      ".cvn-step{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:800;color:#0e7490;text-transform:uppercase;letter-spacing:.05em;max-width:1100px;margin:18px auto 0;padding:0 16px}" +
+      ".cvn-step b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0e7490;color:#fff;font-size:.75rem}" +
+      /* Códigos: 4 botones grandes */
+      "#cvn-p-codigos .code-nav,.cvn-codes{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;max-width:1100px;margin:16px auto 0;padding:0 16px}" +
+      "#cvn-p-codigos .code-nav-btn,.cvn-cbtn{flex:none!important;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:76px;padding:12px 14px;border-radius:14px;border:2px solid;text-align:left;font-family:inherit;cursor:pointer}" +
+      "#cvn-p-codigos .code-nav-btn svg{display:none}" +
+      "#cvn-p-codigos .code-nav-btn strong,.cvn-cbtn strong{font-size:1rem;font-weight:800}" +
+      "#cvn-p-codigos .code-nav-btn span,.cvn-cbtn span{font-size:.76rem;font-weight:600;opacity:.85}" +
+      ".cvn-c-rojo{border-color:#a13544!important;background:#fbeaec!important;color:#a13544!important}" +
+      ".cvn-c-azul{border-color:#0284c7!important;background:#e6f4fb!important;color:#075985!important}" +
+      ".cvn-c-ambar{border-color:#ca8a04!important;background:#fef7e0!important;color:#854d0e!important}" +
+      ".cvn-c-rcp{border-color:#1e3a8a!important;background:#e8edf9!important;color:#1e3a8a!important}" +
+      "#cvn-p-codigos .code-nav-btn[aria-selected='true']{box-shadow:0 0 0 3px rgba(13,27,45,.18),0 6px 14px rgba(13,27,45,.15)!important}" +
+      "#cvn-p-codigos .code-nav-btn.cvn-c-rojo[aria-selected='true']{background:#a13544!important;color:#fff!important}" +
+      "#cvn-p-codigos .code-nav-btn.cvn-c-azul[aria-selected='true']{background:#0284c7!important;color:#fff!important}" +
+      "#cvn-p-codigos .code-nav-btn.cvn-c-ambar[aria-selected='true']{background:#ca8a04!important;color:#fff!important}" +
+      "#cvn-p-codigos .code-nav-btn.cvn-c-rcp[aria-selected='true']{background:#1e3a8a!important;color:#fff!important}" +
+      ".cvn-hide{display:none!important}" +
+      /* Parto: secciones siempre visibles + atajos */
+      "#cvn-p-parto .code-section{display:block!important}" +
+      ".cvn-chips{display:flex;flex-wrap:wrap;gap:6px;max-width:1280px;margin:14px auto 0;padding:0 16px}" +
+      ".cvn-chip{border:1.5px solid #00838f;background:#fff;color:#00666f;border-radius:999px;padding:7px 12px;font:700 .78rem/1.1 inherit;font-family:inherit;cursor:pointer}" +
+      ".cvn-chip.tr{border-color:#5b3a8e;color:#5b3a8e}" +
+      /* Demo: entrada con candado */
+      ".cvn-lock-entry .emerg-btn{opacity:.8}" +
+      /* Resultado */
+      "#cvn-p-resultado .cvn-wrap{max-width:820px}" +
+      ".rs-global{border-radius:16px;padding:14px 16px;color:#fff;background:#64748b;margin-bottom:12px;display:flex;align-items:center;gap:12px}" +
+      ".rs-global small{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;font-weight:700}" +
+      ".rs-global strong{display:block;font-size:1.35rem;line-height:1.15}" +
+      ".rs-global.n-rojo{background:#c0392b}.rs-global.n-naranja{background:#ea580c}.rs-global.n-amarillo{background:#ca8a04}.rs-global.n-verde{background:#16a34a}" +
+      ".rs-global .dot{width:14px;height:14px;border-radius:50%;background:#fff;flex-shrink:0;opacity:.9}" +
+      "#cvn-p-resultado .rs-ia{align-items:center;margin:0 0 14px;padding:14px}" +
+      "#cvn-p-resultado .rs-ia .mz{width:78px}" +
+      "#cvn-p-resultado .rs-ia .tt{font-size:1rem}" +
+      "#cvn-p-resultado .rs-ia .bub{font-size:.85rem}" +
+      "#cvn-p-resultado .rs-ia .rs-btn.ia{width:100%;padding:13px;font-size:.95rem}" +
+      ".rs-acts-h{font-size:.8rem;font-weight:800;color:#0e7490;text-transform:uppercase;letter-spacing:.05em;margin:16px 0 8px}" +
+      "@media (min-width:760px){.cvn-tab{flex-direction:row;font-size:.86rem;min-height:46px}#cvn-p-codigos .code-nav,.cvn-codes{grid-template-columns:repeat(4,1fr)}}";
+    var s = document.createElement("style"); s.textContent = c; document.head.appendChild(s);
+  }
+
+  var paginaActual = "emergencia";
+  function mostrar(p, sinScroll) {
+    paginaActual = p;
+    var nv = document.getElementById("cvn-nav"); if (nv) nv.setAttribute("data-p", p);
+    document.querySelectorAll(".cvn-page").forEach(function (x) { x.classList.toggle("on", x.getAttribute("data-p") === p); });
+    document.querySelectorAll(".cvn-tab").forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-p") === p ? "true" : "false"); });
+    if (p === "resultado") abrir();
+    if (!sinScroll) window.scrollTo(0, 0);
+  }
+
+  function revelar(el) {
+    if (!el || !el.closest) return;
+    var pg = el.closest(".cvn-page");
+    if (pg && !pg.classList.contains("on")) mostrar(pg.getAttribute("data-p"), true);
+    var sec = el.closest(".code-section");
+    if (sec && sec.id && pg && pg.getAttribute("data-p") === "codigos" && !sec.classList.contains("active")) {
+      var b = document.querySelector('.code-nav-btn[aria-controls="' + sec.id + '"]'); if (b) b.click();
+    }
+    var sp = el.closest(".sub-panel");
+    if (sp && sp.id && !sp.classList.contains("active")) {
+      var tb = document.getElementById("subtab-" + sp.id.replace(/^sub-/, "")); if (tb) tb.click();
+    }
+  }
+
+  function div(cls, html) { var d = document.createElement("div"); if (cls) d.className = cls; if (html) d.innerHTML = html; return d; }
+  function porTitulo(raiz, re) {
+    var r = null;
+    (raiz || document).querySelectorAll(".card").forEach(function (c) {
+      if (r) return; var h = c.querySelector("h3"); if (h && re.test(t(h))) r = c;
+    });
+    return r;
+  }
+
+  function armarNavegacion() {
+    var main = document.querySelector("main");
+    var top = document.querySelector("header.topbar");
+    if (!main || !top || document.getElementById("cvn-nav")) return;
+
+    /* enlaces de arriba: sin Inicio ni Demo */
+    top.querySelectorAll(".topbar-links a").forEach(function (a) {
+      var x = t(a);
+      if (/^Inicio$/i.test(x) || /Versión Demo/i.test(x)) a.remove();
+      if (DEMO && /Versión completa/i.test(x)) { a.textContent = "Activar Full"; }
+    });
+
+    /* barra fija: 4 pestañas + Calcular */
+    var nav = document.createElement("nav");
+    nav.id = "cvn-nav"; nav.setAttribute("aria-label", "Secciones"); nav.setAttribute("data-p", "emergencia");
+    nav.innerHTML = '<div class="cvn-in"><div class="cvn-tabs" role="tablist">' +
+      PAGINAS.map(function (p) {
+        return '<button type="button" class="cvn-tab" role="tab" data-p="' + p[0] + '" aria-selected="' + (p[0] === "emergencia") + '">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true">' + p[2] + "</svg>" + p[1] + (p[0] === "resultado" ? "<i></i>" : "") + "</button>";
+      }).join("") + "</div>" +
+      '<button type="button" id="cvn-calc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Calcular</button></div>';
+    top.parentNode.insertBefore(nav, top.nextSibling);
+    nav.addEventListener("click", function (e) {
+      var b = e.target.closest(".cvn-tab"); if (b) return mostrar(b.getAttribute("data-p"));
+      if (e.target.closest("#cvn-calc")) mostrar("resultado");
+    });
+
+    /* páginas */
+    var P = {};
+    PAGINAS.forEach(function (p) {
+      var d = div("cvn-page" + (p[0] === "emergencia" ? " on" : "")); d.id = "cvn-p-" + p[0]; d.setAttribute("data-p", p[0]);
+      P[p[0]] = d;
+    });
+    var cont = div("cvn-pages");
+    PAGINAS.forEach(function (p) { cont.appendChild(P[p[0]]); });
+    main.insertBefore(cont, main.firstChild);
+
+    var entry = document.querySelector(".emerg-entry");
+    var ejBtn = document.querySelector('button[onclick^="mostrarEjemplosEmerg"]');
+    var ej = ejBtn ? ejBtn.parentNode : null;
+    var bar = document.querySelector(".patient-bar");
+    var banner = document.querySelector(".demo-banner");
+    var alerta = document.getElementById("alerta-card");
+
+    /* ---- 1. Tengo una emergencia ---- */
+    var E = P.emergencia;
+    if (!entry && DEMO) {
+      entry = div("emerg-entry cvn-lock-entry",
+        '<button type="button" class="emerg-btn now" onclick="abrirUpgradeModal()"><strong>Tengo una emergencia ahora 🔒</strong><span>Modo voz manos libres: la app dicta cada paso y avanza con «cumplido». Versión completa.</span></button>' +
+        '<button type="button" class="emerg-btn zero" onclick="abrirUpgradeModal()"><strong>Empezar desde cero 🔒</strong><span>Preguntas sí/no que te llevan al código que corresponde. Versión completa.</span></button>');
+    }
+    E.appendChild(div("cvn-sos", '<div><h2><i></i>¿Tenés una emergencia ahora?</h2>' +
+      '<p>Tocá el botón rojo <b>Tengo una emergencia ahora</b>: se activa el modo voz manos libres, la app te dicta cada paso y avanza cuando decís «cumplido».</p>' +
+      '<p>Si todavía no sabés qué código corresponde, tocá <b>Empezar desde cero</b>: con preguntas de sí o no te lleva al código correcto.' + (DEMO ? " Las dos opciones están en la versión completa." : "") + "</p></div>"));
+    if (entry) E.appendChild(entry);
+    if (banner) E.appendChild(banner);
+    if (ej) E.appendChild(ej);
+    if (bar) {
+      E.appendChild(div("cvn-step", "<b>1</b>Signos vitales de la paciente"));
+      E.appendChild(bar);
+    }
+    if (alerta) {
+      var w = div("cvn-wrap");
+      E.appendChild(div("cvn-step", "<b>2</b>Alerta Obstétrica CaVeSal®"));
+      var intro = DEMO ? document.querySelector("main .code-section .section-intro") : null;
+      if (intro) w.appendChild(intro);
+      w.appendChild(alerta);
+      if (DEMO) {
+        var dyn = porTitulo(main, /^EAPO dinámica/); if (dyn) w.appendChild(dyn);
+        var voz = porTitulo(main, /^Modo voz/); if (voz) w.appendChild(voz);
+      } else {
+        var s5 = document.getElementById("sub-rojo-5");
+        if (s5) {
+          var n = div("card", '<p class="cvn-p" style="margin:0">La Escala de Alerta Obstétrica está en la pestaña <b>Tengo una emergencia</b>, debajo de los signos vitales.</p>' +
+            '<button type="button" class="cvn-chip" style="margin-top:8px" data-cvn-go="alerta-card">Ir a la Alerta Obstétrica</button>');
+          var ref = s5.querySelector(".section-intro");
+          s5.insertBefore(n, ref ? ref.nextSibling : s5.firstChild);
+        }
+      }
+      E.appendChild(w);
+    }
+    E.appendChild(div("cvn-wrap", '<p class="cvn-p" style="text-align:center;margin:4px 0 0">Después elegí el código en <b>Códigos</b> o seguí en <b>Parto y puerperio</b>. Ahí, cuando quieras, tocá <b>Calcular</b> para ver el resultado y la conducta.</p>'));
+
+    /* ---- 2. Códigos ---- */
+    var C = P.codigos;
+    if (!DEMO) {
+      var cn = document.querySelector(".code-nav");
+      if (cn) {
+        C.appendChild(cn);
+        cn.querySelectorAll(".code-nav-btn").forEach(function (b) {
+          var k = b.getAttribute("data-code");
+          if (CODIGOS[k]) {
+            b.classList.add("cvn-c-" + k);
+            b.innerHTML = "<strong>" + CODIGOS[k][0] + "</strong><span>" + CODIGOS[k][1] + "</span>";
+          } else b.classList.add("cvn-hide");
+          b.addEventListener("click", function () {
+            if (CODIGOS[k]) { if (paginaActual !== "codigos") mostrar("codigos"); }
+            else {
+              mostrar("parto", true);
+              var sec = document.getElementById("code-" + k);
+              setTimeout(function () { if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+            }
+          });
+        });
+      }
+      ["rojo", "azul", "ambar", "rcp"].forEach(function (k) { var s = document.getElementById("code-" + k); if (s) C.appendChild(s); });
+      var h2 = document.querySelector("#code-azul .section-intro h2");
+      if (h2) h2.textContent = h2.textContent.replace(/^Código THAE/, "Código Azul THAE");
+    } else {
+      var grid = div("cvn-codes");
+      C.appendChild(grid);
+      var wc = div("cvn-wrap"); C.appendChild(wc);
+      var mapa = [
+        ["rojo", porTitulo(main, /^Código Rojo/)],
+        ["azul", porTitulo(main, /THAE/)],
+        ["ambar", porTitulo(main, /^qSOFA/), porTitulo(main, /^Código Amarillo/)],
+        ["rcp", porTitulo(main, /^Código Azul Obstétrico/)]
+      ];
+      mapa.forEach(function (m) {
+        var k = m[0], first = null;
+        for (var i = 1; i < m.length; i++) if (m[i]) { wc.appendChild(m[i]); if (!first) first = m[i]; }
+        var hb = m[2] ? null : (m[1] && m[1].querySelector("h3"));
+        if (k === "azul" && hb) hb.textContent = hb.textContent.replace("Código Azul — THAE", "Código Azul THAE");
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "cvn-cbtn cvn-c-" + k;
+        b.innerHTML = "<strong>" + CODIGOS[k][0] + "</strong><span>" + CODIGOS[k][1] + "</span>";
+        b.addEventListener("click", function () { if (first) first.scrollIntoView({ behavior: "smooth", block: "start" }); });
+        grid.appendChild(b);
+      });
+    }
+
+    /* ---- 3. Parto y puerperio ---- */
+    var R = P.parto;
+    var chips = div("cvn-chips"); R.appendChild(chips);
+    if (!DEMO) {
+      ["parto", "trombo"].forEach(function (k) { var s = document.getElementById("code-" + k); if (s) R.appendChild(s); });
+    } else {
+      var wp = div("cvn-wrap"); R.appendChild(wp);
+      [porTitulo(main, /^Parto/), porTitulo(main, /^Tromboprofilaxis/)].forEach(function (c) { if (c) wp.appendChild(c); });
+    }
+    R.querySelectorAll(".card").forEach(function (c) {
+      var h = c.querySelector(":scope > h3, :scope > .locked-head h3"); if (!h) return;
+      var x = t(h).split(" — ")[0].replace(/\s*\(.*$/, "").replace(/🔒.*$/, "").trim();
+      if (!x || x.length > 46) x = x.slice(0, 44) + "…";
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "cvn-chip" + (c.closest("#code-trombo") || /Trombo/i.test(x) ? " tr" : ""); b.textContent = x;
+      b.addEventListener("click", function () { c.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      chips.appendChild(b);
+    });
+
+    /* ---- 4. Resultado ---- */
+    P.resultado.appendChild(div("cvn-wrap", ""));
+
+    /* atajos internos y desplazamientos que apuntan a otra pestaña */
+    var orig = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function () { try { revelar(this); } catch (e) { } return orig.apply(this, arguments); };
+    document.addEventListener("click", function (e) {
+      var g = e.target.closest && e.target.closest("[data-cvn-go]");
+      if (g) { e.preventDefault(); var el = document.getElementById(g.getAttribute("data-cvn-go")); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    });
+    function porHash() {
+      var h = (location.hash || "").slice(1); if (!h) return;
+      var el = document.getElementById(h); if (el && el.closest(".cvn-page")) setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 350);
+    }
+    window.addEventListener("hashchange", porHash); porHash();
+
+    /* texto del modal de ejemplos */
+    var me2 = document.querySelector("#modal_ejemplos div div:nth-child(2)");
+    if (me2 && /scroll/i.test(t(me2))) me2.textContent = "Completa los signos vitales y las escalas con un caso ilustrativo. Al elegirlo vas directo al Resultado.";
+
+    /* punto de color en la pestaña Resultado */
+    var dot = nav.querySelector(".cvn-tab[data-p='resultado'] i");
+    setInterval(function () {
+      if (document.hidden) return;
+      var p = recolectar().peor;
+      if (p) dot.setAttribute("data-n", p); else dot.removeAttribute("data-n");
+    }, 1500);
+  }
+
+  /* ================= RESULTADO (en su pestaña) ================= */
   function construirPanel() {
+    var host = document.querySelector("#cvn-p-resultado .cvn-wrap");
+    if (!host) return;
     var w = document.createElement("div");
-    w.id = "cvs-res";
-    w.setAttribute("role", "dialog");
-    w.setAttribute("aria-modal", "true");
-    w.setAttribute("aria-label", "Resumen y conducta");
+    w.id = "cvs-res-in";
     var L = DEMO ? " 🔒" : "";
-    w.innerHTML = '<div class="rs-sheet"><div class="rs-head"><h2>Resumen y conducta</h2><button type="button" class="rs-x" data-a="cerrar">Cerrar</button></div>' +
-      '<div class="rs-body">' +
+    w.innerHTML =
+      '<h2 class="cvn-h">Resultado y conducta</h2><div id="rs-hora" class="rs-note" style="margin:0 0 10px"></div>' +
+      '<div id="rs-global"></div>' +
+      '<div class="rs-ia"><span class="mz" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="bd"><div class="tt">Analizar con CaVeSal® IA</div>' +
+      '<p class="bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p>' +
+      '<div class="pv">' + (DEMO ? "Disponible en la versión completa." : "No se envían nombre ni documento.") + "</div></div>" +
+      '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '" data-a="ia">Analizar con CaVeSal® IA' + L + "</button></div>" +
+      '<div id="rs-contenido"></div>' +
+      '<div class="rs-acts-h">Guardar y exportar</div>' +
       '<div class="rs-card"><h3>Paciente (opcional)</h3><div class="rs-pac">' +
       '<input id="rs-nombre" placeholder="Nombre o iniciales" autocomplete="off"><input id="rs-edad" type="number" inputmode="numeric" placeholder="Edad">' +
       '<textarea id="rs-notas" placeholder="Notas del caso (opcional)"></textarea></div>' +
       '<p class="rs-note">Estos datos quedan solo en este dispositivo y en los archivos que vos exportes. No se envían a CaVeSal® IA.</p></div>' +
-      '<div id="rs-hora" class="rs-note" style="margin:0 0 8px"></div>' +
-      '<div id="rs-contenido"></div>' +
-      '<div class="rs-ia"><span class="mz" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="bd"><div class="tt">Analizar con CaVeSal® IA</div>' +
-      '<p class="bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p>' +
-      '<div class="pv">' + (DEMO ? "Disponible en la versión completa." : "No se envían nombre ni documento.") + "</div></div>" +
-      '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '" data-a="ia">Analizar' + L + "</button></div>" +
       '<div class="rs-acts">' +
       '<button type="button" class="rs-btn main' + (DEMO ? " rs-lock" : "") + '" data-a="json">Guardar caso' + L + "</button>" +
       '<button type="button" class="rs-btn' + (DEMO ? " rs-lock" : "") + '" data-a="abrir">Abrir caso guardado' + L + "</button>" +
@@ -184,14 +484,11 @@
       '<button type="button" class="rs-btn' + (DEMO ? " rs-lock" : "") + '" data-a="word">Exportar Word' + L + "</button>" +
       "</div>" +
       (DEMO ? '<p class="rs-demo">Guardar, exportar y analizar con CaVeSal® IA están en la versión completa.</p>' : "") +
-      '<input type="file" id="rs-file" accept=".json,application/json" hidden>' +
-      "</div></div>";
-    document.body.appendChild(w);
+      '<input type="file" id="rs-file" accept=".json,application/json" hidden>';
+    host.appendChild(w);
     w.addEventListener("click", function (e) {
-      if (e.target === w) return cerrar();
       var b = e.target.closest("[data-a]"); if (!b) return;
       var a = b.getAttribute("data-a");
-      if (a === "cerrar") return cerrar();
       if (DEMO) return upgrade();
       if (a === "ia") { if (typeof window.analizarConCavesalIA === "function") window.analizarConCavesalIA(); return; }
       if (a === "json") return guardarJSON();
@@ -203,37 +500,28 @@
       $(id).addEventListener("input", function () { PAC.nombre = $("rs-nombre").value.trim(); PAC.edad = $("rs-edad").value.trim(); PAC.notas = $("rs-notas").value.trim(); });
     });
     $("rs-file").addEventListener("change", abrirJSON);
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && w.classList.contains("open")) cerrar(); });
   }
 
   function abrir() {
+    if (paginaActual !== "resultado") return mostrar("resultado");
     var d = recolectar();
     $("rs-contenido").innerHTML = htmlResumen(d, false);
-    $("rs-hora").textContent = "Resumen generado: " + hoy();
-    $("cvs-res").classList.add("open");
-    document.documentElement.style.overflow = "hidden";
+    $("rs-hora").textContent = "Calculado: " + hoy();
+    var g = $("rs-global");
+    if (d.peor) {
+      g.innerHTML = '<div class="rs-global n-' + d.peor + '"><span class="dot"></span><div><small>Nivel de alerta más alto</small><strong>' + NOMBRE_NIVEL[d.peor] + "</strong></div></div>";
+    } else {
+      g.innerHTML = '<div class="rs-global"><span class="dot"></span><div><small>Nivel de alerta</small><strong>Sin resultados todavía</strong></div></div>';
+    }
   }
-  function cerrar() { $("cvs-res").classList.remove("open"); document.documentElement.style.overflow = ""; }
-
-  function construirFab() {
-    var b = document.createElement("button");
-    b.id = "cvs-res-fab"; b.type = "button";
-    b.innerHTML = "<b></b>Resumen y conducta";
-    b.addEventListener("click", abrir);
-    document.body.appendChild(b);
-    setInterval(function () {
-      if (document.hidden) return;
-      var p = recolectar().peor;
-      if (p) b.setAttribute("data-n", p); else b.removeAttribute("data-n");
-    }, 1500);
-  }
+  function cerrar() { }
 
   /* ---------- guardar / abrir JSON ---------- */
   function claveCampo(e) {
     if ((e.type === "radio" || e.type === "checkbox") && !e.id) return e.name ? e.name + "=" + e.value : null;
     return e.id || null;
   }
-  var EXCL = "#cvs-res, #license_gate, #cavesal-legal-overlay, #modal_ejemplos, .voz-overlay";
+  var EXCL = "#cvs-res, #cvs-res-in, #license_gate, #cavesal-legal-overlay, #modal_ejemplos, .voz-overlay";
   function todos() {
     return Array.prototype.filter.call(document.querySelectorAll("input, select, textarea"), function (e) {
       return !e.closest(EXCL) && e.type !== "hidden" && e.type !== "password" && e.type !== "file";
@@ -242,7 +530,7 @@
   function campos() {
     var o = {};
     todos().forEach(function (e) {
-      if (e.closest("#cvs-res") || e.type === "file" || e.type === "password") return;
+      if (e.type === "file" || e.type === "password") return;
       var k = claveCampo(e); if (!k) return;
       if (e.type === "radio" || e.type === "checkbox") { if (e.checked) o[k] = true; }
       else if (e.value !== "") o[k] = e.value;
@@ -274,7 +562,7 @@
         if (!data || data.app !== "cavesal-emergencias" || !data.campos) throw new Error("formato");
         var c = data.campos;
         todos().forEach(function (e) {
-          if (e.closest("#cvs-res") || e.type === "file") return;
+          if (e.type === "file") return;
           var k = claveCampo(e); if (!k) return;
           if (e.type === "radio" || e.type === "checkbox") {
             var on = !!c[k];
@@ -324,14 +612,14 @@
     ["cargarEjemploEmerg", "cargarEjemploParto"].forEach(function (fn) {
       var orig = window[fn];
       if (typeof orig !== "function" || orig.__cvs) return;
-      var w = function () { var r = orig.apply(this, arguments); setTimeout(abrir, 700); return r; };
+      var w = function () { var r = orig.apply(this, arguments); setTimeout(function () { mostrar("resultado"); }, 700); return r; };
       w.__cvs = true; window[fn] = w;
     });
   }
 
   function init() {
-    injectCSS(); construirPanel(); construirFab(); engancharEjemplos();
-    window.cvsAbrirResumen = abrir;
+    injectCSS(); injectNavCSS(); armarNavegacion(); construirPanel(); engancharEjemplos();
+    window.cvsAbrirResumen = abrir; window.cvsMostrar = mostrar;
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
