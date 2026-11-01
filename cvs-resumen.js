@@ -129,13 +129,14 @@
   }
 
   /* ---------- panel ---------- */
-  var PAC = { nombre: "", edad: "", notas: "" };
+  var PAC = { nombre: "", edad: "", hc: "", notas: "" };
   function htmlResumen(d, paraExportar) {
     var h = "";
     if (paraExportar) {
       var p = [];
       if (PAC.nombre) p.push("<b>Paciente:</b> " + esc(PAC.nombre));
       if (PAC.edad) p.push("<b>Edad:</b> " + esc(PAC.edad) + " años");
+      if (PAC.hc) p.push("<b>HC:</b> " + esc(PAC.hc));
       h += '<div class="rs-card"><h3>Datos de la paciente</h3><div>' + (p.join(" · ") || "Sin datos de identificación") + "</div>" +
         (PAC.notas ? '<div style="margin-top:6px"><b>Notas:</b> ' + esc(PAC.notas) + "</div>" : "") + "</div>";
     }
@@ -163,7 +164,8 @@
     ["emergencia", "Tengo una emergencia", '<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>'],
     ["codigos", "Códigos", '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'],
     ["parto", "Parto y puerperio", '<path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/>'],
-    ["resultado", "Resultado", '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2"/><path d="m9 14 2 2 4-4"/>']
+    ["resultado", "Resultado", '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2"/><path d="m9 14 2 2 4-4"/>'],
+    ["pacientes", "Pacientes", '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>']
   ];
   var CODIGOS = {
     rojo: ["Código Rojo", "Hemorragia obstétrica"],
@@ -179,17 +181,21 @@
       ".patient-bar{position:relative!important;top:auto!important}" +
       "#cvn-nav{position:sticky;top:0;z-index:60;background:linear-gradient(135deg,#0D1B2D,#0c4e54);padding:8px 10px 10px;box-shadow:0 4px 14px rgba(13,27,45,.25)}" +
       "#cvn-nav .cvn-in{max-width:1100px;margin:0 auto}" +
-      ".cvn-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}" +
-      ".cvn-tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;padding:6px 4px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#e6f4f6;font:700 .74rem/1.15 inherit;font-family:inherit;text-align:center;cursor:pointer}" +
+      ".cvn-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}" +
+      ".cvn-tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:6px 2px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#e6f4f6;font:700 .68rem/1.15 inherit;font-family:inherit;text-align:center;cursor:pointer}" +
       ".cvn-tab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}" +
       ".cvn-tab[aria-selected='true']{background:#fff;color:#0c4e54;border-color:#fff}" +
       ".cvn-tab[data-p='emergencia']{border-color:rgba(255,120,120,.6)}" +
       ".cvn-tab[data-p='emergencia'][aria-selected='true']{color:#a13544}" +
       ".cvn-tab i{position:absolute;top:6px;right:8px;width:10px;height:10px;border-radius:50%;display:none;border:2px solid #fff}" +
       ".cvn-tab i[data-n]{display:block}.cvn-tab i[data-n='rojo']{background:#ef4444}.cvn-tab i[data-n='naranja']{background:#f97316}.cvn-tab i[data-n='amarillo']{background:#eab308}.cvn-tab i[data-n='verde']{background:#22c55e}" +
-      "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:8px;padding:12px;border:0;border-radius:12px;background:#fff;color:#0D1B2D;font:800 1rem/1 inherit;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}" +
-      "#cvn-calc svg{width:18px;height:18px;fill:#f59e0b}" +
-      "#cvn-nav[data-p='emergencia'] #cvn-calc,#cvn-nav[data-p='resultado'] #cvn-calc{display:none}" +
+      "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:8px;padding:14px;border:2px solid #fde68a;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font:900 1.08rem/1 inherit;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(234,88,12,.5);animation:cvnGlow 2.2s ease-in-out infinite}" +
+      "#cvn-calc svg{width:20px;height:20px;fill:#fff}" +
+      "#cvn-calc:active{transform:scale(.98)}" +
+      "@keyframes cvnGlow{50%{box-shadow:0 4px 24px rgba(245,158,11,.85),0 0 0 3px rgba(253,230,138,.35)}}" +
+      "@media (prefers-reduced-motion:reduce){#cvn-calc{animation:none}}" +
+      ".cvn-tab .lk{position:absolute;top:4px;right:5px;font-size:.62rem}" +
+      "#cvn-nav[data-p='emergencia'] #cvn-calc,#cvn-nav[data-p='resultado'] #cvn-calc,#cvn-nav[data-p='pacientes'] #cvn-calc{display:none}" +
       ".cvn-sos{max-width:1100px;margin:16px auto 0;padding:0 16px}" +
       ".cvn-sos>div{background:linear-gradient(135deg,#7f1d1d,#c0392b);color:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 6px 18px rgba(161,53,68,.3)}" +
       ".cvn-sos h2{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:1.15rem;font-weight:800;color:#fff}" +
@@ -296,7 +302,7 @@
     nav.innerHTML = '<div class="cvn-in"><div class="cvn-tabs" role="tablist">' +
       PAGINAS.map(function (p) {
         return '<button type="button" class="cvn-tab" role="tab" data-p="' + p[0] + '" aria-selected="' + (p[0] === "emergencia") + '">' +
-          '<svg viewBox="0 0 24 24" aria-hidden="true">' + p[2] + "</svg>" + p[1] + (p[0] === "resultado" ? "<i></i>" : "") + "</button>";
+          '<svg viewBox="0 0 24 24" aria-hidden="true">' + p[2] + "</svg>" + p[1] + (p[0] === "resultado" ? "<i></i>" : "") + (p[0] === "pacientes" && DEMO ? '<span class="lk" aria-label="Versión completa">🔒</span>' : "") + "</button>";
       }).join("") + "</div>" +
       '<button type="button" id="cvn-calc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Calcular</button></div>';
     top.parentNode.insertBefore(nav, top.nextSibling);
@@ -430,6 +436,7 @@
 
     /* ---- 4. Resultado ---- */
     P.resultado.appendChild(div("cvn-wrap", ""));
+    P.pacientes.appendChild(div("cvn-wrap", ""));
 
     /* atajos internos y desplazamientos que apuntan a otra pestaña */
     var orig = Element.prototype.scrollIntoView;
@@ -473,10 +480,7 @@
       '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '" data-a="ia">Analizar con CaVeSal® IA' + L + "</button></div>" +
       '<div id="rs-contenido"></div>' +
       '<div class="rs-acts-h">Guardar y exportar</div>' +
-      '<div class="rs-card"><h3>Paciente (opcional)</h3><div class="rs-pac">' +
-      '<input id="rs-nombre" placeholder="Nombre o iniciales" autocomplete="off"><input id="rs-edad" type="number" inputmode="numeric" placeholder="Edad">' +
-      '<textarea id="rs-notas" placeholder="Notas del caso (opcional)"></textarea></div>' +
-      '<p class="rs-note">Estos datos quedan solo en este dispositivo y en los archivos que vos exportes. No se envían a CaVeSal® IA.</p></div>' +
+      '<div class="rs-card" id="rs-paccard"></div>' +
       '<div class="rs-acts">' +
       '<button type="button" class="rs-btn main' + (DEMO ? " rs-lock" : "") + '" data-a="json">Guardar caso' + L + "</button>" +
       '<button type="button" class="rs-btn' + (DEMO ? " rs-lock" : "") + '" data-a="abrir">Abrir caso guardado' + L + "</button>" +
@@ -487,6 +491,8 @@
       '<input type="file" id="rs-file" accept=".json,application/json" hidden>';
     host.appendChild(w);
     w.addEventListener("click", function (e) {
+      var pa = e.target.closest("[data-pa]");
+      if (pa) { if (pa.getAttribute("data-pa") === "guardar") guardarEnFicha(); else mostrar("pacientes"); return; }
       var b = e.target.closest("[data-a]"); if (!b) return;
       var a = b.getAttribute("data-a");
       if (DEMO) return upgrade();
@@ -495,9 +501,6 @@
       if (a === "abrir") return $("rs-file").click();
       if (a === "pdf") return exportarPDF();
       if (a === "word") return exportarWord();
-    });
-    ["rs-nombre", "rs-edad", "rs-notas"].forEach(function (id) {
-      $(id).addEventListener("input", function () { PAC.nombre = $("rs-nombre").value.trim(); PAC.edad = $("rs-edad").value.trim(); PAC.notas = $("rs-notas").value.trim(); });
     });
     $("rs-file").addEventListener("change", abrirJSON);
   }
@@ -521,7 +524,7 @@
     if ((e.type === "radio" || e.type === "checkbox") && !e.id) return e.name ? e.name + "=" + e.value : null;
     return e.id || null;
   }
-  var EXCL = "#cvs-res, #cvs-res-in, #license_gate, #cavesal-legal-overlay, #modal_ejemplos, .voz-overlay";
+  var EXCL = "#cvs-res, #cvs-res-in, #cvn-p-pacientes, #license_gate, #cavesal-legal-overlay, #modal_ejemplos, .voz-overlay";
   function todos() {
     return Array.prototype.filter.call(document.querySelectorAll("input, select, textarea"), function (e) {
       return !e.closest(EXCL) && e.type !== "hidden" && e.type !== "password" && e.type !== "file";
@@ -560,7 +563,17 @@
       try {
         var data = JSON.parse(r.result);
         if (!data || data.app !== "cavesal-emergencias" || !data.campos) throw new Error("formato");
-        var c = data.campos;
+        restaurar(data.campos);
+        PAC = { nombre: (data.paciente && data.paciente.nombre) || "", edad: (data.paciente && data.paciente.edad) || "", hc: (data.paciente && data.paciente.hc) || "", notas: (data.paciente && data.paciente.notas) || "" };
+        setTimeout(abrir, 400);
+      } catch (e) {
+        alert("Ese archivo no es un caso guardado de CaVeSal® Emergencias.");
+      }
+      ev.target.value = "";
+    };
+    r.readAsText(f);
+  }
+  function restaurar(c) {
         todos().forEach(function (e) {
           if (e.type === "file") return;
           var k = claveCampo(e); if (!k) return;
@@ -573,15 +586,6 @@
             e.dispatchEvent(new Event("change", { bubbles: true }));
           }
         });
-        PAC = { nombre: (data.paciente && data.paciente.nombre) || "", edad: (data.paciente && data.paciente.edad) || "", notas: (data.paciente && data.paciente.notas) || "" };
-        $("rs-nombre").value = PAC.nombre; $("rs-edad").value = PAC.edad; $("rs-notas").value = PAC.notas;
-        setTimeout(abrir, 400);
-      } catch (e) {
-        alert("Ese archivo no es un caso guardado de CaVeSal® Emergencias.");
-      }
-      ev.target.value = "";
-    };
-    r.readAsText(f);
   }
 
   /* ---------- exportar ---------- */
@@ -589,22 +593,196 @@
     var d = recolectar();
     return '<h1>CaVeSal® Emergencias Obstétricas — Resumen y conducta</h1>' +
       '<div class="sub">Generado: ' + esc(hoy()) + " · cavesal.app</div>" +
-      htmlResumen(d, true) +
-      '<p style="font-size:8.5pt;color:#555;margin-top:14px">Herramienta de apoyo a la decisión clínica para profesionales de la salud. No reemplaza el juicio clínico ni las guías oficiales. Algoritmos propios CaVeSal® basados en las fuentes citadas en la app.</p>';
+      htmlResumen(d, true) + LEGAL;
   }
-  function exportarPDF() {
-    var p = $("cvs-print");
-    if (!p) { p = document.createElement("div"); p.id = "cvs-print"; document.body.appendChild(p); }
-    p.innerHTML = documentoHTML();
-    document.body.classList.add("cvs-printing");
-    var fin = function () { document.body.classList.remove("cvs-printing"); window.removeEventListener("afterprint", fin); };
-    window.addEventListener("afterprint", fin);
-    setTimeout(function () { window.print(); setTimeout(fin, 1500); }, 60);
-  }
-  function exportarWord() {
+  var LEGAL = '<p style="font-size:8.5pt;color:#555;margin-top:14px">Herramienta de apoyo a la decisión clínica para profesionales de la salud. No reemplaza el juicio clínico ni las guías oficiales. Algoritmos propios CaVeSal® basados en las fuentes citadas en la app.</p>';
+  function salida(html, tipo, nombre) {
+    if (tipo === "pdf") {
+      var p = $("cvs-print");
+      if (!p) { p = document.createElement("div"); p.id = "cvs-print"; document.body.appendChild(p); }
+      p.innerHTML = html;
+      document.body.classList.add("cvs-printing");
+      var fin = function () { document.body.classList.remove("cvs-printing"); window.removeEventListener("afterprint", fin); };
+      window.addEventListener("afterprint", fin);
+      setTimeout(function () { window.print(); setTimeout(fin, 1500); }, 60);
+      return;
+    }
     var estilos = css.replace(/@media print\{[^}]*\}[^}]*\}/, "");
-    var doc = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>CaVeSal Emergencias</title><style>body{font-family:Arial,sans-serif;font-size:11pt}' + estilos + "</style></head><body>" + documentoHTML() + "</body></html>";
-    descargar(base() + ".doc", "application/msword", "\ufeff" + doc);
+    var doc = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>CaVeSal Emergencias</title><style>body{font-family:Arial,sans-serif;font-size:11pt}' + estilos + "</style></head><body>" + html + "</body></html>";
+    descargar(nombre + ".doc", "application/msword", "\ufeff" + doc);
+  }
+  function exportarPDF() { salida(documentoHTML(), "pdf", base()); }
+  function exportarWord() { salida(documentoHTML(), "word", base()); }
+
+  /* ================= PACIENTES (pestaña propia) ================= */
+  var PK = "cavesal_em_pacientes", PA = "cavesal_em_pac_actual";
+  function getPacs() { try { return JSON.parse(localStorage.getItem(PK) || "[]") || []; } catch (e) { return []; } }
+  function savePacs(a) { try { localStorage.setItem(PK, JSON.stringify(a)); } catch (e) { alert("No se pudo guardar en este dispositivo (memoria llena)."); } }
+  function pacActual() { var id = localStorage.getItem(PA); if (!id) return null; return getPacs().filter(function (p) { return p.id === id; })[0] || null; }
+  function setActual(id) {
+    if (id) localStorage.setItem(PA, id); else localStorage.removeItem(PA);
+    var p = pacActual();
+    PAC = p ? { nombre: p.nombre || "", edad: p.edad || "", hc: p.hc || "", notas: p.notas || "" } : { nombre: "", edad: "", hc: "", notas: "" };
+    renderPacResultado(); renderPacientes();
+  }
+  function nid() { return "p" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function fFecha(iso) { var d = new Date(iso); return d.toLocaleDateString("es-PY") + " " + d.toLocaleTimeString("es-PY", { hour: "2-digit", minute: "2-digit" }); }
+  var DOT = { rojo: "#dc2626", naranja: "#ea580c", amarillo: "#ca8a04", verde: "#16a34a" };
+
+  function cssPac() {
+    var c = "" +
+      ".pc-top{display:flex;gap:8px;margin-bottom:10px}.pc-top input{flex:1;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:10px 12px;font:inherit;font-size:.88rem}" +
+      ".pc-form{display:grid;grid-template-columns:1fr 90px;gap:8px}.pc-form input,.pc-form textarea{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:9px;padding:9px 10px;font:inherit;font-size:.86rem}" +
+      ".pc-form .full{grid-column:1/-1}.pc-form textarea{min-height:54px;resize:vertical}" +
+      ".pc-item{background:#fff;border:1px solid #d7e6ea;border-radius:14px;padding:12px 14px;margin-bottom:10px}" +
+      ".pc-item.act{border:2px solid #0e7490;box-shadow:0 2px 10px rgba(14,116,144,.15)}" +
+      ".pc-n{font-weight:800;font-size:.98rem;color:#0D1B2D;display:flex;align-items:center;gap:8px;flex-wrap:wrap}" +
+      ".pc-badge{font-size:.66rem;font-weight:800;background:#0e7490;color:#fff;border-radius:999px;padding:3px 8px;text-transform:uppercase;letter-spacing:.04em}" +
+      ".pc-m{font-size:.78rem;color:#64748b;margin:2px 0 8px}" +
+      ".pc-b{display:flex;flex-wrap:wrap;gap:6px}.pc-b button{border:1.5px solid #0e7490;background:#fff;color:#0b3c5d;border-radius:9px;padding:7px 10px;font:700 .76rem/1 inherit;font-family:inherit;cursor:pointer}" +
+      ".pc-b button.main{background:#0e7490;color:#fff}.pc-b button.del{border-color:#dc2626;color:#b91c1c}" +
+      ".pc-casos{margin-top:10px;border-top:1px dashed #cbd5e1;padding-top:8px}" +
+      ".pc-caso{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 0;border-bottom:1px solid #f1f5f9;font-size:.8rem}" +
+      ".pc-caso i{width:10px;height:10px;border-radius:50%;background:#94a3b8;flex-shrink:0}.pc-caso span{flex:1;min-width:120px}" +
+      ".pc-caso button{border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;padding:5px 8px;font:700 .72rem/1 inherit;font-family:inherit;cursor:pointer;color:#0b3c5d}" +
+      ".pc-empty{text-align:center;color:#64748b;font-size:.86rem;padding:18px}" +
+      ".pc-lock{text-align:center;padding:26px 18px;cursor:pointer}.pc-lock .ic{font-size:2.4rem;margin-bottom:8px}" +
+      ".pc-lock h3{font-size:1rem;margin:0 0 10px;color:#0D1B2D}.pc-lock .it{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:14px}" +
+      ".pc-lock .it span{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:5px 10px;font-size:.76rem;font-weight:700;color:#475569}" +
+      ".pc-ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:10px;padding:8px 12px;font-size:.82rem;font-weight:700;margin-top:8px}" +
+      ".rs-pacline{font-size:.9rem;color:#0D1B2D}.rs-pacline b{font-weight:800}";
+    var s = document.createElement("style"); s.textContent = c; document.head.appendChild(s);
+  }
+
+  function construirPacientes() {
+    var host = document.querySelector("#cvn-p-pacientes .cvn-wrap"); if (!host) return;
+    if (DEMO) {
+      host.innerHTML = '<div class="rs-card pc-lock" data-up="1"><div class="ic">🔒</div><h3>Sistema de pacientes</h3>' +
+        '<div class="it"><span>Fichas de pacientes</span><span>Casos guardados</span><span>PDF y Word</span><span>Backup .json</span></div>' +
+        '<p class="cvn-p">Guardá cada emergencia en la ficha de la paciente, volvé a abrirla y exportala. Disponible en la versión completa.</p>' +
+        '<button type="button" class="rs-btn ia" style="width:100%;background:linear-gradient(135deg,#0D1B2D,#0EA5B7)">Adquirí tu versión completa</button></div>';
+      host.querySelector("[data-up]").addEventListener("click", upgrade);
+      return;
+    }
+    host.innerHTML = '<h2 class="cvn-h">Mis pacientes</h2><p class="cvn-p">Elegí la paciente de esta emergencia o creá una nueva. Los casos se guardan en su ficha, solo en este dispositivo.</p>' +
+      '<div class="pc-top"><input id="pc-buscar" placeholder="Buscar por nombre o HC" autocomplete="off"><button type="button" class="rs-btn main" id="pc-nueva" style="background:#0e7490;color:#fff">+ Nueva</button></div>' +
+      '<div class="rs-card" id="pc-form" hidden><h3 id="pc-form-t">Nueva paciente</h3><div class="pc-form">' +
+      '<input id="pc-nombre" placeholder="Nombre o iniciales" autocomplete="off"><input id="pc-edad" type="number" inputmode="numeric" placeholder="Edad">' +
+      '<input id="pc-hc" class="full" placeholder="N.º de HC o documento (opcional)" autocomplete="off">' +
+      '<textarea id="pc-notas" class="full" placeholder="Notas (opcional)"></textarea></div>' +
+      '<div class="pc-b" style="margin-top:10px"><button type="button" class="main" id="pc-guardar">Guardar y usar en esta emergencia</button><button type="button" id="pc-cancelar">Cancelar</button></div></div>' +
+      '<div id="pc-lista"></div>' +
+      '<div class="rs-acts" style="margin-top:12px"><button type="button" class="rs-btn" id="pc-backup">Descargar backup (.json)</button><button type="button" class="rs-btn" id="pc-import">Importar backup</button></div>' +
+      '<input type="file" id="pc-file" accept=".json,application/json" hidden>' +
+      '<p class="rs-note">Los datos de la paciente no se envían a CaVeSal® IA. Descargá el backup periódicamente para no perderlos y usarlos en otro equipo.</p>';
+    var editId = null;
+    function abrirForm(p) {
+      editId = p ? p.id : null;
+      $("pc-form-t").textContent = p ? "Editar paciente" : "Nueva paciente";
+      $("pc-nombre").value = p ? p.nombre || "" : ""; $("pc-edad").value = p ? p.edad || "" : "";
+      $("pc-hc").value = p ? p.hc || "" : ""; $("pc-notas").value = p ? p.notas || "" : "";
+      $("pc-form").hidden = false; $("pc-nombre").focus();
+    }
+    $("pc-nueva").addEventListener("click", function () { abrirForm(null); });
+    $("pc-cancelar").addEventListener("click", function () { $("pc-form").hidden = true; });
+    $("pc-guardar").addEventListener("click", function () {
+      var n = $("pc-nombre").value.trim(); if (!n) { $("pc-nombre").focus(); return; }
+      var a = getPacs(), p;
+      if (editId) p = a.filter(function (x) { return x.id === editId; })[0];
+      if (!p) { p = { id: nid(), creada: new Date().toISOString(), casos: [] }; a.unshift(p); }
+      p.nombre = n; p.edad = $("pc-edad").value.trim(); p.hc = $("pc-hc").value.trim(); p.notas = $("pc-notas").value.trim();
+      savePacs(a); $("pc-form").hidden = true; setActual(p.id);
+    });
+    $("pc-buscar").addEventListener("input", renderPacientes);
+    $("pc-backup").addEventListener("click", function () {
+      descargar("CaVeSal-Emergencias_pacientes_" + base().split("_").pop() + ".json", "application/json", JSON.stringify({ app: "cavesal-emergencias-pacientes", version: 1, fecha: new Date().toISOString(), pacientes: getPacs() }, null, 2));
+    });
+    $("pc-import").addEventListener("click", function () { $("pc-file").click(); });
+    $("pc-file").addEventListener("change", function (ev) {
+      var f = ev.target.files && ev.target.files[0]; if (!f) return;
+      var r = new FileReader();
+      r.onload = function () {
+        try {
+          var d = JSON.parse(r.result); if (!d || d.app !== "cavesal-emergencias-pacientes" || !Array.isArray(d.pacientes)) throw 0;
+          var a = getPacs(), ids = {}; a.forEach(function (p) { ids[p.id] = p; });
+          d.pacientes.forEach(function (p) { if (!p || !p.id) return; if (ids[p.id]) { var cs = {}; (ids[p.id].casos || []).forEach(function (c) { cs[c.id] = 1; }); (p.casos || []).forEach(function (c) { if (!cs[c.id]) ids[p.id].casos.push(c); }); } else a.push(p); });
+          savePacs(a); renderPacientes(); alert("Backup importado: " + d.pacientes.length + " paciente(s).");
+        } catch (e) { alert("Ese archivo no es un backup de pacientes de CaVeSal® Emergencias."); }
+        ev.target.value = "";
+      };
+      r.readAsText(f);
+    });
+    $("pc-lista").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-pc]"); if (!b) return;
+      var acc = b.getAttribute("data-pc"), pid = b.getAttribute("data-id"), cid = b.getAttribute("data-c");
+      var a = getPacs(), p = a.filter(function (x) { return x.id === pid; })[0]; if (!p) return;
+      if (acc === "usar") { setActual(pid); mostrar("emergencia"); return; }
+      if (acc === "quitar") { setActual(null); return; }
+      if (acc === "editar") { abrirForm(p); window.scrollTo(0, 0); return; }
+      if (acc === "ver") { b.closest(".pc-item").querySelector(".pc-casos").hidden ^= true; return; }
+      if (acc === "borrar") {
+        if (!confirm("¿Borrar la ficha de " + p.nombre + " y todos sus casos?")) return;
+        savePacs(a.filter(function (x) { return x.id !== pid; })); if (localStorage.getItem(PA) === pid) setActual(null); else renderPacientes(); return;
+      }
+      var c = (p.casos || []).filter(function (x) { return x.id === cid; })[0]; if (!c) return;
+      if (acc === "abrir") { setActual(pid); restaurar(c.campos || {}); setTimeout(function () { mostrar("resultado"); }, 400); return; }
+      if (acc === "pdf" || acc === "word") { salida(docCaso(p, c), acc, "CaVeSal-Emergencias_" + (p.nombre || "caso").replace(/[^\wáéíóúñÁÉÍÓÚÑ]+/g, "-").slice(0, 30) + "_" + c.fecha.slice(0, 10)); return; }
+      if (acc === "bcaso") { if (!confirm("¿Borrar este caso?")) return; p.casos = p.casos.filter(function (x) { return x.id !== cid; }); savePacs(a); renderPacientes(); }
+    });
+    renderPacientes();
+  }
+
+  function renderPacientes() {
+    var L = $("pc-lista"); if (!L) return;
+    var q = ($("pc-buscar") && $("pc-buscar").value || "").toLowerCase().trim();
+    var act = localStorage.getItem(PA);
+    var a = getPacs().filter(function (p) { return !q || (p.nombre || "").toLowerCase().indexOf(q) >= 0 || (p.hc || "").toLowerCase().indexOf(q) >= 0; });
+    if (!a.length) { L.innerHTML = '<div class="pc-empty">' + (q ? "No hay pacientes con ese nombre." : "Todavía no hay pacientes. Tocá «+ Nueva» para crear la primera.") + "</div>"; return; }
+    L.innerHTML = a.map(function (p) {
+      var cs = (p.casos || []).slice().sort(function (x, y) { return x.fecha < y.fecha ? 1 : -1; });
+      var es = p.id === act;
+      return '<div class="pc-item' + (es ? " act" : "") + '"><div class="pc-n">' + esc(p.nombre) + (es ? '<span class="pc-badge">En esta emergencia</span>' : "") + "</div>" +
+        '<div class="pc-m">' + [p.edad ? esc(p.edad) + " años" : "", p.hc ? "HC " + esc(p.hc) : "", cs.length + (cs.length === 1 ? " caso guardado" : " casos guardados")].filter(Boolean).join(" · ") + "</div>" +
+        '<div class="pc-b">' + (es ? '<button type="button" data-pc="quitar" data-id="' + p.id + '">Quitar de esta emergencia</button>' : '<button type="button" class="main" data-pc="usar" data-id="' + p.id + '">Usar en esta emergencia</button>') +
+        '<button type="button" data-pc="ver" data-id="' + p.id + '">Casos (' + cs.length + ")</button>" +
+        '<button type="button" data-pc="editar" data-id="' + p.id + '">Editar</button><button type="button" class="del" data-pc="borrar" data-id="' + p.id + '">Borrar</button></div>' +
+        '<div class="pc-casos" hidden>' + (cs.length ? cs.map(function (c) {
+          return '<div class="pc-caso"><i style="background:' + (DOT[c.peor] || "#94a3b8") + '"></i><span>' + esc(fFecha(c.fecha)) + (c.peor ? " · nivel " + esc(NOMBRE_NIVEL[c.peor]) : "") + "</span>" +
+            '<button type="button" data-pc="abrir" data-id="' + p.id + '" data-c="' + c.id + '">Abrir</button><button type="button" data-pc="pdf" data-id="' + p.id + '" data-c="' + c.id + '">PDF</button>' +
+            '<button type="button" data-pc="word" data-id="' + p.id + '" data-c="' + c.id + '">Word</button><button type="button" data-pc="bcaso" data-id="' + p.id + '" data-c="' + c.id + '">Borrar</button></div>';
+        }).join("") : '<div class="pc-empty" style="padding:8px">Sin casos. En Resultado tocá «Guardar en su ficha».</div>') + "</div></div>";
+    }).join("");
+  }
+
+  function renderPacResultado() {
+    var c = $("rs-paccard"); if (!c) return;
+    if (DEMO) {
+      c.innerHTML = '<h3>Paciente 🔒</h3><p class="rs-note" style="margin:0">El sistema de pacientes (fichas y casos guardados) está en la versión completa.</p>';
+      c.style.cursor = "pointer"; c.onclick = upgrade; return;
+    }
+    var p = pacActual();
+    c.innerHTML = p
+      ? '<h3>Paciente</h3><div class="rs-pacline"><b>' + esc(p.nombre) + "</b>" + (p.edad ? " · " + esc(p.edad) + " años" : "") + (p.hc ? " · HC " + esc(p.hc) : "") + "</div>" +
+        '<div class="pc-b" style="margin-top:8px"><button type="button" class="main" data-pa="guardar">Guardar en su ficha</button><button type="button" data-pa="ir">Cambiar paciente</button></div><div id="rs-pacok"></div>'
+      : '<h3>Paciente</h3><p class="rs-note" style="margin:0 0 8px">Sin paciente asignada. Elegila o creala en la pestaña Pacientes para guardar el caso en su ficha.</p>' +
+        '<div class="pc-b"><button type="button" class="main" data-pa="ir">Ir a Pacientes</button></div>';
+  }
+
+  function guardarEnFicha() {
+    var a = getPacs(), id = localStorage.getItem(PA), p = a.filter(function (x) { return x.id === id; })[0];
+    if (!p) return mostrar("pacientes");
+    var d = recolectar();
+    (p.casos = p.casos || []).push({ id: nid(), fecha: new Date().toISOString(), peor: d.peor, campos: campos(), html: htmlResumen(d, false) });
+    savePacs(a); renderPacientes();
+    var ok = $("rs-pacok"); if (ok) ok.innerHTML = '<div class="pc-ok">Caso guardado en la ficha de ' + esc(p.nombre) + " (" + esc(hoy()) + ").</div>";
+  }
+
+  function docCaso(p, c) {
+    var dp = [];
+    dp.push("<b>Paciente:</b> " + esc(p.nombre)); if (p.edad) dp.push("<b>Edad:</b> " + esc(p.edad) + " años"); if (p.hc) dp.push("<b>HC:</b> " + esc(p.hc));
+    return '<h1>CaVeSal® Emergencias Obstétricas — Resumen y conducta</h1><div class="sub">Caso del ' + esc(fFecha(c.fecha)) + " · exportado " + esc(hoy()) + " · cavesal.app</div>" +
+      '<div class="rs-card"><h3>Datos de la paciente</h3><div>' + dp.join(" · ") + "</div>" + (p.notas ? '<div style="margin-top:6px"><b>Notas:</b> ' + esc(p.notas) + "</div>" : "") + "</div>" +
+      (c.html || "") + LEGAL;
   }
 
   /* ---------- ejemplos: al cargar, abrir el resumen ---------- */
@@ -618,7 +796,8 @@
   }
 
   function init() {
-    injectCSS(); injectNavCSS(); armarNavegacion(); construirPanel(); engancharEjemplos();
+    injectCSS(); injectNavCSS(); cssPac(); armarNavegacion(); construirPanel(); construirPacientes(); engancharEjemplos();
+    setActual(DEMO ? null : localStorage.getItem(PA));
     window.cvsAbrirResumen = abrir; window.cvsMostrar = mostrar;
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
