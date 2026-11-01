@@ -3395,8 +3395,27 @@ document.addEventListener('DOMContentLoaded', function(){
         <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> OMS/FIGO Labour Care Guide (registro de dinámica uterina en 10 min) · NICE NG25 (reevaluación de la tocolisis).</p>
       </div>
 
+      <div class="card" id="robson-din-card">
+        <h3>Robson dinámico — grupo probable durante el embarazo</h3>
+        <p class="card-sub">Para planificar el parto antes del ingreso. Se actualiza con la edad gestacional actual y con el inicio previsto. El grupo definitivo se asigna al ingreso, en la tarjeta <a href="#robson-card" data-rb-go="robson-card">Robson al ingreso</a>.</p>
+        <div class="form-grid">
+          <div class="field-group"><label for="rbd-paridad">Paridad</label><select id="rbd-paridad"><option value="nul" selected>Nulípara</option><option value="mul">Multípara</option></select></div>
+          <div class="field-group"><label for="rbd-ces">Cesáreas previas</label><select id="rbd-ces"><option value="0" selected>Ninguna</option><option value="1">Una</option><option value="2">Dos o más</option></select></div>
+          <div class="field-group"><label for="rbd-inicio">Inicio previsto</label><select id="rbd-inicio"><option value="esp" selected>Espontáneo (esperar)</option><option value="ind">Inducción programada</option><option value="ces">Cesárea programada</option></select></div>
+          <div class="field-group"><label for="rbd-fetos">Número de fetos</label><select id="rbd-fetos"><option value="1" selected>Único</option><option value="m">Múltiple</option></select></div>
+          <div class="field-group"><label for="rbd-pres">Presentación / situación</label><select id="rbd-pres"><option value="cef" selected>Cefálica</option><option value="pel">Pelviana</option><option value="tra">Transversa u oblicua</option></select></div>
+          <div class="field-group"><label for="rbd-eg">EG actual — semanas</label><input type="number" id="rbd-eg" inputmode="numeric" min="12" max="44" step="1" placeholder="32"></div>
+        </div>
+        <p class="hint">La EG se toma de la FUM mientras no la edites acá. Paridad y cesáreas se copian a la tarjeta Robson al ingreso.</p>
+        <div class="result-box rb-neutro" id="result-robson-din">
+          <div class="result-title" id="result-robson-din-title">Cargá la edad gestacional para estimar el grupo</div>
+          <div class="result-detail" id="result-robson-din-detail"></div>
+        </div>
+        <p class="card-source"><strong>Algoritmo propio CaVeSal® · Basado en:</strong> <a href="https://www.paho.org/es/documentos/clasificacion-robson-manual-aplicacion" target="_blank" rel="noopener">OPS/OMS — Clasificación de Robson: manual de aplicación (2018)</a> · mismo criterio del grupo probable de la Calculadora Prenatal CaVeSal®.</p>
+      </div>
+
       <div class="card" id="robson-card">
-        <h3>Clasificación de Robson al ingreso — grupo y conducta</h3>
+        <h3>Robson al ingreso — grupo definitivo y conducta</h3>
         <p class="card-sub">La OMS clasifica a toda mujer al ingresar para el parto con 6 variables. Cargalas y la app asigna el grupo definitivo con la conducta intraparto de ese grupo. La paridad se comparte con el partograma.</p>
         <div class="form-grid">
           <div class="field-group">
@@ -9135,7 +9154,7 @@ window.VOZ_ARBOL = [
       }
     });
     egAuto(); render();
-    window.CaVeSalRobson = { grupo: grupo, render: render };
+    window.CaVeSalRobson = { grupo: grupo, render: render, C: C, GO: GO };
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 50); }); else setTimeout(init, 50);
 })();
@@ -9200,6 +9219,79 @@ window.VOZ_ARBOL = [
 </script>
 <script>/* Academy se abre aparte (no reemplaza la app) y lleva la clave para entrar directo */
 (function(){document.addEventListener("click",function(ev){var a=ev.target&&ev.target.closest?ev.target.closest('a[href^="/academy/"]'):null;if(!a)return;var k="";try{k=(localStorage.getItem("cavesal_emerg_full_unlocked")||"").trim();}catch(e){}if(k==="true"||k==="1")k="";var l=(document.documentElement.lang||"es").slice(0,2).toLowerCase();var h=[];if(k)h.push("k="+encodeURIComponent(k));if(l==="en"||l==="pt")h.push("lang="+l);a.href="/academy/?desde=em"+(h.length?"#"+h.join("&"):"");a.target="_blank";a.rel="noopener";},true);})();</script>
+<script>
+/* Robson dinámico — grupo probable durante el embarazo. Algoritmo propio CaVeSal® · Basado en: OPS/OMS 2018 (mismo criterio de la Calculadora Prenatal) */
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var KEY = "cavesal_em_robson_din";
+  var PLAN = {
+    "1": "Esperar inicio espontáneo; el grupo definitivo se asigna al ingreso.",
+    "3": "Esperar inicio espontáneo; el grupo definitivo se asigna al ingreso.",
+    "2a": "Inducción programada: confirmar indicación y Bishop.",
+    "4a": "Inducción programada: confirmar indicación y Bishop.",
+    "2b": "Cesárea programada: indicación documentada; sin indicación médica, no antes de 39 sem.",
+    "4b": "Cesárea programada: indicación documentada; sin indicación médica, no antes de 39 sem.",
+    "5.1": "Evaluar si es candidata a parto vaginal después de cesárea (PVDC); misoprostol contraindicado.",
+    "5.2": "Dos cesáreas: consejería por obstetra senior. Tres o más: cesárea programada.",
+    "6": "Ofrecer versión cefálica externa (VCE) desde las 36 sem.",
+    "7": "Ofrecer versión cefálica externa (VCE) desde las 37 sem.",
+    "8": "Planificar según corionicidad y presentación del primer gemelo.",
+    "9": "VCE desde 37 sem; en trabajo de parto o con membranas rotas, cesárea.",
+    "10": "Plan de prematurez: maduración pulmonar según la conducta de la app; coordinar con neonatología."
+  };
+  var IDS = ["paridad", "ces", "inicio", "fetos", "pres"];
+  function leer() { return { par: $("rbd-paridad").value, ces: $("rbd-ces").value, ini: $("rbd-inicio").value, fetos: $("rbd-fetos").value, pres: $("rbd-pres").value, eg: parseInt($("rbd-eg").value, 10) }; }
+  function render() {
+    var R = window.CaVeSalRobson; if (!R) return;
+    var v = leer(), box = $("result-robson-din"), t = $("result-robson-din-title"), d = $("result-robson-din-detail");
+    if (!(v.eg >= 12 && v.eg <= 44)) { box.className = "result-box rb-neutro"; t.textContent = "Cargá la edad gestacional para estimar el grupo"; d.innerHTML = ""; return; }
+    var w = {}; for (var k in v) w[k] = v[k]; w.eg = 39;
+    var g = R.grupo(w), c = R.C[g], li = ["<strong>Planificación:</strong> " + PLAN[g]];
+    if ((g === "1" || g === "3") && v.ini === "esp") li.push("Supone inicio espontáneo. Si se programa inducción pasa a " + (g === "1" ? "2a" : "4a") + "; si se programa cesárea, a " + (g === "1" ? "2b" : "4b") + ".");
+    if (v.pres === "cef" && v.fetos !== "m" && v.eg < 37) li.push("EG actual " + v.eg + " sem: si el nacimiento ocurre antes de las 37+0 sem pasa a <strong>Grupo 10</strong> — " + PLAN["10"]);
+    if ((g === "2a" || g === "4a")) li.push("Cargá o revisá el " + R.GO("bishop-card", "índice de Bishop") + " antes de programar la inducción.");
+    li.push("Grupo probable: el definitivo se asigna al ingreso para el parto (OMS), en " + R.GO("robson-card", "Robson al ingreso") + ".");
+    box.className = "result-box " + c.cls;
+    t.textContent = "Robson dinámico · Grupo probable " + g + " — " + c.d.replace(/, inducido$/, ", inducción programada").replace(/, cesárea antes del trabajo de parto$/, ", cesárea programada");
+    d.innerHTML = "<ul>" + li.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>";
+  }
+  function guardar() { try { var v = leer(); v.egTxt = $("rbd-eg").value; v.manual = $("rbd-eg").dataset.manual || ""; localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+  function egAuto() {
+    var e = $("rbd-eg"); if (!e || e.dataset.manual === "1") return;
+    var f = $("in-fum") ? $("in-fum").value : "";
+    if (!f) return;
+    var days = Math.floor((Date.now() - new Date(f + "T00:00:00").getTime()) / 86400000);
+    if (days >= 84 && days <= 308) { var sem = Math.floor(days / 7); if (String(sem) !== e.value) { e.value = sem; render(); } }
+  }
+  function copiar(id) {
+    if (id !== "paridad" && id !== "ces") return;
+    var o = $("rb-" + id), n = $("rbd-" + id);
+    if (o && n && o.value !== n.value) { o.value = n.value; o.dispatchEvent(new Event("change", { bubbles: true })); }
+  }
+  function init() {
+    if (!$("robson-din-card") || !window.CaVeSalRobson) return setTimeout(init, 100);
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (s) {
+        [["paridad", "par"], ["ces", "ces"], ["inicio", "ini"], ["fetos", "fetos"], ["pres", "pres"]].forEach(function (a) { if (s[a[1]]) $("rbd-" + a[0]).value = s[a[1]]; });
+        if (s.egTxt) { $("rbd-eg").value = s.egTxt; $("rbd-eg").dataset.manual = s.manual || ""; }
+      }
+    } catch (e) {}
+    IDS.forEach(function (id) {
+      $("rbd-" + id).addEventListener("change", function () {
+        if (id === "ces" && $("rbd-ces").value !== "0") $("rbd-paridad").value = "mul";
+        if (id === "paridad" && $("rbd-paridad").value === "nul") $("rbd-ces").value = "0";
+        copiar(id); if (id === "paridad") copiar("ces"); if (id === "ces") copiar("paridad");
+        guardar(); render();
+      });
+    });
+    $("rbd-eg").addEventListener("input", function () { $("rbd-eg").dataset.manual = $("rbd-eg").value === "" ? "" : "1"; guardar(); render(); });
+    var f = $("in-fum"); if (f) { f.addEventListener("input", egAuto); f.addEventListener("change", egAuto); }
+    egAuto(); render();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 120); }); else setTimeout(init, 120);
+})();
+</script>
 <script src="../cvs-resumen.js?v=2" data-mode="full"></script>
 </body>
 </html>
