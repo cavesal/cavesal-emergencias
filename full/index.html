@@ -1822,6 +1822,18 @@ body.voz-abierto { overflow: hidden; }
 .fl-go.fl-rojo { background:var(--rojo-alert, #b3261e); }
 .fl-go.fl-ambar { background:#9a6700; }
 #sangrado1-card .fl-ctrl label, #sangrado2-card .fl-ctrl label { font-size:.85rem; font-weight:700; }
+
+/* Robotita CaVeSal IA en el puente */
+.ia-mz{display:flex;align-items:flex-end;gap:10px;flex:1 1 300px;min-width:0}
+.ia-mz-anim{display:block;flex-shrink:0;width:52px;aspect-ratio:120/256;background:url(../img/mascota-ia-anim.webp) 0 0/800% 100% no-repeat;animation:iaMzOrb 1.6s steps(8) infinite,iaMzBob 3.2s ease-in-out infinite;filter:drop-shadow(0 2px 3px rgba(13,27,45,.22))}
+@keyframes iaMzOrb{to{background-position:114.2857% 0}}
+@keyframes iaMzBob{50%{transform:translateY(-4px)}}
+.ia-mz-body{min-width:0;flex:1}
+.ia-mz-title{font-size:.9rem;font-weight:700;color:#5b21b6;margin-bottom:4px}
+.ia-mz-bub{position:relative;background:#fff;border:1.5px solid #c9b3f5;border-radius:14px;padding:9px 12px;font-size:.8rem;line-height:1.4;color:#1e293b;margin:0 0 12px 6px}
+.ia-mz-bub::before{content:"";position:absolute;left:-8px;bottom:12px;width:13px;height:13px;background:#fff;border-left:1.5px solid #c9b3f5;border-bottom:1.5px solid #c9b3f5;transform:rotate(45deg)}
+.ia-mz-priv{font-size:.7rem;color:#64748b;margin-left:6px}
+@media (prefers-reduced-motion:reduce){.ia-mz-anim{animation:none;background-position:57.14% 0}}
 </style>
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <link rel="manifest" href="manifest.json">
@@ -3893,16 +3905,9 @@ document.addEventListener('DOMContentLoaded', function(){
     </section>
 
     <section class="ia-bridge" aria-label="Analizar con CaVeSal IA">
-      <div class="ia-bridge-text">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 9a3 3 0 0 0 1 2.2A3 3 0 0 0 6 16a3 3 0 0 0 3 3h0a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"/><path d="M15 3a3 3 0 0 1 3 3v.2A3 3 0 0 1 20 9a3 3 0 0 1-1 2.2A3 3 0 0 1 18 16a3 3 0 0 1-3 3h0a3 3 0 0 1-3-3"/></svg>
-        <div>
-          <div class="ia-bridge-title">Analizar con CaVeSal® IA</div>
-          <div class="ia-bridge-sub">Enviá los resultados cargados en la Calculadora a CaVeSal® IA para una segunda lectura clínica. No se envían nombre ni documento.</div>
-        </div>
-      </div>
-      <button type="button" class="ia-bridge-btn" id="btn-cavesal-ia" title="CaVeSal® IA requiere un plan activo (Pro / Premium / Premium Plus). Si no tenés uno, podés activarlo al ingresar.">
+      <div class="ia-mz"><span class="ia-mz-anim" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="ia-mz-body"><div class="ia-mz-title">Analizar con CaVeSal® IA</div><p class="ia-mz-bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p><div class="ia-mz-priv">No se envían nombre ni documento.</div></div></div>
+      <button type="button" class="ia-bridge-btn" id="btn-cavesal-ia">
         <span>Analizar</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
       </button>
     </section>
 
