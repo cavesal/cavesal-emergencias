@@ -1710,7 +1710,12 @@ body.voz-abierto { overflow: hidden; }
   "use strict";
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     var hadController = !!navigator.serviceWorker.controller;
-    navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(function (e) { console.log("SW:", e.message); });
+    navigator.serviceWorker.register("./sw.js", { scope: "./", updateViaCache: "none" }).then(function (reg) {
+      /* app instalada: al volver a abrirla (aunque siga en memoria) busca versión nueva */
+      var buscar = function () { try { reg.update(); } catch (e) {} };
+      document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") buscar(); });
+      setInterval(buscar, 30 * 60 * 1000);
+    }).catch(function (e) { console.log("SW:", e.message); });
     navigator.serviceWorker.addEventListener("controllerchange", function () {
       if (!hadController || document.getElementById("cv-aviso-actualizacion")) return;
       var b = document.createElement("div");
