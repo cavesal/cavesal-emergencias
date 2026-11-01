@@ -191,8 +191,8 @@
       ".patient-bar{position:relative!important;top:auto!important}" +
       "#cvn-nav{position:sticky;top:0;z-index:60;background:linear-gradient(135deg,#0D1B2D,#0c4e54);padding:8px 10px 10px;box-shadow:0 4px 14px rgba(13,27,45,.25)}" +
       "#cvn-nav .cvn-in{max-width:1100px;margin:0 auto}" +
-      ".cvn-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}" +
-      ".cvn-tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:6px 2px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#e6f4f6;font:700 .68rem/1.15 inherit;font-family:inherit;text-align:center;cursor:pointer}" +
+      ".cvn-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}" +
+      ".cvn-tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:6px 2px;border-radius:12px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#e6f4f6;font:700 .74rem/1.15 inherit;font-family:inherit;text-align:center;cursor:pointer}" +
       ".cvn-tab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}" +
       ".cvn-tab[aria-selected='true']{background:#fff;color:#0c4e54;border-color:#fff}" +
       ".cvn-tab[data-p='emergencia']{border-color:rgba(255,120,120,.6)}" +
@@ -202,6 +202,7 @@
       "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:8px;padding:14px;border:2px solid #fde68a;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font:900 1.08rem/1 inherit;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(234,88,12,.5);animation:cvnGlow 2.2s ease-in-out infinite}" +
       "#cvn-calc svg{width:20px;height:20px;fill:#fff}" +
       "#cvn-limpiar{display:flex;align-items:center;justify-content:center;gap:6px;margin:7px auto 0;padding:5px 12px;background:transparent;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.4);border-radius:999px;font:600 .72rem/1.2 inherit;font-family:inherit;cursor:pointer}" +
+      "#cvn-pac-link.cvn-on{background:#fff!important;color:#0c4e54!important;border-color:#fff!important}" +
       "#cvn-limpiar svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}" +
       ".rs-vacio{text-align:center}.rs-vacio p{margin:0 0 12px;color:#334155;line-height:1.5}" +
       "#cvn-calc:active{transform:scale(.98)}" +
@@ -273,6 +274,7 @@
     var nv = document.getElementById("cvn-nav"); if (nv) nv.setAttribute("data-p", p);
     document.querySelectorAll(".cvn-page").forEach(function (x) { x.classList.toggle("on", x.getAttribute("data-p") === p); });
     document.querySelectorAll(".cvn-tab").forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-p") === p ? "true" : "false"); });
+    var pl = document.getElementById("cvn-pac-link"); if (pl) pl.classList.toggle("cvn-on", p === "pacientes");
     if (p === "resultado") abrir();
     if (!sinScroll) window.scrollTo(0, 0);
   }
@@ -311,11 +313,19 @@
       if (/^Inicio$/i.test(x) || /Versión Demo/i.test(x)) a.remove();
       if (DEMO && /Versión completa/i.test(x)) { a.textContent = "Activar Full"; }
     });
+    var tl = top.querySelector(".topbar-links");
+    if (tl && !document.getElementById("cvn-pac-link")) {
+      var pl = document.createElement("a");
+      pl.href = "#"; pl.id = "cvn-pac-link"; pl.className = (tl.querySelector("a") || {}).className || "";
+      pl.textContent = "Pacientes" + (DEMO ? " 🔒" : "");
+      pl.addEventListener("click", function (e) { e.preventDefault(); mostrar("pacientes"); });
+      tl.insertBefore(pl, tl.firstChild);
+    }
     /* barra fija: 4 pestañas + Calcular */
     var nav = document.createElement("nav");
     nav.id = "cvn-nav"; nav.setAttribute("aria-label", "Secciones"); nav.setAttribute("data-p", "emergencia");
     nav.innerHTML = '<div class="cvn-in"><div class="cvn-tabs" role="tablist">' +
-      PAGINAS.map(function (p) {
+      PAGINAS.filter(function (p) { return p[0] !== "pacientes"; }).map(function (p) {
         return '<button type="button" class="cvn-tab" role="tab" data-p="' + p[0] + '" aria-selected="' + (p[0] === "emergencia") + '">' +
           '<svg viewBox="0 0 24 24" aria-hidden="true">' + p[2] + "</svg>" + p[1] + (p[0] === "resultado" ? "<i></i>" : "") + (p[0] === "pacientes" && DEMO ? '<span class="lk" aria-label="Versión completa">🔒</span>' : "") + "</button>";
       }).join("") + "</div>" +
