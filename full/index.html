@@ -3904,12 +3904,7 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
     </section>
 
-    <section class="ia-bridge" aria-label="Analizar con CaVeSal IA">
-      <div class="ia-mz"><span class="ia-mz-anim" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="ia-mz-body"><div class="ia-mz-title">Analizar con CaVeSal® IA</div><p class="ia-mz-bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p><div class="ia-mz-priv">No se envían nombre ni documento.</div></div></div>
-      <button type="button" class="ia-bridge-btn" id="btn-cavesal-ia">
-        <span>Analizar</span>
-      </button>
-    </section>
+    <!-- Analizar con CaVeSal® IA: ahora dentro de "Resumen y conducta" (cvs-resumen.js) -->
 
   </main>
 
@@ -9205,5 +9200,6 @@ window.VOZ_ARBOL = [
 </script>
 <script>/* Academy se abre aparte (no reemplaza la app) y lleva la clave para entrar directo */
 (function(){document.addEventListener("click",function(ev){var a=ev.target&&ev.target.closest?ev.target.closest('a[href^="/academy/"]'):null;if(!a)return;var k="";try{k=(localStorage.getItem("cavesal_emerg_full_unlocked")||"").trim();}catch(e){}if(k==="true"||k==="1")k="";var l=(document.documentElement.lang||"es").slice(0,2).toLowerCase();var h=[];if(k)h.push("k="+encodeURIComponent(k));if(l==="en"||l==="pt")h.push("lang="+l);a.href="/academy/?desde=em"+(h.length?"#"+h.join("&"):"");a.target="_blank";a.rel="noopener";},true);})();</script>
+<script src="../cvs-resumen.js?v=1" data-mode="full"></script>
 </body>
 </html>
