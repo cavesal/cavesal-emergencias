@@ -201,7 +201,8 @@
       ".cvn-tab i[data-n]{display:block}.cvn-tab i[data-n='rojo']{background:#ef4444}.cvn-tab i[data-n='naranja']{background:#f97316}.cvn-tab i[data-n='amarillo']{background:#eab308}.cvn-tab i[data-n='verde']{background:#22c55e}" +
       "#cvn-calc{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:8px;padding:14px;border:2px solid #fde68a;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font:900 1.08rem/1 inherit;font-family:inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(234,88,12,.5);animation:cvnGlow 2.2s ease-in-out infinite}" +
       "#cvn-calc svg{width:20px;height:20px;fill:#fff}" +
-      "#cvn-nueva{display:inline-flex;align-items:center;gap:6px}#cvn-nueva svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}" +
+      "#cvn-limpiar{display:flex;align-items:center;justify-content:center;gap:6px;margin:7px auto 0;padding:5px 12px;background:transparent;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.4);border-radius:999px;font:600 .72rem/1.2 inherit;font-family:inherit;cursor:pointer}" +
+      "#cvn-limpiar svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}" +
       ".rs-vacio{text-align:center}.rs-vacio p{margin:0 0 12px;color:#334155;line-height:1.5}" +
       "#cvn-calc:active{transform:scale(.98)}" +
       "@keyframes cvnGlow{50%{box-shadow:0 4px 24px rgba(245,158,11,.85),0 0 0 3px rgba(253,230,138,.35)}}" +
@@ -310,15 +311,6 @@
       if (/^Inicio$/i.test(x) || /Versión Demo/i.test(x)) a.remove();
       if (DEMO && /Versión completa/i.test(x)) { a.textContent = "Activar Full"; }
     });
-    var tl = top.querySelector(".topbar-links");
-    if (tl && !document.getElementById("cvn-nueva")) {
-      var nb = document.createElement("a");
-      nb.href = "#"; nb.id = "cvn-nueva"; nb.className = (tl.querySelector("a") || {}).className || "";
-      nb.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>Nueva consulta';
-      nb.addEventListener("click", function (e) { e.preventDefault(); nuevaConsulta(); });
-      tl.insertBefore(nb, tl.firstChild);
-    }
-
     /* barra fija: 4 pestañas + Calcular */
     var nav = document.createElement("nav");
     nav.id = "cvn-nav"; nav.setAttribute("aria-label", "Secciones"); nav.setAttribute("data-p", "emergencia");
@@ -327,11 +319,13 @@
         return '<button type="button" class="cvn-tab" role="tab" data-p="' + p[0] + '" aria-selected="' + (p[0] === "emergencia") + '">' +
           '<svg viewBox="0 0 24 24" aria-hidden="true">' + p[2] + "</svg>" + p[1] + (p[0] === "resultado" ? "<i></i>" : "") + (p[0] === "pacientes" && DEMO ? '<span class="lk" aria-label="Versión completa">🔒</span>' : "") + "</button>";
       }).join("") + "</div>" +
-      '<button type="button" id="cvn-calc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Calcular</button></div>';
+      '<button type="button" id="cvn-calc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Calcular</button>' +
+      '<button type="button" id="cvn-limpiar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>Limpiar todos los campos</button></div>';
     top.parentNode.insertBefore(nav, top.nextSibling);
     nav.addEventListener("click", function (e) {
       var b = e.target.closest(".cvn-tab"); if (b) return mostrar(b.getAttribute("data-p"));
       if (e.target.closest("#cvn-calc")) mostrar("resultado");
+      if (e.target.closest("#cvn-limpiar")) nuevaConsulta();
     });
 
     /* páginas */
@@ -618,7 +612,7 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
   function hayDatos() { return todos().some(cambiado); }
   var CLAVES_FORM = ["cavesal_alerta_monitor_v1", "cavesal_pg_v1", "cavesal_alu_v1", "cavesal_pp_v1", "cvs-rcp-v1", "cavesal_tocol_v1", "cavesal_mgso4_mon_v1", "cavesal_contr_v1", "cavesal_em_robson_din"];
   function nuevaConsulta() {
-    if (!confirm("¿Empezar una nueva consulta? Se borran los datos cargados en pantalla. Las fichas de pacientes no se tocan.")) return;
+    if (!confirm("¿Limpiar todos los campos? Se borran los datos cargados en pantalla y se suelta la paciente elegida. Las fichas de pacientes no se tocan.")) return;
     todos().forEach(function (e) {
       if (e.type === "radio" || e.type === "checkbox") e.checked = e.defaultChecked;
       else if (e.tagName === "SELECT") Array.prototype.forEach.call(e.options, function (o) { o.selected = o.defaultSelected; });
