@@ -114,13 +114,20 @@
 <li><a href="#instalar">Instalar e ativar</a></li>
 </ol>
 </li>
-<li><a href="#tab-inicio">Tela principal</a>
-<ol>
-<li><a href="#entrada">Entrada rápida: emergência agora ou do zero</a></li>
-<li><a href="#ejemplos">Carregar exemplo</a></li>
-<li><a href="#barra">Barra de dados da paciente</a></li>
-</ol>
-</li>
+    <li><a href="#tab-inicio">Como o app está organizado</a>
+      <ol>
+        <li><a href="#menu">Botões de cima</a></li>
+        <li><a href="#calcular">Calcular e Limpar todos os campos</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-emergencia">Tenho uma emergência</a>
+      <ol>
+        <li><a href="#entrada">Entrada rápida: emergência agora ou do zero</a></li>
+        <li><a href="#ejemplos">Carregar exemplo</a></li>
+        <li><a href="#barra">Barra de dados da paciente</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-codigos">Códigos</a></li>
 <li><a href="#tab-rojo">Código Vermelho — Hemorragia</a>
 <ol style="list-style:none;padding-left:16px">
 <li><a href="#rojo-1">1. Ativação (choque, Vélez)</a></li>
@@ -136,6 +143,8 @@
 <li><a href="#tab-rcp">Código Azul Obstétrico — Parada</a></li>
 <li><a href="#tab-trombo">Tromboprofilaxia</a></li>
 <li><a href="#tab-parto">Parto e Puerpério</a></li>
+    <li><a href="#tab-resultado">Resultado</a></li>
+    <li><a href="#tab-pacientes">Pacientes</a></li>
 <li><a href="#tab-voz">Modo voz mãos livres</a></li>
 <li><a href="#tab-guia">Modo Guia e bibliografia</a></li>
 <li><a href="#tab-sim">Simulador</a></li>
@@ -144,16 +153,16 @@
 </nav>
 <section id="intro">
 <h2>Antes de começar</h2>
-<p>O CaVeSal® Emergências Obstétricas é uma ferramenta de apoio à decisão clínica para o plantão e a sala de parto. Reúne em um só app os cinco módulos de emergência (<strong>Código Vermelho, Código SHG, Código Amarelo — Sepse, Tromboprofilaxia e Parto e Puerpério</strong>), um modo voz mãos livres, o Modo Guia com os guias resumidos e um simulador de casos.</p>
+<p>CaVeSal® Emergências Obstétricas é uma ferramenta de apoio à decisão clínica para o plantão e a sala de parto. Organiza-se em <strong>quatro abas grandes</strong>: <strong>Tenho uma emergência</strong>, <strong>Códigos</strong> (Código Vermelho, Código SHG, Código Amarelo — Sepse e Código Azul Obstétrico), <strong>Parto e puerpério</strong> (com a tromboprofilaxia) e <strong>Resultado</strong>, que resume o diagnóstico e a conduta. Inclui também a seção Pacientes, um modo voz mãos livres, o Modo Guia com as diretrizes resumidas e um simulador de casos.</p>
 <p>Os dados comuns da paciente são inseridos <strong>uma única vez</strong> na barra superior e copiados automaticamente para todos os módulos. Cada cartão mostra sua fonte no rodapé e, quando há mais de um guia com bom respaldo, um seletor para escolher o critério.</p>
 <p>Tudo é calculado <strong>no seu dispositivo</strong>. O app funciona sem conexão depois de instalado e não envia dados de pacientes a servidores.</p>
 <div class="warn">É uma ferramenta de <strong>apoio à decisão clínica</strong> para profissionais de saúde. Não diagnostica, não substitui o julgamento do profissional responsável nem os guias oficiais vigentes, e não é um dispositivo médico.</div>
 </section>
 <section id="demo-full">
 <h2>Demo e versão completa</h2>
-<p><strong>Demo gratuita</strong> (<a href="https://cavesal.app/cavesal-emergencias/demo/" rel="noopener" target="_blank">cavesal.app/cavesal-emergencias/demo/</a>): índice de choque, PAM e IMC, qSOFA pontual, Escala de Alerta Obstétrico em versão estática (um registro, sem acompanhamento), o simulador e os exemplos pré-carregados.</p>
-<p><strong>Versão completa</strong> (<a href="https://cavesal.app/cavesal-emergencias/full/" rel="noopener" target="_blank">cavesal.app/cavesal-emergencias/full/</a>): soma o Código Vermelho completo, Código SHG, sangramento e coagulação, sepse com Critérios da Califórnia, SIRS e MEOWS, tromboprofilaxia, parto e puerpério com partogramas, o modo voz mãos livres, a Escala de Alerta dinâmica com relógio da hora de ouro, o Modo Guia e a ponte com a CaVeSal® IA.</p>
-<figure class="fig"><img alt="Demo: o quadro superior indica o que está liberado" loading="lazy" src="img/manual/27-demo.jpg"/><figcaption>Demo: o quadro superior indica o que está liberado</figcaption></figure>
+<p><strong>Demo gratuita</strong> (<a href="https://cavesal.app/cavesal-emergencias/demo/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/demo/</a>): índice de choque, PAM e IMC, qSOFA pontual, Escala de Alerta Obstétrico em versão estática (um registro, sem acompanhamento), o simulador, os exemplos pré-carregados e o Resultado na tela (sem salvar nem exportar). Tudo da versão completa aparece com cadeado 🔒, para você saber que existe, incluindo <strong>Pacientes 🔒</strong>.</p>
+  <p><strong>Versão completa</strong> (<a href="https://cavesal.app/cavesal-emergencias/full/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/full/</a>): soma o Código Vermelho completo, Código SHG, sangramento e coagulação, sepse com Critérios da Califórnia, SIRS e MEOWS, Código Azul Obstétrico, tromboprofilaxia, parto e puerpério com partogramas e Robson, o modo voz mãos livres, a Escala de Alerta dinâmica com relógio da hora de ouro, o Modo Guia, a ponte com a CaVeSal® IA e <strong>Pacientes</strong> com casos salvos e exportação em PDF e Word.</p>
+  <figure class="fig"><img src="img/manual/27-demo.jpg" alt="Demo: os botões da versão completa aparecem com cadeado" loading="lazy"><figcaption>Demo: os botões da versão completa aparecem com cadeado</figcaption></figure>
 </section>
 <section id="instalar">
 <h2>Instalar e ativar</h2>
@@ -162,23 +171,49 @@
 <div class="step"><div class="step-num">3</div><p>Abra o CaVeSal® pelo ícone instalado, cole sua chave e toque em <strong>Activar</strong> (Ativar).</p></div>
 <div class="step"><div class="step-num">4</div><p>Pronto: fica habilitado de forma permanente nesse dispositivo, com as atualizações incluídas.</p></div>
 <div class="tip">A chave é válida para um único dispositivo. Se você ativar no navegador antes de instalar, o app instalado vai pedi-la de novo.</div>
+  <div class="tip"><strong>Atualizações:</strong> com internet, o app instalado sempre abre a versão mais nova. Se ele estava aberto em segundo plano e saiu uma melhoria, aparece o aviso «Há uma atualização pronta» com o botão <strong>Reiniciar agora</strong>. Sem conexão continua funcionando com a última versão salva.</div>
 <figure class="fig"><img alt="Tela de ativação da versão completa" loading="lazy" src="img/manual/00-activacion.jpg"/><figcaption>Tela de ativação da versão completa</figcaption></figure>
 </section>
 <div class="tab-divider" id="tab-inicio">
-<h2>Tela principal</h2>
-<p>No alto, o menu (Início, Simulador, Versão Demo, Modo Guia e Sobre). Abaixo, a entrada rápida, o botão de exemplos e a barra de dados da paciente.</p>
+  <h2>Como o app está organizado</h2>
+  <p>O app sempre abre em <strong>Tenho uma emergência</strong>, porque numa emergência é preciso resposta rápida. Em cima ficam os botões pequenos; abaixo, as quatro abas grandes, o botão Calcular e Limpar todos os campos, que ficam fixos ao rolar a tela.</p>
 </div>
+
+<section id="menu">
+  <h2>Botões de cima</h2>
+  <ul class="list">
+    <li><strong>Pacientes:</strong> fichas das pacientes com seus casos salvos. Ver <a href="#tab-pacientes">Pacientes</a>. Na demo, <strong>Pacientes 🔒</strong>.</li>
+    <li><strong>Simulador</strong>, <strong>Modo Guia</strong>, <strong>Academy</strong>, <strong>Tutorial</strong> e <strong>Sobre</strong>.</li>
+    <li>Na demo aparece também <strong>Ativar Full</strong>, para passar à versão completa.</li>
+  </ul>
+  <p>As quatro abas grandes são: <strong>Tenho uma emergência</strong>, <strong>Códigos</strong>, <strong>Parto e puerpério</strong> e <strong>Resultado</strong>.</p>
+</section>
+
+<section id="calcular">
+  <h2>Calcular e Limpar todos os campos</h2>
+  <ul class="list">
+    <li><strong>Calcular</strong> (botão laranja): aparece em Códigos e em Parto e puerpério. Leva ao <a href="#tab-resultado">Resultado</a> com o resumo de tudo o que você preencheu. Não aparece em Tenho uma emergência, Resultado e Pacientes, porque ali não há nada para calcular.</li>
+    <li><strong>Limpar todos os campos</strong> (botão pequeno, abaixo): está em todas as abas. Pede confirmação, apaga tudo o que foi preenchido, deixa o Resultado vazio e solta a paciente escolhida para essa emergência. As fichas salvas em Pacientes não são apagadas.</li>
+  </ul>
+  <div class="tip">Se o Resultado mostrar algo inesperado, provavelmente ficaram dados de uma consulta anterior: toque em <strong>Limpar todos os campos</strong> antes de começar com outra paciente.</div>
+  <figure class="fig"><img src="img/manual/01-inicio.jpg" alt="Tenho uma emergência: aviso vermelho, entrada rápida e, em cima, as quatro abas" loading="lazy"><figcaption>Tenho uma emergência: aviso vermelho, entrada rápida e, em cima, as quatro abas</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-emergencia">
+  <h2>Tenho uma emergência</h2>
+  <p>A primeira aba. Em cima, um aviso vermelho explica como ativar a emergência com o modo voz; abaixo, a entrada rápida, Carregar exemplo, a barra de dados da paciente e a Escala de Alerta Obstétrico.</p>
+</div>
+
 <section id="entrada">
-<h2>Entrada rápida: emergência agora ou do zero</h2>
-<ul class="list">
-<li><strong>Tengo una emergencia ahora</strong> (Tenho uma emergência agora): escolha o código (Vermelho, SHG, Amarelo ou Azul) e abre-se o modo voz, que dita cada passo. Veja <a href="#tab-voz">Modo voz</a>.</li>
-<li><strong>Empezar desde cero</strong> (Começar do zero): perguntas de sim ou não que levam ao código correspondente quando ainda não está claro o que está acontecendo.</li>
-</ul>
-<figure class="fig"><img alt="Tela principal da versão completa" loading="lazy" src="img/manual/01-inicio.jpg"/><figcaption>Tela principal da versão completa</figcaption></figure>
+  <h2>Entrada rápida: emergência agora ou do zero</h2>
+  <ul class="list">
+    <li><strong>Tenho uma emergência agora:</strong> você escolhe o código (Vermelho, SHG, Amarelo ou Azul Obstétrico) e abre o modo voz, que dita cada passo e avança quando você diz «cumprido». Ver <a href="#tab-voz">Modo voz</a>.</li>
+    <li><strong>Começar do zero:</strong> perguntas de sim ou não que levam ao código certo quando ainda não está claro o que está acontecendo.</li>
+  </ul>
 </section>
 <section id="ejemplos">
 <h2>Carregar exemplo <span class="badge b-demo">Também na demo</span></h2>
-<p>Carrega um caso ilustrativo para ver como cada módulo responde: Código Vermelho (choque hipovolêmico), Código SHG (pré-eclâmpsia grave), Código Amarelo (sepse), os três partogramas, dequitação e controle pós-parto de 2 horas. Role a tela para ver os resultados.</p>
+<p>Carrega um caso ilustrativo para ver como cada módulo responde: Código Vermelho (choque hipovolêmico), Código SHG (pré-eclâmpsia grave), Código Amarelo (sepse), os três partogramas, dequitação e controle pós-parto de 2 horas. Ao carregar, o app leva ao Resultado com o diagnóstico e a conduta.</p>
 <figure class="fig"><img alt="Menu de casos de exemplo" loading="lazy" src="img/manual/02-ejemplos.jpg"/><figcaption>Menu de casos de exemplo</figcaption></figure>
 </section>
 <section id="barra">
@@ -187,6 +222,12 @@
 <div class="tip">Idade gestacional duvidosa? Na mesma tela há um link para o Gestograma CaVeSal®, gratuito, para calculá-la pela DUM e ecografia.</div>
 <figure class="fig"><img alt="Barra de dados comuns com IMC, IG, PAM e índice de choque" loading="lazy" src="img/manual/03-paciente.jpg"/><figcaption>Barra de dados comuns com IMC, IG, PAM e índice de choque</figcaption></figure>
 </section>
+<div class="tab-divider" id="tab-codigos">
+  <h2>Códigos</h2>
+  <p>A segunda aba mostra quatro botões grandes: <strong>Código Vermelho</strong> (hemorragia obstétrica), <strong>Código SHG</strong> (síndromes hipertensivas), <strong>Código Amarelo — Sepse</strong> e <strong>Código Azul Obstétrico</strong> (parada e colapso materno). Toque em um para abrir seus cartões, preencha os dados e aperte <strong>Calcular</strong>.</p>
+  <figure class="fig"><img src="img/manual/01b-codigos.jpg" alt="Aba Códigos com os quatro códigos" loading="lazy"><figcaption>Aba Códigos com os quatro códigos</figcaption></figure>
+</div>
+
 <div class="tab-divider" id="tab-rojo">
 <h2>Código Vermelho — Hemorragia obstétrica <span class="badge b-full">Versão completa</span></h2>
 <p>Sete subabas que seguem a sequência real de atendimento: ativação, resposta primária, refratária, recuperação, calculadoras, sangramento e coagulação, e sangramentos da gestação.</p>
@@ -255,7 +296,7 @@
 </section>
 <div class="tab-divider" id="tab-trombo">
 <h2>Tromboprofilaxia — sistema semáforo <span class="badge b-full">Versão completa</span></h2>
-<p>Medidas gerais, escala de risco em quatro cores e calculadora de dose de heparina de baixo peso molecular segundo o peso.</p>
+<p>Medidas gerais, escala de risco em quatro cores e calculadora de dose de heparina de baixo peso molecular segundo o peso. Fica dentro da aba <strong>Parto e puerpério</strong>.</p>
 </div>
 <section>
 <h2>Risco e dose de HBPM</h2>
@@ -264,7 +305,7 @@
 </section>
 <div class="tab-divider" id="tab-parto">
 <h2>Parto e Puerpério <span class="badge b-full">Versão completa</span></h2>
-<p>RPM e ameaça de parto prematuro, incompetência istmocervical e cerclagem, maturidade pulmonar, classificação de Robson na admissão, tocólise, contador de contrações, partogramas, dequitação, controle pós-parto e sulfato de magnésio.</p>
+<p>É a terceira aba. Em cima tem atalhos para cada cartão: RPM e ameaça de parto prematuro, incompetência istmocervical e cerclagem, maturidade pulmonar, Robson dinâmico e Robson na admissão, índice de Bishop, tocólise, contador de contrações, partogramas, dequitação, controle pós-parto, sulfato de magnésio e tromboprofilaxia. Depois de preencher, aperte <strong>Calcular</strong>.</p>
 </div>
 <section>
 <h2>RPM e TPP</h2>
@@ -277,6 +318,9 @@
 <p>A paridade é compartilhada com o partograma, e a IG é copiada da conduta RPM/TPP ou da DUM. Os links de cada grupo abrem as fichas relacionadas (partograma, dequitação, sulfato de magnésio, tocólise, sinais de rotura uterina no Código Vermelho) e a tabela completa do guia.</p>
 <div class="tip">Robson serve para auditar a taxa de cesáreas do serviço por grupo; não avalia se uma cesárea foi bem indicada. A Calculadora Pré-natal mostra o grupo provável; aqui o grupo é atribuído na admissão.</div>
 <figure class="fig"><img src="img/manual/22b-robson.jpg" alt="Classificação de Robson na admissão com conduta por grupo" loading="lazy"><figcaption>Classificação de Robson na admissão com conduta por grupo (tela em espanhol)</figcaption></figure>
+  <h3>Robson dinâmico</h3>
+  <p>Antes do Robson na admissão está o cartão <strong>Robson dinâmico — grupo provável durante a gestação</strong>, a mesma lógica da Calculadora Pré-natal. Com paridade, cesáreas prévias, número de fetos, apresentação e a idade gestacional calculada pela DUM, mostra o grupo provável e o plano para essa paciente. Ficam em cartões separados para não confundir o grupo provável com o grupo definitivo; a paridade e as cesáreas são copiadas sozinhas para o Robson na admissão.</p>
+  <figure class="fig"><img src="img/manual/22c-parto.jpg" alt="Parto e puerpério: atalhos para cada cartão, com Robson dinâmico e Robson na admissão" loading="lazy"><figcaption>Parto e puerpério: atalhos para cada cartão, com Robson dinâmico e Robson na admissão</figcaption></figure>
 <h3>Índice de Bishop</h3>
 <p>Abaixo do Robson está a ficha <strong>Índice de Bishop</strong>. Insira dilatação, apagamento, altura da apresentação, consistência e posição do colo: o app soma o escore (0 a 13) e o classifica como <strong>favorável</strong> (mais de 8), <strong>intermediário</strong> (7–8) ou <strong>desfavorável</strong> (6 ou menos, maturação cervical), segundo ACOG PB 107 e NICE NG207. Com os três primeiros dados já mostra o <strong>Bishop simplificado</strong> (mais de 5, favorável).</p>
 <p>Com a paridade do Robson indica até onde continuar a maturação (8 ou mais em nulíparas, 6 ou mais em multíparas, CMQCC). Nos grupos 2a e 4a o resultado aparece dentro da conduta do Robson, e o assistente de RPM o mostra ao perguntar as condições cervicais.</p>
@@ -292,6 +336,40 @@
 <p>Escolha a indicação (por exemplo, neuroproteção fetal antes de 32 semanas ou prevenção de eclâmpsia) e o app monta a dose de ataque, a manutenção e o gotejamento. O monitor de toxicidade registra frequência respiratória, diurese e reflexo patelar, e indica se há critérios de suspensão.</p>
 <figure class="fig"><img alt="Esquemas de MgSO4 e monitor de toxicidade" loading="lazy" src="img/manual/23-mgso4.jpg"/><figcaption>Esquemas de MgSO4 e monitor de toxicidade</figcaption></figure>
 </section>
+<div class="tab-divider" id="tab-resultado">
+  <h2>Resultado <span class="badge b-demo">Também na demo</span></h2>
+  <p>A quarta aba reúne num só lugar o <strong>diagnóstico e a conduta</strong> de tudo o que você calculou em Códigos e em Parto e puerpério.</p>
+</div>
+<section>
+  <h2>Como ler</h2>
+  <ul class="list">
+    <li><strong>Sem dados:</strong> diz «Você não tem dados preenchidos» e indica preencher os dados em Códigos ou em Parto e puerpério e apertar Calcular. Nenhuma cor é mostrada.</li>
+    <li><strong>Classificação por gravidade:</strong> Verde, Amarelo, Laranja e Vermelho. Em cima aparece o nível mais alto de tudo o que foi calculado.</li>
+    <li><strong>Só entra o que você preencheu:</strong> uma escala que você não tocou não soma ao resultado, mesmo que o cartão mostre um valor padrão.</li>
+    <li>Abaixo, cada achado com sua conduta, agrupado por código ou por cartão de parto.</li>
+    <li><strong>Analisar com CaVeSal® IA:</strong> a robozinha convida você a enviar o caso para uma segunda leitura com as diretrizes. Nome e documento não são enviados.</li>
+  </ul>
+  <div class="two"><figure class="fig"><img src="img/manual/29-resultado-vacio.jpg" alt="Resultado sem dados, com a classificação por gravidade" loading="lazy"><figcaption>Resultado sem dados, com a classificação por gravidade</figcaption></figure><figure class="fig"><img src="img/manual/29b-resultado.jpg" alt="Resultado com diagnóstico e conduta" loading="lazy"><figcaption>Resultado com diagnóstico e conduta</figcaption></figure></div>
+</section>
+<section>
+  <h2>Salvar e exportar <span class="badge b-full">Versão completa</span></h2>
+  <p>Se você escolheu uma paciente, o Resultado a mostra com o botão <strong>Salvar na ficha</strong>. Também é possível salvar o caso como arquivo, abrir um salvo ou exportar o resultado em <strong>PDF</strong> ou <strong>Word</strong>. Na demo o Resultado aparece, mas sem salvar nem exportar.</p>
+</section>
+
+<div class="tab-divider" id="tab-pacientes">
+  <h2>Pacientes <span class="badge b-full">Versão completa</span></h2>
+  <p>Abre pelo botão <strong>Pacientes</strong> de cima. Os dados ficam só no seu dispositivo e não são enviados à CaVeSal® IA.</p>
+</div>
+<section>
+  <h2>Fichas, casos e exportação</h2>
+  <div class="step"><div class="step-num">1</div><p>Toque em <strong>+ Nova</strong>, preencha nome, idade, prontuário ou documento e notas, e toque em <strong>Salvar e usar nesta emergência</strong>. Também é possível buscar uma paciente existente e tocar em <strong>Usar nesta emergência</strong>.</p></div>
+  <div class="step"><div class="step-num">2</div><p>Preencha os dados da emergência, aperte <strong>Calcular</strong> e, no Resultado, toque em <strong>Salvar na ficha</strong>.</p></div>
+  <div class="step"><div class="step-num">3</div><p>Na ficha, <strong>Casos</strong> lista cada emergência salva com data e nível. Cada caso pode ser <strong>Aberto</strong> (recarrega os dados e mostra o Resultado), exportado em <strong>PDF</strong> ou <strong>Word</strong>, ou apagado.</p></div>
+  <div class="step"><div class="step-num">4</div><p>Os botões <strong>PDF</strong> e <strong>Word</strong> da ficha exportam o <strong>resumo da paciente</strong>: seus dados e todos os seus casos, o último primeiro. Se ainda não houver casos salvos, o app avisa.</p></div>
+  <div class="step"><div class="step-num">5</div><p><strong>Baixar backup (.json)</strong> salva todas as suas pacientes num arquivo; <strong>Importar backup</strong> as soma em outro aparelho sem apagar as que você já tem.</p></div>
+  <div class="two"><figure class="fig"><img src="img/manual/30-pacientes.jpg" alt="Pacientes: ficha com casos, PDF, Word e backup" loading="lazy"><figcaption>Pacientes: ficha com casos, PDF, Word e backup</figcaption></figure><figure class="fig"><img src="img/manual/30c-pacientes-demo.jpg" alt="Demo: Pacientes com cadeado" loading="lazy"><figcaption>Demo: Pacientes com cadeado</figcaption></figure></div>
+</section>
+
 <div class="tab-divider" id="tab-voz">
 <h2>Modo voz mãos livres <span class="badge b-full">Versão completa</span></h2>
 <p>Para quando você está com as mãos ocupadas: o app dita cada passo em voz alta e avança quando a equipe confirma.</p>

@@ -114,13 +114,20 @@
 <li><a href="#instalar">Install and activate</a></li>
 </ol>
 </li>
-<li><a href="#tab-inicio">Main screen</a>
-<ol>
-<li><a href="#entrada">Quick entry: emergency now or start from scratch</a></li>
-<li><a href="#ejemplos">Load example</a></li>
-<li><a href="#barra">Patient data bar</a></li>
-</ol>
-</li>
+    <li><a href="#tab-inicio">How the app is organized</a>
+      <ol>
+        <li><a href="#menu">Top buttons</a></li>
+        <li><a href="#calcular">Calculate and Clear all fields</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-emergencia">I have an emergency</a>
+      <ol>
+        <li><a href="#entrada">Quick entry: emergency now or start from scratch</a></li>
+        <li><a href="#ejemplos">Load example</a></li>
+        <li><a href="#barra">Patient data bar</a></li>
+      </ol>
+    </li>
+    <li><a href="#tab-codigos">Codes</a></li>
 <li><a href="#tab-rojo">Code Red — Hemorrhage</a>
 <ol style="list-style:none;padding-left:16px">
 <li><a href="#rojo-1">1. Activation (shock, Vélez)</a></li>
@@ -136,6 +143,8 @@
 <li><a href="#tab-rcp">Obstetric Code Blue — Arrest</a></li>
 <li><a href="#tab-trombo">Thromboprophylaxis</a></li>
 <li><a href="#tab-parto">Labor and Postpartum</a></li>
+    <li><a href="#tab-resultado">Result</a></li>
+    <li><a href="#tab-pacientes">Patients</a></li>
 <li><a href="#tab-voz">Hands-free voice mode</a></li>
 <li><a href="#tab-guia">Guide Mode and bibliography</a></li>
 <li><a href="#tab-sim">Simulator</a></li>
@@ -144,16 +153,16 @@
 </nav>
 <section id="intro">
 <h2>Before you start</h2>
-<p>CaVeSal® Obstetric Emergencies is a clinical decision-support tool for the on-call shift and the delivery room. It brings together in a single app the five emergency modules (<strong>Code Red, Code HDP, Code Yellow — Sepsis, Thromboprophylaxis, and Labor and Postpartum</strong>), a hands-free voice mode, Guide Mode with summarized guidelines and a case simulator.</p>
+<p>CaVeSal® Obstetric Emergencies is a clinical decision-support tool for the emergency room and the delivery suite. It is organized in <strong>four large tabs</strong>: <strong>I have an emergency</strong>, <strong>Codes</strong> (Code Red, Code HDP, Code Yellow — Sepsis and Obstetric Code Blue), <strong>Labor and postpartum</strong> (including thromboprophylaxis) and <strong>Result</strong>, which summarizes the diagnosis and management. It also includes the Patients section, a hands-free voice mode, Guide Mode with summarized guidelines and a case simulator.</p>
 <p>The patient's common data are entered <strong>only once</strong> in the top bar and are copied automatically to every module. Each card shows its source at the bottom and, when more than one well-supported guideline exists, a selector to choose the criterion.</p>
 <p>Everything is calculated <strong>on your device</strong>. Once installed, the app works offline and does not send patient data to servers.</p>
 <div class="warn">It is a <strong>clinical decision-support</strong> tool for health professionals. It does not diagnose, does not replace the treating professional's judgment or current official guidelines, and is not a medical device.</div>
 </section>
 <section id="demo-full">
 <h2>Demo and full version</h2>
-<p><strong>Free demo</strong> (<a href="https://cavesal.app/cavesal-emergencias/demo/" rel="noopener" target="_blank">cavesal.app/cavesal-emergencias/demo/</a>): shock index, MAP and BMI, one-off qSOFA, a static version of the Obstetric Alert Scale (single entry, no follow-up), the simulator and the preloaded examples.</p>
-<p><strong>Full version</strong> (<a href="https://cavesal.app/cavesal-emergencias/full/" rel="noopener" target="_blank">cavesal.app/cavesal-emergencias/full/</a>): adds the complete Code Red, Code HDP, bleeding and coagulation, sepsis with California Criteria, SIRS and MEOWS, thromboprophylaxis, labor and postpartum with partographs, hands-free voice mode, the dynamic Alert Scale with golden-hour clock, Guide Mode and the bridge to CaVeSal® IA.</p>
-<figure class="fig"><img alt="Demo: the top box shows what is unlocked" loading="lazy" src="img/manual/27-demo.jpg"/><figcaption>Demo: the top box shows what is unlocked</figcaption></figure>
+<p><strong>Free demo</strong> (<a href="https://cavesal.app/cavesal-emergencias/demo/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/demo/</a>): shock index, MAP and BMI, one-off qSOFA, a static version of the Obstetric Alert Scale (single entry, no follow-up), the simulator, the preloaded examples and the on-screen Result (no saving or exporting). Everything in the full version is shown with a lock 🔒 so you know it exists, including <strong>Patients 🔒</strong>.</p>
+  <p><strong>Full version</strong> (<a href="https://cavesal.app/cavesal-emergencias/full/" target="_blank" rel="noopener">cavesal.app/cavesal-emergencias/full/</a>): adds the complete Code Red, Code HDP, bleeding and coagulation, sepsis with California Criteria, SIRS and MEOWS, Obstetric Code Blue, thromboprophylaxis, labor and postpartum with partographs and Robson, hands-free voice mode, the dynamic Alert Scale with golden-hour clock, Guide Mode, the bridge to CaVeSal® IA, and <strong>Patients</strong> with saved cases and PDF and Word export.</p>
+  <figure class="fig"><img src="img/manual/27-demo.jpg" alt="Demo: full-version buttons appear with a lock" loading="lazy"><figcaption>Demo: full-version buttons appear with a lock</figcaption></figure>
 </section>
 <section id="instalar">
 <h2>Install and activate</h2>
@@ -162,23 +171,49 @@
 <div class="step"><div class="step-num">3</div><p>Open CaVeSal® from the installed icon, paste your key and tap <strong>Activar</strong> (Activate).</p></div>
 <div class="step"><div class="step-num">4</div><p>Done: it stays permanently enabled on that device, with updates included.</p></div>
 <div class="tip">The key is valid for a single device. If you activate it in the browser before installing, the installed app will ask for it again.</div>
+  <div class="tip"><strong>Updates:</strong> with internet, the installed app always opens the newest version. If it was open in the background and an improvement was released, the notice “An update is ready” appears with a <strong>Restart now</strong> button. Offline it keeps working with the last saved version.</div>
 <figure class="fig"><img alt="Full version activation screen" loading="lazy" src="img/manual/00-activacion.jpg"/><figcaption>Full version activation screen</figcaption></figure>
 </section>
 <div class="tab-divider" id="tab-inicio">
-<h2>Main screen</h2>
-<p>At the top, the menu (Home, Simulator, Demo Version, Guide Mode and About). Below it, the quick entry, the examples button and the patient data bar.</p>
+  <h2>How the app is organized</h2>
+  <p>The app always opens on <strong>I have an emergency</strong>, because an emergency calls for a fast answer. The small buttons are at the top; below them, the four large tabs, the Calculate button and Clear all fields, which stay fixed while you scroll.</p>
 </div>
+
+<section id="menu">
+  <h2>Top buttons</h2>
+  <ul class="list">
+    <li><strong>Patients:</strong> patient records with their saved cases. See <a href="#tab-pacientes">Patients</a>. In the demo, <strong>Patients 🔒</strong>.</li>
+    <li><strong>Simulator</strong>, <strong>Guide Mode</strong>, <strong>Academy</strong>, <strong>Tutorial</strong> and <strong>About</strong>.</li>
+    <li>The demo also shows <strong>Activate Full</strong>, to move to the full version.</li>
+  </ul>
+  <p>The four large tabs are: <strong>I have an emergency</strong>, <strong>Codes</strong>, <strong>Labor and postpartum</strong> and <strong>Result</strong>.</p>
+</section>
+
+<section id="calcular">
+  <h2>Calculate and Clear all fields</h2>
+  <ul class="list">
+    <li><strong>Calculate</strong> (orange button): appears in Codes and in Labor and postpartum. It takes you to <a href="#tab-resultado">Result</a> with a summary of everything you entered. It does not appear in I have an emergency, Result or Patients, because there is nothing to calculate there.</li>
+    <li><strong>Clear all fields</strong> (small button below): available on every tab. It asks for confirmation, erases everything entered, leaves the Result empty and releases the patient chosen for that emergency. Records saved in Patients are not deleted.</li>
+  </ul>
+  <div class="tip">If the Result shows something unexpected, data from a previous consultation probably remained: tap <strong>Clear all fields</strong> before starting with another patient.</div>
+  <figure class="fig"><img src="img/manual/01-inicio.jpg" alt="I have an emergency: red notice, quick entry and the four tabs at the top" loading="lazy"><figcaption>I have an emergency: red notice, quick entry and the four tabs at the top</figcaption></figure>
+</section>
+
+<div class="tab-divider" id="tab-emergencia">
+  <h2>I have an emergency</h2>
+  <p>The first tab. At the top, a red notice explains how to activate the emergency with voice mode; below it, quick entry, Load example, the patient data bar and the Obstetric Alert Scale.</p>
+</div>
+
 <section id="entrada">
-<h2>Quick entry: emergency now or start from scratch</h2>
-<ul class="list">
-<li><strong>Tengo una emergencia ahora</strong> (I have an emergency now): choose the code (Red, HDP, Yellow or Blue) and voice mode opens, dictating each step. See <a href="#tab-voz">Voice mode</a>.</li>
-<li><strong>Empezar desde cero</strong> (Start from scratch): yes/no questions that lead you to the right code when it is not yet clear what is happening.</li>
-</ul>
-<figure class="fig"><img alt="Main screen of the full version" loading="lazy" src="img/manual/01-inicio.jpg"/><figcaption>Main screen of the full version</figcaption></figure>
+  <h2>Quick entry: emergency now or start from scratch</h2>
+  <ul class="list">
+    <li><strong>I have an emergency now:</strong> choose the code (Red, HDP, Yellow or Obstetric Blue) and voice mode opens, reading each step aloud and moving on when you say “done”. See <a href="#tab-voz">Voice mode</a>.</li>
+    <li><strong>Start from scratch:</strong> yes/no questions that lead you to the right code when it is still unclear what is happening.</li>
+  </ul>
 </section>
 <section id="ejemplos">
 <h2>Load example <span class="badge b-demo">Also in the demo</span></h2>
-<p>Loads an illustrative case to see how each module responds: Code Red (hypovolemic shock), Code HDP (severe preeclampsia), Code Yellow (sepsis), the three partographs, third stage of labor and 2-hour postpartum monitoring. Scroll to see the results.</p>
+<p>Loads an illustrative case to see how each module responds: Code Red (hypovolemic shock), Code HDP (severe preeclampsia), Code Yellow (sepsis), the three partographs, third stage of labor and 2-hour postpartum monitoring. Once loaded, the app takes you to Result with the diagnosis and management.</p>
 <figure class="fig"><img alt="Example cases menu" loading="lazy" src="img/manual/02-ejemplos.jpg"/><figcaption>Example cases menu</figcaption></figure>
 </section>
 <section id="barra">
@@ -187,6 +222,12 @@
 <div class="tip">Uncertain gestational age? From the same screen there is a link to the free CaVeSal® Gestogram to calculate it by LMP and ultrasound.</div>
 <figure class="fig"><img alt="Common data bar with BMI, GA, MAP and shock index" loading="lazy" src="img/manual/03-paciente.jpg"/><figcaption>Common data bar with BMI, GA, MAP and shock index</figcaption></figure>
 </section>
+<div class="tab-divider" id="tab-codigos">
+  <h2>Codes</h2>
+  <p>The second tab shows four large buttons: <strong>Code Red</strong> (obstetric hemorrhage), <strong>Code HDP</strong> (hypertensive disorders), <strong>Code Yellow — Sepsis</strong> and <strong>Obstetric Code Blue</strong> (maternal arrest and collapse). Tap one to open its cards, enter the data and press <strong>Calculate</strong>.</p>
+  <figure class="fig"><img src="img/manual/01b-codigos.jpg" alt="Codes tab with the four codes" loading="lazy"><figcaption>Codes tab with the four codes</figcaption></figure>
+</div>
+
 <div class="tab-divider" id="tab-rojo">
 <h2>Code Red — Obstetric hemorrhage <span class="badge b-full">Full version</span></h2>
 <p>Seven sub-tabs that follow the real sequence of care: activation, primary response, refractory, recovery, calculators, bleeding and coagulation, and bleeding in pregnancy.</p>
@@ -255,7 +296,7 @@
 </section>
 <div class="tab-divider" id="tab-trombo">
 <h2>Thromboprophylaxis — traffic-light system <span class="badge b-full">Full version</span></h2>
-<p>General measures, four-color risk scale and weight-based low-molecular-weight heparin dose calculator.</p>
+<p>General measures, four-color risk scale and weight-based low-molecular-weight heparin dose calculator. It is inside the <strong>Labor and postpartum</strong> tab.</p>
 </div>
 <section>
 <h2>Risk and LMWH dose</h2>
@@ -264,7 +305,7 @@
 </section>
 <div class="tab-divider" id="tab-parto">
 <h2>Labor and Postpartum <span class="badge b-full">Full version</span></h2>
-<p>PROM and threatened preterm labor, cervical insufficiency and cerclage, lung maturity, Robson classification at admission, tocolysis, contraction counter, partographs, third stage, postpartum monitoring and magnesium sulfate.</p>
+<p>This is the third tab. At the top it has shortcuts to each card: PROM and threatened preterm labor, cervical insufficiency and cerclage, lung maturity, dynamic Robson and Robson at admission, Bishop score, tocolysis, contraction counter, partographs, third stage, postpartum monitoring, magnesium sulfate and thromboprophylaxis. After entering data, press <strong>Calculate</strong>.</p>
 </div>
 <section>
 <h2>PROM and threatened preterm labor</h2>
@@ -277,6 +318,9 @@
 <p>Parity is shared with the partograph, and GA is copied from the PROM/preterm labor card or from the LMP. The links in each group open the related cards (partograph, third stage, magnesium sulfate, tocolysis, signs of uterine rupture in Code Red) and the full table in the guide.</p>
 <div class="tip">Robson is used to audit the unit's cesarean rate by group; it does not assess whether a cesarean was appropriately indicated. The Prenatal Calculator shows the probable group; here the group is assigned at admission.</div>
 <figure class="fig"><img src="img/manual/22b-robson.jpg" alt="Robson classification at admission with management by group" loading="lazy"><figcaption>Robson classification at admission with management by group (screen in Spanish)</figcaption></figure>
+  <h3>Dynamic Robson</h3>
+  <p>Before Robson at admission is the card <strong>Dynamic Robson — probable group during pregnancy</strong>, the same logic as the Prenatal Calculator. With parity, previous cesareans, number of fetuses, presentation and gestational age calculated from the LMP, it shows the probable group and the plan for that patient. They are separate cards so the probable group is not confused with the final group; parity and cesareans are copied automatically to Robson at admission.</p>
+  <figure class="fig"><img src="img/manual/22c-parto.jpg" alt="Labor and postpartum: shortcuts to each card, with dynamic Robson and Robson at admission" loading="lazy"><figcaption>Labor and postpartum: shortcuts to each card, with dynamic Robson and Robson at admission</figcaption></figure>
 <h3>Bishop score</h3>
 <p>Below Robson is the <strong>Bishop score</strong> card. Enter dilation, effacement, station, consistency and cervical position: the app adds the score (0 to 13) and classifies it as <strong>favorable</strong> (more than 8), <strong>intermediate</strong> (7–8) or <strong>unfavorable</strong> (6 or less, cervical ripening), per ACOG PB 107 and NICE NG207. With the first three items it already shows the <strong>simplified Bishop</strong> (more than 5, favorable).</p>
 <p>Using parity from Robson it shows how far to continue ripening (8 or more in nulliparas, 6 or more in multiparas, CMQCC). In groups 2a and 4a the result appears within the Robson management, and the PROM assistant shows it when asking about cervical conditions.</p>
@@ -292,6 +336,40 @@
 <p>Choose the indication (for example, fetal neuroprotection before 32 weeks or eclampsia prevention) and the app builds the loading dose, maintenance and drip. The toxicity monitor records respiratory rate, urine output and patellar reflex, and indicates whether stopping criteria are met.</p>
 <figure class="fig"><img alt="MgSO4 regimens and toxicity monitor" loading="lazy" src="img/manual/23-mgso4.jpg"/><figcaption>MgSO4 regimens and toxicity monitor</figcaption></figure>
 </section>
+<div class="tab-divider" id="tab-resultado">
+  <h2>Result <span class="badge b-demo">Also in the demo</span></h2>
+  <p>The fourth tab brings together the <strong>diagnosis and management</strong> of everything you calculated in Codes and in Labor and postpartum.</p>
+</div>
+<section>
+  <h2>How to read it</h2>
+  <ul class="list">
+    <li><strong>No data:</strong> it says “No data entered” and tells you to enter data in Codes or Labor and postpartum and press Calculate. No color is shown.</li>
+    <li><strong>Classification by severity:</strong> Green, Yellow, Orange and Red. The highest level of everything calculated appears at the top.</li>
+    <li><strong>Only what you entered counts:</strong> a scale you did not touch does not add to the result, even if its card shows a default value.</li>
+    <li>Below, each finding with its management, grouped by code or by labor card.</li>
+    <li><strong>Analyze with CaVeSal® IA:</strong> the little robot invites you to send the case for a second reading against the guidelines. Name and ID are not sent.</li>
+  </ul>
+  <div class="two"><figure class="fig"><img src="img/manual/29-resultado-vacio.jpg" alt="Result with no data, showing the classification by severity" loading="lazy"><figcaption>Result with no data, showing the classification by severity</figcaption></figure><figure class="fig"><img src="img/manual/29b-resultado.jpg" alt="Result with diagnosis and management" loading="lazy"><figcaption>Result with diagnosis and management</figcaption></figure></div>
+</section>
+<section>
+  <h2>Save and export <span class="badge b-full">Full version</span></h2>
+  <p>If you chose a patient, the Result shows her with the <strong>Save to her record</strong> button. You can also save the case as a file, open a saved one, or export the result to <strong>PDF</strong> or <strong>Word</strong>. In the demo the Result is visible, but without saving or exporting.</p>
+</section>
+
+<div class="tab-divider" id="tab-pacientes">
+  <h2>Patients <span class="badge b-full">Full version</span></h2>
+  <p>Open it from the <strong>Patients</strong> button at the top. Data stays only on your device and is not sent to CaVeSal® IA.</p>
+</div>
+<section>
+  <h2>Records, cases and export</h2>
+  <div class="step"><div class="step-num">1</div><p>Tap <strong>+ New</strong>, enter name, age, record number or ID and notes, and tap <strong>Save and use in this emergency</strong>. You can also search for an existing patient and tap <strong>Use in this emergency</strong>.</p></div>
+  <div class="step"><div class="step-num">2</div><p>Enter the emergency data, press <strong>Calculate</strong> and, in Result, tap <strong>Save to her record</strong>.</p></div>
+  <div class="step"><div class="step-num">3</div><p>In the record, <strong>Cases</strong> lists each saved emergency with its date and level. Each case can be <strong>Opened</strong> (reloads the data and shows the Result), exported to <strong>PDF</strong> or <strong>Word</strong>, or deleted.</p></div>
+  <div class="step"><div class="step-num">4</div><p>The record's <strong>PDF</strong> and <strong>Word</strong> buttons export the <strong>patient summary</strong>: her data and all her cases, latest first. If she has no saved cases yet, the app lets you know.</p></div>
+  <div class="step"><div class="step-num">5</div><p><strong>Download backup (.json)</strong> saves all your patients to a file; <strong>Import backup</strong> adds them on another device without deleting the ones you already have.</p></div>
+  <div class="two"><figure class="fig"><img src="img/manual/30-pacientes.jpg" alt="Patients: record with cases, PDF, Word and backup" loading="lazy"><figcaption>Patients: record with cases, PDF, Word and backup</figcaption></figure><figure class="fig"><img src="img/manual/30c-pacientes-demo.jpg" alt="Demo: Patients locked" loading="lazy"><figcaption>Demo: Patients locked</figcaption></figure></div>
+</section>
+
 <div class="tab-divider" id="tab-voz">
 <h2>Hands-free voice mode <span class="badge b-full">Full version</span></h2>
 <p>For when your hands are busy: the app reads each step aloud and moves on when the team confirms.</p>
