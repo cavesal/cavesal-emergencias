@@ -103,7 +103,43 @@
     return '<div class="rs-card rs-pg"><h3>Partograma</h3>' + (tt ? '<p class="rs-pg-t">' + esc(tt) + "</p>" : "") +
       '<div class="pg-graf rs-pg-graf">' + g.innerHTML.replace(/pgclip/g, "pgclip-rs") + "</div>" +
       (ley && ley.innerHTML ? '<div class="pg-leyenda">' + ley.innerHTML + "</div>" : "") +
-      '<button type="button" class="rs-btn main" data-cvn-go="pg-card">Ver partograma y cargar evaluación</button></div>';
+      '<button type="button" class="rs-btn main" data-pf-abrir="1">Ver en pantalla completa</button>' +
+      '<button type="button" class="rs-btn sec" data-cvn-go="pg-card">Registrar nuevo control</button></div>';
+  }
+  function pgFull() {
+    if (!pgEv()) return false;
+    var P = window.CaVeSalPartograma; try { P.render(); } catch (e) { }
+    var st = P.estado(), ev = st.ev, box = $("result-pg");
+    var cls = (box && (box.className.match(/rb-\w+/) || [""])[0]) || "";
+    var filas = ev.map(function (e, i) {
+      var v = "—";
+      if (i > 0) { var a = ev[i - 1], h = (e.ts - a.ts) / 3600000; if (h > 0) { var x = (e.dil - a.dil) / h; v = (x >= 0 ? "+" : "") + x.toFixed(1).replace(".", ",") + " cm/h"; } }
+      return "<tr><td>" + P.hc(e.ts) + "</td><td>" + e.dil + " cm</td><td>" + esc(P.descTxt(e)) + "</td><td>" + (e.fcf != null ? e.fcf : "—") + "</td><td>" + (e.cn != null ? e.cn + "/10 min" : "—") + "</td><td>" + v + "</td></tr>";
+    }).join("");
+    var px = $("pg-prox"), ley = $("pg-leyenda");
+    var o = $("cvn-pgfull"); if (!o) { o = document.createElement("div"); o.id = "cvn-pgfull"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); document.body.appendChild(o); }
+    o.innerHTML = '<div class="pf-top ' + cls + '"><div><small>Partograma · ' + esc(P.nombre()) + " · " + ev.length + (ev.length === 1 ? " control" : " controles") + "</small><strong>" + esc(t($("result-pg-title"))) + '</strong></div><button type="button" class="pf-x" data-pf="cerrar" aria-label="Cerrar">✕</button></div>' +
+      '<div class="pf-body">' +
+      '<div class="pg-graf pf-graf">' + $("pg-graf").innerHTML.replace(/pgclip/g, "pgclip-pf") + "</div>" +
+      (ley && ley.innerHTML ? '<div class="pf-ley">' + ley.innerHTML + "</div>" : "") +
+      (px && !px.hidden ? '<div class="pf-prox' + (/vencido/.test(px.className) ? " venc" : "") + '">' + px.innerHTML + "</div>" : "") +
+      '<div class="pf-det">' + ($("result-pg-detail") ? $("result-pg-detail").innerHTML : "") + "</div>" +
+      '<h4>Evolución</h4><div class="pf-tab"><table><thead><tr><th>Hora</th><th>Dilatación</th><th>Descenso</th><th>FCF</th><th>Contracciones</th><th>Avance</th></tr></thead><tbody>' + filas + "</tbody></table></div>" +
+      '<div class="pf-acts"><button type="button" class="pf-main" data-pf="nuevo">Registrar nuevo control</button><button type="button" data-pf="cerrar">Cerrar</button></div></div>';
+    o.classList.add("on"); document.documentElement.classList.add("pf-lock");
+    if (!o._ok) {
+      o._ok = 1;
+      o.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-pf]"); if (!b) return;
+        o.classList.remove("on"); document.documentElement.classList.remove("pf-lock");
+        if (b.getAttribute("data-pf") === "nuevo") {
+          var c = $("pg-card"); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" });
+          setTimeout(function () { var h = $("pg-hora"), d = $("pg-dil"); if (h) h.value = P.hc(Date.now()); if (d) d.focus({ preventScroll: true }); }, 500);
+        }
+      });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && o.classList.contains("on")) { o.classList.remove("on"); document.documentElement.classList.remove("pf-lock"); } });
+    }
+    return true;
   }
   function cuenta(box) {
     if (box.id === "result-pg") return pgEv();
@@ -263,6 +299,26 @@
       "#cvn-p-resultado .rs-pg-t{margin:0 0 6px;font-weight:700;font-size:.9rem}" +
       "#cvn-p-resultado .rs-pg-graf{display:block}" +
       "#cvn-p-resultado .rs-pg .pg-leyenda{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.75rem;margin:8px 0}" +
+      "#cvn-p-resultado .rs-pg .rs-btn.sec{background:#fff;color:#0e7490;border:1.5px solid #0e7490}" +
+      "html.pf-lock,html.pf-lock body{overflow:hidden}" +
+      "#cvn-pgfull{display:none;position:fixed;inset:0;z-index:100000;background:#f4f8f9;flex-direction:column}" +
+      "#cvn-pgfull.on{display:flex}" +
+      "#cvn-pgfull .pf-top{display:flex;align-items:center;gap:10px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));background:#5b6b75;color:#fff}" +
+      "#cvn-pgfull .pf-top.rb-verde{background:#15803d}#cvn-pgfull .pf-top.rb-amarillo{background:#a16207}#cvn-pgfull .pf-top.rb-naranja{background:#c2410c}#cvn-pgfull .pf-top.rb-rojo{background:#b91c1c}" +
+      "#cvn-pgfull .pf-top div{flex:1;min-width:0}#cvn-pgfull .pf-top small{display:block;font-size:.72rem;opacity:.9;font-weight:700;text-transform:uppercase;letter-spacing:.03em}#cvn-pgfull .pf-top strong{font-size:1.02rem;line-height:1.25}" +
+      "#cvn-pgfull .pf-x{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:10px;width:40px;height:40px;font-size:1.1rem;cursor:pointer}" +
+      "#cvn-pgfull .pf-body{flex:1;overflow:auto;padding:10px 12px 24px;-webkit-overflow-scrolling:touch}" +
+      "#cvn-pgfull .pf-graf{display:block;margin:0;overflow-x:auto;background:#fff;border:1px solid #d7e6ea;border-radius:12px;padding:6px}" +
+      "#cvn-pgfull .pf-graf svg{display:block;width:100%;min-width:680px;height:auto}" +
+      "@media (orientation:landscape){#cvn-pgfull .pf-graf svg{min-width:0}}" +
+      "#cvn-pgfull .pf-ley{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.75rem;margin:8px 2px}" +
+      "#cvn-pgfull .pf-prox{background:#e6f6f8;border:1px solid #9fd8de;border-radius:10px;padding:9px 11px;font-size:.84rem;margin:8px 0}" +
+      "#cvn-pgfull .pf-prox.venc{background:#fff4e5;border-color:#f5b971}" +
+      "#cvn-pgfull .pf-det{font-size:.84rem;background:#fff;border:1px solid #d7e6ea;border-radius:10px;padding:9px 11px;margin:8px 0}" +
+      "#cvn-pgfull h4{margin:14px 2px 6px;font-size:.95rem;color:#00666f}" +
+      "#cvn-pgfull .pf-tab{overflow-x:auto;background:#fff;border:1px solid #d7e6ea;border-radius:10px}" +
+      "#cvn-pgfull table{border-collapse:collapse;width:100%;font-size:.8rem}#cvn-pgfull th,#cvn-pgfull td{padding:7px 8px;border-bottom:1px solid #e6eef0;text-align:left;white-space:nowrap}#cvn-pgfull th{background:#eef6f7;color:#00666f}" +
+      "#cvn-pgfull .pf-acts{display:flex;gap:8px;margin-top:14px}#cvn-pgfull .pf-acts button{flex:1;padding:13px;border-radius:12px;border:1.5px solid #0e7490;background:#fff;color:#0e7490;font:700 .92rem inherit;font-family:inherit;cursor:pointer}#cvn-pgfull .pf-acts .pf-main{background:#0e7490;color:#fff}" +
       "#cvn-p-resultado .rs-pg .rs-btn{margin-top:6px;width:100%;background:#0e7490;color:#fff;border:0;border-radius:10px;padding:11px;font:700 .9rem inherit;font-family:inherit;cursor:pointer}" +
       /* Demo: entrada con candado */
       ".cvn-lock-entry .emerg-btn{opacity:.8}" +
@@ -352,7 +408,7 @@
     top.parentNode.insertBefore(nav, top.nextSibling);
     nav.addEventListener("click", function (e) {
       var b = e.target.closest(".cvn-tab"); if (b) return mostrar(b.getAttribute("data-p"));
-      if (e.target.closest("#cvn-calc")) mostrar("resultado");
+      if (e.target.closest("#cvn-calc")) { var desde = paginaActual; mostrar("resultado"); if (desde === "parto") pgFull(); }
       if (e.target.closest("#cvn-limpiar")) nuevaConsulta();
     });
 
@@ -494,6 +550,7 @@
     var orig = Element.prototype.scrollIntoView;
     Element.prototype.scrollIntoView = function () { try { revelar(this); } catch (e) { } return orig.apply(this, arguments); };
     document.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("[data-pf-abrir]")) { pgFull(); return; }
       var g = e.target.closest && e.target.closest("[data-cvn-go]");
       if (g) { e.preventDefault(); var el = document.getElementById(g.getAttribute("data-cvn-go")); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }
     });

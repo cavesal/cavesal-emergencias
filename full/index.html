@@ -3580,6 +3580,16 @@ document.addEventListener('DOMContentLoaded', function(){
             <input type="time" id="pg-hora">
           </div>
           <div class="field-group">
+            <label for="pg-int">Próximo control en</label>
+            <select id="pg-int">
+              <option value="60" selected>1 hora</option>
+              <option value="30">30 minutos</option>
+              <option value="15">15 minutos</option>
+              <option value="otro">Otro (minutos)</option>
+            </select>
+            <input type="number" id="pg-int-otro" inputmode="numeric" min="5" max="480" step="5" placeholder="Minutos, por ejemplo 45" hidden style="margin-top:6px">
+          </div>
+          <div class="field-group">
             <label for="pg-dil">Dilatación <span class="unit">(cm)</span></label>
             <input type="number" id="pg-dil" inputmode="decimal" min="0" max="10" step="0.5" placeholder="4">
           </div>
@@ -6282,6 +6292,7 @@ function cargarEjemploEmerg(tipo){
     fill($("pg-la"), st.modelo === "oms" ? LA_OMS : LA_TRAD, true);
     fill($("pg-ci"), st.modelo === "acog" ? INT_ACOG : INT_MSPBS, true);
     if (!$("pg-hora").value) $("pg-hora").value = hc(Date.now());
+    $("pg-int").value = st.int || "60"; $("pg-int-otro").hidden = $("pg-int").value !== "otro"; $("pg-int-otro").value = st.intOtro || "";
   }
 
   /* ---------- utilidades de registro ---------- */
@@ -6301,7 +6312,11 @@ function cargarEjemploEmerg(tipo){
     if (!p) return now;
     var d = new Date(); d.setHours(+p[1], +p[2], 0, 0); var ts = d.getTime();
     var L = last();
-    if (L) { while (ts < L.ts - 60000) ts += 24 * H; }
+    if (L) {
+      /* control con hora anterior al último: si es de las 12 h previas queda en su lugar; si no, es del día siguiente */
+      while (ts < L.ts - 12 * H) ts += 24 * H;
+      if (ts > now + 10 * 60000 && ts - 24 * H >= L.ts - 12 * H) ts -= 24 * H;
+    }
     else if (ts > now + 10 * 60000) ts -= 24 * H;
     return ts;
   }
@@ -6495,7 +6510,16 @@ function cargarEjemploEmerg(tipo){
 
   /* ---------- Próximos controles ---------- */
   function ultimoCon(campo) { for (var i = st.ev.length - 1; i >= 0; i--) if (st.ev[i][campo] != null && st.ev[i][campo] !== "") return st.ev[i].ts; return null; }
+  function intMin() { var v = st.int || "60"; if (v === "otro") { var n = parseInt(st.intOtro, 10); return n >= 5 ? n : null; } return parseInt(v, 10); }
   function prox(now) {
+    var L = last(); if (!L) return null;
+    var im = intMin(), cab = "";
+    if (im) { var tp = L.ts + im * 60000; cab = "<strong>Próximo control</strong> (cada " + (im % 60 === 0 ? im / 60 + " h" : im + " min") + "): " + (tp <= now ? "<strong>ahora</strong>" : hc(tp)) + ". Podés registrar antes si lo necesitás."; }
+    var g = proxGuia(now);
+    if (!g) return cab ? { html: cab, venc: tp <= now } : null;
+    return { html: (cab ? cab + "<br>" : "") + g.html, venc: g.venc || (im && tp <= now) };
+  }
+  function proxGuia(now) {
     var L = last(); if (!L || st.modelo === "acog") return null;
     var p10 = primero10(), items = [];
     function add(nombre, campo, min) { var t = ultimoCon(campo); if (t == null) t = L.ts; items.push({ n: nombre, t: t + min * 60000 }); }
@@ -6507,7 +6531,7 @@ function cargarEjemploEmerg(tipo){
       add("Pulso, PA, temperatura y orina", "pulso", 240);
     }
     var venc = items.filter(function (x) { return x.t <= now; });
-    return { html: "Próximos controles (" + NOMBRE[st.modelo] + "): " + items.map(function (x) { return x.n + " " + (x.t <= now ? "<strong>ahora</strong>" : hc(x.t)); }).join(" · "), venc: venc.length > 0 };
+    return { html: "Según la guía (" + NOMBRE[st.modelo] + "): " + items.map(function (x) { return x.n + " " + (x.t <= now ? "<strong>ahora</strong>" : hc(x.t)); }).join(" · "), venc: venc.length > 0 };
   }
 
   /* ---------- Gráfico SVG (Ministerio CLAP y ACOG) ---------- */
@@ -6686,6 +6710,8 @@ function cargarEjemploEmerg(tipo){
   }
   ["pg-modelo", "pg-paridad", "pg-desc-u", "pg-acog-cat", "pg-epidural"].forEach(function (id) { $(id).addEventListener("change", setCfg); });
   $("pg-btn-reg").addEventListener("click", registrar);
+  $("pg-int").addEventListener("change", function () { st.int = this.value; $("pg-int-otro").hidden = this.value !== "otro"; save(); render(); });
+  $("pg-int-otro").addEventListener("input", function () { st.intOtro = this.value; save(); render(); });
   $("pg-btn-undo").addEventListener("click", function () { st.ev.pop(); save(); render(); $("pg-aviso").textContent = "Se eliminó la última evaluación."; });
   $("pg-btn-reset").addEventListener("click", function () {
     if (st.ev.length && !window.confirm("¿Borrar todas las evaluaciones de este partograma?")) return;
@@ -6703,6 +6729,9 @@ function cargarEjemploEmerg(tipo){
   /* Ayuda para QA y simulador */
   window.CaVeSalPartograma = {
     estado: function () { return JSON.parse(JSON.stringify(st)); },
+    nombre: function () { return NOMBRE[st.modelo]; },
+    descTxt: descTxt,
+    hc: hc,
     cargar: function (obj) { st = obj; save(); syncForm(); render(); },
     evaluar: function (now) { now = now || Date.now(); return st.modelo === "oms" ? evalOms(now) : st.modelo === "acog" ? evalAcog(now) : evalMspbs(now); },
     render: render
@@ -9312,6 +9341,6 @@ window.VOZ_ARBOL = [
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(init, 120); }); else setTimeout(init, 120);
 })();
 </script>
-<script src="../cvs-resumen.js?v=10" data-mode="full"></script>
+<script src="../cvs-resumen.js?v=11" data-mode="full"></script>
 </body>
 </html>
