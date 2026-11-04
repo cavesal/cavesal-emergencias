@@ -1,12 +1,12 @@
 /* CaVeSal® Emergencias — full. Service worker. Subir CACHE en cada publicación.
    Red primero para páginas y scripts (siempre la versión nueva si hay conexión);
    la copia guardada solo se usa sin internet. */
-const CACHE = "cavesal-emerg-full-v24";
+const CACHE = "cavesal-emerg-full-v25";
 
 self.addEventListener("install", e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll([new Request("./index.html", { cache: "reload" }), new Request("../cvs-resumen.js?v=9", { cache: "reload" })]))
+      .then(c => c.addAll([new Request("./index.html", { cache: "reload" }), new Request("../cvs-resumen.js?v=10", { cache: "reload" })]))
       .then(() => self.skipWaiting())
   );
 });

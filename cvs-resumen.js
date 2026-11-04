@@ -94,7 +94,19 @@
   function firma(box) { return box.className + "|" + t($(box.id + "-title") || box.querySelector(".result-title")); }
   function tomarSnap(forzar) { document.querySelectorAll(".result-box[id]").forEach(function (b) { if (forzar || !(b.id in SNAP)) SNAP[b.id] = firma(b); }); }
   function cardDe(box) { var c = box.closest(".card"), up; while (c && (up = c.parentElement && c.parentElement.closest(".card"))) c = up; return c; }
+  function pgEv() { try { return !DEMO && window.CaVeSalPartograma && CaVeSalPartograma.estado().ev.length > 0; } catch (e) { return false; } }
+  function pgBloque() {
+    if (!pgEv()) return "";
+    try { CaVeSalPartograma.render(); } catch (e) { }
+    var g = $("pg-graf"), ley = $("pg-leyenda"); if (!g || !g.innerHTML) return "";
+    var tt = t($("result-pg-title"));
+    return '<div class="rs-card rs-pg"><h3>Partograma</h3>' + (tt ? '<p class="rs-pg-t">' + esc(tt) + "</p>" : "") +
+      '<div class="pg-graf rs-pg-graf">' + g.innerHTML.replace(/pgclip/g, "pgclip-rs") + "</div>" +
+      (ley && ley.innerHTML ? '<div class="pg-leyenda">' + ley.innerHTML + "</div>" : "") +
+      '<button type="button" class="rs-btn main" data-cvn-go="pg-card">Ver partograma y cargar evaluación</button></div>';
+  }
   function cuenta(box) {
+    if (box.id === "result-pg") return pgEv();
     var c = cardDe(box);
     if (c && Array.prototype.some.call(c.querySelectorAll("input, select, textarea"), function (e) { return e.type !== "hidden" && cambiado(e); })) return true;
     return (box.id in SNAP) && SNAP[box.id] !== firma(box);
@@ -246,6 +258,12 @@
       ".cvn-chips{display:flex;flex-wrap:wrap;gap:6px;max-width:1280px;margin:14px auto 0;padding:0 16px}" +
       ".cvn-chip{border:1.5px solid #00838f;background:#fff;color:#00666f;border-radius:999px;padding:7px 12px;font:700 .78rem/1.1 inherit;font-family:inherit;cursor:pointer}" +
       ".cvn-chip.tr{border-color:#5b3a8e;color:#5b3a8e}" +
+      ".cvn-chip.pg{background:#00838f;color:#fff;border-color:#00666f;box-shadow:0 2px 8px rgba(0,131,143,.35)}" +
+      "#cvn-p-resultado .rs-pg h3{margin:0 0 4px;font-size:1rem;color:#00666f}" +
+      "#cvn-p-resultado .rs-pg-t{margin:0 0 6px;font-weight:700;font-size:.9rem}" +
+      "#cvn-p-resultado .rs-pg-graf{display:block}" +
+      "#cvn-p-resultado .rs-pg .pg-leyenda{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.75rem;margin:8px 0}" +
+      "#cvn-p-resultado .rs-pg .rs-btn{margin-top:6px;width:100%;background:#0e7490;color:#fff;border:0;border-radius:10px;padding:11px;font:700 .9rem inherit;font-family:inherit;cursor:pointer}" +
       /* Demo: entrada con candado */
       ".cvn-lock-entry .emerg-btn{opacity:.8}" +
       /* Resultado */
@@ -451,6 +469,12 @@
       var wp = div("cvn-wrap"); R.appendChild(wp);
       [porTitulo(main, /^Parto/), porTitulo(main, /^Tromboprofilaxis/)].forEach(function (c) { if (c) wp.appendChild(c); });
     }
+    if (!DEMO) {
+      var r0 = document.getElementById("rpm-dx-card");
+      if (r0) ["pg-card", "robson-card", "robson-din-card", "bishop-card", "contr-card", "alu-card", "pp-card", "mgso4-card"].forEach(function (id) {
+        var c = document.getElementById(id); if (c && c.parentElement === r0.parentElement) r0.parentElement.insertBefore(c, r0);
+      });
+    }
     R.querySelectorAll(".card").forEach(function (c) {
       var h = c.querySelector(":scope > h3, :scope > .locked-head h3"); if (!h) return;
       var x = t(h).split(" — ")[0].replace(/\s*\(.*$/, "").replace(/🔒.*$/, "").trim();
@@ -458,6 +482,7 @@
       var b = document.createElement("button");
       b.type = "button"; b.className = "cvn-chip" + (c.closest("#code-trombo") || /Trombo/i.test(x) ? " tr" : ""); b.textContent = x;
       b.addEventListener("click", function () { c.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      if (c.id === "pg-card") { b.textContent = "Partograma Ministerio (CLAP)"; b.className = "cvn-chip pg"; }
       chips.appendChild(b);
     });
 
@@ -544,7 +569,9 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
       return;
     }
     var d = recolectar();
-    $("rs-contenido").innerHTML = htmlResumen(d, false);
+    $("rs-contenido").innerHTML = pgBloque() + htmlResumen(d, false);
+    var rp = document.querySelector("#rs-contenido .rs-pg");
+    if (rp) setTimeout(function () { var y = rp.getBoundingClientRect().top + window.pageYOffset - 150; window.scrollTo({ top: y, behavior: "smooth" }); }, 120);
     $("rs-hora").textContent = "Calculado: " + hoy();
     var g = $("rs-global");
     if (d.peor) {
@@ -619,7 +646,7 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
     }
     return e.value !== e.defaultValue;
   }
-  function hayDatos() { return todos().some(cambiado); }
+  function hayDatos() { return todos().some(cambiado) || pgEv(); }
   var CLAVES_FORM = ["cavesal_alerta_monitor_v1", "cavesal_pg_v1", "cavesal_alu_v1", "cavesal_pp_v1", "cvs-rcp-v1", "cavesal_tocol_v1", "cavesal_mgso4_mon_v1", "cavesal_contr_v1", "cavesal_em_robson_din"];
   function nuevaConsulta() {
     if (!confirm("¿Limpiar todos los campos? Se borran los datos cargados en pantalla y se suelta la paciente elegida. Las fichas de pacientes no se tocan.")) return;
