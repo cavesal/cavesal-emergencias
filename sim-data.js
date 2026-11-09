@@ -42,7 +42,7 @@
                 { t: "Dolor posoperatorio con ansiedad: analgesia y reevaluar.", fb: "Taquicardia, taquipnea, hipotensión, hipoxemia y oliguria no se explican por dolor. Son signos de disfunción orgánica." }
               ],
               peor: { fc: 8, pas: -6, sat: -2 },
-              ref: "Guías CaVeSal · Código Amarillo, ficha 1 (OMS 2017, WHO GLOSS 2020)", url: G.amarillo
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, ficha 1 (OMS 2017, WHO GLOSS 2020)", url: G.amarillo
             }
           ]
         },
@@ -55,12 +55,12 @@
             {
               tipo: "opcion", q: "¿Necesitás completar un puntaje para actuar?",
               ops: [
-                { t: "No. Hay infección sospechada con disfunción respiratoria, cardiovascular, renal y neurológica: activar Código Amarillo ya.", ok: true, fb: "Correcto. Infección + disfunción orgánica = sepsis materna. Los puntajes ayudan a tamizar, pero no deben demorar el tratamiento." },
+                { t: "No. Hay infección sospechada con disfunción respiratoria, cardiovascular, renal y neurológica: activar Código Amarillo — Sepsis ya.", ok: true, fb: "Correcto. Infección + disfunción orgánica = sepsis materna. Los puntajes ayudan a tamizar, pero no deben demorar el tratamiento." },
                 { t: "Sí. Esperar el SOFA obstétrico completo con gasometría y bilirrubina.", fb: "El SOFA confirma, pero no debe demorar el inicio del bundle de la primera hora cuando la disfunción orgánica ya es evidente." },
                 { t: "Calcular el qSOFA: si da menos de 2, se descarta sepsis.", fb: "El qSOFA tiene sensibilidad limitada y un valor <2 no descarta sepsis. No debe usarse como única herramienta de tamizaje." }
               ],
               peor: { fc: 6, pas: -6, sat: -2 },
-              ref: "Guías CaVeSal · Código Amarillo, fichas 1 y 5 (qSOFA obstétrico, SOMANZ)", url: G.amarillo
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, fichas 1 y 5 (qSOFA obstétrico, SOMANZ)", url: G.amarillo
             },
             {
               tipo: "opcion", q: "Hora 0. ¿Cómo organizás el manejo inicial?",
@@ -70,13 +70,13 @@
                 { t: "Primero normalizar la presión con cristaloides; los antibióticos después.", fb: "Las acciones son simultáneas. Retrasar el antibiótico empeora el pronóstico." }
               ],
               peor: { fc: 6, pas: -8, sat: -2 },
-              ref: "Guías CaVeSal · Código Amarillo, ficha 3 (Bundle «Sepsis 4-5-3»)", url: G.amarillo
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, ficha 3 (Bundle «Sepsis 4-5-3»)", url: G.amarillo
             },
             {
               tipo: "numero", q: "Peso actual 70 kg. ¿Cuántos mL de cristaloides indicás en el bolo inicial a 30 mL/kg?", resp: 2100, tol: 50, dec: 0, unidad: "mL",
               fbOk: "Correcto: 70 × 30 = 2.100 mL. El bundle indica 20-30 mL/kg y luego mantenimiento de 1-2 mL/kg/h.",
               fbMal: "70 kg × 30 mL/kg = 2.100 mL. El rango del bundle es 20-30 mL/kg (1.400 a 2.100 mL para 70 kg).",
-              ref: "Guías CaVeSal · Código Amarillo, ficha 3", url: G.amarillo
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, ficha 3", url: G.amarillo
             }
           ]
         },
@@ -94,13 +94,13 @@
                 { t: "Cambiar el antibiótico y reevaluar en 24 horas.", fb: "Con una colección y shock que progresa, esperar 24 horas no es seguro. Sin control del foco la sepsis no se resuelve." }
               ],
               peor: { fc: 8, pas: -8, sat: -3 },
-              ref: "Guías CaVeSal · Código Amarillo, ficha 3 («Considere 3: control del foco»)", url: G.amarillo
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, ficha 3 («Considere 3: control del foco»)", url: G.amarillo
             }
           ]
         }
       ],
       fuentes: [
-        ["Guías CaVeSal · Código Amarillo (OMS 2017, WHO GLOSS 2020, CMQCC 2022, Surviving Sepsis Campaign 2021, MSPBS 2022, SOMANZ)", G.amarillo],
+        ["Guías CaVeSal · Código Amarillo — Sepsis (OMS 2017, WHO GLOSS 2020, CMQCC 2022, Surviving Sepsis Campaign 2021, MSPBS 2022, SOMANZ)", G.amarillo],
         ["Guías CaVeSal · Índice de choque", G.rojo]
       ]
     },
@@ -230,11 +230,11 @@
             {
               tipo: "opcion", q: "¿Cuáles son tus primeras acciones?",
               ops: [
-                { t: "Código Azul: RCP de alta calidad, desplazamiento uterino a la izquierda, vía aérea y alguien que cante el tiempo cada minuto.", ok: true, fb: "Correcto. Es la lista inicial de SMFM y la secuencia CABD de las Guías." },
+                { t: "Código Azul Obstétrico: RCP de alta calidad, desplazamiento uterino a la izquierda, vía aérea y alguien que cante el tiempo cada minuto.", ok: true, fb: "Correcto. Es la lista inicial de SMFM y la secuencia CABD de las Guías." },
                 { t: "Trasladarla al quirófano antes de iniciar la RCP, aunque demore 10 minutos.", fb: "El traslado solo se considera si se puede hacer en 2 minutos o menos. La RCP empieza donde está la paciente." },
                 { t: "Iniciar la RCP en decúbito dorsal estricto, sin desplazar el útero.", fb: "En la gestante, el desplazamiento uterino a la izquierda es parte de la RCP: descomprime la aorta y la vena cava." }
               ],
-              ref: "SMFM · Checklist de manejo inicial de la embolia de líquido amniótico · Guías CaVeSal, Código Azul", url: G.smfmCheck21
+              ref: "SMFM · Checklist de manejo inicial de la embolia de líquido amniótico · Guías CaVeSal, Código Azul Obstétrico", url: G.smfmCheck21
             },
             {
               tipo: "opcion", q: "Minuto 4 de paro, sin respuesta. ¿Qué hacés?",
@@ -243,7 +243,7 @@
                 { t: "Seguir con la RCP 20 minutos más antes de decidir.", fb: "Esperar empeora el pronóstico materno y fetal. La decisión es al minuto 4." },
                 { t: "Esperar a la profilaxis antibiótica y a la antisepsia completa.", fb: "SMFM indica preparar la piel solo con antiséptico rápido, sin esperar antibióticos." }
               ],
-              ref: "Guías CaVeSal · Código Azul, fichas 3-4 · SMFM Checklist", url: G.azul
+              ref: "Guías CaVeSal · Código Azul Obstétrico, fichas 3-4 · SMFM Checklist", url: G.azul
             }
           ]
         },

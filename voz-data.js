@@ -73,10 +73,10 @@ window.VOZ_PROTOCOLOS = {
 
   thae: {
     id: "thae",
-    titulo: "Código THAE — Hipertensión grave / eclampsia",
-    corto: "Código THAE",
+    titulo: "Código Azul THAE — Hipertensión grave / eclampsia",
+    corto: "Código Azul THAE",
     color: "azul",
-    fuentes: "Guías CaVeSal, Código THAE fichas 1-4 y 8 (ACOG PB 222 2020, NICE, FIGO, ISSHP) · MSPBS/DGPS, Guía Código Rojo Materno y Neonatal 2.ª ed. 2021 (modelo ICT y control del MgSO₄) · OMS, ficha de producto del sulfato de magnesio.",
+    fuentes: "Guías CaVeSal, Código Azul THAE fichas 1-4 y 8 (ACOG PB 222 2020, NICE, FIGO, ISSHP) · MSPBS/DGPS, Guía Código Rojo Materno y Neonatal 2.ª ed. 2021 (modelo ICT y control del MgSO₄) · OMS, ficha de producto del sulfato de magnesio.",
     camino: [
       { id: "identificar", nombre: "Identificar", tramo: "Tiempo cero" },
       { id: "soporte", nombre: "Soporte y seguridad", tramo: "" },
@@ -90,7 +90,7 @@ window.VOZ_PROTOCOLOS = {
       { min: 15, msg: "Quince minutos. La presión severa sostenida por más de quince minutos es una emergencia que amenaza la vida. Verificar que el antihipertensivo esté indicado.", ref: "Guías THAE ficha 2" }
     ],
     pasos: [
-      { id: "a1", fase: "identificar", t: "Activar Código THAE: PAS >160 o PAD >110, o convulsiones eclámpticas. Anunciarlo en voz alta y poner en marcha el reloj.", v: "Activar Código THAE: presión sistólica mayor a ciento sesenta o diastólica mayor a ciento diez, o convulsiones eclámpticas. Anunciarlo en voz alta y poner en marcha el reloj.", ref: "Guías THAE ficha 2" },
+      { id: "a1", fase: "identificar", t: "Activar Código Azul THAE: PAS >160 o PAD >110, o convulsiones eclámpticas. Anunciarlo en voz alta y poner en marcha el reloj.", v: "Activar Código Azul THAE: presión sistólica mayor a ciento sesenta o diastólica mayor a ciento diez, o convulsiones eclámpticas. Anunciarlo en voz alta y poner en marcha el reloj.", ref: "Guías THAE ficha 2" },
       { id: "a2", fase: "identificar", t: "Asignar roles: Coordinador, Asistente y Circulante.", ref: "Guías THAE ficha 2" },
       { id: "a3", fase: "identificar", t: "Confirmar la PA severa con 2 tomas separadas 15 min. Buscar lesión de órgano blanco: cefalea, cambios visuales, dolor en hipocondrio derecho, edema pulmonar.", v: "Confirmar la presión severa con dos tomas separadas quince minutos. Buscar lesión de órgano blanco: cefalea, cambios visuales, dolor en hipocondrio derecho, edema pulmonar.", ref: "Guías THAE ficha 1 (ACOG PB 222)" },
       { id: "a4", fase: "identificar", q: true, t: "¿Está convulsionando o convulsionó (eclampsia)?", v: "¿Está convulsionando o convulsionó? Diga sí o no.", si: "e1", no: "c1" },
@@ -122,9 +122,9 @@ window.VOZ_PROTOCOLOS = {
   amarillo: {
     id: "amarillo",
     titulo: "Código Amarillo — Sepsis materna",
-    corto: "Código Amarillo",
+    corto: "Código Amarillo — Sepsis",
     color: "ambar",
-    fuentes: "OMS 2017 (WHO/RHR/17.02) · WHO GLOSS 2020 · CMQCC Toolkit 2022 · Surviving Sepsis Campaign 2021 · MSPBS 2022 (pág. 76) · SOMANZ (omqSOFA) · Universidad de Antioquia/UNFPA. Bundle «Sepsis 4-5-3» de las Guías CaVeSal, Código Amarillo fichas 1-5.",
+    fuentes: "OMS 2017 (WHO/RHR/17.02) · WHO GLOSS 2020 · CMQCC Toolkit 2022 · Surviving Sepsis Campaign 2021 · MSPBS 2022 (pág. 76) · SOMANZ (omqSOFA) · Universidad de Antioquia/UNFPA. Bundle «Sepsis 4-5-3» de las Guías CaVeSal, Código Amarillo — Sepsis fichas 1-5.",
     camino: [
       { id: "identificar", nombre: "Identificar", tramo: "Tiempo cero" },
       { id: "tome", nombre: "Tome 4", tramo: "1.ª hora" },
@@ -135,12 +135,12 @@ window.VOZ_PROTOCOLOS = {
     recordatorios: [],
     hitos: [
       { min: 60, msg: "Una hora. Verificar el bundle de la primera hora completo: tome cuatro y suministre cinco.", ref: "Bundle Sepsis 4-5-3" },
-      { min: 180, msg: "Tres horas. Revisión: diagnóstico, tratamiento, laboratorios, repetir lactato y reevaluar el foco.", ref: "Guías Código Amarillo ficha 3" },
-      { min: 360, msg: "Seis horas. Revisión y, idealmente, traslado a tercer nivel.", ref: "Guías Código Amarillo ficha 3" }
+      { min: 180, msg: "Tres horas. Revisión: diagnóstico, tratamiento, laboratorios, repetir lactato y reevaluar el foco.", ref: "Guías Código Amarillo — Sepsis ficha 3" },
+      { min: 360, msg: "Seis horas. Revisión y, idealmente, traslado a tercer nivel.", ref: "Guías Código Amarillo — Sepsis ficha 3" }
     ],
     pasos: [
-      { id: "y1", fase: "identificar", t: "Activar Código Amarillo: infección sospechada o confirmada + disfunción orgánica. Anunciarlo y poner en marcha el reloj del bundle de la 1.ª hora.", v: "Activar Código Amarillo: infección sospechada o confirmada más disfunción orgánica. Anunciarlo y poner en marcha el reloj del bundle de la primera hora.", ref: "OMS 2017" },
-      { id: "y2", fase: "identificar", t: "qSOFA obstétrico: PAS ≤90, FR ≥25, estado mental alterado. ≥2 puntos = riesgo elevado: aplicar SOFA obstétrico completo.", v: "q SOFA obstétrico: sistólica menor o igual a noventa, frecuencia respiratoria de veinticinco o más, estado mental alterado. Dos o más puntos es riesgo elevado.", ref: "Guías Código Amarillo ficha 5 · SOMANZ" },
+      { id: "y1", fase: "identificar", t: "Activar Código Amarillo — Sepsis: infección sospechada o confirmada + disfunción orgánica. Anunciarlo y poner en marcha el reloj del bundle de la 1.ª hora.", v: "Activar Código Amarillo — Sepsis: infección sospechada o confirmada más disfunción orgánica. Anunciarlo y poner en marcha el reloj del bundle de la primera hora.", ref: "OMS 2017" },
+      { id: "y2", fase: "identificar", t: "qSOFA obstétrico: PAS ≤90, FR ≥25, estado mental alterado. ≥2 puntos = riesgo elevado: aplicar SOFA obstétrico completo.", v: "q SOFA obstétrico: sistólica menor o igual a noventa, frecuencia respiratoria de veinticinco o más, estado mental alterado. Dos o más puntos es riesgo elevado.", ref: "Guías Código Amarillo — Sepsis ficha 5 · SOMANZ" },
       { id: "y3", fase: "identificar", t: "Cuidados básicos: pedir ayuda, vía aérea, 2 vías periféricas, sonda vesical y control de diuresis, controlar la temperatura.", v: "Cuidados básicos: pedir ayuda, vía aérea, dos vías periféricas, sonda vesical y control de diuresis.", ref: "MSPBS ICT, Etapa 2" },
 
       { id: "k1", fase: "tome", t: "Tome 4: cultivos, laboratorios de disfunción orgánica + lactato, signos vitales e imágenes.", v: "Tome cuatro: cultivos, laboratorios de disfunción orgánica más lactato, signos vitales e imágenes.", ref: "Bundle Sepsis 4-5-3" },
@@ -151,25 +151,25 @@ window.VOZ_PROTOCOLOS = {
           { id: "uri", l: "Urinario", k: "urinari|orina|pielo", dest: "ab_uri" },
           { id: "resp", l: "Respiratorio", k: "respirator|pulmon|neumon", dest: "ab_resp" },
           { id: "puer", l: "Puerperal", k: "puerper|utero|endometr|pelvic", dest: "ab_puer" }
-        ], t: "Antibióticos de amplio espectro en la 1.ª hora. Elegir el foco.", v: "Antibióticos de amplio espectro en la primera hora. Elegir el foco: urinario, respiratorio o puerperal.", ref: "Guías Código Amarillo ficha 4" },
-      { id: "ab_uri", fase: "suministre", t: "Foco urinario: piperacilina-tazobactam 4,5 g c/8 h o gentamicina 3-5 mg/kg c/24 h.", v: "Foco urinario: piperacilina tazobactam cuatro coma cinco gramos cada ocho horas, o gentamicina tres a cinco miligramos por kilo cada veinticuatro horas.", next: "u4", ref: "Guías Código Amarillo ficha 4" },
-      { id: "ab_resp", fase: "suministre", t: "Foco respiratorio: ampicilina-sulbactam 3 g c/6 h + claritromicina 500 mg c/12 h (+ oseltamivir si hay riesgo de influenza).", v: "Foco respiratorio: ampicilina sulbactam tres gramos cada seis horas más claritromicina quinientos miligramos cada doce horas. Oseltamivir si hay riesgo de influenza.", next: "u4", ref: "Guías Código Amarillo ficha 4" },
-      { id: "ab_puer", fase: "suministre", t: "Infección puerperal: clindamicina 900 mg c/8 h + gentamicina 240 mg c/24 h o amikacina 1 g c/24 h; o ampicilina-sulbactam 3 g c/6 h; o penicilina cristalina + metronidazol + gentamicina.", v: "Infección puerperal: clindamicina novecientos miligramos cada ocho horas más gentamicina doscientos cuarenta cada veinticuatro horas, o amikacina un gramo cada veinticuatro horas. Alternativas en pantalla.", next: "u4", ref: "Guías Código Amarillo ficha 4" },
+        ], t: "Antibióticos de amplio espectro en la 1.ª hora. Elegir el foco.", v: "Antibióticos de amplio espectro en la primera hora. Elegir el foco: urinario, respiratorio o puerperal.", ref: "Guías Código Amarillo — Sepsis ficha 4" },
+      { id: "ab_uri", fase: "suministre", t: "Foco urinario: piperacilina-tazobactam 4,5 g c/8 h o gentamicina 3-5 mg/kg c/24 h.", v: "Foco urinario: piperacilina tazobactam cuatro coma cinco gramos cada ocho horas, o gentamicina tres a cinco miligramos por kilo cada veinticuatro horas.", next: "u4", ref: "Guías Código Amarillo — Sepsis ficha 4" },
+      { id: "ab_resp", fase: "suministre", t: "Foco respiratorio: ampicilina-sulbactam 3 g c/6 h + claritromicina 500 mg c/12 h (+ oseltamivir si hay riesgo de influenza).", v: "Foco respiratorio: ampicilina sulbactam tres gramos cada seis horas más claritromicina quinientos miligramos cada doce horas. Oseltamivir si hay riesgo de influenza.", next: "u4", ref: "Guías Código Amarillo — Sepsis ficha 4" },
+      { id: "ab_puer", fase: "suministre", t: "Infección puerperal: clindamicina 900 mg c/8 h + gentamicina 240 mg c/24 h o amikacina 1 g c/24 h; o ampicilina-sulbactam 3 g c/6 h; o penicilina cristalina + metronidazol + gentamicina.", v: "Infección puerperal: clindamicina novecientos miligramos cada ocho horas más gentamicina doscientos cuarenta cada veinticuatro horas, o amikacina un gramo cada veinticuatro horas. Alternativas en pantalla.", next: "u4", ref: "Guías Código Amarillo — Sepsis ficha 4" },
       { id: "u4", fase: "suministre", t: "Tratar la hipertermia o la hipotermia.", ref: "Bundle Sepsis 4-5-3" },
       { id: "u5", fase: "suministre", q: true, t: "Tras el bolo, ¿la PAM sigue <65 mmHg?", v: "Después del bolo, ¿la presión arterial media sigue por debajo de sesenta y cinco? Diga sí o no.", si: "u6", no: "z1", ref: "CMQCC · MSPBS 2022" },
-      { id: "u6", fase: "suministre", t: "Choque séptico: norepinefrina 0,05 µg/kg/min hasta PAM ≥65, por vía central o acceso 14-16G. Alternativa (UdeA): dopamina 5 µg/kg/min periférica, solo tras repletar volumen.", v: "Choque séptico: norepinefrina cero coma cero cinco microgramos por kilo por minuto hasta presión media de sesenta y cinco o más, por vía central o acceso catorce a dieciséis.", ref: "Guías Código Amarillo fichas 2 y 4" },
+      { id: "u6", fase: "suministre", t: "Choque séptico: norepinefrina 0,05 µg/kg/min hasta PAM ≥65, por vía central o acceso 14-16G. Alternativa (UdeA): dopamina 5 µg/kg/min periférica, solo tras repletar volumen.", v: "Choque séptico: norepinefrina cero coma cero cinco microgramos por kilo por minuto hasta presión media de sesenta y cinco o más, por vía central o acceso catorce a dieciséis.", ref: "Guías Código Amarillo — Sepsis fichas 2 y 4" },
 
       { id: "z1", fase: "considere", t: "Considere 3: bienestar fetal si >26 sem, control del foco infeccioso y tromboprofilaxis.", v: "Considere tres: bienestar fetal si hay más de veintiséis semanas, control del foco infeccioso y tromboprofilaxis.", ref: "Bundle Sepsis 4-5-3" },
 
       { id: "w1", fase: "metas", t: "Metas: diuresis >0,5 mL/kg/h o >30 mL/h, PAM ≥65, PaO₂ >60 o SatO₂ >95 %, Glasgow 15.", v: "Metas: diuresis mayor a cero coma cinco mililitros por kilo por hora o treinta por hora, presión media de sesenta y cinco o más, saturación mayor a noventa y cinco y Glasgow quince.", ref: "MSPBS 2022 · Surviving Sepsis Campaign 2021" },
-      { id: "w2", fase: "metas", t: "Revisión a las 3 h (repetir lactato, reevaluar foco) y a las 6 h (vigilancia estricta; idealmente traslado a 3.er nivel). El reloj avisará en ambos momentos.", v: "Revisión a las tres horas y a las seis horas. El reloj avisará en ambos momentos.", ref: "Guías Código Amarillo ficha 3", fin: true }
+      { id: "w2", fase: "metas", t: "Revisión a las 3 h (repetir lactato, reevaluar foco) y a las 6 h (vigilancia estricta; idealmente traslado a 3.er nivel). El reloj avisará en ambos momentos.", v: "Revisión a las tres horas y a las seis horas. El reloj avisará en ambos momentos.", ref: "Guías Código Amarillo — Sepsis ficha 3", fin: true }
     ]
   },
 
   rcp: {
     id: "rcp",
     titulo: "Código Azul Obstétrico — Paro / colapso materno",
-    corto: "Código Azul",
+    corto: "Código Azul Obstétrico",
     color: "rcp",
     fuentes: "Guías CaVeSal, Código Azul Obstétrico fichas 1-4: 2020 AHA Guidelines for CPR and ECC (actualizado 2025) · Knapp C & Bhatia K, Br J Hosp Med 2022 · Bennett, Critical Care Obstetrics 2024 · Sumer, Emerg Med Clin North Am 2023.",
     camino: [
@@ -180,30 +180,30 @@ window.VOZ_PROTOCOLOS = {
       { id: "causa", nombre: "Causa y cierre", tramo: "" }
     ],
     recordatorios: [
-      { cada: 2, msg: "Dos minutos de RCP o cinco ciclos: reevaluar el ritmo.", ref: "Guías Código Azul ficha 3" }
+      { cada: 2, msg: "Dos minutos de RCP o cinco ciclos: reevaluar el ritmo.", ref: "Guías Código Azul Obstétrico ficha 3" }
     ],
     hitos: [
-      { min: 4, msg: "Minuto cuatro sin retorno de la circulación: iniciar la histerotomía ahora, en el lugar y sin detener la RCP. Objetivo: nacimiento al minuto cinco.", ref: "AHA 2015 · Guías Código Azul ficha 3" },
-      { min: 5, msg: "Minuto cinco: objetivo de nacimiento. Si todavía no nació, completar la evacuación uterina sin detener la RCP. Equipo neonatal listo.", ref: "AHA 2025 · Guías Código Azul fichas 3-4" }
+      { min: 4, msg: "Minuto cuatro sin retorno de la circulación: iniciar la histerotomía ahora, en el lugar y sin detener la RCP. Objetivo: nacimiento al minuto cinco.", ref: "AHA 2015 · Guías Código Azul Obstétrico ficha 3" },
+      { min: 5, msg: "Minuto cinco: objetivo de nacimiento. Si todavía no nació, completar la evacuación uterina sin detener la RCP. Equipo neonatal listo.", ref: "AHA 2025 · Guías Código Azul Obstétrico fichas 3-4" }
     ],
     pasos: [
-      { id: "z1", fase: "activar", t: "No responde: activar Código Azul Obstétrico. Reloj en marcha.", ref: "Guías Código Azul ficha 2" },
-      { id: "z2", fase: "activar", q: true, t: "Palpar el pulso 10 segundos. ¿Tiene pulso?", v: "Palpar el pulso diez segundos. ¿Tiene pulso? Diga sí o no.", si: "zp", no: "z3", ref: "Guías Código Azul ficha 2" },
-      { id: "zp", fase: "causa", t: "Hay pulso: no iniciar compresiones. Vía aérea y oxígeno; buscar la causa del colapso (A-H: anestesia/asma, hemorragia, cardiovascular, fármacos como MgSO₄, embolia, fiebre/sepsis, 6H-6T, hipertensión).", v: "Hay pulso: no iniciar compresiones. Vía aérea y oxígeno, y buscar la causa del colapso con el mnemónico A a H.", next: "zh", ref: "Guías Código Azul ficha 1" },
+      { id: "z1", fase: "activar", t: "No responde: activar Código Azul Obstétrico. Reloj en marcha.", ref: "Guías Código Azul Obstétrico ficha 2" },
+      { id: "z2", fase: "activar", q: true, t: "Palpar el pulso 10 segundos. ¿Tiene pulso?", v: "Palpar el pulso diez segundos. ¿Tiene pulso? Diga sí o no.", si: "zp", no: "z3", ref: "Guías Código Azul Obstétrico ficha 2" },
+      { id: "zp", fase: "causa", t: "Hay pulso: no iniciar compresiones. Vía aérea y oxígeno; buscar la causa del colapso (A-H: anestesia/asma, hemorragia, cardiovascular, fármacos como MgSO₄, embolia, fiebre/sepsis, 6H-6T, hipertensión).", v: "Hay pulso: no iniciar compresiones. Vía aérea y oxígeno, y buscar la causa del colapso con el mnemónico A a H.", next: "zh", ref: "Guías Código Azul Obstétrico ficha 1" },
 
-      { id: "z3", fase: "cabd", t: "Iniciar CABD: compresiones torácicas 30:2, más profundas en la gestante. Minimizar el tiempo sin compresiones.", v: "Iniciar compresiones treinta a dos, más profundas en la gestante. Minimizar el tiempo sin compresiones.", ref: "Guías Código Azul ficha 2" },
-      { id: "z4", fase: "cabd", t: "Desplazamiento uterino a la izquierda (descompresión aortocava).", ref: "Guías Código Azul ficha 2" },
-      { id: "z5", fase: "cabd", t: "Vía aérea: O₂ 100 % a 15 L/min. Intubación orotraqueal precoz (tubo 6,0-7,0), 2 intentos; si falla, supraglótico 2 intentos; si falla, ambú; si es inefectiva, cricotiroidectomía. 8-10 ventilaciones/min, monitorizar CO₂.", v: "Vía aérea: oxígeno al cien por ciento a quince litros. Intubación precoz, dos intentos; si falla, supraglótico; si falla, ambú; si es inefectiva, cricotiroidectomía. Ocho a diez ventilaciones por minuto.", ref: "Guías Código Azul ficha 2" },
+      { id: "z3", fase: "cabd", t: "Iniciar CABD: compresiones torácicas 30:2, más profundas en la gestante. Minimizar el tiempo sin compresiones.", v: "Iniciar compresiones treinta a dos, más profundas en la gestante. Minimizar el tiempo sin compresiones.", ref: "Guías Código Azul Obstétrico ficha 2" },
+      { id: "z4", fase: "cabd", t: "Desplazamiento uterino a la izquierda (descompresión aortocava).", ref: "Guías Código Azul Obstétrico ficha 2" },
+      { id: "z5", fase: "cabd", t: "Vía aérea: O₂ 100 % a 15 L/min. Intubación orotraqueal precoz (tubo 6,0-7,0), 2 intentos; si falla, supraglótico 2 intentos; si falla, ambú; si es inefectiva, cricotiroidectomía. 8-10 ventilaciones/min, monitorizar CO₂.", v: "Vía aérea: oxígeno al cien por ciento a quince litros. Intubación precoz, dos intentos; si falla, supraglótico; si falla, ambú; si es inefectiva, cricotiroidectomía. Ocho a diez ventilaciones por minuto.", ref: "Guías Código Azul Obstétrico ficha 2" },
 
-      { id: "r1", fase: "ritmo", q: true, t: "Analizar el ritmo: ¿es desfibrilable (FV o TV sin pulso)?", v: "Analizar el ritmo. ¿Es desfibrilable? Diga sí o no.", si: "rd1", no: "rn1", ref: "Guías Código Azul ficha 3" },
-      { id: "rd1", fase: "ritmo", t: "Descarga: 150 J bifásica o 360 J monofásica, y 2 min de RCP 30:2.", v: "Descarga de ciento cincuenta joules bifásica o trescientos sesenta monofásica, y dos minutos de RCP.", ref: "Guías Código Azul ficha 3" },
-      { id: "rd2", fase: "ritmo", t: "Si persiste: otra descarga + amiodarona 300 mg IV (150 mg adicionales si persiste la TV). Adrenalina 1 mg IV después de la 2.ª descarga, cada 3-5 min.", v: "Si persiste: otra descarga más amiodarona trescientos miligramos endovenoso. Adrenalina un miligramo después de la segunda descarga, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, next: "zc", ref: "Guías Código Azul ficha 3" },
-      { id: "rn1", fase: "ritmo", t: "Asistolia o AESP: continuar compresiones y ventilación. Adrenalina 1 mg IV apenas haya acceso venoso, cada 3-5 min.", v: "Asistolia o actividad eléctrica sin pulso: continuar compresiones y ventilación. Adrenalina un miligramo endovenoso apenas haya acceso, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, ref: "Guías Código Azul ficha 3" },
+      { id: "r1", fase: "ritmo", q: true, t: "Analizar el ritmo: ¿es desfibrilable (FV o TV sin pulso)?", v: "Analizar el ritmo. ¿Es desfibrilable? Diga sí o no.", si: "rd1", no: "rn1", ref: "Guías Código Azul Obstétrico ficha 3" },
+      { id: "rd1", fase: "ritmo", t: "Descarga: 150 J bifásica o 360 J monofásica, y 2 min de RCP 30:2.", v: "Descarga de ciento cincuenta joules bifásica o trescientos sesenta monofásica, y dos minutos de RCP.", ref: "Guías Código Azul Obstétrico ficha 3" },
+      { id: "rd2", fase: "ritmo", t: "Si persiste: otra descarga + amiodarona 300 mg IV (150 mg adicionales si persiste la TV). Adrenalina 1 mg IV después de la 2.ª descarga, cada 3-5 min.", v: "Si persiste: otra descarga más amiodarona trescientos miligramos endovenoso. Adrenalina un miligramo después de la segunda descarga, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, next: "zc", ref: "Guías Código Azul Obstétrico ficha 3" },
+      { id: "rn1", fase: "ritmo", t: "Asistolia o AESP: continuar compresiones y ventilación. Adrenalina 1 mg IV apenas haya acceso venoso, cada 3-5 min.", v: "Asistolia o actividad eléctrica sin pulso: continuar compresiones y ventilación. Adrenalina un miligramo endovenoso apenas haya acceso, cada tres a cinco minutos.", timer: { min: 4, msg: "Adrenalina: evaluar la siguiente dosis, cada tres a cinco minutos." }, ref: "Guías Código Azul Obstétrico ficha 3" },
 
-      { id: "zc", fase: "histerotomia", t: "Regla de los 4 minutos: sin RCE al minuto 4, iniciar la histerotomía (cesárea perimortem) en el lugar para el nacimiento al minuto 5. <20 sem NO; 20-24 sem según sospecha de compresión aortocava; >24 sem SIEMPRE. Avisar al equipo neonatal si EG >24 sem.", v: "Regla de los cuatro minutos: sin retorno de la circulación al minuto cuatro, iniciar la histerotomía en el lugar, para el nacimiento al minuto cinco. Menos de veinte semanas, no; veinte a veinticuatro, según compresión aortocava; más de veinticuatro, siempre. Avisar al equipo neonatal.", ref: "Guías Código Azul fichas 3-4" },
-      { id: "zh", fase: "causa", t: "Buscar causas reversibles: 6H (hipoxia, hipo/hipercalemia, acidosis, hipotermia, hipovolemia, hipoglicemia) y 6T (taponamiento, TEP, trombosis coronaria, tóxicos, neumotórax, trauma). Intoxicación por MgSO₄: gluconato de calcio 10 % 30 mL o cloruro de calcio 10 % 10 mL.", v: "Buscar causas reversibles: seis H y seis T. Si hay intoxicación por sulfato de magnesio: gluconato de calcio al diez por ciento, treinta mililitros, o cloruro de calcio diez mililitros.", ref: "Guías Código Azul fichas 1 y 4" },
+      { id: "zc", fase: "histerotomia", t: "Regla de los 4 minutos: sin RCE al minuto 4, iniciar la histerotomía (cesárea perimortem) en el lugar para el nacimiento al minuto 5. <20 sem NO; 20-24 sem según sospecha de compresión aortocava; >24 sem SIEMPRE. Avisar al equipo neonatal si EG >24 sem.", v: "Regla de los cuatro minutos: sin retorno de la circulación al minuto cuatro, iniciar la histerotomía en el lugar, para el nacimiento al minuto cinco. Menos de veinte semanas, no; veinte a veinticuatro, según compresión aortocava; más de veinticuatro, siempre. Avisar al equipo neonatal.", ref: "Guías Código Azul Obstétrico fichas 3-4" },
+      { id: "zh", fase: "causa", t: "Buscar causas reversibles: 6H (hipoxia, hipo/hipercalemia, acidosis, hipotermia, hipovolemia, hipoglicemia) y 6T (taponamiento, TEP, trombosis coronaria, tóxicos, neumotórax, trauma). Intoxicación por MgSO₄: gluconato de calcio 10 % 30 mL o cloruro de calcio 10 % 10 mL.", v: "Buscar causas reversibles: seis H y seis T. Si hay intoxicación por sulfato de magnesio: gluconato de calcio al diez por ciento, treinta mililitros, o cloruro de calcio diez mililitros.", ref: "Guías Código Azul Obstétrico fichas 1 y 4" },
       { id: "zr", fase: "causa", q: true, t: "¿Hay retorno de la circulación espontánea (o la paciente tenía pulso)?", v: "¿Hay retorno de la circulación espontánea? Diga sí o no.", si: "zf", no: "r1" },
-      { id: "zf", fase: "causa", t: "Registrar la hora y continuar el tratamiento de la causa del colapso con el código que corresponda.", ref: "Guías Código Azul", fin: true }
+      { id: "zf", fase: "causa", t: "Registrar la hora y continuar el tratamiento de la causa del colapso con el código que corresponda.", ref: "Guías Código Azul Obstétrico", fin: true }
     ]
   }
 };
@@ -212,6 +212,6 @@ window.VOZ_PROTOCOLOS = {
 window.VOZ_ARBOL = [
   { id: "p1", q: "¿La paciente responde y respira normalmente?", ref: "Código Azul Obstétrico: no responde → activar código, pulso 10 s, CABD", no: { code: "rcp" }, si: "p2" },
   { id: "p2", q: "¿Pérdida ≥500 mL, o ≥300 mL con FC >100, índice de choque >1, PAS <100 o PAD <60?", ref: "Código Rojo, ficha 1 (definición operativa de HPP)", si: { code: "rojo" }, no: "p3" },
-  { id: "p3", q: "¿PAS >160 o PAD >110, o convulsiones eclámpticas?", ref: "Código THAE: criterios de activación del código", si: { code: "thae" }, no: "p4" },
-  { id: "p4", q: "¿Sospecha de infección con 2 o más de: PAS <90, FR ≥25, estado mental alterado?", ref: "Código Amarillo: omqSOFA (SOMANZ)", si: { code: "amarillo" }, no: { code: "ninguno" } }
+  { id: "p3", q: "¿PAS >160 o PAD >110, o convulsiones eclámpticas?", ref: "Código Azul THAE: criterios de activación del código", si: { code: "thae" }, no: "p4" },
+  { id: "p4", q: "¿Sospecha de infección con 2 o más de: PAS <90, FR ≥25, estado mental alterado?", ref: "Código Amarillo — Sepsis: omqSOFA (SOMANZ)", si: { code: "amarillo" }, no: { code: "ninguno" } }
 ];

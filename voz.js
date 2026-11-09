@@ -508,7 +508,7 @@
   /* ---------------- entrada: emergencia ahora / desde cero ---------------- */
   var DESTINOS = {
     rojo: { nombre: "Código Rojo — Hemorragia", voz: true },
-    thae: { nombre: "Código THAE — Hipertensión", voz: true },
+    thae: { nombre: "Código Azul THAE — Hipertensión", voz: true },
     amarillo: { nombre: "Código Amarillo — Sepsis", voz: true },
     rcp: { nombre: "Código Azul Obstétrico — RCP", voz: true },
     ninguno: { nombre: "Sin criterios de activación", seccion: null }
@@ -545,9 +545,9 @@
         '<p class="ve-sub">Elegí el código. Se abre el modo voz: la app dicta cada paso y avanza cuando decís «cumplido».</p>' +
         '<div class="ve-codes">' +
           '<button type="button" class="ve-code rojo" data-go="rojo"><strong>Código Rojo</strong><span>Hemorragia · modo voz</span></button>' +
-          '<button type="button" class="ve-code azul" data-go="thae"><strong>Código THAE</strong><span>Hipertensión grave · modo voz</span></button>' +
+          '<button type="button" class="ve-code azul" data-go="thae"><strong>Código Azul THAE</strong><span>Hipertensión grave · modo voz</span></button>' +
           '<button type="button" class="ve-code ambar" data-go="amarillo"><strong>Código Amarillo</strong><span>Sepsis · modo voz</span></button>' +
-          '<button type="button" class="ve-code rcp" data-go="rcp"><strong>Código Azul</strong><span>Paro / colapso · modo voz</span></button>' +
+          '<button type="button" class="ve-code rcp" data-go="rcp"><strong>Código Azul Obstétrico</strong><span>Paro / colapso · modo voz</span></button>' +
         "</div>" + avisoMic();
     } else {
       dlg.innerHTML = '<div class="ve-head"><h2 id="ve-title">Empezar desde cero</h2><button type="button" class="ve-x" aria-label="Cerrar">×</button></div><div id="ve-arbol"></div>';

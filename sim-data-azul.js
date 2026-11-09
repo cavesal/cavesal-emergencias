@@ -1,5 +1,5 @@
 /* CaVeSal® Simulador — Código Azul Obstétrico (RCP materna).
- * Caso ficticio con fines de entrenamiento. Secuencia según la Guía CaVeSal (Código Azul) y AHA 2020. */
+ * Caso ficticio con fines de entrenamiento. Secuencia según la Guía CaVeSal (Código Azul Obstétrico) y AHA 2020. */
 (function () {
   var GZ = "guia.html#tab-azuloscuro";
   var AHA = "https://www.ahajournals.org/doi/10.1161/CIR.0000000000000916";
@@ -20,7 +20,7 @@
         preguntas: [
           { tipo: "opcion", q: "¿Qué hacés primero?",
             ops: [
-              { t: "Pedir ayuda, activar el Código Azul y palpar pulso carotídeo no más de 10 segundos.", ok: true, fb: "Correcto. Ante una paciente que no responde: activar, pedir el carro de paro y comprobar pulso en 10 s como máximo." },
+              { t: "Pedir ayuda, activar el Código Azul Obstétrico y palpar pulso carotídeo no más de 10 segundos.", ok: true, fb: "Correcto. Ante una paciente que no responde: activar, pedir el carro de paro y comprobar pulso en 10 s como máximo." },
               { t: "Tomar una gasometría y esperar el resultado.", fb: "Retrasa la RCP. Primero activar y comprobar pulso." },
               { t: "Subir el goteo de sulfato de magnesio por sospecha de eclampsia.", fb: "Hay depresión respiratoria y arreflexia: sospechá intoxicación por magnesio, no eclampsia." }
             ], peor: { fc: -10, pas: -10, sat: -6 }, ref: RZ, url: GZ }

@@ -507,7 +507,7 @@
         var k = m[0], first = null;
         for (var i = 1; i < m.length; i++) if (m[i]) { wc.appendChild(m[i]); if (!first) first = m[i]; }
         var hb = m[2] ? null : (m[1] && m[1].querySelector("h3"));
-        if (k === "azul" && hb) hb.textContent = hb.textContent.replace("Código Azul — THAE", "Código Azul THAE");
+        if (k === "azul" && hb) hb.textContent = hb.textContent.replace("Código Azul THAE", "Código Azul THAE");
         var b = document.createElement("button");
         b.type = "button"; b.className = "cvn-cbtn cvn-c-" + k;
         b.innerHTML = "<strong>" + CODIGOS[k][0] + "</strong><span>" + CODIGOS[k][1] + "</span>";

@@ -403,7 +403,7 @@
   });
 
   /* ============================================================
-     CÓDIGO THAE — clasificación automática PAS/PAD + PE grave
+     CÓDIGO AZUL THAE — clasificación automática PAS/PAD + PE grave
      ============================================================ */
   function recalcTHAEClasif() {
     var pas = parseFloat(inPas.value);

@@ -152,7 +152,7 @@
               tipo: "numero", q: "Calculá el Score MAMÁ (temperatura, PAS, PAD, FC, FR, SpO₂, oxigenoterapia, conciencia y gasto urinario).", resp: 7, tol: 0, dec: 0, unidad: "puntos",
               fbOk: "Correcto: PAS 145 = 1 · PAD 92 = 1 · máscara de O₂ = 3 · gasto urinario 25 mL/h = 2 · el resto 0. Total 7.",
               fbMal: "Son 7 puntos: PAS 145 = 1 · PAD 92 = 1 · máscara de O₂ = 3 · gasto urinario 25 mL/h (≤30) = 2 · T, FC, FR, SpO₂ y conciencia = 0.",
-              ref: "Guías CaVeSal · Código Amarillo, tarjeta 8 (Score MAMÁ 2025)", url: GA
+              ref: "Guías CaVeSal · Código Amarillo — Sepsis, tarjeta 8 (Score MAMÁ 2025)", url: GA
             },
             {
               tipo: "opcion", q: "¿Qué color da la Alerta Obstétrica CaVeSal®?",
@@ -202,7 +202,7 @@
         ["MSPBS Paraguay · Escala de Alerta Precoz Obstétrica (hoja 2025)", EAPO25],
         ["MSP Ecuador · Protocolo Score MAMÁ y Claves Obstétricas 2025", MAMA],
         ["MSPBS Paraguay · Guía de Código Rojo Materno Neonatal, 2ª ed. 2022", GUIA],
-        ["Guías CaVeSal · Código Amarillo, tarjeta 8 (Score MAMÁ 2025)", GA],
+        ["Guías CaVeSal · Código Amarillo — Sepsis, tarjeta 8 (Score MAMÁ 2025)", GA],
         [R23, GR]
       ]
     }
