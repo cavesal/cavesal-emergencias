@@ -27,7 +27,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CaVeSal Emerg.">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-</head>
+<link rel="alternate" hreflang="es" href="https://cavesal.app/cavesal-emergencias/bibliografia.html"/><link rel="alternate" hreflang="en" href="https://cavesal.app/cavesal-emergencias/bibliografia-en.html"/><link rel="alternate" hreflang="pt" href="https://cavesal.app/cavesal-emergencias/bibliografia-pt.html"/><style>.lang-switch{display:inline-flex;gap:2px;margin-left:4px}.lang-pill[aria-current=page]{background:rgba(255,255,255,.28);font-weight:800}</style></head>
 <body>
 <div class="app-shell">
   <header class="topbar">
@@ -36,7 +36,7 @@
       <span>CaVeSal<span aria-hidden="true">®</span></span>
       <span class="subtitle">· Bibliografía</span>
     </div>
-    <div class="topbar-links"><a class="pill-link" href="index.html">Inicio</a><a class="pill-link" href="guia.html">Guías</a><a class="pill-link" href="full/">Calculadora</a><a class="pill-link" href="acerca.html">Acerca</a></div>
+    <div class="topbar-links"><a class="pill-link" href="index.html">Inicio</a><a class="pill-link" href="guia.html">Guías</a><a class="pill-link" href="full/">Calculadora</a><a class="pill-link" href="acerca.html">Acerca</a><span aria-label="Idioma / Language / Idioma" class="lang-switch" role="group"><a class="pill-link lang-pill" href="bibliografia.html" hreflang="es" lang="es" aria-current="page">ES</a><a class="pill-link lang-pill" href="bibliografia-en.html" hreflang="en" lang="en">EN</a><a class="pill-link lang-pill" href="bibliografia-pt.html" hreflang="pt" lang="pt">PT</a></span></div>
   </header>
 
   <main>
@@ -223,5 +223,6 @@
   </main>
   <footer class="app-footer">© 2025–2026 CaVeSal® · Dr. Carlos Vera Salerno · Maternal Fetal Intelligence · Todos los derechos reservados</footer>
 </div>
+<script>document.querySelectorAll(".lang-pill").forEach(function(a){a.addEventListener("click",function(){if(location.hash)a.href=a.getAttribute("href").split("#")[0]+location.hash;});});</script>
 </body>
 </html>
