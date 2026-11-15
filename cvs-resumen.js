@@ -43,6 +43,9 @@
     ".rs-pac input,.rs-pac textarea{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:9px;padding:8px 10px;font:inherit;font-size:.85rem}" +
     ".rs-pac textarea{grid-column:1/-1;min-height:48px;resize:vertical}" +
     ".rs-note{font-size:.72rem;color:#64748b;margin:6px 0 0}" +
+    ".pc-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pc-2 .rs-btn{font-size:.86rem;font-weight:700;background:#fff;color:#0b3c5d;border:1.5px solid #0e7490;text-decoration:none;text-align:center;line-height:1.3;padding:12px 8px}" +
+    ".pc-drive .rs-btn#pc-elegir{background:#fff;color:#0b3c5d;border:1.5px solid #0e7490}.pc-radio{font-size:.9rem;margin-right:12px}" +
+    ".pc-2 small{font-size:.72rem;font-weight:500}@media (max-width:420px){.pc-2{grid-template-columns:1fr}}" +
     ".rs-kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}" +
     ".rs-kv div{background:#f1f7f9;border-radius:10px;padding:8px 10px}" +
     ".rs-kv span{display:block;font-size:.68rem;color:#64748b;text-transform:uppercase;letter-spacing:.04em}" +
@@ -815,6 +818,13 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
       '<div class="pc-b" style="margin-top:10px"><button type="button" class="main" id="pc-guardar">Guardar y usar en esta emergencia</button><button type="button" id="pc-cancelar">Cancelar</button></div></div>' +
       '<div id="pc-lista"></div>' +
       '<div class="rs-acts" style="margin-top:12px"><button type="button" class="rs-btn" id="pc-backup">Descargar backup (.json)</button><button type="button" class="rs-btn" id="pc-import">Importar backup</button></div>' +
+      '<div class="rs-card pc-drive" id="pc-drive" style="margin-top:12px"><h3>Tus datos, en tus manos</h3>' +
+      '<p class="cvn-p">Toda la información se guarda en este dispositivo. Para sincronizar entre PC, celular o tablet, descargá una copia y subila a tu Google Drive. Luego importala donde la necesites.</p>' +
+      '<div class="pc-2"><button type="button" class="rs-btn" id="pc-dl"><span><b>Descargar .json</b><br><small>Genera tu backup</small></span></button>' +
+      '<a class="rs-btn" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener"><span><b>Abrir Google Drive</b><br><small>Para guardar el archivo</small></span></a></div>' +
+      '<p class="cvn-p" style="margin:10px 0 4px"><b>Importar backup</b></p>' +
+      '<label class="pc-radio"><input type="radio" name="pc-modo" value="combinar" checked> Combinar</label> <label class="pc-radio"><input type="radio" name="pc-modo" value="reemplazar"> Reemplazar todo</label>' +
+      '<button type="button" class="rs-btn" id="pc-elegir" style="width:100%;margin-top:8px">Elegir archivo .json</button></div>' +
       '<input type="file" id="pc-file" accept=".json,application/json" hidden>' +
       '<p class="rs-note">Los datos de la paciente no se envían a CaVeSal® IA. Descargá el backup periódicamente para no perderlos y usarlos en otro equipo.</p>';
     var editId = null;
@@ -836,16 +846,26 @@ var LEYENDA = '<div class="rs-ley">Clasificación según gravedad: <span><i styl
       savePacs(a); $("pc-form").hidden = true; setActual(p.id);
     });
     $("pc-buscar").addEventListener("input", renderPacientes);
+    function bajarBackup() {
+      descargar("CaVeSal-Emergencias_pacientes_" + base().split("_").pop() + ".json", "application/json", JSON.stringify({ app: "cavesal-emergencias-pacientes", version: 1, fecha: new Date().toISOString(), pacientes: getPacs() }, null, 2));
+    }
+    $("pc-dl").addEventListener("click", bajarBackup);
+    $("pc-elegir").addEventListener("click", function () { $("pc-file").click(); });
     $("pc-backup").addEventListener("click", function () {
       descargar("CaVeSal-Emergencias_pacientes_" + base().split("_").pop() + ".json", "application/json", JSON.stringify({ app: "cavesal-emergencias-pacientes", version: 1, fecha: new Date().toISOString(), pacientes: getPacs() }, null, 2));
     });
-    $("pc-import").addEventListener("click", function () { $("pc-file").click(); });
+    $("pc-import").addEventListener("click", function () { $("pc-drive").scrollIntoView({ behavior: "smooth" }); });
     $("pc-file").addEventListener("change", function (ev) {
       var f = ev.target.files && ev.target.files[0]; if (!f) return;
       var r = new FileReader();
       r.onload = function () {
         try {
           var d = JSON.parse(r.result); if (!d || d.app !== "cavesal-emergencias-pacientes" || !Array.isArray(d.pacientes)) throw 0;
+          var modo = (document.querySelector('input[name="pc-modo"]:checked') || {}).value;
+          if (modo === "reemplazar") {
+            if (!confirm("Se borran las pacientes de este dispositivo y quedan solo las del archivo. ¿Continuar?")) { ev.target.value = ""; return; }
+            savePacs(d.pacientes.filter(function (p) { return p && p.id; })); if (!pacActual()) setActual(null); renderPacientes(); alert("Backup importado: " + d.pacientes.length + " paciente(s) (reemplazo total)."); ev.target.value = ""; return;
+          }
           var a = getPacs(), ids = {}; a.forEach(function (p) { ids[p.id] = p; });
           d.pacientes.forEach(function (p) { if (!p || !p.id) return; if (ids[p.id]) { var cs = {}; (ids[p.id].casos || []).forEach(function (c) { cs[c.id] = 1; }); (p.casos || []).forEach(function (c) { if (!cs[c.id]) ids[p.id].casos.push(c); }); } else a.push(p); });
           savePacs(a); renderPacientes(); alert("Backup importado: " + d.pacientes.length + " paciente(s).");
