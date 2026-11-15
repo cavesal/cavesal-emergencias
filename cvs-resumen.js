@@ -352,6 +352,7 @@
     document.querySelectorAll(".cvn-page").forEach(function (x) { x.classList.toggle("on", x.getAttribute("data-p") === p); });
     document.querySelectorAll(".cvn-tab").forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-p") === p ? "true" : "false"); });
     var pl = document.getElementById("cvn-pac-link"); if (pl) pl.classList.toggle("cvn-on", p === "pacientes");
+    var it = document.getElementById("cvn-ia-top-w"); if (it) it.style.display = p === "resultado" || p === "pacientes" ? "none" : "";
     if (p === "resultado") abrir();
     if (!sinScroll) window.scrollTo(0, 0);
   }
@@ -424,6 +425,19 @@
     var cont = div("cvn-pages");
     PAGINAS.forEach(function (p) { cont.appendChild(P[p[0]]); });
     main.insertBefore(cont, main.firstChild);
+
+    /* Robotita de CaVeSal® IA debajo de las pestañas (en Resultado ya está dentro del panel). 2026-11-15 */
+    var iaTop = div("cvn-wrap", '<div class="rs-ia" id="cvn-ia-top"><span class="mz" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="bd"><div class="tt">Analizar con CaVeSal® IA</div>' +
+      '<p class="bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p>' +
+      '<div class="pv">' + (DEMO ? "Disponible en la versión completa." : "No se envían nombre ni documento.") + "</div></div>" +
+      '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '">Analizar con CaVeSal® IA' + (DEMO ? " 🔒" : "") + "</button></div>");
+    iaTop.id = "cvn-ia-top-w"; iaTop.style.paddingBottom = "0";
+    main.insertBefore(iaTop, cont);
+    iaTop.querySelector("button").addEventListener("click", function () {
+      if (DEMO) return upgrade();
+      if (!hayDatos()) return alert("No tenés datos cargados. Cargá los datos y después tocá Analizar.");
+      if (typeof window.analizarConCavesalIA === "function") window.analizarConCavesalIA();
+    });
 
     var entry = document.querySelector(".emerg-entry");
     var ejBtn = document.querySelector('button[onclick^="mostrarEjemplosEmerg"]');
