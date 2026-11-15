@@ -429,12 +429,11 @@
     /* Robotita de CaVeSal® IA debajo de las pestañas (en Resultado ya está dentro del panel). 2026-11-15 */
     var iaTop = div("cvn-wrap", '<div class="rs-ia" id="cvn-ia-top"><span class="mz" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="bd"><div class="tt">Analizar con CaVeSal® IA</div>' +
       '<p class="bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p>' +
-      '<div class="pv">' + (DEMO ? "Disponible en la versión completa." : "No se envían nombre ni documento.") + "</div></div>" +
-      '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '">Analizar con CaVeSal® IA' + (DEMO ? " 🔒" : "") + "</button></div>");
+      '<div class="pv">' + (DEMO ? "No se envían nombre ni documento. Requiere una cuenta de CaVeSal® IA." : "No se envían nombre ni documento.") + "</div></div>" +
+      '<button type="button" class="rs-btn ia">Analizar con CaVeSal® IA</button></div>');
     iaTop.id = "cvn-ia-top-w"; iaTop.style.paddingBottom = "0";
     main.insertBefore(iaTop, cont);
     iaTop.querySelector("button").addEventListener("click", function () {
-      if (DEMO) return upgrade();
       if (!hayDatos()) return alert("No tenés datos cargados. Cargá los datos y después tocá Analizar.");
       if (typeof window.analizarConCavesalIA === "function") window.analizarConCavesalIA();
     });
@@ -602,8 +601,8 @@
       '<div id="rs-global"></div>' +
       '<div class="rs-ia"><span class="mz" role="img" aria-label="Robotita de CaVeSal® IA"></span><div class="bd"><div class="tt">Analizar con CaVeSal® IA</div>' +
       '<p class="bub">¿Querés ir más a fondo? Enviame lo que cargaste y lo repaso con las guías OMS, FIGO, ACOG y MSPBS. Vos decidís; yo te acompaño en cada paso.</p>' +
-      '<div class="pv">' + (DEMO ? "Disponible en la versión completa." : "No se envían nombre ni documento.") + "</div></div>" +
-      '<button type="button" class="rs-btn ia' + (DEMO ? " rs-lock" : "") + '" data-a="ia">Analizar con CaVeSal® IA' + L + "</button></div>" +
+      '<div class="pv">' + (DEMO ? "No se envían nombre ni documento. Requiere una cuenta de CaVeSal® IA." : "No se envían nombre ni documento.") + "</div></div>" +
+      '<button type="button" class="rs-btn ia" data-a="ia">Analizar con CaVeSal® IA</button></div>' +
       '<div id="rs-contenido"></div>' +
       '<div class="rs-acts-h">Guardar y exportar</div>' +
       '<div class="rs-card" id="rs-paccard"></div>' +
@@ -613,7 +612,7 @@
       '<button type="button" class="rs-btn' + (DEMO ? " rs-lock" : "") + '" data-a="pdf">Exportar PDF' + L + "</button>" +
       '<button type="button" class="rs-btn' + (DEMO ? " rs-lock" : "") + '" data-a="word">Exportar Word' + L + "</button>" +
       "</div>" +
-      (DEMO ? '<p class="rs-demo">Guardar, exportar y analizar con CaVeSal® IA están en la versión completa.</p>' : "") +
+      (DEMO ? '<p class="rs-demo">Guardar y exportar están en la versión completa.</p>' : "") +
       '<input type="file" id="rs-file" accept=".json,application/json" hidden>';
     host.appendChild(w);
     w.addEventListener("click", function (e) {
@@ -622,7 +621,7 @@
       var ir = e.target.closest("[data-ir]"); if (ir) return mostrar(ir.getAttribute("data-ir"));
       var b = e.target.closest("[data-a]"); if (!b) return;
       var a = b.getAttribute("data-a");
-      if (DEMO) return upgrade();
+      if (DEMO && a !== "ia") return upgrade();
       if (a !== "abrir" && !hayDatos()) return alert("No tenés datos cargados. Cargá los datos y apretá Calcular.");
       if (a === "ia") { if (typeof window.analizarConCavesalIA === "function") window.analizarConCavesalIA(); return; }
       if (a === "json") return guardarJSON();
