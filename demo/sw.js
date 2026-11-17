@@ -1,7 +1,7 @@
 /* CaVeSal® Emergencias — demo. Service worker. Subir CACHE en cada publicación.
    Red primero para páginas y scripts (siempre la versión nueva si hay conexión);
    la copia guardada solo se usa sin internet. */
-const CACHE = "cavesal-emerg-demo-v29";
+const CACHE = "cavesal-emerg-demo-v30";
 
 self.addEventListener("install", e => {
   e.waitUntil(

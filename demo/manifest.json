@@ -2,7 +2,7 @@
   "name": "CaVeSal® Emergencias — Demo",
   "short_name": "CaVeSal Emerg. Demo",
   "description": "Versión DEMO: índice de choque, qSOFA puntual y EAPO estática — CaVeSal®",
-  "id": "./index.html",
+  "id": "/cavesal-emergencias/demo/index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

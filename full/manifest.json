@@ -2,7 +2,7 @@
   "name": "CaVeSal® Emergencias — Calculadora completa",
   "short_name": "CaVeSal Emerg.",
   "description": "Calculadora completa de emergencias obstétricas y parto — CaVeSal®",
-  "id": "./index.html",
+  "id": "/cavesal-emergencias/full/index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

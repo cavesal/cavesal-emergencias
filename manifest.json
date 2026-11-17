@@ -2,7 +2,7 @@
   "name": "CaVeSal® Emergencias Obstétricas",
   "short_name": "CaVeSal Emerg.",
   "description": "Guía de acceso rápido, calculadora y simulador de emergencias obstétricas y parto — CaVeSal®",
-  "id": "./index.html",
+  "id": "/cavesal-emergencias/index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
