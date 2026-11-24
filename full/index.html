@@ -2786,10 +2786,12 @@ document.addEventListener('DOMContentLoaded', function(){
             <label><input type="checkbox" data-nivel="2" data-maniobra="embolizacion">Embolización arterial (si está disponible y la paciente está estable)</label>
             <label><input type="checkbox" data-nivel="2" data-maniobra="transfusion">Transfusión de hemoderivados</label>
             <label><input type="checkbox" data-nivel="2" data-maniobra="traslado">Traslado a mayor nivel de complejidad</label>
+            <label><input type="checkbox" data-nivel="3" data-maniobra="torniquete">Torniquete uterino con guante estéril (hemostasia temporal en laparotomía, hasta el control definitivo)</label>
             <label><input type="checkbox" data-nivel="3" data-maniobra="blynch">Sutura compresiva (B-Lynch / Hayman / Cho)</label>
             <label><input type="checkbox" data-nivel="3" data-maniobra="ligaduras">Ligaduras vasculares (O'Leary / Posadas / Tsirulnikov / hipogástricas)</label>
             <label><input type="checkbox" data-nivel="3" data-maniobra="histerectomia">Histerectomía</label>
           </div>
+          <p class="card-sub" style="margin-top: var(--space-3);"><strong>Control según el sector vascular:</strong> S1 (cuerpo y fondo, atonía): suturas del cuerpo, ligadura o embolización de la arteria uterina, balón intrauterino. S2 (segmento inferior y cuello, placenta previa o acretismo): suturas bajas (B-Lynch 2, Ho-Cho) tras despegar la vejiga, ligadura de las colpouterinas, balón vaginal; la ligadura de la uterina no controla este sector. S3 (vagina, desgarros): exposición por el espacio prevesical (Retzius). Algoritmo propio CaVeSal® · Basado en: FIGO, Nieto-Calvache 2025 · Nieto-Calvache 2024 (torniquete).</p>
           <div style="margin-top: var(--space-4);">
             <span class="badge-level lvl-0" id="badge-nivel">Nivel 0 — E-MOTIVE (detección temprana)</span>
           </div>
@@ -7599,7 +7601,7 @@ window.VOZ_PROTOCOLOS = {
       { id: "n3", fase: "nivel2", t: "Como puente: compresión de la aorta abdominal con el puño cerrado, justo sobre el ombligo y ligeramente a la izquierda.", v: "Como puente: compresión de la aorta abdominal con el puño cerrado, justo sobre el ombligo y ligeramente a la izquierda.", ref: "WHO MCPC 2017" },
       { id: "n4", fase: "nivel2", q: true, t: "¿Cedió el sangrado?", v: "¿Cedió el sangrado? Diga sí o no.", si: "v1", no: "s1" },
 
-      { id: "s1", fase: "nivel3", t: "Nivel 3: cirugía. Sutura de compresión B-Lynch o ligadura de arterias uterinas (O'Leary); si falla, histerectomía obstétrica.", v: "Nivel tres: cirugía. Sutura de compresión B-Lynch o ligadura de arterias uterinas. Si falla, histerectomía obstétrica.", ref: "Escalada Nivel 0-3 · FIGO/WHO" },
+      { id: "s1", fase: "nivel3", t: "Nivel 3: cirugía. Hemostasia temporal inmediata: torniquete uterino con guante o compresión manual de la aorta. Control según el sector: S1 (cuerpo, atonía) sutura B-Lynch o ligadura de arterias uterinas (O'Leary o Posadas); S2 (segmento inferior, previa o acretismo) suturas bajas y ligadura de colpouterinas; S3 (vagina) por el espacio prevesical. Si falla, histerectomía obstétrica.", v: "Nivel tres: cirugía. Primero, hemostasia temporal con torniquete uterino o compresión de la aorta. Luego, control según el sector: en el cuerpo uterino, sutura B-Lynch o ligadura de arterias uterinas; en el segmento inferior, suturas bajas y ligadura de las colpouterinas; en la vagina, por el espacio prevesical. Si falla, histerectomía obstétrica.", ref: "Escalada Nivel 0-3 · FIGO/WHO · FIGO 2025 (sectores S1-S3)" },
 
       { id: "v1", fase: "vigilar", t: "Verificar metas: sensorio normal, llenado capilar <3 s, PAS >90, SatO₂ ≥95 %, índice de choque <0,9, T° >35 °C, lactato <2 mmol/L, fibrinógeno >200 mg/dL.", v: "Verificar metas: sensorio normal, llenado capilar menor a tres segundos, presión sistólica mayor a noventa, saturación de noventa y cinco o más, índice de choque menor a cero coma nueve, temperatura mayor a treinta y cinco, lactato menor a dos y fibrinógeno mayor a doscientos.", ref: "Guías, Código Rojo ficha 3" },
       { id: "v2", fase: "vigilar", t: "Vigilancia cada 15 min durante 2 h. Registrar y comunicar el cierre del código.", v: "Vigilancia cada quince minutos durante dos horas. Registrar y comunicar el cierre del código.", ref: "OMS 2025", fin: true }
