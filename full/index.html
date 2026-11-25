@@ -2794,6 +2794,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <p class="card-sub" style="margin-top: var(--space-3);"><strong>Control según el sector vascular:</strong> S1 (cuerpo y fondo, atonía): suturas del cuerpo, ligadura o embolización de la arteria uterina, balón intrauterino. S2 (segmento inferior y cuello, placenta previa o acretismo): suturas bajas (B-Lynch 2, Ho-Cho) tras despegar la vejiga, ligadura de las colpouterinas, balón vaginal; la ligadura de la uterina no controla este sector. S3 (vagina, desgarros): exposición por el espacio prevesical (Retzius). Algoritmo propio CaVeSal® · Basado en: FIGO, Nieto-Calvache 2025 · Nieto-Calvache 2024 (torniquete).</p>
           <p class="card-sub" style="margin-top: var(--space-3);"><strong>Si la hemorragia ocurre en la cesárea:</strong> 1) ligadura bilateral de arterias uterinas o triple ligadura de Tsirulnikov; 2) sutura compresiva (B-Lynch, Cho); 3) ligadura de ilíacas internas, solo si el equipo la domina; 4) histerectomía periparto, con empaquetamiento si persiste. Con inestabilidad hemodinámica en cualquier paso, histerectomía directa. El balón intrauterino no está suficientemente evaluado en la cesárea: solo gana tiempo; la embolización, solo en pacientes estables.</p>
           <p class="card-sub" style="margin-top: var(--space-2);"><strong>Hemorragia diferida tras cesárea:</strong> puede no haber sangrado vaginal ni líquido en la ecografía (sangrado intraabdominal o retroperitoneal). Ante cualquier deterioro clínico en las horas siguientes, sospechar hemorragia y hacer relaparotomía sin demoras. Algoritmo propio CaVeSal® · Basado en: Madar et al., AJOG 2026.</p>
+          <p class="card-sub" style="margin-top: var(--space-2);"><strong>Tras la histerectomía:</strong> monitoreo hemodinámico, balance de líquidos, profilaxis antibiótica, tromboprofilaxis y analgesia. Buscar lesión vesical o ureteral (hematuria, oliguria, dolor en el flanco): el uréter corre por el infundíbulo-pélvico, por debajo de la uterina y en su trayecto paracervical. Algoritmo propio CaVeSal® · Basado en: Mansouri et al., Medicina 2025 · Williams Obstetrics 26.ª ed. · Te Linde 13.ª ed.</p>
           <div style="margin-top: var(--space-4);">
             <span class="badge-level lvl-0" id="badge-nivel">Nivel 0 — E-MOTIVE (detección temprana)</span>
           </div>
@@ -8801,6 +8802,10 @@ window.VOZ_ARBOL = [
     timing: A("https://openmfm.org/decks/delivery-timing-master-table/index.html", "ACOG/SMFM (momento del nacimiento)"),
     smfmVasa: A("https://publications.smfm.org/publications/579-society-for-maternal-fetal-medicine-consult-series-44/", "SMFM Consult Series 44"),
     acogPas: A("https://www.acog.org/clinical/clinical-guidance/obstetric-care-consensus/articles/2018/12/placenta-accreta-spectrum", "ACOG/SMFM OCC 7"),
+    topo: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC12648881/", "Nieto-Calvache 2025, clasificación topográfica"),
+    topo26: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC13651227/", "Nieto-Calvache 2026"),
+    ward: A("https://pubmed.ncbi.nlm.nih.gov/41759607/", "Nieto-Calvache, AJOG 2026"),
+    mans: A("https://doi.org/10.3390/medicina61030371", "Mansouri, Medicina 2025"),
     figoNC: A("https://www.gynultrazvuk.cz/uploads/publication/115/doc/2018-figo-consensus-guidelines-on-pas-disorders-nonconservative-surgical-management.pdf", "FIGO 2018 (cirugía no conservadora)"),
     figoC: A("https://discovery.ucl.ac.uk/id/eprint/10049174/1/FIGO%20CG%20PAS%20Con%20Man%20-%20accepted%20version.pdf", "FIGO 2018 (manejo conservador)"),
     toco: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC3263934/", "estudios observacionales (PMC)"),
@@ -9135,13 +9140,17 @@ window.VOZ_ARBOL = [
       else t = "<strong>MSPBS:</strong> internación a las 32 semanas y nacimiento entre las 36 y 37 (" + L.msp + ").";
       return box("rb-amarillo", "PAS programado: cesárea-histerectomía en centro de referencia", esq(t) +
         esq("Equipo multidisciplinario, reserva de hemoderivados, ácido tranexámico 1 g IV. Incisión uterina alejada de la placenta, sin intentar despegarla ni dar uterotónicos; histerectomía total con la placenta en el lugar (" + L.figoNC + "). Embolización arterial si hay radiología intervencionista.") +
+        esq("<strong>Topografía:</strong> anterior alta (tipos 0-1) o lateral alta (2U): posible cirugía conservadora en un paso; anterior baja (3): conservadora o histerectomía total; lateral baja (2L): histerectomía total tras tunelizar el uréter, con control aórtico; fibrosis vesicouterina (4): histerectomía subtotal modificada. Estadificación definitiva intraoperatoria (" + L.topo + ").") +
+        esq("<strong>Evitar:</strong> traccionar o intentar retirar la placenta adherente (el error más crítico); histerotomía sobre el lecho placentario; disección vesicouterina a ciegas o roma sin ligar los vasos neoformados; omitir el control vascular proximal antes de la histerectomía o la cirugía conservadora.") +
         obs("Cambiá el momento del nacimiento con el selector."));
     } },
     aUrg: { type: "out", html: function () {
-      return box("rb-rojo", "PAS con sangrado: cesárea-histerectomía de emergencia", esq("Ácido tranexámico 1 g IV, transfusión masiva, histerectomía con la placenta en el lugar. Ligaduras de uterinas o hipogástricas, o embolización si está disponible (" + L.msp + "). El despegamiento manual forzado está abandonado.") + BTN_ROJO + BTN_COAG);
+      return box("rb-rojo", "PAS con sangrado: cesárea-histerectomía de emergencia", esq("Ácido tranexámico 1 g IV, transfusión masiva, histerectomía con la placenta en el lugar. Ligaduras de uterinas o hipogástricas, o embolización si está disponible (" + L.msp + "). El despegamiento manual forzado está abandonado.") + esq("<strong>Evitar:</strong> traccionar o intentar retirar la placenta adherente (el error más crítico); histerotomía sobre el lecho placentario; disección vesicouterina a ciegas o roma sin ligar los vasos neoformados; omitir el control vascular proximal antes de la histerectomía o la cirugía conservadora.") +
+        esq("Placenta previa anterior sin sospecha de tipo 2L ni 4: maniobra de Ward para extraer al feto sin cortar la placenta (" + L.ward + ").") + BTN_ROJO + BTN_COAG);
     } },
     aCons: { type: "out", html: function () {
       return box("rb-amarillo", "PAS: manejo conservador (casos seleccionados)", esq("Opciones: dejar la placenta en el lugar, resección focal en un solo tiempo, embolización arterial (" + L.figoC + "). Solo en centros con experiencia y seguimiento estrecho por riesgo de sangrado e infección.") +
+        esq("<strong>Cirugía conservadora en un paso:</strong> vejiga separable, 2 cm o más de miometrio sano caudal, compromiso menor al 50 % de la circunferencia uterina y sin compromiso parametrial bajo; placenta y miometrio invadido se resecan juntos, en bloque (" + L.topo26 + ").") +
         obs("El MSPBS incluye el metotrexato; FIGO no lo recomienda. Los balones en las ilíacas y la desvascularización preventiva no se recomiendan de rutina."));
     } }
   };
