@@ -8788,6 +8788,10 @@ window.VOZ_ARBOL = [
     fogsi: A("https://www.fogsi.org/wp-content/uploads/2024/11/SI_KPP_Management-of-women-with-threatened-miscarriage_for-FOGSI.pdf", "FOGSI 2024"),
     aafp: A("https://www.aafp.org/afp/2020/0515/p599", "AAFP 2020"),
     gtg21: A("https://thebusog.org/wp-content/uploads/2026/07/busog-summary-of-rcog-gtg-21.pdf", "RCOG GTG 21"),
+    smfm63: A("https://publications.smfm.org/publications/448-society-for-maternal-fetal-medicine-consult-series-63/", "SMFM Consult Series 63"),
+    stabile: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC12638658/", "Stabile 2025"),
+    kathop: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC12233120/", "Kathopoulis 2025"),
+    fang: A("https://pmc.ncbi.nlm.nih.gov/articles/PMC7326062/", "Fang 2020"),
     mola: A("https://obgyn.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/1471-0528.16266?download=true", "RCOG 2020 (enfermedad trofoblástica)"),
     eshre: A("https://www.eshre.eu/-/media/sitecore-files/Guidelines/Recurrent-pregnancy-loss/2022/ESHRE-RPL-Guideline-_-Update-2022_-Final-Version-January-2023_v2.pdf", "ESHRE 2022"),
     gtg17: A("https://www.rcog.org.uk/media/3cbgonl0/gtg_17.pdf", "RCOG GTG 17"),
@@ -8826,6 +8830,9 @@ window.VOZ_ARBOL = [
   var BTN_SEPSIS = '<button type="button" class="fl-go fl-ambar" data-ir-sepsis="1">Ir al Código Amarillo — Sepsis</button>';
   var LINK_PAS = '<p class="hint"><strong>Cálculo del acretismo:</strong> está en la calculadora prenatal (clasificación CaVeSal del espectro de placenta acreta). ' + A(DEMO, "Descargá la calculadora prenatal para ver el cálculo de acretismo") + '.</p>';
   var ANTI_D = "Rh negativo no sensibilizada: inmunoglobulina anti-D.";
+  function CIC_COMUN() {
+    return esq("<strong>En todos los casos:</strong> no conducta expectante (GRADE 1B); no legrado cortante solo (2C); no metotrexato sistémico solo (1C). Si la mujer decide continuar el embarazo: cesárea entre 34+0 y 35+6 semanas (1C). Al alta: asesorar sobre el riesgo de otro embarazo y ofrecer anticoncepción de larga duración o definitiva (1C) (" + L.smfm63 + "). " + ANTI_D);
+  }
   var RECURRENTE = obs("<strong>Pérdida recurrente:</strong> OMS y " + L.gtg17 + ": 3 pérdidas consecutivas; " + L.eshre + ": 2 o más, no necesariamente consecutivas. En la literatura nacional (Acosta, Ginecoobstetricia, Paraguay): 3 seguidas o 5 no consecutivas. Si se cumple: ofrecer consejería genética y evaluación ginecoobstétrica/reproductiva.");
 
   /* ============ 1.ª MITAD ============ */
@@ -8950,8 +8957,31 @@ window.VOZ_ARBOL = [
     eCerv: { type: "out", html: function () {
       return box("rb-rojo", "Ectópico cervical", esq("Metotrexato (sistémico o local) como 1.ª línea si está estable (" + L.gtg21 + "). Para evacuar o si sangra: embolización de las arterias uterinas o pinzamiento vaginal de las uterinas (técnica Zea, " + L.zea + ") y balón cervical. Sangrado incontrolable: histerectomía.") + BTN_ROJO);
     } },
-    eCic: { type: "out", html: function () {
-      return box("rb-rojo", "Ectópico en cicatriz de cesárea", esq("No se recomienda conducta expectante ni metotrexato sistémico solo (" + L.gtg21 + "). Aspiración guiada por ecografía o resección (histeroscópica, laparoscópica o vaginal), con embolización arterial previa si hay alto riesgo de sangrado."));
+    eCic: { type: "q", q: "Ectópico en cicatriz: ¿inestabilidad hemodinámica, sospecha de rotura uterina, hemoperitoneo o hemorragia activa?",
+      opts: [{ label: "Sí", next: "eCicU" }, { label: "No", next: "eCic2" }] },
+    eCic2: { type: "q", q: "Tipo de implantación (Vial) y miometrio residual sobre la cicatriz",
+      info: "Tipo I (endógeno): crece hacia la cavidad o el canal cervicoístmico. Tipo II (exógeno): se implanta en el defecto de la cicatriz y crece hacia la vejiga o la serosa. No hay un corte universal de miometrio residual: se usan menos de 2 o 3 mm.",
+      opts: [
+        { label: "Tipo I y miometrio mayor de 2 mm", next: "eCic3" },
+        { label: "Tipo II o miometrio de 2 mm o menos", next: "eCicLap" }
+      ] },
+    eCic3: { type: "q", q: "βhCG actual (mUI/mL)",
+      opts: [
+        { label: "Menos de 5000", next: "eCicMed" },
+        { label: "5000 a 30 000", next: "eCicHis" },
+        { label: "Más de 30 000", next: "eCicLap" }
+      ] },
+    eCicU: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico en cicatriz complicado: cirugía urgente", esq("Inestabilidad, sospecha de rotura uterina o hemoperitoneo con hemorragia activa: intervención quirúrgica urgente (" + L.smfm63 + "), reposición de volumen y hemoderivados; histerectomía si el sangrado no se controla.") + CIC_COMUN() + BTN_ROJO);
+    } },
+    eCicMed: { type: "out", html: function () {
+      return box("rb-amarillo", "Ectópico en cicatriz tipo I con βhCG menor de 5000: tratamiento médico local", esq("Metotrexato intragestacional (guiado por ecografía), solo o combinado con otra técnica (" + L.smfm63 + ", GRADE 2C). Con βhCG baja el tratamiento médico rinde más (" + L.stabile + "). Seguimiento de βhCG hasta negativizar; esperar 6 meses para un nuevo embarazo tras metotrexato. Alternativa: aspiración guiada por ecografía.") + CIC_COMUN());
+    } },
+    eCicHis: { type: "out", html: function () {
+      return box("rb-amarillo", "Ectópico en cicatriz tipo I con βhCG de 5000 a 30 000: histeroscopia", esq("Resección histeroscópica: visualizar primero el saco con histeroscopio diagnóstico de 5 mm y luego resecar con resectoscopio, coagulando los vasos bajo visión directa. Éxito 87,4 % y complicaciones 4,1 % en la revisión sistemática; con βhCG mayor de 30 000 el fracaso es más probable (" + L.stabile + "). Alternativa: aspiración guiada por ecografía (" + L.smfm63 + ").") + CIC_COMUN());
+    } },
+    eCicLap: { type: "out", html: function () {
+      return box("rb-rojo", "Ectópico en cicatriz tipo II, miometrio fino o caso complejo: resección laparoscópica", esq("Con miometrio fino la histeroscopia puede perforar el útero o lesionar la vejiga (" + L.stabile + "). Resección laparoscópica en un solo tiempo: despegamiento vesical, hemostasia preventiva de las uterinas, histerotomía, evacuación, resección del nicho y reparación del segmento inferior (" + L.kathop + "). Por vía vaginal es otra opción (" + L.smfm63 + "). En una serie de 154 casos, la cirugía curó al 97,9 %, el HIFU con legrado al 70,4 % y la embolización con legrado al 43,7 % (" + L.fang + ").") + CIC_COMUN());
     } },
     eCorn: { type: "out", html: function () {
       return box("rb-amarillo", "Ectópico intersticial o cornual", esq("Metotrexato si está estable y cumple criterios; resección cornual laparoscópica si fracasa o es grande. Riesgo de rotura tardía con hemorragia masiva (" + L.gtg21 + ")."));
